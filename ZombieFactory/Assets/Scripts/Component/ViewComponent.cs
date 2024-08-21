@@ -2,58 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Mathematics;
 
-public class ViewComponent : MonoBehaviour //, IRecoilReceiver
+public class ViewComponent : MonoBehaviour
 {
-    [SerializeField] private Transform _direction;
+    [SerializeField] private CameraController _cameraController;
     [SerializeField] private Transform _cameraHolder;
 
-    [SerializeField] private float _viewYRange = 40;
-    [SerializeField] private Vector2 _viewSensitivity;
+    [SerializeField] private Transform _direction;
+    [SerializeField] Vector3 _viewRotation;
+    [SerializeField] Vector2 _viewSensitivity;
+    [SerializeField] Rigidbody _rigidbody;
 
-    Vector3 _viewRotation;
+    [SerializeField] Animator _animator;
+    Transform playerSpineTr;
+    [SerializeField] Vector3 ChestOffset = new Vector3(0, -40, -100);
 
-    float _y, _x = 0;
+    public enum FaceState
+    {
+        Foward,
+        Right,
+        Back,
+        Left
+    }
 
-    Action<Vector3, Vector3> MoveCamera; // LateUpdate에서 돌리기
-    Rigidbody _rigid;
+    [SerializeField] FaceState _faceState = FaceState.Foward;
+
 
     public void Initialize()
     {
-        _rigid = GetComponent<Rigidbody>();
-        CameraController controller = FindObjectOfType<CameraController>();
-        MoveCamera = controller.MoveCamera;
-
-        //_viewYRange = viewYRange;
-        //_viewSensitivity = viewSensitivity;
+        playerSpineTr = _animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기
     }
-
-    Quaternion rotation1;
 
     // 이 부분은 플레이어 컨트롤러에서 돌려주자
     public void ResetView()
     {
-        Vector3 newViewRotation = Vector3.zero;
-        newViewRotation.y = _viewRotation.y + Input.GetAxisRaw("Mouse X") * _viewSensitivity.y;
+        _viewRotation.y = _viewRotation.y + Input.GetAxisRaw("Mouse X") * _viewSensitivity.y * Time.deltaTime;
+        _viewRotation.x = _viewRotation.x + Input.GetAxisRaw("Mouse Y") * _viewSensitivity.x * Time.deltaTime;
 
-
-        _viewRotation = Vector3.Lerp(_viewRotation, newViewRotation, Time.deltaTime);
-
-
-        //_viewRotation.y = Mathf.Clamp(_viewRotation.y - (Input.GetAxisRaw("Mouse Y") * _viewSensitivity.y * Time.deltaTime), -_viewYRange, _viewYRange);
-
-        //_direction.rotation = Quaternion.Euler(0, _viewRotation.x, 0);
-        //_actorBone.rotation = Quaternion.Euler(0, _viewRotation.x + 45, 0); // ActorBoneViewRotation.y, _direction.eulerAngles.y, 0
+        _direction.rotation = Quaternion.Euler(0, _viewRotation.y, 0);
     }
 
-    public void Rotation()
+
+    public void RotateRigidbody()
     {
-        Quaternion deltaRotation = Quaternion.Euler(_viewRotation * Time.fixedDeltaTime * 100);
-        _rigid.MoveRotation(deltaRotation);
+        _rigidbody.MoveRotation(Quaternion.Euler(0, _viewRotation.y, 0));
+    }
+
+    public void RotateBody()
+    {
+        playerSpineTr.rotation = Quaternion.Euler(_viewRotation) * Quaternion.Euler(ChestOffset); // 상체 로테이션 보정
     }
 
     public void ResetCamera()
     {
-        MoveCamera?.Invoke(_cameraHolder.position, _viewRotation);
+        _cameraController.MoveCamera(_cameraHolder.position, _viewRotation);
     }
 }

@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera(Vector3 cameraHolderPosition, Vector3 viewRotation)
     {
-        _mainCamera.rotation = Quaternion.Euler(viewRotation.x, viewRotation.y, 0);
         transform.position = cameraHolderPosition;
+        _mainCamera.rotation = Quaternion.Euler(viewRotation.x, viewRotation.y, 0);
     }
 }
