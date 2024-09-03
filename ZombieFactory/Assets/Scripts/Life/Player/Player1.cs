@@ -35,7 +35,7 @@ public class Player1 : BaseLife
     //float _weaponThrowPower = 5;
 
     //float _walkSpeed = 80;
-    //float _walkSpeedOnAir = 40;
+    //float onAirSpeed = 40;
     //float _jumpSpeed = 20;
 
     //float _postureSwitchDuration = 1f;
@@ -57,7 +57,7 @@ public class Player1 : BaseLife
     //    _weaponThrowPower = data.weaponThrowPower;
 
     //    _walkSpeed = data.walkSpeed;
-    //    _walkSpeedOnAir = data.walkSpeedOnAir;
+    //    onAirSpeed = data.walkSpeedOnAir;
     //    _jumpSpeed = data.jumpSpeed;
 
     //    _postureSwitchDuration = data.postureSwitchDuration;
@@ -122,7 +122,7 @@ public class Player1 : BaseLife
 
 
     //    _actionController = GetComponent<ActionController>();
-    //    _actionController.Initialize(_walkSpeed, _walkSpeedOnAir, _jumpSpeed,
+    //    _actionController.Initialize(_walkSpeed, onAirSpeed, _jumpSpeed,
     //        _postureSwitchDuration, _capsuleStandCenter, _capsuleStandHeight,
     //        _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2);
 

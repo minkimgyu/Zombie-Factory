@@ -18,7 +18,9 @@ abstract public class BaseState<T>
 
     public virtual void OnCollisionEnter(Collision collision) { }
 
-    public virtual void OnHandleStop() { }
+    public virtual void OnHandleRunStart() { }
+    public virtual void OnHandleRunEnd() { }
+
     public virtual void OnHandleJump() { }
     public virtual void OnHandleMove(Vector3 input) { }
 

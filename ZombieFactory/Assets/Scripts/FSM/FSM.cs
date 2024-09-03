@@ -9,7 +9,7 @@ abstract public class BaseFSM<T>
     protected BaseState<T> _currentState;
     protected BaseState<T> _previousState;
 
-    public void Inintialize(Dictionary<T, BaseState<T>> states, T startState)
+    public void Initialize(Dictionary<T, BaseState<T>> states, T startState)
     {
         _currentState = null;
         _previousState = null;

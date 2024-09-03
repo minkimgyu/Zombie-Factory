@@ -1,20 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Windows;
 
 public class StopState : BaseMovementState
 {
-    public StopState(FSM<ActionComponent.MovementState> fsm) : base(fsm)
+    MoveComponent _moveComponent;
+
+    public StopState(FSM<ActionController.MovementState> fsm, MoveComponent moveComponent) : base(fsm)
     {
+        _moveComponent = moveComponent;
+    }
+
+    public override void OnStateFixedUpdate()
+    {
+        _moveComponent.Stop();
     }
 
     public override void OnHandleMove(Vector3 input)
     {
-        _baseFSM.SetState(ActionComponent.MovementState.Walk);
+        //Debug.Log("StopState: " + input.magnitude);
+
+        if (input.magnitude > 0)
+        {
+            _baseFSM.SetState(ActionController.MovementState.Walk);
+            return;
+        }
     }
 
     public override void OnHandleJump()
     {
-        _baseFSM.SetState(ActionComponent.MovementState.Jump);
+        _baseFSM.SetState(ActionController.MovementState.Jump);
     }
 }

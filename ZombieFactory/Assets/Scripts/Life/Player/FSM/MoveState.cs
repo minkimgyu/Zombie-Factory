@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class MoveState : BaseMovementState
 {
-    Transform _direction;
     Vector3 _input;
-    float _moveForce;
-    protected Rigidbody _rigidbody;
+    float _moveSpeed;
+    protected MoveComponent _moveComponent;
 
-    public MoveState(FSM<ActionComponent.MovementState> fsm, Transform direction, float moveForce, Rigidbody rigidbody) : base(fsm)
-    {
-        _direction = direction;
-        _moveForce = moveForce;
-        _rigidbody = rigidbody;
-    }
+    Vector3 _storedDirection;
 
-    public override void OnHandleStop()
+    public MoveState(FSM<ActionController.MovementState> fsm, MoveComponent moveComponent, float moveSpeed) : base(fsm)
     {
-        _baseFSM.SetState(ActionComponent.MovementState.Stop);
+        _moveComponent = moveComponent;
+        _moveSpeed = moveSpeed;
     }
 
     public override void OnHandleMove(Vector3 input)
@@ -26,20 +21,8 @@ public class MoveState : BaseMovementState
         _input = input;
     }
 
-    protected void Move(Vector3 dir, float force)
-    {
-        Vector3 direction = dir * force * Time.fixedDeltaTime;
-        _rigidbody.velocity = new Vector3(direction.x, _rigidbody.velocity.y, direction.z);
-    }
-
-    protected void Jump(Vector3 dir, float force)
-    {
-        _rigidbody.AddForce(dir * force, ForceMode.Impulse);
-    }
-
     public override void OnStateFixedUpdate()
     {
-        Vector3 moveDir = _direction.TransformVector(_input);
-        Move(moveDir, _moveForce);
+        _moveComponent.Move(_input, _moveSpeed);
     }
 }
