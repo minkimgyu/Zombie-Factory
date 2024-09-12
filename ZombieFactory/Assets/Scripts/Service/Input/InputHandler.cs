@@ -10,37 +10,125 @@ public class InputHandler : MonoBehaviour, IInputable
 
     private void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-        _inputEvents[IInputable.Type.Move].Execute(new Vector3(x, 0, z).normalized);
+        float viewY = Input.GetAxisRaw("Mouse Y");
+        float viewX = Input.GetAxisRaw("Mouse X");
+        Vector2 viewDirection = new Vector2(viewY, viewX).normalized;
+        Execute(IInputable.Type.View, viewDirection);
+
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = new Vector3(moveX, 0, moveZ).normalized;
+        Execute(IInputable.Type.Move, direction);
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Execute(IInputable.Type.EventStart, BaseWeapon.EventType.Main);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Execute(IInputable.Type.EventEnd, BaseWeapon.EventType.Main);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Execute(IInputable.Type.EventStart, BaseWeapon.EventType.Sub);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            Execute(IInputable.Type.EventEnd, BaseWeapon.EventType.Sub);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Execute(IInputable.Type.Equip, BaseWeapon.Type.Main);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Execute(IInputable.Type.Equip, BaseWeapon.Type.Sub);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Execute(IInputable.Type.Equip, BaseWeapon.Type.Melee);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Execute(IInputable.Type.Reload);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Execute(IInputable.Type.Interact);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Execute(IInputable.Type.Drop);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _inputEvents[IInputable.Type.Escape]?.Execute();
+            Execute(IInputable.Type.Escape);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _inputEvents[IInputable.Type.Jump]?.Execute();
+            Execute(IInputable.Type.Jump);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            _inputEvents[IInputable.Type.CrouchStart]?.Execute();
+            Execute(IInputable.Type.CrouchStart);
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            _inputEvents[IInputable.Type.CrouchEnd]?.Execute();
+            Execute(IInputable.Type.CrouchEnd);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            _inputEvents[IInputable.Type.RunStart]?.Execute();
+            Execute(IInputable.Type.RunStart);
         }
         else
         {
-            _inputEvents[IInputable.Type.RunEnd]?.Execute();
+            Execute(IInputable.Type.RunEnd);
         }
+    }
+
+    void Execute(IInputable.Type type)
+    {
+        if(_inputEvents.ContainsKey(type) == false) return;
+        _inputEvents[type].Execute();
+    }
+
+    void Execute(IInputable.Type type, Vector2 direction)
+    {
+        if (_inputEvents.ContainsKey(type) == false) return;
+
+        _inputEvents[type].Execute(direction);
+    }
+
+    void Execute(IInputable.Type type, Vector3 direction)
+    {
+        if (_inputEvents.ContainsKey(type) == false) return;
+
+        _inputEvents[type].Execute(direction);
+    }
+
+    void Execute(IInputable.Type type, BaseWeapon.Type weaponType)
+    {
+        if (_inputEvents.ContainsKey(type) == false) return;
+
+        _inputEvents[type].Execute(weaponType);
+    }
+
+    void Execute(IInputable.Type type, BaseWeapon.EventType eventType)
+    {
+        if (_inputEvents.ContainsKey(type) == false) return;
+
+        _inputEvents[type].Execute(eventType);
     }
 
     public void AddEvent(IInputable.Type type, BaseCommand command)

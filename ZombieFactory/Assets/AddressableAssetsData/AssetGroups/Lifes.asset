@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Lifes
+  m_EditorClassIdentifier: 
+  m_GroupName: Lifes
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 7110c0586798e1649a01d0131b7854f6
+  m_SerializeEntries:
+  - m_GUID: 2bbb63f05cb19eb40acce1556df47b86
+    m_Address: Player
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: be9bcc10d4bf74e43868b27cad856441, type: 2}
+    - {fileID: 11400000, guid: 1a0c05e6eae9d774abdd7a041bbd074f, type: 2}

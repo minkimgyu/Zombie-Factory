@@ -7,11 +7,8 @@ public class MoveComponent : MonoBehaviour
 {
     bool _isGround = false;
     Rigidbody _rigid;
-    [SerializeField] int enterCount = 0;
 
-    [SerializeField] Transform _direction;
     [SerializeField] Animator _animator;
-    [SerializeField] Transform _raycastOrigin;
 
     Vector3 _storedDirection;
 
@@ -21,16 +18,6 @@ public class MoveComponent : MonoBehaviour
     {
         _layerMask = LayerMask.GetMask("Ground");
         _rigid = GetComponent<Rigidbody>();
-    }
-
-    void OnEnter(GameObject gameObject)
-    {
-        enterCount++;
-    }
-
-    void OnExit(GameObject gameObject)
-    {
-        enterCount--;
     }
 
     float maxSlopeAngle = 60f;
@@ -78,7 +65,7 @@ public class MoveComponent : MonoBehaviour
         if (canHit == true)
         {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
-            Debug.Log(angle);
+            //Debug.Log(angle);
             return angle < maxSlopeAngle;
         }
 
@@ -104,7 +91,7 @@ public class MoveComponent : MonoBehaviour
 
     public void Move(Vector3 direction, float speed)
     {
-        direction = _direction.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
+        direction = transform.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
 
         bool canClimb = CanClimbSlope(direction, speed);
         if (canClimb == false) return;

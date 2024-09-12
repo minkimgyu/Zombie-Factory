@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
+public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponAddable
 {
     public enum Name
     {
@@ -25,7 +25,7 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
         Die
     }
 
-    // HitTarget[] _hitTargets;
+    HitPoint[] _hitPoints;
     protected float _maxHp;
     protected float _hp;
 
@@ -33,19 +33,21 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
     protected IIdentifiable.Type _myType;
     protected LifeState _lifeState;
 
-    public virtual void Initialize()
+    protected BaseFactory _effectFactory;
+
+    public virtual void Initialize() 
     {
         _lifeState = LifeState.Alive;
-        //_hitTargets = GetComponentsInChildren<HitTarget>();
-        //for (int i = 0; i < _hitTargets.Length; i++)
-        //{
-        //    _hitTargets[i].Initialize(this, this);
-        //}
+        _hitPoints = GetComponentsInChildren<HitPoint>();
+        for (int i = 0; i < _hitPoints.Length; i++)
+        {
+            _hitPoints[i].Initialize(this, this, _effectFactory);
+        }
     }
 
-    //public virtual void ResetData(PlayerData data) { }
-    //public virtual void ResetData(HelperData data) { }
-    //public virtual void ResetData(ZombieData data) { }
+    public virtual void ResetData(PlayerData data, BaseFactory effectFactory) { }
+    public virtual void ResetData(HelperData data) { }
+    public virtual void ResetData(ZombieData data) { }
 
 
     public virtual void AddObserverEvent() { }
@@ -103,4 +105,6 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
     {
         return transform.position;
     }
+
+    public virtual void AddWeapon(BaseWeapon weapon) { }
 }

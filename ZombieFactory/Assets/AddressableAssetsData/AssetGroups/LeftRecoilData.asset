@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LeftRecoilData
+  m_EditorClassIdentifier: 
+  m_GroupName: LeftRecoilData
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c8ea97b588c67d04b89cbcf4950e87ac
+  m_SerializeEntries:
+  - m_GUID: 6f664497611c7a84691ae962d114b78c
+    m_Address: AutoShotgun
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LeftRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 525c312ff31ef6b4aad46f6beb991de3
+    m_Address: AK
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LeftRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3712d5d6fedc9e645b81e9b244bc05a1
+    m_Address: AR
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LeftRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eaea05d3733127943a570d2664d69209
+    m_Address: DMR
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LeftRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35850a7339cae7d43b9f6b987954a85c
+    m_Address: SMG
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LeftRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6036b68b199281e4c9ebeb9973b8dc70, type: 2}
+    - {fileID: 11400000, guid: ccbb5320f1227324b93b5b62540a70c1, type: 2}

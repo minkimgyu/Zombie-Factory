@@ -7,6 +7,8 @@ public interface IInputable
 {
     public enum Type
     {
+        View,
+
         Escape,
         Jump,
         Move,
@@ -16,6 +18,17 @@ public interface IInputable
 
         RunStart,
         RunEnd,
+
+        Equip,
+        Reload,
+        Drop,
+        Interact,
+
+        EventEnd,
+        EventStart,
+
+        RightMouseButtonUp,
+        RightMouseButtonDown,
     }
 
     void AddEvent(Type type, BaseCommand command);

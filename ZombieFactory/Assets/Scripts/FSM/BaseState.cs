@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ abstract public class BaseState<T>
     public BaseState(FSM<T> fsm) { _baseFSM = fsm; }
 
     public abstract void OnStateEnter();
+
+    public virtual void OnStateEnter(BaseWeapon.Type weaponType, string message) { }
     public virtual void OnStateEnter(BaseWeapon newWeapon, string message) { }
     //public virtual void OnStateEnter(BaseWeapon.Type weaponType, string message) { }
 
@@ -28,7 +31,10 @@ abstract public class BaseState<T>
     public virtual void OnHandleDrop() { }
     public virtual void OnHandleReload() { }
     //public virtual void OnHandleEventStart(BaseWeapon.EventType type) { }
-    public virtual void OnHandleEventEnd() { }
 
     public virtual void OnWeaponReceived(BaseWeapon weapon) { }
+    public virtual void OnHandleEquip(BaseWeapon.Type type) { }
+    
+    public virtual void OnHandleEventStart(BaseWeapon.EventType type) { }
+    public virtual void OnHandleEventEnd(BaseWeapon.EventType type) { }
 }

@@ -10,7 +10,7 @@ public interface ISoundPlayable
         Die
     }
 
-    //void Initialize(Dictionary<SoundName, AudioClip> clipDictionary);
+    //void ResetData(Dictionary<SoundName, AudioClip> clipDictionary);
     void PlayBGM(SoundName name);
     void PlaySFX(SoundName name);
 

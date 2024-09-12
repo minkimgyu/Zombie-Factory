@@ -4,6 +4,8 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Windows;
 
+[RequireComponent(typeof(MoveComponent))]
+[RequireComponent(typeof(ViewComponent))]
 public class ActionController : MonoBehaviour
 {
     public enum PostureState
@@ -28,7 +30,7 @@ public class ActionController : MonoBehaviour
 
     MoveComponent _moveComponent;
     ViewComponent _viewComponent;
-    //ZoomComponent _zoomComponent;
+    ZoomComponent _zoomComponent;
 
     CapsuleCollider _capsuleCollider;
     Rigidbody _rigidbody;
@@ -77,13 +79,13 @@ public class ActionController : MonoBehaviour
         _moveComponent.Initialize();
 
         _animator = GetComponentInChildren<Animator>();
-        Transform spineBorn = _animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
+        //Transform spineBorn = _animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
 
         _viewComponent = GetComponent<ViewComponent>();
-        _viewComponent.Initialize(viewYRange, viewSensitivity, spineBorn); // viewYRange, viewSensitivity
+        _viewComponent.Initialize(viewYRange, viewSensitivity); // viewYRange, viewSensitivity
 
-        //_zoomComponent = GetComponent<ZoomComponent>();
-        //_zoomComponent.Initialize();
+        _zoomComponent = GetComponent<ZoomComponent>();
+        _zoomComponent.Initialize();
 
         _postureState = PostureState.Stand;
         _postureTimer = new Timer();
@@ -97,7 +99,8 @@ public class ActionController : MonoBehaviour
             { MovementState.Jump, new JumpState(_movementFSM, _moveComponent, _animator, _jumpSpeed) }
         };
 
-        _movementFSM.Initialize(movementStates, MovementState.Stop);
+        _movementFSM.Initialize(movementStates);
+        _movementFSM.SetState(MovementState.Stop);
     }
 
     Timer _postureTimer;
@@ -163,19 +166,25 @@ public class ActionController : MonoBehaviour
     Vector3 _input;
     float _lerpAnimationSpeed = 8;
 
+    Vector2 _viewInput;
+
     public void OnHandleMove(Vector3 dir)
     {
         _input = dir;
         _movementFSM.OnHandleMove(dir);
     }
 
+    public void OnHandleView(Vector2 dir)
+    {
+        //_viewComponent.ResetView(dir);
+    }
+
     public void OnUpdate()
     {
-
-        _storedDirection = Vector3.Lerp(_storedDirection, _input, Time.deltaTime * _lerpAnimationSpeed);
-        _animator.SetFloat("Z", _storedDirection.z);
-        _animator.SetFloat("X", _storedDirection.x);
-        //_zoomComponent.OnUpdate();
+        //_storedDirection = Vector3.Lerp(_storedDirection, _input, Time.deltaTime * _lerpAnimationSpeed);
+        //_animator.SetFloat("Z", _storedDirection.z);
+        //_animator.SetFloat("X", _storedDirection.x);
+        _zoomComponent.OnUpdate();
         _movementFSM.OnUpdate();
 
         if (_postureTimer.CurrentState == Timer.State.Running)
@@ -189,8 +198,8 @@ public class ActionController : MonoBehaviour
 
     public void OnFixedUpdate()
     {
-        _viewComponent.RotateRigidbody();
         _movementFSM.OnStateFixedUpdate();
+        _viewComponent.RotateRigidbody();
     }
 
     public void OnLateUpdate()

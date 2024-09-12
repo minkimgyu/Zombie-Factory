@@ -2,16 +2,73 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseLife
 {
-    ActionController _actionController;
+    float _viewYRange;
+    SerializableVector2 _viewSensitivity;
 
-    private void Start()
+    float _weaponThrowPower;
+
+    float _walkSpeed;
+    float _runSpeed;
+    float _walkSpeedOnAir;
+    float _jumpSpeed;
+
+    float _postureSwitchDuration;
+    float _capsuleStandCenter;
+    float _capsuleCrouchHeight;
+
+    float _capsuleStandHeight;
+    float _capsuleCrouchCenter;
+
+    ActionController _actionController;
+    WeaponController _weaponController;
+    InteractionController _interactionController;
+
+    public override void ResetData(PlayerData data, BaseFactory effectFactory)
+    {
+        _effectFactory = effectFactory;
+        _maxHp = data.maxHp;
+        _myType = data.type;
+
+        _viewYRange = data.viewYRange;
+        _viewSensitivity = data.viewSensitivity;
+
+        _weaponThrowPower = data.weaponThrowPower;
+        _walkSpeed = data.walkSpeed;
+        _walkSpeedOnAir= data.walkSpeedOnAir;
+        _jumpSpeed = data.jumpSpeed;
+
+        _postureSwitchDuration = data.postureSwitchDuration;
+
+        _capsuleCrouchCenter = data.capsuleCrouchCenter;
+        _capsuleCrouchHeight = data.capsuleCrouchHeight;
+
+        _capsuleStandCenter = data.capsuleStandCenter;
+        _capsuleStandHeight = data.capsuleStandHeight;
+    }
+
+    public override void AddWeapon(BaseWeapon weapon)
+    {
+        _weaponController.AddWeapon(weapon);
+    }
+
+    public override void Initialize()
     {
         _actionController = GetComponent<ActionController>();
-        _actionController.Initialize(5, 8, 3, 7, 10f, 0.76f, 1.54f, 0.76f / 2, 1.54f / 2, 50, new Vector2(150, 150));
+        _actionController.Initialize(_walkSpeed, _runSpeed, _walkSpeedOnAir, _jumpSpeed, _postureSwitchDuration,
+            _capsuleStandCenter, _capsuleStandHeight, _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2);
+
+        _weaponController = GetComponent<WeaponController>();
+        _weaponController.Initialize(_weaponThrowPower);
+
+        _interactionController = GetComponent<InteractionController>();
+        _interactionController.Initialize();
 
         IInputable inputable = ServiceLocater.ReturnInputHandler();
+
+        inputable.AddEvent(IInputable.Type.View, new ViewCommand(_actionController.OnHandleView));
+
         inputable.AddEvent(IInputable.Type.Jump, new KeyCommand(_actionController.OnHandleJump));
         inputable.AddEvent(IInputable.Type.Move, new MoveCommand(_actionController.OnHandleMove));
 
@@ -20,7 +77,13 @@ public class Player : MonoBehaviour
 
         inputable.AddEvent(IInputable.Type.RunStart, new KeyCommand(_actionController.OnHandleRunStart));
         inputable.AddEvent(IInputable.Type.RunEnd, new KeyCommand(_actionController.OnHandleRunEnd));
-        // 이런 식으로 추가
+
+        inputable.AddEvent(IInputable.Type.Equip, new EquipCommand(_weaponController.OnHandleEquip));
+        inputable.AddEvent(IInputable.Type.Reload, new KeyCommand(_weaponController.OnHandleReload));
+        inputable.AddEvent(IInputable.Type.Drop, new KeyCommand(_weaponController.OnHandleDrop));
+
+        inputable.AddEvent(IInputable.Type.EventStart, new InputEventCommand(_weaponController.OnHandleEventStart));
+        inputable.AddEvent(IInputable.Type.EventEnd, new InputEventCommand(_weaponController.OnHandleEventEnd));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -31,6 +94,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         _actionController.OnUpdate();
+        _weaponController.OnUpdate();
     }
 
     private void FixedUpdate()

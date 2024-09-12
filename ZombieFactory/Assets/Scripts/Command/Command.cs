@@ -6,7 +6,31 @@ using UnityEngine;
 abstract public class BaseCommand
 {
     public virtual void Execute() { }
+    public virtual void Execute(Vector2 dir) { }
     public virtual void Execute(Vector3 dir) { }
+    public virtual void Execute(Vector3 cameraHolderPosition, Vector3 viewRotation) { }
+    public virtual void Execute(float fieldOfView, float ratio) { }
+    public virtual void Execute(bool active) { }
+
+    public virtual void Execute(BaseWeapon.Type type) { }
+    public virtual void Execute(BaseWeapon.EventType type) { }
+
+    public virtual void Execute(IPoint point) { }
+}
+
+public class InputEventCommand : BaseCommand
+{
+    Action<BaseWeapon.EventType> _inputEvent;
+
+    public InputEventCommand(Action<BaseWeapon.EventType> inputEvent)
+    {
+        _inputEvent = inputEvent;
+    }
+
+    public override void Execute(BaseWeapon.EventType eventType)
+    {
+        _inputEvent?.Invoke(eventType);
+    }
 }
 
 public class KeyCommand : BaseCommand
@@ -24,6 +48,21 @@ public class KeyCommand : BaseCommand
     }
 }
 
+public class EquipCommand : BaseCommand
+{
+    Action<BaseWeapon.Type> EquipEvent;
+
+    public EquipCommand(Action<BaseWeapon.Type> EquipEvent)
+    {
+        this.EquipEvent = EquipEvent;
+    }
+
+    public override void Execute(BaseWeapon.Type type)
+    {
+        EquipEvent?.Invoke(type);
+    }
+}
+
 public class MoveCommand : BaseCommand
 {
     Action<Vector3> _inputEvent;
@@ -34,6 +73,21 @@ public class MoveCommand : BaseCommand
     }
 
     public override void Execute(Vector3 dir)
+    {
+        _inputEvent?.Invoke(dir);
+    }
+}
+
+public class ViewCommand : BaseCommand
+{
+    Action<Vector2> _inputEvent;
+
+    public ViewCommand(Action<Vector2> inputEvent)
+    {
+        _inputEvent = inputEvent;
+    }
+
+    public override void Execute(Vector2 dir)
     {
         _inputEvent?.Invoke(dir);
     }

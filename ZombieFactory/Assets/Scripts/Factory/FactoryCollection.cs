@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//public class FactoryRegistry
+//{
+//    Dictionary<FactoryCollection.Type, BaseFactory> _factories = new Dictionary<FactoryCollection.Type, BaseFactory>();
+
+//    public void RegisterFactory(BaseFactory factory)
+//    {
+//        _factories[typeof(T)] = factory;
+//    }
+
+//    public T GetFactory<T>()
+//    {
+//        return (T)_factories[typeof(T)];
+//    }
+//}
+
+// --> 추상 팩토리 패턴을 활용해서 묶을 수 있을 것 같다.
+
+public class FactoryCollection
+{
+    public enum Type
+    {
+        Effect,
+        Weapon,
+        Life,
+
+        ArmedCharacter
+    }
+
+    public Dictionary<Type, BaseFactory> Factories { get; private set; }
+
+    public FactoryCollection(AddressableHandler addressableHandler)
+    {
+        Factories = new Dictionary<Type, BaseFactory>();
+
+        // DI를 통해 의존성 주입
+
+        BaseFactory effectFactory = new EffectFactory(addressableHandler);
+        BaseFactory lifeFactory = new LifeFactory(addressableHandler, effectFactory);
+        BaseFactory itemFactory = new ItemFactory(addressableHandler, effectFactory);
+        BaseFactory armedCharacterFactory = new ArmedCharacterFactory(itemFactory, effectFactory, lifeFactory);
+
+        Factories.Add(Type.Effect, effectFactory);
+        Factories.Add(Type.Life, lifeFactory);
+        Factories.Add(Type.Weapon, itemFactory);
+
+        Factories.Add(Type.ArmedCharacter, armedCharacterFactory);
+    }
+}

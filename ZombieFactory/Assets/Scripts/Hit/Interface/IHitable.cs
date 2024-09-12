@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IHitable : MonoBehaviour
+public interface IHitable
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum Area
     {
-        
+        Head,
+        Body,
+        Leg,
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void OnHit(float damage, Vector3 hitPosition, Vector3 hitNormal);
+    Area ReturnArea();
 }
