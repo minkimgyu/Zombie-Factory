@@ -33,7 +33,7 @@ public class WeaponUIController : MonoBehaviour
     public void AddPreview(BaseWeapon.Type weaponType, BaseItem.Name iconName)
     {
         Sprite itemIcon = _itemSpriteDictionary[iconName];
-        _previewContainer[weaponType].UpdateViewer((int)weaponType, itemIcon);
+        //_previewContainer[weaponType].UpdateViewer((int)weaponType, itemIcon);
         _previewContainer[weaponType].ActiveViewer(true);
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,24 @@ public class Player : BaseLife
     WeaponController _weaponController;
     InteractionController _interactionController;
 
+    public override void AddObserverEvent
+    (
+        Action<Vector3, Vector3> MoveCamera,
+        Action<float, float> OnFieldOfViewChange,
+
+        Action<float> OnHpChangeRequested,
+        Action<bool> SwitchCrosshair,
+
+        Action<bool> ActiveAmmoViewer,
+        Action<int, int> UpdateAmmoViewer,
+        Action<BaseItem.Name, BaseWeapon.Type> AddPreview,
+        Action<BaseWeapon.Type> RemovePreview)
+    {
+        this.OnHpChangeRequested = OnHpChangeRequested;
+        _actionController.AddObserverEvent(MoveCamera, OnFieldOfViewChange, SwitchCrosshair);
+        _weaponController.AddObserverEvent(ActiveAmmoViewer, UpdateAmmoViewer, AddPreview, RemovePreview);
+    }
+
     public override void ResetData(PlayerData data, BaseFactory effectFactory)
     {
         _effectFactory = effectFactory;
@@ -50,7 +69,7 @@ public class Player : BaseLife
 
     public override void AddWeapon(BaseWeapon weapon)
     {
-        _weaponController.AddWeapon(weapon);
+        _weaponController.OnWeaponReceived(weapon);
     }
 
     public override void Initialize()
@@ -61,6 +80,7 @@ public class Player : BaseLife
 
         _weaponController = GetComponent<WeaponController>();
         _weaponController.Initialize(_weaponThrowPower);
+
 
         _interactionController = GetComponent<InteractionController>();
         _interactionController.Initialize();

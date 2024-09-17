@@ -6,17 +6,23 @@ using TMPro;
 
 public class WeaponViewer : BaseViewer
 {
-    [SerializeField] TMP_Text _numTxt;
-    [SerializeField] Image _weaponImg;
+    [SerializeField] List<Image> images;
 
-    public override void ActiveViewer(bool active)
+    Dictionary<BaseItem.Name, Sprite> _weaponIconSprite;
+
+    public void Initialize(Dictionary<BaseItem.Name, Sprite> weaponIconSprite)
     {
-        gameObject.SetActive(active);
+        _weaponIconSprite = weaponIconSprite;
     }
 
-    public override void UpdateViewer(int index, Sprite sprite)
+    public void AddPreview(BaseItem.Name name, BaseWeapon.Type type)
     {
-        _numTxt.text = index.ToString();
-        _weaponImg.sprite = sprite;
+        images[(int)type].sprite = _weaponIconSprite[name];
+        images[(int)type].gameObject.SetActive(true);
+    }
+
+    public void RemovePreview(BaseWeapon.Type type)
+    {
+        images[(int)type].gameObject.SetActive(false);
     }
 }

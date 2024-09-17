@@ -8,8 +8,7 @@ public class Stinger : VariationGun
     public override void ResetData(StingerData data, RecoilMapData mainMapData, RecoilRangeData subRangeData, BaseFactory effectFactory)
     {
         _equipFinishTime = data.equipFinishTime;
-        _reloadDuration = data.reloadFinishDuration;
-        _reloadExitDuration = data.reloadExitDuration;
+        _weaponWeight = data.weaponWeight;
 
         _maxAmmoCountInMagazine = data.maxAmmoCountInMagazine;
         _maxAmmoCountsInPossession = data.maxAmmoCountsInPossession;
@@ -49,6 +48,7 @@ public class Stinger : VariationGun
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
 
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
         MatchStrategy();
     }
 }

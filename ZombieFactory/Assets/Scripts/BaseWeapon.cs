@@ -32,6 +32,7 @@ abstract public class BaseWeapon : BaseItem
     protected Dictionary<EventType, EventStrategy> _eventStrategies = new Dictionary<EventType, EventStrategy>();
     protected Dictionary<EventType, ActionStrategy> _actionStrategies = new Dictionary<EventType, ActionStrategy>();
     protected Dictionary<EventType, BaseRecoilStrategy> _recoilStrategies = new Dictionary<EventType, BaseRecoilStrategy>();
+    protected ReloadStrategy _reloadStrategy;
 
     //protected ReloadStrategy _reloadStrategy;
 
@@ -44,7 +45,7 @@ abstract public class BaseWeapon : BaseItem
     //protected Action<string, int, float> OnPlayWeaponAnimation;
     protected Animator _animator;
 
-    [SerializeField] float _weaponWeight = 1;
+    protected float _weaponWeight = 1;
     public float SlowDownRatioByWeaponWeight { get { return 1.0f / _weaponWeight; } }
 
     protected Action<string, int, float> OnPlayOwnerAnimation;
@@ -72,7 +73,7 @@ abstract public class BaseWeapon : BaseItem
 
     public override void Initialize()
     {
-        //if (animator != null) OnPlayWeaponAnimation = animator.Play;
+        _animator = GetComponent<Animator>();
         _targetLayer = LayerMask.GetMask("Penetratable"); // 레이어 할당해준다.
     }
 
@@ -89,8 +90,7 @@ abstract public class BaseWeapon : BaseItem
         foreach (var events in _eventStrategies) events.Value.OnUpdate();
         foreach (var actions in _actionStrategies) actions.Value.OnUpdate();
         foreach (var recoils in _recoilStrategies) recoils.Value.OnUpdate();
-
-        //_reloadStrategy.OnUpdate();
+        _reloadStrategy.OnUpdate();
     }
 
     protected virtual void OnCollisionEnter(Collision collision) { }
@@ -99,13 +99,13 @@ abstract public class BaseWeapon : BaseItem
 
     public virtual void OnEquip()
     {
-        //PlaySFX(SoundType.Equip, true);
         PlayAnimation("Equip");
     }
 
     protected virtual void PlayAnimation(string name)
     {
-        OnPlayOwnerAnimation?.Invoke(_weaponName + name, -1, 0);
+        _animator.Play(name, 0, 0);
+        OnPlayOwnerAnimation?.Invoke(_weaponName + name, 0, 0);
     }
 
     public virtual void OnUnEquip()
@@ -114,7 +114,7 @@ abstract public class BaseWeapon : BaseItem
     }
 
 
-    public virtual void OnRooting(WeaponBlackboard blackboard)  // 
+    public virtual void OnRooting(WeaponBlackboard blackboard)
     {
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -125,6 +125,7 @@ abstract public class BaseWeapon : BaseItem
         OnPlayOwnerAnimation = blackboard.OnPlayOwnerAnimation;
         foreach (var actions in _actionStrategies) actions.Value.LinkEvent(blackboard);
         foreach (var recoils in _recoilStrategies) recoils.Value.LinkEvent(blackboard);
+        _reloadStrategy.LinkEvent(blackboard);
     }
 
     public virtual bool CanDrop() { return false; }
@@ -139,6 +140,7 @@ abstract public class BaseWeapon : BaseItem
         OnPlayOwnerAnimation = null;
         foreach (var action in _actionStrategies) action.Value.UnlinkEvent(blackboard);
         foreach (var recoil in _recoilStrategies) recoil.Value.UnlinkEvent(blackboard);
+        _reloadStrategy.UnlinkEvent(blackboard);
         transform.SetParent(null);
     }
 
@@ -150,17 +152,17 @@ abstract public class BaseWeapon : BaseItem
     public virtual bool CanReload() { return false; }
 
     // 장전 시작 시 호출
-    public virtual void OnReloadStart() { }
+    public virtual void OnReloadStart(bool isTPS) { }
 
     public virtual void OnReloadEnd() { }
 
     //public virtual void RefillAmmo() { }
 
-    //// 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    //public virtual bool CanCancelReloadAndGoToMainAction() { return default; }
+    // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
+    public virtual bool CanCancelReloadAndGoToMainAction() { return default; }
 
-    //// 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    //public virtual bool CanCancelReloadAndGoToSubAction() { return default; }
+    // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
+    public virtual bool CanCancelReloadAndGoToSubAction() { return default; }
 
     public virtual bool IsReloadFinish() { return default; } // 재장전이 끝난 경우
 

@@ -171,7 +171,8 @@ GameObject:
   - component: {fileID: 7441756012467166773}
   - component: {fileID: 7580919421791304779}
   - component: {fileID: 9030905521559690236}
-  - component: {fileID: 6701527299095285062}
+  - component: {fileID: 2212354752651834945}
+  - component: {fileID: 5878763360687752614}
   - component: {fileID: 5856097740021457594}
   - component: {fileID: 5133822707787317677}
   - component: {fileID: 904587066864761276}
@@ -227,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 5183355522273194830}
---- !u!114 &6701527299095285062
+--- !u!114 &2212354752651834945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,15 +237,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 231024801167642327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2297c3ed02c467e43af1b6978186cf7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a55627840135d048881aab7804eca86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraHolder: {fileID: 371831618016508690}
-  _firePoint: {fileID: 2669074600253843749}
-  _viewRotation: {x: 0, y: 0}
-  _viewSensitivity: {x: 100, y: 100}
-  _actorBone: {fileID: 7111448490317909813}
-  ChestOffset: {x: 0, y: -40, z: -100}
+  _viewRotation: {x: 0, y: 0, z: 0}
+  _viewSensitivity: {x: 150, y: 150}
+  ChestOffset: {x: 0, y: 45, z: 0}
+--- !u!114 &5878763360687752614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231024801167642327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1474dbe7d8219b54ba5229ca01d85295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraHolder: {fileID: 371831618016508690}
+  _viewRotation: {x: 0, y: 0, z: 0}
+  _viewSensitivity: {x: 150, y: 150}
 --- !u!114 &5856097740021457594
 MonoBehaviour:
   m_ObjectHideFlags: 0

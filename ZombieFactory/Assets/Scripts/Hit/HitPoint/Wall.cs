@@ -28,14 +28,14 @@ public class Wall : MonoBehaviour, IPenetrable, IEffectable
     }
 
     // 여기서 바로 이펙트 생성시키기
-    public void CreateEffect(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 hitNormal)
+    public void effectFactory(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 hitNormal)
     {
         BaseEffect effect = _effectFactory.Create(_hitEffect[effectType]);
         effect.ResetData(hitPosition, hitNormal, Quaternion.LookRotation(-hitNormal));
         effect.Play();
     }
 
-    public void CreateEffect(IEffectable.ConditionType effectType) { }
-    public void CreateEffect(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 shootPosition, Quaternion holeRotation) { }
-    public void CreateEffect(IEffectable.ConditionType effectType, float damage, Vector3 hitPosition, Vector3 hitNormal) { }
+    public void effectFactory(IEffectable.ConditionType effectType) { }
+    public void effectFactory(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 shootPosition, Quaternion holeRotation) { }
+    public void effectFactory(IEffectable.ConditionType effectType, float damage, Vector3 hitPosition, Vector3 hitNormal) { }
 }

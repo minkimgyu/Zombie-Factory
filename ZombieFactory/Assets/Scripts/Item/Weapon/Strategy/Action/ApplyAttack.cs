@@ -15,6 +15,8 @@ abstract public class ApplyAttack : ActionStrategy
     ///// </summary>
     //protected Func<Vector3> ReturnRaycastDir;
 
+    protected Animator _animator;
+
     /// <summary>
     /// 공격 적용 위치
     /// </summary>
@@ -33,22 +35,25 @@ abstract public class ApplyAttack : ActionStrategy
     //bool _isMainAction;
     protected BaseItem.Name _weaponName;
 
-    public ApplyAttack(BaseItem.Name weaponName, float range, int targetLayer)
+    public ApplyAttack(BaseItem.Name weaponName, float range, int targetLayer, Animator animator)
     {
         _weaponName = weaponName;
         _range = range;
         _targetLayer = targetLayer;
+        _animator = animator;
     }
 
     protected virtual void PlayAnimation(string aniName)
     {
         // 레이어가 2이다.
-        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName, -1, 0);
+        _animator.Play(aniName, 0, 0);
+        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName, 0, 0);
     }
 
     protected virtual void PlayAnimation(string aniName, int index)
     {
-        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName + index, -1, 0);
+        _animator.Play(aniName + index, 0, 0);
+        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName + index, 0, 0);
     }
 
 

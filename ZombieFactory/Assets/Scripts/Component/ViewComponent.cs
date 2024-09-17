@@ -4,53 +4,58 @@ using UnityEngine;
 using System;
 using Unity.Mathematics;
 
-public class ViewComponent : MonoBehaviour
+public class ViewComponent : MonoBehaviour, IRecoilReceiver
 {
-    [SerializeField] private CameraController _cameraController;
+    [SerializeField] private Transform _firePoint;
     [SerializeField] private Transform _cameraHolder;
+    [SerializeField] protected Vector3 _viewRotation;
 
-    [SerializeField] private Transform _direction;
-    [SerializeField] Vector3 _viewRotation;
-    [SerializeField] Vector2 _viewSensitivity;
-    [SerializeField] Rigidbody _rigidbody;
+    Vector3 _recoilForce;
+    Vector2 FinalViewRotation { get { return _viewRotation + _recoilForce; } }
+    protected Vector2 _viewSensitivity = new Vector2(150, 150);
+    protected Rigidbody _rigidbody;
 
-    [SerializeField] Animator _animator;
-    [SerializeField] Vector3 ChestOffset = new Vector3(0, -40, -100);
+    protected float _viewYRange;
 
-    Transform _spineBorn;
-    float _viewYRange;
+    Action<Vector3, Vector3> MoveCamera;
 
-    public void Initialize(float viewYRange, Vector2 viewSensitivity, Transform spineBorn)
+    public void AddObserverEvent(Action<Vector3, Vector3> MoveCamera)
     {
+        this.MoveCamera = MoveCamera;
+    }
+
+    public virtual void Initialize(float viewYRange, Vector2 viewSensitivity) 
+    {
+        _rigidbody = GetComponent<Rigidbody>();
         _viewYRange = viewYRange;
         _viewSensitivity = viewSensitivity;
-        _spineBorn = spineBorn; //_animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
     }
 
     // 이 부분은 플레이어 컨트롤러에서 돌려주자
     public void ResetView()
     {
-        float yRotation = _viewRotation.x + Input.GetAxisRaw("Mouse Y") * _viewSensitivity.x * Time.deltaTime;
+        float yRotation = _viewRotation.x - Input.GetAxisRaw("Mouse Y") * _viewSensitivity.x * Time.deltaTime;
         yRotation = Mathf.Clamp(yRotation, -_viewYRange, _viewYRange);
 
         _viewRotation.x = yRotation;
         _viewRotation.y = _viewRotation.y + Input.GetAxisRaw("Mouse X") * _viewSensitivity.y * Time.deltaTime;
-
-        _direction.rotation = Quaternion.Euler(0, _viewRotation.y, 0);
     }
 
     public void RotateRigidbody()
     {
-        _rigidbody.MoveRotation(Quaternion.Euler(0, _viewRotation.y, 0));
+        _rigidbody.MoveRotation(Quaternion.Euler(0, FinalViewRotation.y, 0));
     }
 
-    public void RotateSpineBone()
-    {
-        _spineBorn.rotation = Quaternion.Euler(_viewRotation) * Quaternion.Euler(ChestOffset); // 상체 로테이션 보정
-    }
+    public virtual void RotateSpineBone() { }
 
     public void ResetCamera()
     {
-        _cameraController.MoveCamera(_cameraHolder.position, _viewRotation);
+        _firePoint.rotation = Quaternion.Euler(FinalViewRotation.x, FinalViewRotation.y, 0);
+        MoveCamera?.Invoke(_cameraHolder.position, FinalViewRotation);
+    }
+
+    public void OnRecoilRequested(Vector2 recoilForce)
+    {
+        _recoilForce = new Vector3(recoilForce.y, recoilForce.x);
     }
 }

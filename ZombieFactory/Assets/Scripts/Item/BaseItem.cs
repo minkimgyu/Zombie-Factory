@@ -6,18 +6,27 @@ abstract public class BaseItem : MonoBehaviour
 {
     public enum Name
     {
-        AK,
-        AR,
-        AutoShotgun,
-        SMG,
-        DMR,
-        Bat,
+        Vandal,
+        Phantom,
+        Odin,
+
+        Judge,
+        Stinger,
+        Guardian,
+        Bucky,
+
+        Operator,
+        Classic,
+        Knife
     }
 
     public virtual void Initialize() { }
 
     public virtual void ResetData(AutomaticGunData data, RecoilMapData recoilData, BaseFactory effectFactory) { }
-    public virtual void ResetData(BatData data) { }
+    public virtual void ResetData(OperatorData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
+    public virtual void ResetData(ClassicData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
+    public virtual void ResetData(BuckyData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
+    public virtual void ResetData(KnifeData data, BaseFactory effectFactory) { }
     public virtual void ResetData(JudgeData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(StingerData data, RecoilMapData mainMapData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(GuardianData data, RecoilRangeData mainRangeData, BaseFactory effectFactory) { }

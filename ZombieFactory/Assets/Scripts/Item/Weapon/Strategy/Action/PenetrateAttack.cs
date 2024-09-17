@@ -69,7 +69,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
         Animator weaponAnimator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer)
+        : base(weaponName, range, targetLayer, weaponAnimator)
     {
         _fireCountInOnce = fireCountInOnce;
         _penetratePower = penetratePower;
@@ -267,8 +267,8 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
     {
         if (penetratePower - durability >= 0)
         {
-            effectableTarget?.CreateEffect(IEffectable.ConditionType.Penetration, penetrateData.EntryPoint, penetrateData.EntryNormal); // null일 수 있기 때문에 다음과 같이 작성
-            effectableTarget?.CreateEffect(IEffectable.ConditionType.Penetration, penetrateData.ExitPoint, penetrateData.ExitNormal);
+            effectableTarget?.effectFactory(IEffectable.ConditionType.Penetration, penetrateData.EntryPoint, penetrateData.EntryNormal); // null일 수 있기 때문에 다음과 같이 작성
+            effectableTarget?.effectFactory(IEffectable.ConditionType.Penetration, penetrateData.ExitPoint, penetrateData.ExitNormal);
 
             penetratePower -= durability;
             if (isLastContact == true) DrawPenetrateLine(penetrateData, true);
@@ -276,7 +276,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
             return penetratePower;
         }
 
-        effectableTarget?.CreateEffect(IEffectable.ConditionType.NonPenetration, penetrateData.EntryPoint, penetrateData.EntryNormal);
+        effectableTarget?.effectFactory(IEffectable.ConditionType.NonPenetration, penetrateData.EntryPoint, penetrateData.EntryNormal);
         DrawPenetrateLine(penetrateData, false);
         return 0;
     }

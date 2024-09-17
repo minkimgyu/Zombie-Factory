@@ -49,8 +49,20 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
     public virtual void ResetData(HelperData data) { }
     public virtual void ResetData(ZombieData data) { }
 
+    public virtual void AddObserverEvent
+    (
+        Action<Vector3, Vector3> MoveCamera,
+        Action<float, float> OnFieldOfViewChange,
 
-    public virtual void AddObserverEvent() { }
+        Action<float> OnHpChangeRequested,
+        Action<bool> SwitchCrosshair,
+
+        Action<bool> ActiveAmmoViewer,
+        Action<int, int> UpdateAmmoViewer,
+        Action<BaseItem.Name, BaseWeapon.Type> AddPreview,
+        Action<BaseWeapon.Type> RemovePreview)
+    { }
+
     public virtual void OnDieRequested() { }
 
     public bool IsOpponent(List<IIdentifiable.Type> types)

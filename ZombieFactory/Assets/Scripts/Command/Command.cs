@@ -10,6 +10,8 @@ abstract public class BaseCommand
     public virtual void Execute(Vector3 dir) { }
     public virtual void Execute(Vector3 cameraHolderPosition, Vector3 viewRotation) { }
     public virtual void Execute(float fieldOfView, float ratio) { }
+    public virtual void Execute(int inMagazine, int inPossession) { }
+
     public virtual void Execute(bool active) { }
 
     public virtual void Execute(BaseWeapon.Type type) { }

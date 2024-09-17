@@ -36,6 +36,21 @@ public class ChangeFieldOfViewCommand : BaseCommand
     }
 }
 
+public class ChangeAmmoCommand : BaseCommand
+{
+    Action<int, int> ChangeEvent;
+
+    public ChangeAmmoCommand(Action<int, int> ChangeEvent)
+    {
+        this.ChangeEvent = ChangeEvent;
+    }
+
+    public override void Execute(int inMagazine, int inPossession)
+    {
+        ChangeEvent?.Invoke(inMagazine, inPossession);
+    }
+}
+
 public class ActiveCommand : BaseCommand
 {
     Action<bool> ActivateEvent;
@@ -59,24 +74,11 @@ public class ObserverEventBus : BaseBus<ObserverEventBus.Type>
         MoveCamera,
         ChangeFieldOfView,
 
-        ActiveCrosshair
-    }
+        ActiveCrosshair,
+        ActiveAmmoViewer,
+        ChageAmmoCount,
 
-    public override void Publish(Type state, bool active)
-    {
-        if (_commands.ContainsKey(state) == false) return;
-        _commands[state].Execute(active);
-    }
-
-    public override void Publish(Type state, float fieldOfView, float ratio)
-    {
-        if (_commands.ContainsKey(state) == false) return;
-        _commands[state].Execute(fieldOfView, ratio);
-    }
-
-    public override void Publish(Type state, Vector3 cameraHolderPosition, Vector3 viewRotation)
-    {
-        if (_commands.ContainsKey(state) == false) return;
-        _commands[state].Execute(cameraHolderPosition, viewRotation);
+        AddPreview,
+        RemovePreview,
     }
 }

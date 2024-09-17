@@ -6,6 +6,9 @@ public class Judge : Gun
 {
     public override void ResetData(JudgeData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory)
     {
+        _equipFinishTime = data.equipFinishTime;
+        _weaponWeight = data.weaponWeight;
+
         _maxAmmoCountInMagazine = data.maxAmmoCountInMagazine;
         _maxAmmoCountsInPossession = data.maxAmmoCountsInPossession;
 
@@ -32,8 +35,6 @@ public class Judge : Gun
         _recoilStrategies[EventType.Main] = new ManualRecoilGenerator(data.mainFireInterval, data.recoveryDuration, mainRangeData);
         _recoilStrategies[EventType.Sub] = new ManualRecoilGenerator(data.subFireInterval, data.recoveryDuration, subRangeData);
 
-        _equipFinishTime = data.equipFinishTime;
-        _reloadDuration = data.reloadFinishDuration;
-        _reloadExitDuration = data.reloadExitDuration;
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
     }
 }

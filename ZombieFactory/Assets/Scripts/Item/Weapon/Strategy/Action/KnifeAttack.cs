@@ -8,9 +8,10 @@ abstract public class MeleeAttack : ApplyAttack
     float _delayForApplyDamage;
     Timer _delayTimer; // 공격 시 작동
 
-    public MeleeAttack(BaseItem.Name weaponName, float range, int targetLayer, float delayForApplyDamage, DirectionData directionData)
-        : base(weaponName, range, targetLayer)
+    public MeleeAttack(BaseItem.Name weaponName, float range, int targetLayer, float delayForApplyDamage, DirectionData directionData, Animator animator)
+        : base(weaponName, range, targetLayer, animator)
     {
+        _animator = animator;
         _damageConverter = new DirectionBasedDamageConverter(directionData);
 
         _delayForApplyDamage = delayForApplyDamage;
@@ -61,7 +62,7 @@ abstract public class MeleeAttack : ApplyAttack
         IEffectable effectable = hit.collider.GetComponent<IEffectable>();
         if (effectable == null) return;
 
-        effectable.CreateEffect(IEffectable.ConditionType.Stabbing, hit.point, hit.normal);
+        effectable.effectFactory(IEffectable.ConditionType.Stabbing, hit.point, hit.normal);
 
         IHitable hitable = hit.collider.GetComponent<IHitable>();
         if (hitable == null) return;
@@ -87,8 +88,8 @@ abstract public class MeleeAttack : ApplyAttack
 public class RightKnifeAttack : MeleeAttack
 {
     public RightKnifeAttack(BaseItem.Name weaponName, float range, int targetLayer,
-        float delayForNextStab, DirectionData directionData)
-        : base(weaponName, range, targetLayer, delayForNextStab, directionData)
+        float delayForNextStab, DirectionData directionData, Animator animator)
+        : base(weaponName, range, targetLayer, delayForNextStab, directionData, animator)
     {
     }
 
@@ -105,8 +106,8 @@ public class LeftKnifeAttack : MeleeAttack
     int _animationCount;
 
     public LeftKnifeAttack(BaseItem.Name weaponName, float range, int targetLayer,
-        int animationCnt, float delayForNextStab, float attackLinkDuration, DirectionData directionData)
-        : base(weaponName, range, targetLayer, delayForNextStab, directionData)
+        int animationCnt, float delayForNextStab, float attackLinkDuration, DirectionData directionData, Animator animator)
+        : base(weaponName, range, targetLayer, delayForNextStab, directionData, animator)
     {
         _stabLinkDuration = attackLinkDuration;
 

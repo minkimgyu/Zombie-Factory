@@ -1,1 +1,0 @@
-{"$type":"BatData, Assembly-CSharp","delayBetweenAttack":1.5,"damageDelayTime":0.05,"attackDamageData":{"$type":"DirectionData, Assembly-CSharp","_frontAttackDamage":50.0,"_backAttackDamage":100.0},"range":1.5,"weaponName":5,"weaponType":3,"equipFinishTime":1.3,"weaponWeight":1.0}

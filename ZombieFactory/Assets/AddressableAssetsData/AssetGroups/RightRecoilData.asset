@@ -18,19 +18,31 @@ MonoBehaviour:
   m_GUID: c5cc413f41601824d851df39a4175556
   m_SerializeEntries:
   - m_GUID: 27403c213800fde4b90485c5ea821fde
-    m_Address: AutoShotgun
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - RightRecoilData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 728406cc2dda9f94681465bb1e350ac6
-    m_Address: DMR
+    m_Address: Judge
     m_ReadOnly: 0
     m_SerializedLabels:
     - RightRecoilData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2e20303ddccc3e44bbfd3777bba6a9fc
-    m_Address: SMG
+    m_Address: Stinger
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RightRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29a437c3de6523943a9f858a1cf43dc5
+    m_Address: Bucky
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RightRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c67288eb167aa54e901389cebfdb854
+    m_Address: Operator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RightRecoilData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c41645b95cbe534bb0afaa9c75ad8f2
+    m_Address: Classic
     m_ReadOnly: 0
     m_SerializedLabels:
     - RightRecoilData

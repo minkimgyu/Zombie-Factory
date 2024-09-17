@@ -7,9 +7,6 @@ public class EquipState : BaseWeaponState
 {
     Timer _timer;
 
-    Action<float> OnWeaponWeightChangeRequested;
-    Action<BaseItem.Name> OnProfileChangeRequested;
-
     Action<BaseWeapon> ResetWeapon;
     Func<BaseWeapon> ReturnWeapon;
 
@@ -19,18 +16,12 @@ public class EquipState : BaseWeaponState
         FSM<WeaponController.State> fsm,
         Dictionary<BaseWeapon.Type, BaseWeapon> weaponsContainer,
 
-        Action<float> OnWeaponWeightChangeRequested,
-        Action<BaseItem.Name> OnProfileChangeRequested,
-
         Action<BaseWeapon> ResetWeapon,
         Func<BaseWeapon> ReturnWeapon) : base(fsm)
     {
         _timer = new Timer();
 
         _weaponsContainer = weaponsContainer;
-
-        this.OnProfileChangeRequested = OnProfileChangeRequested;
-        this.OnWeaponWeightChangeRequested = OnWeaponWeightChangeRequested;
 
         this.ResetWeapon = ResetWeapon;
         this.ReturnWeapon = ReturnWeapon;
@@ -54,7 +45,18 @@ public class EquipState : BaseWeaponState
     /// </summary>
     public override void OnWeaponReceived(BaseWeapon weapon)
     {
-        ResetWeapon?.Invoke(weapon);
+        //ResetWeapon?.Invoke(weapon);
+        //bool containWeapon = _weaponsContainer.ContainsKey(weapon.WeaponType);
+        //if (containWeapon)
+        //{
+        //    _baseFSM.SetState(WeaponController.State.Drop, weapon, "DropSameTypeWeaponAndRootNewWeapon");
+        //}
+        //else
+        //{
+        //    _baseFSM.SetState(WeaponController.State.Root, weapon, "RootNewWeapon");
+        //}
+
+        // ¹«±â¸¦ È¹µæÇÑ °æ¿ì 
     }
 
     public override void OnStateEnter(BaseWeapon.Type weaponType, string message)
@@ -78,9 +80,6 @@ public class EquipState : BaseWeaponState
 
         weaponToEquip.gameObject.SetActive(true);
         weaponToEquip.OnEquip();
-
-        OnProfileChangeRequested?.Invoke(weaponToEquip.WeaponName);
-        OnWeaponWeightChangeRequested?.Invoke(weaponToEquip.SlowDownRatioByWeaponWeight);
 
         _timer.Start(weaponToEquip.EquipFinishTime); // µô·¹ÀÌ
     }

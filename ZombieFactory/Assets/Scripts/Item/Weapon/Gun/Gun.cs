@@ -23,16 +23,11 @@ abstract public class Gun : BaseWeapon, IInteractable
     [SerializeField] protected Transform _muzzle;
 
 
-    protected string _trajectoryLineEffect = "TrajectoryLine";
-
     protected int _maxAmmoCountInMagazine;
     protected int _maxAmmoCountsInPossession;
 
     [SerializeField] protected int _ammoCountsInMagazine;
     [SerializeField] protected int _ammoCountsInPossession;
-
-    protected float _reloadDuration;
-    protected float _reloadExitDuration;
 
     [SerializeField] Transform _objectMesh;
 
@@ -40,21 +35,12 @@ abstract public class Gun : BaseWeapon, IInteractable
     Rigidbody _gunRigidbody;
     bool _nowAttachToGround;
 
-    protected Timer _reloadTimer;
-    protected Timer _reloadExitTimer;
-
     public Action<bool, string, Vector3> OnViewEventRequest;
 
     protected Action<Vector3> OnGenerateNoiseRequest;
 
     protected void SpawnEmptyCartridge() => _emptyCartridgeSpawner.Play();
     protected void SpawnMuzzleFlashEffect() => _muzzleFlash.Play();
-
-    protected override void PlayAnimation(string name)
-    {
-        base.PlayAnimation(name);
-        _animator?.Play(name, -1, 0);
-    }
 
     public override bool IsAmmoEmpty()
     {
@@ -74,6 +60,12 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     #region Reload
 
+    public void OnReloadRequested(int ammoCountsInMagazine, int ammoCountsInPossession)
+    {
+        _ammoCountsInMagazine = ammoCountsInMagazine;
+        _ammoCountsInPossession = ammoCountsInPossession;
+    }
+
     public override bool CanAutoReload() { return _ammoCountsInMagazine == 0 && _ammoCountsInPossession > 0; }
 
     public override bool CanReload()
@@ -82,43 +74,32 @@ abstract public class Gun : BaseWeapon, IInteractable
         else return true;
     }
 
-    public override void OnReloadStart()
+    public override void OnReloadStart(bool isTPS)
     {
         for (int i = 0; i < _actionStrategies.Count; i++) _actionStrategies[(EventType)i].TurnOffZoomDirectly();
-
-        _reloadTimer.Start(_reloadDuration);
-
-        _reloadExitTimer.Reset(); // 시작 전 리셋시켜주기
-        _reloadExitTimer.Start(_reloadExitDuration);
-
-        string reloadString = "Reload";
-        PlayAnimation(reloadString);
+        _reloadStrategy.Execute(isTPS, _ammoCountsInMagazine, _ammoCountsInPossession);
     }
 
     // 장전이 끝나면 여기 이벤트 호출됨
     public override void OnReloadEnd()
     {
-        int leftAmmoCountInPossession = _ammoCountsInPossession - _ammoCountsInMagazine;
-        _ammoCountsInMagazine = _maxAmmoCountInMagazine;
-        _ammoCountsInPossession = leftAmmoCountInPossession;
         OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
     }
 
-    //// 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    //public override bool CanCancelReloadAndGoToMainAction() { return default; }
+    // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
+    public override bool CanCancelReloadAndGoToMainAction() { return _reloadStrategy.CanCancelReloadingByLeftClick(); }
 
-    //// 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    //public override bool CanCancelReloadAndGoToSubAction() { return default; }
+    // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
+    public override bool CanCancelReloadAndGoToSubAction() { return _reloadStrategy.CanCancelReloadingByLeftClick(); }
 
     public override bool IsReloadFinish() // 재장전이 끝난 경우
     {
-        return _reloadExitTimer.CurrentState == Timer.State.Finish;
+        return _reloadStrategy.IsReloadFinish();
     }
 
     public override void ResetReload() // 재장전을 취소할 경우
     {
-        _reloadTimer.Reset();
-        _reloadExitTimer.Reset();
+        _reloadStrategy.OnCancelReload();
     }
 
     #endregion
@@ -146,8 +127,6 @@ abstract public class Gun : BaseWeapon, IInteractable
             _nowAttachToGround = false;
             _gunCollider.enabled = false;
             _gunRigidbody.isKinematic = true;
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
             gameObject.SetActive(false);
         }
     }
@@ -175,7 +154,6 @@ abstract public class Gun : BaseWeapon, IInteractable
     {
         base.Initialize();
 
-        _animator = GetComponent<Animator>();
         _gunCollider = GetComponent<BoxCollider>();
         _gunRigidbody = GetComponent<Rigidbody>();
 
@@ -185,9 +163,6 @@ abstract public class Gun : BaseWeapon, IInteractable
         //WeaponInfoViwer weaponInfoViwer = FindObjectOfType<WeaponInfoViwer>();
         //if (weaponInfoViwer == null) return;
         //OnViewEventRequest = weaponInfoViwer.OnViewEventReceived; // 드랍 시 해제 필요
-
-        _reloadTimer = new Timer();
-        _reloadExitTimer = new Timer();
         //NoiseGenerator noiseGenerator = FindObjectOfType<NoiseGenerator>();
         //OnGenerateNoiseRequest = noiseGenerator.GenerateNoise;
     }

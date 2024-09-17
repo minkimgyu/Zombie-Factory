@@ -9,8 +9,7 @@ public class Guardian : VariationGun
     public override void ResetData(GuardianData data, RecoilRangeData recoilData, BaseFactory effectFactory)
     {
         _equipFinishTime = data.equipFinishTime;
-        _reloadDuration = data.reloadFinishDuration;
-        _reloadExitDuration = data.reloadExitDuration;
+        _weaponWeight = data.weaponWeight;
 
         _maxAmmoCountInMagazine = data.maxAmmoCountInMagazine;
         _maxAmmoCountsInPossession = data.maxAmmoCountsInPossession;
@@ -44,6 +43,10 @@ public class Guardian : VariationGun
            new ManualRecoilGenerator(data.fireIntervalWhenZoomOut, data.recoveryDuration, recoilData));
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
+
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
+
+
         MatchStrategy();
     }
 }

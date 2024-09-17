@@ -17,38 +17,62 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: a6cad8f6306c01048abcd2f809ccbd7d
   m_SerializeEntries:
-  - m_GUID: 5fa6a069a36dba444bed581b3a02145e
-    m_Address: AK
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Item
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b04de8a634c765742b509e0796277b8c
-    m_Address: AR
+  - m_GUID: 512661e9b40a36d4e8ae15de873d66d8
+    m_Address: Knife
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78891991352eca74bbfd97e9589b2c33
-    m_Address: AutoShotgun
+    m_Address: Judge
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df0e046714e57c34390f07b89aa8e5d8
-    m_Address: DMR
+    m_Address: Guardian
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d986b0a80677674cb08d31d225f133f
-    m_Address: Bat
+  - m_GUID: 81bf7d6b180036f40b7a2dcc08368d4f
+    m_Address: Classic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 301e76b28945157429f6f63001b70e65
+    m_Address: Bucky
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dc977e259042114d8d501d978247e11
+    m_Address: Odin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d973c24b188961944a47f5ef422600fe
+    m_Address: Operator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b04de8a634c765742b509e0796277b8c
+    m_Address: Phantom
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 07a4df5a6336ba1449cacd891bde674c
-    m_Address: SMG
+    m_Address: Stinger
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fa6a069a36dba444bed581b3a02145e
+    m_Address: Vandal
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item

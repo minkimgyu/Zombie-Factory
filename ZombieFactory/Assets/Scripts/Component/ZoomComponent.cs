@@ -10,19 +10,19 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
 
     Timer _timer;
 
-    //Action<bool> SwitchCrosshair;
-    //Action<float, float> OnFieldOfViewChangeRequested;
+    [SerializeField] Transform _armMesh;
+    Action<bool> SwitchCrosshair;
+    Action<float, float> OnFieldOfViewChange;
 
     public void Initialize()
     {
-        //CameraController controller = FindObjectOfType<CameraController>();
-        //OnFieldOfViewChangeRequested = controller.OnFieldOfViewChangeRequested;
-
         _timer = new Timer();
+    }
 
-        //CrosshairViewer crosshairController = FindObjectOfType<CrosshairViewer>();
-        //if (crosshairController == null) return;
-        //SwitchCrosshair = crosshairController.SwitchCrosshair;
+    public void AddObserverEvent(Action<bool> SwitchCrosshair, Action<float, float> OnFieldOfViewChange)
+    {
+        this.OnFieldOfViewChange = OnFieldOfViewChange;
+        this.SwitchCrosshair = SwitchCrosshair;
     }
 
     public void OnZoomCalled(bool nowTurnOn, float zoomDuration, Vector3 zoomPosition, float fieldOfView)
@@ -30,7 +30,7 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
         _zoomPosition = zoomPosition;
         _fieldOfView = fieldOfView;
 
-        //SwitchCrosshair?.Invoke(nowTurnOn);
+        SwitchCrosshair?.Invoke(nowTurnOn);
         EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveCrosshair, true);
 
         // 바로 Zoom으로 들어감
@@ -58,8 +58,7 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
 
     void MoveCamera(Vector3 armPosition, float fieldOfView, float progress = 1)
     {
-        //OnFieldOfViewChangeRequested?.Invoke(fieldOfView, progress);
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ChangeFieldOfView, fieldOfView, progress);
-        //_armMesh.localPosition = Vector3.Lerp(_armMesh.localPosition, armPosition, progress);
+        OnFieldOfViewChange?.Invoke(fieldOfView, progress);
+        _armMesh.localPosition = Vector3.Lerp(_armMesh.localPosition, armPosition, progress);
     }
 }

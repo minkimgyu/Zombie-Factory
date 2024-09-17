@@ -34,6 +34,6 @@ public class ProfileViewer : BaseViewer
         _name.color = new Color(_name.color.r, _name.color.g, _name.color.b, dieAlphaValue);
         _equipedWeaponImg.color = new Color(_equipedWeaponImg.color.r, _equipedWeaponImg.color.g, _equipedWeaponImg.color.b, dieAlphaValue);
 
-        _hpViewer.OnDieRequested(dieAlphaValue, dieBackgroundAlpha);
+        //_hpViewer.OnDieRequested(dieAlphaValue, dieBackgroundAlpha);
     }
 }

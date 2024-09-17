@@ -47,14 +47,14 @@ using System.Collections.Generic;
             switch (type)
             {
                 case BaseWeapon.EventType.Main:
-                    //bool nowCancelMainAction = equipedWeapon.CanCancelReloadAndGoToMainAction();
-                    //if (nowCancelMainAction == false) break;
+                    bool nowCancelMainAction = equipedWeapon.CanCancelReloadAndGoToMainAction();
+                    if (nowCancelMainAction == false) break;
 
                     _baseFSM.SetState(WeaponController.State.LeftAction);
                     break;
                 case BaseWeapon.EventType.Sub:
-                    //bool nowCancelSubAction = equipedWeapon.CanCancelReloadAndGoToSubAction();
-                    //if (nowCancelSubAction == false) break;
+                    bool nowCancelSubAction = equipedWeapon.CanCancelReloadAndGoToSubAction();
+                    if (nowCancelSubAction == false) break;
 
                     _baseFSM.SetState(WeaponController.State.RightAction);
                     break;
@@ -75,6 +75,6 @@ using System.Collections.Generic;
         public override void OnStateEnter()
         {
             BaseWeapon equipedWeapon = ReturnWeapon();
-            equipedWeapon.OnReloadStart();
+            equipedWeapon.OnReloadStart(_isTPS);
         }
     }

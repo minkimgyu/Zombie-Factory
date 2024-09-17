@@ -131,6 +131,8 @@ public class InputHandler : MonoBehaviour, IInputable
         _inputEvents[type].Execute(eventType);
     }
 
+
+
     public void AddEvent(IInputable.Type type, BaseCommand command)
     {
         _inputEvents.Add(type, command);

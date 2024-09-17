@@ -17,38 +17,62 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 8986d4af0ef4e4e45aeb65c7b654923e
   m_SerializeEntries:
-  - m_GUID: 4c676d3cb749a5b40b63cd5ef0796fe6
-    m_Address: AK
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ItemData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5147dfe6d60b9c4aad71b7daa36c387
-    m_Address: AR
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ItemData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 645c63d7f8617a2458a2998848323f46
-    m_Address: DMR
+  - m_GUID: 333efb18dc4c05344959e2af46bc6757
+    m_Address: Knife
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e06efcb2a6de69249a5ba9f6e3b90770
-    m_Address: AutoShotgun
+    m_Address: Judge
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 645c63d7f8617a2458a2998848323f46
+    m_Address: Guardian
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b56fbb630fd2b844a62646ca931471f
+    m_Address: Classic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25b1ae960b99c0548945977ff0be6f79
+    m_Address: Bucky
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6847d9df12e956a49b4dce8a07a96373
+    m_Address: Odin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c5147dfe6d60b9c4aad71b7daa36c387
+    m_Address: Phantom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39d57bdddfee67f4091ba4fe98985ab7
+    m_Address: Operator
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b28ca93212ba2b6488840c94eb2ba605
-    m_Address: SMG
+    m_Address: Stinger
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c37c44e6ab313a4ea3890e584dff257
-    m_Address: Bat
+  - m_GUID: 4c676d3cb749a5b40b63cd5ef0796fe6
+    m_Address: Vandal
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemData

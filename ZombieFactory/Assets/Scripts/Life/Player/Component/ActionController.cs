@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
@@ -52,6 +53,17 @@ public class ActionController : MonoBehaviour
     float _capsuleStandHeight = 2f;
     float _capsuleCrouchCenter = 1.15f;
 
+    public virtual void AddObserverEvent
+    (
+        Action<Vector3, Vector3> MoveCamera,
+        Action<float, float> OnFieldOfViewChange,
+        Action<bool> SwitchCrosshair
+    )
+    {
+        _zoomComponent.AddObserverEvent(SwitchCrosshair, OnFieldOfViewChange);
+        _viewComponent.AddObserverEvent(MoveCamera);
+    }
+
     public void Initialize(float walkSpeed, float runSpeed, float onAirSpeed, float jumpSpeed, float postureSwitchDuration, float capsuleStandCenter,
         float capsuleStandHeight, float capsuleCrouchCenter, float capsuleCrouchHeight, float viewYRange, Vector2 viewSensitivity)
     {
@@ -79,7 +91,6 @@ public class ActionController : MonoBehaviour
         _moveComponent.Initialize();
 
         _animator = GetComponentInChildren<Animator>();
-        //Transform spineBorn = _animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
 
         _viewComponent = GetComponent<ViewComponent>();
         _viewComponent.Initialize(viewYRange, viewSensitivity); // viewYRange, viewSensitivity

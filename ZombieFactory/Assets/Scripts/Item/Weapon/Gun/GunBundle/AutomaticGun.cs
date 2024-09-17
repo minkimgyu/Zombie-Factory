@@ -8,6 +8,9 @@ abstract public class AutomaticGun : VariationGun
 {
     public override void ResetData(AutomaticGunData data, RecoilMapData recoilData, BaseFactory effectFactory)
     {
+        _equipFinishTime = data.equipFinishTime;
+        _weaponWeight = data.weaponWeight;
+
         _maxAmmoCountInMagazine = data.maxAmmoCountInMagazine;
         _maxAmmoCountsInPossession = data.maxAmmoCountsInPossession;
 
@@ -41,9 +44,7 @@ abstract public class AutomaticGun : VariationGun
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
 
-        _equipFinishTime = data.equipFinishTime;
-        _reloadDuration = data.reloadFinishDuration;
-        _reloadExitDuration = data.reloadExitDuration;
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
         MatchStrategy();
     }
 }

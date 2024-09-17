@@ -32,9 +32,9 @@ abstract public class VariationGun : Gun
     public override void OnDrop(WeaponBlackboard blackboard)
     {
         base.OnDrop(blackboard);
-        foreach (var eventStrategy in _eventStorage) eventStrategy.Value.LinkEvent(blackboard);
-        foreach (var actionStrategy in _actionStorage) actionStrategy.Value.LinkEvent(blackboard);
-        foreach (var recoilStrategy in _recoilStorage) recoilStrategy.Value.LinkEvent(blackboard);
+        foreach (var eventStrategy in _eventStorage) eventStrategy.Value.UnlinkEvent(blackboard);
+        foreach (var actionStrategy in _actionStorage) actionStrategy.Value.UnlinkEvent(blackboard);
+        foreach (var recoilStrategy in _recoilStorage) recoilStrategy.Value.UnlinkEvent(blackboard);
     }
 
     // state 패턴으로 바꿔주기

@@ -50,27 +50,27 @@ public class HitPoint : MonoBehaviour, IPenetrable, IEffectable, IHitable
     }
 
     // 여기서 바로 이펙트 생성시키기
-    public void CreateEffect(IEffectable.ConditionType effectType)
+    public void effectFactory(IEffectable.ConditionType effectType)
     {
         BaseEffect effect = _effectFactory.Create(_hitEffect[effectType]);
         effect.Play();
     }
 
-    public void CreateEffect(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 shootPosition, Quaternion holeRotation)
+    public void effectFactory(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 shootPosition, Quaternion holeRotation)
     {
         BaseEffect effect = _effectFactory.Create(_hitEffect[effectType]);
         effect.ResetData(hitPosition, shootPosition, holeRotation);
         effect.Play();
     }
 
-    public void CreateEffect(IEffectable.ConditionType effectType, float damage, Vector3 hitPosition, Vector3 hitNormal)
+    public void effectFactory(IEffectable.ConditionType effectType, float damage, Vector3 hitPosition, Vector3 hitNormal)
     {
         BaseEffect effect = _effectFactory.Create(_hitEffect[effectType]);
         effect.ResetData(hitPosition, hitNormal, Quaternion.LookRotation(-hitNormal), damage);
         effect.Play();
     }
 
-    public void CreateEffect(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 hitNormal)
+    public void effectFactory(IEffectable.ConditionType effectType, Vector3 hitPosition, Vector3 hitNormal)
     {
         BaseEffect effect = _effectFactory.Create(_hitEffect[effectType]);
         effect.ResetData(hitPosition, hitNormal, Quaternion.LookRotation(-hitNormal));

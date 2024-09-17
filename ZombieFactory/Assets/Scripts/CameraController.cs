@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour, IPoint
 {
@@ -9,9 +10,6 @@ public class CameraController : MonoBehaviour, IPoint
     public void Initialize()
     {
         _cameras = GetComponentsInChildren<Camera>();
-
-        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.MoveCamera, new MoveCameraCommand(MoveCamera));
-        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ChangeFieldOfView, new ChangeFieldOfViewCommand(OnFieldOfViewChangeRequested));
     }
 
     public void MoveCamera(Vector3 cameraHolderPosition, Vector3 viewRotation)
@@ -20,7 +18,7 @@ public class CameraController : MonoBehaviour, IPoint
         transform.rotation = Quaternion.Euler(viewRotation.x, viewRotation.y, 0);
     }
 
-    public void OnFieldOfViewChangeRequested(float fieldOfView, float ratio)
+    public void OnFieldOfViewChange(float fieldOfView, float ratio)
     {
         for (int i = 0; i < _cameras.Length; i++)
         {
