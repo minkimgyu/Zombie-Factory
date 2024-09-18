@@ -49,7 +49,6 @@ abstract public class BaseWeapon : BaseItem
     public float SlowDownRatioByWeaponWeight { get { return 1.0f / _weaponWeight; } }
 
     protected Action<string, int, float> OnPlayOwnerAnimation;
-    protected Action<bool, int, int> OnShowRounds;
 
     void ChangeChildLayer(Transform child, int layer)
     {
@@ -116,6 +115,7 @@ abstract public class BaseWeapon : BaseItem
 
     public virtual void OnRooting(WeaponBlackboard blackboard)
     {
+        _attackPoint = blackboard.AttackPoint;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         transform.localScale = Vector3.one;

@@ -13,8 +13,6 @@ public class WeaponController : MonoBehaviour
     BaseWeapon _nowEquipedWeapon = null;
     Dictionary<BaseWeapon.Type, BaseWeapon> _weaponsContainer;
 
-    WeaponBlackboard _eventBlackboard;
-
     public enum State
     {
         Idle,
@@ -32,9 +30,6 @@ public class WeaponController : MonoBehaviour
 
     //Action<BaseItem.Name> OnProfileChangeRequested;
 
-    protected Action<bool> ActiveAmmoViewer;
-    protected Action<int, int> UpdateAmmoViewer;
-
     protected Action<BaseItem.Name, BaseWeapon.Type> AddPreview;
     protected Action<BaseWeapon.Type> RemovePreview;
 
@@ -44,6 +39,7 @@ public class WeaponController : MonoBehaviour
     bool _applyTPSAnimation; // TPS 모델인 경우
 
     Animator _animator;
+    WeaponBlackboard _weaponBlackboard;
 
     // OnShowRounds --> 이거는 이벤트 버스로 구현해주자
 
@@ -53,10 +49,13 @@ public class WeaponController : MonoBehaviour
         Action<BaseItem.Name, BaseWeapon.Type> AddPreview,
         Action<BaseWeapon.Type> RemovePreview)
     {
-        this.ActiveAmmoViewer = ActiveAmmoViewer;
-        this.UpdateAmmoViewer = UpdateAmmoViewer;
         this.AddPreview = AddPreview;
         this.RemovePreview = RemovePreview;
+
+        _weaponBlackboard = new WeaponBlackboard.Builder(_weaponBlackboard)
+        .SetActiveAmmoViewer(ActiveAmmoViewer)
+        .SetUpdateAmmoViewer(UpdateAmmoViewer)
+        .Build();
     }
 
     public void Initialize(float weaponThrowPower)
@@ -73,13 +72,13 @@ public class WeaponController : MonoBehaviour
 
         ViewComponent viewComponent = GetComponent<ViewComponent>();
 
-        _eventBlackboard = new WeaponBlackboard(
-            zoomComponent.OnZoomCalled,
-            SendMoveDisplacement,
-            viewComponent.OnRecoilRequested,
-            PlayOwnerAnimation,
-            _firePoint
-        );
+        _weaponBlackboard = new WeaponBlackboard.Builder()
+        .SetOnZoomRequested(zoomComponent.OnZoomCalled)
+        .SetSendMoveDisplacement(SendMoveDisplacement)
+        .SetOnPlayOwnerAnimation(PlayOwnerAnimation)
+        .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
+        .SetAttackPoint(_firePoint)
+        .Build();
 
         _weaponFSM = new WeaponFSM();
         Dictionary<State, BaseState<State>> weaponStates = new Dictionary<State, BaseState<State>>
@@ -91,8 +90,8 @@ public class WeaponController : MonoBehaviour
 
             { State.LeftAction, new LeftActionState(_weaponFSM, ReturnWeapon) },
             { State.RightAction, new RightActionState(_weaponFSM, ReturnWeapon) },
-            { State.Root, new RootState(_weaponFSM, _weaponsContainer, _weaponParent, _eventBlackboard, ReturnWeapon, AddPreview) }, // --> 여기 내부에 이벤트를 넣자
-            { State.Drop, new DropState(_weaponFSM, _weaponThrowPower, _weaponsContainer, _eventBlackboard, ReturnWeapon, ChangeWeapon, RemovePreview) },
+            { State.Root, new RootState(_weaponFSM, _weaponsContainer, _weaponParent, _weaponBlackboard, ReturnWeapon) }, // --> 여기 내부에 이벤트를 넣자
+            { State.Drop, new DropState(_weaponFSM, _weaponThrowPower, _weaponsContainer, _weaponBlackboard, ReturnWeapon, ChangeWeapon) },
         };
 
         _weaponFSM.Initialize(weaponStates);

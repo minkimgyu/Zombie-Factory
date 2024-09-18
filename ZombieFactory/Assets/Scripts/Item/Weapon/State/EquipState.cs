@@ -45,18 +45,16 @@ public class EquipState : BaseWeaponState
     /// </summary>
     public override void OnWeaponReceived(BaseWeapon weapon)
     {
-        //ResetWeapon?.Invoke(weapon);
-        //bool containWeapon = _weaponsContainer.ContainsKey(weapon.WeaponType);
-        //if (containWeapon)
-        //{
-        //    _baseFSM.SetState(WeaponController.State.Drop, weapon, "DropSameTypeWeaponAndRootNewWeapon");
-        //}
-        //else
-        //{
-        //    _baseFSM.SetState(WeaponController.State.Root, weapon, "RootNewWeapon");
-        //}
-
-        // 무기를 획득한 경우 
+        bool containWeapon = _weaponsContainer.ContainsKey(weapon.WeaponType);
+        if (containWeapon)
+        {
+            _baseFSM.SetState(WeaponController.State.Drop, weapon, "DropSameTypeWeaponAndRootNewWeapon");
+        }
+        else
+        {
+            _baseFSM.SetState(WeaponController.State.Root, weapon, "RootNewWeapon");
+            // 나가도 어차피 타이머가 리셋되기 때문에 상관 없음
+        }
     }
 
     public override void OnStateEnter(BaseWeapon.Type weaponType, string message)

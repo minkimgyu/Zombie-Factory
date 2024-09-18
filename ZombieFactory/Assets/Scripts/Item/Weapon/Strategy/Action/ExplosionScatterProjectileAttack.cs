@@ -28,11 +28,10 @@ public class ExplosionScatterProjectileAttack : ScatterProjectileAttack // ªÍ≈∫¿
         Vector3 camFowardDir = _attackPoint.ReturnDirection();
         Vector3 camPos = _attackPoint.ReturnPosition();
 
-        _frontPosition = camFowardDir * _frontDistance;
+        _frontPosition = camPos + (camFowardDir * _frontDistance);
 
         BaseEffect effect = _effectFactory.Create(BaseEffect.Name.Explosion);
-        effect.ResetData(camPos + (camFowardDir * _frontPosition.z));
-
+        effect.ResetData(_frontPosition);
         base.Execute();
     }
 }

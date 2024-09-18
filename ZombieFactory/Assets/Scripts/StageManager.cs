@@ -30,11 +30,8 @@ public class StageManager : MonoBehaviour
         _factoryCollection = new FactoryCollection(_addressableHandler);
         _cameraController.Initialize();
 
-        BaseLife life = _factoryCollection.Factories[FactoryCollection.Type.ArmedCharacter].Create(
-            BaseLife.Name.Player,
-            new List<BaseItem.Name> { BaseItem.Name.Phantom, BaseItem.Name.Classic, BaseItem.Name.Knife });
-
-        life.AddObserverEvent
+        BaseLife player = _factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.Player);
+        player.AddObserverEvent
         (
             _cameraController.MoveCamera,
             _cameraController.OnFieldOfViewChange,
@@ -47,6 +44,14 @@ public class StageManager : MonoBehaviour
             _gameUIController.AddWeaponViewer,
             _gameUIController.RemoveWeaponViewer
         );
+
+        BaseItem knife = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Knife);
+        BaseItem classic = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Stinger);
+        BaseItem phantom = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Guardian);
+
+        player.AddWeapon(knife as BaseWeapon);
+        player.AddWeapon(classic as BaseWeapon);
+        player.AddWeapon(phantom as BaseWeapon);
 
 
         for (int i = 0; i < walls.Count; i++)

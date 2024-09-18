@@ -14,7 +14,6 @@ public class SingleAndExplosionScatterAttackCombination : ActionStrategy // Atta
     //Func<Vector3> ReturnRaycastDir;
 
     int _targetLayer;
-
     IPoint _attackPoint;
     float _findRange;
     bool _isInFront;
@@ -36,6 +35,7 @@ public class SingleAndExplosionScatterAttackCombination : ActionStrategy // Atta
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
     {
         _targetLayer = targetLayer;
+
         _findRange = findRange;
 
         singleProjectileAttack = new SingleProjectileAttack(weaponName, range, targetLayer, singleBulletCountsInOneShoot, singlePenetratePower, singleDisplacementDecreaseRatio,
@@ -78,18 +78,14 @@ public class SingleAndExplosionScatterAttackCombination : ActionStrategy // Atta
 
     public override void LinkEvent(WeaponBlackboard blackboard)
     {
-        //ReturnRaycastPos = blackboard.ReturnRaycastPos;
-        //ReturnRaycastDir = blackboard.ReturnRaycastDir;
-
+        _attackPoint = blackboard.AttackPoint;
         singleProjectileAttack.LinkEvent(blackboard);
         scatterProjectileGunAttack.LinkEvent(blackboard);
     }
 
     public override void UnlinkEvent(WeaponBlackboard blackboard)
     {
-        //ReturnRaycastPos -= blackboard.ReturnRaycastPos;
-        //ReturnRaycastDir -= blackboard.ReturnRaycastDir;
-
+        _attackPoint = null;
         singleProjectileAttack.UnlinkEvent(blackboard);
         scatterProjectileGunAttack.UnlinkEvent(blackboard);
     }

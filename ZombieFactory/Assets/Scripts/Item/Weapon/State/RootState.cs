@@ -10,15 +10,12 @@ public class RootState : BaseWeaponState
     Transform _weaponParent;
     Func<BaseWeapon> ReturnWeapon;
 
-    Action<BaseItem.Name, BaseWeapon.Type> AddPreview;
-
     public RootState(
         FSM<WeaponController.State> fsm,
         Dictionary<BaseWeapon.Type, BaseWeapon> weaponsContainer,
         Transform weaponParent,
         WeaponBlackboard eventBlackboard,
-        Func<BaseWeapon> ReturnWeapon,
-        Action<BaseItem.Name, BaseWeapon.Type> AddPreview
+        Func<BaseWeapon> ReturnWeapon
         ) : base(fsm)
     {
         _weaponsContainer = weaponsContainer;
@@ -26,7 +23,6 @@ public class RootState : BaseWeaponState
         _eventBlackboard = eventBlackboard;
 
         this.ReturnWeapon = ReturnWeapon;
-        this.AddPreview = AddPreview;
     }
 
     void AttachWeaponToArm(BaseWeapon weapon)
@@ -39,7 +35,7 @@ public class RootState : BaseWeaponState
 
     public override void OnStateEnter(BaseWeapon weapon, string message)
     {
-        AddPreview?.Invoke(weapon.WeaponName, weapon.WeaponType);
+        //_eventBlackboard?.Invoke(weapon.WeaponName, weapon.WeaponType);
 
         // 현재 장착한 무기랑 같은 타입의 무기인 경우
         // 아니면 다른 경우

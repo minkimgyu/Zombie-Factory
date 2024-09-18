@@ -51,6 +51,8 @@ abstract public class BaseEffect : MonoBehaviour, IPoolable
 
     protected virtual void OnDisable()
     {
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
         _timer.Reset();
         ReturnToPool?.Invoke();
     }

@@ -54,7 +54,7 @@ public class ScatterProjectileAttack : PenetrateAttack // 산탄은 가중치가 적용되
 
         base.Execute();
 
-        List<Vector3> offsetDistances = ReturnOffsetDistance(DisplacementWeight, _pelletCount * _fireCountInOnce);
+        List<Vector3> offsetDistances = ReturnOffsetDistance(DisplacementWeight, _pelletCount);
         for (int i = 0; i < offsetDistances.Count; i++)
         {
             Shoot(offsetDistances[i], _frontPosition);

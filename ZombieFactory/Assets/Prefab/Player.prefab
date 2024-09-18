@@ -1753,6 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 898515014565962087}
+  _armMesh: {fileID: 1645595469626557525}
   _cameraHolder: {fileID: 5598770071221521664}
   _viewRotation: {x: 0, y: 0, z: 0}
   _bone: {fileID: 827339553941822583}

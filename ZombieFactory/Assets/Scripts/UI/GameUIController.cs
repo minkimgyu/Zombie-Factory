@@ -9,12 +9,6 @@ public class GameUIController : MonoBehaviour
     [SerializeField] HpViewer _hpViewer;
 
     [SerializeField] AmmoViwer _ammoViewer;
-    AmmoData _ammoData;
-
-    public void Initialize()
-    {
-        _ammoData = new AmmoData(_ammoViewer);
-    }
 
     public void ChangeHpRatio(float ratio)
     {
@@ -28,8 +22,9 @@ public class GameUIController : MonoBehaviour
 
     public void ChangeAmmo(int inMagazine, int inPossession)
     {
-        _ammoData.BulletCountInMagazine = inMagazine;
-        _ammoData.BulletCountInPossession = inPossession;
+        Debug.Log(inMagazine);
+        Debug.Log(inPossession);
+        _ammoViewer.ChangeAmmo(inMagazine, inPossession);
     }
 
     public void ActiveAmmoViewer(bool active)

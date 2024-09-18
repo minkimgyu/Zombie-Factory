@@ -41,12 +41,9 @@ public class FactoryCollection
         BaseFactory effectFactory = new EffectFactory(addressableHandler);
         BaseFactory lifeFactory = new LifeFactory(addressableHandler, effectFactory);
         BaseFactory itemFactory = new ItemFactory(addressableHandler, effectFactory);
-        BaseFactory armedCharacterFactory = new ArmedCharacterFactory(itemFactory, effectFactory, lifeFactory);
 
         Factories.Add(Type.Effect, effectFactory);
         Factories.Add(Type.Life, lifeFactory);
         Factories.Add(Type.Weapon, itemFactory);
-
-        Factories.Add(Type.ArmedCharacter, armedCharacterFactory);
     }
 }

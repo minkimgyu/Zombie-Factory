@@ -7,6 +7,7 @@ using Unity.Mathematics;
 public class ViewComponent : MonoBehaviour, IRecoilReceiver
 {
     [SerializeField] private Transform _firePoint;
+    [SerializeField] private Transform _armMesh;
     [SerializeField] private Transform _cameraHolder;
     [SerializeField] protected Vector3 _viewRotation;
 
@@ -51,6 +52,7 @@ public class ViewComponent : MonoBehaviour, IRecoilReceiver
     public void ResetCamera()
     {
         _firePoint.rotation = Quaternion.Euler(FinalViewRotation.x, FinalViewRotation.y, 0);
+        _armMesh.rotation = Quaternion.Euler(FinalViewRotation.x, FinalViewRotation.y, 0);
         MoveCamera?.Invoke(_cameraHolder.position, FinalViewRotation);
     }
 

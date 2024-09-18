@@ -22,8 +22,7 @@ public class DropState : BaseWeaponState
         WeaponBlackboard eventBlackboard,
 
         Func<BaseWeapon> ReturnWeapon,
-        Action<BaseWeapon> ChangeWeapon,
-        Action<BaseWeapon.Type> RemovePreview) : base(fsm)
+        Action<BaseWeapon> ChangeWeapon) : base(fsm)
     {
         _weaponThrowPower = weaponThrowPower;
 
@@ -31,7 +30,6 @@ public class DropState : BaseWeaponState
 
         this.ReturnWeapon = ReturnWeapon;
         this.ChangeWeapon = ChangeWeapon;
-        this.RemovePreview = RemovePreview;
 
         _eventBlackboard = eventBlackboard;
     }

@@ -42,6 +42,16 @@ abstract public class Gun : BaseWeapon, IInteractable
     protected void SpawnEmptyCartridge() => _emptyCartridgeSpawner.Play();
     protected void SpawnMuzzleFlashEffect() => _muzzleFlash.Play();
 
+    Action<bool> ActiveAmmoViewer;
+    Action<int, int> UpdateAmmoViewer;
+
+    public override void OnRooting(WeaponBlackboard blackboard)
+    {
+        base.OnRooting(blackboard);
+        ActiveAmmoViewer = blackboard.ActiveAmmoViewer;
+        UpdateAmmoViewer = blackboard.UpdateAmmoViewer;
+    }
+
     public override bool IsAmmoEmpty()
     {
         return _ammoCountsInMagazine == 0 && _ammoCountsInPossession == 0;
@@ -50,6 +60,7 @@ abstract public class Gun : BaseWeapon, IInteractable
     public void DecreaseAmmoCount(int _fireCountInOnce)
     {
         _ammoCountsInMagazine -= _fireCountInOnce;
+        UpdateAmmoViewer?.Invoke(_ammoCountsInMagazine, _ammoCountsInPossession);
         if (_ammoCountsInMagazine < 0) _ammoCountsInMagazine = 0;
     }
 
@@ -64,6 +75,7 @@ abstract public class Gun : BaseWeapon, IInteractable
     {
         _ammoCountsInMagazine = ammoCountsInMagazine;
         _ammoCountsInPossession = ammoCountsInPossession;
+        UpdateAmmoViewer?.Invoke(_ammoCountsInMagazine, _ammoCountsInPossession);
     }
 
     public override bool CanAutoReload() { return _ammoCountsInMagazine == 0 && _ammoCountsInPossession > 0; }
@@ -78,12 +90,6 @@ abstract public class Gun : BaseWeapon, IInteractable
     {
         for (int i = 0; i < _actionStrategies.Count; i++) _actionStrategies[(EventType)i].TurnOffZoomDirectly();
         _reloadStrategy.Execute(isTPS, _ammoCountsInMagazine, _ammoCountsInPossession);
-    }
-
-    // 장전이 끝나면 여기 이벤트 호출됨
-    public override void OnReloadEnd()
-    {
-        OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
     }
 
     // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
@@ -138,8 +144,8 @@ abstract public class Gun : BaseWeapon, IInteractable
     public override void OnEquip()
     {
         base.OnEquip();
-        OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
-
+        UpdateAmmoViewer?.Invoke(_ammoCountsInMagazine, _ammoCountsInPossession);
+        ActiveAmmoViewer?.Invoke(true);
     }
 
     #endregion;
@@ -174,12 +180,6 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     //    OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
     //}
-
-    protected override void OnAction(EventType type)
-    {
-        base.OnAction(type);
-        OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
-    }
 
     public void OnSightEnter()
     {

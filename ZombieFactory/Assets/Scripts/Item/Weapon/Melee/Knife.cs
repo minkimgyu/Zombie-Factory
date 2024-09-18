@@ -1,13 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Knife : BaseWeapon
 {
+    Action<bool> ActiveAmmoViewer;
+
+    public override void OnRooting(WeaponBlackboard blackboard)
+    {
+        base.OnRooting(blackboard);
+        ActiveAmmoViewer = blackboard.ActiveAmmoViewer;
+    }
+
     public override void OnEquip()
     {
         base.OnEquip();
-        OnShowRounds?.Invoke(false, 0, 0);
+        ActiveAmmoViewer?.Invoke(false);
     }
 
     public override void ResetData(KnifeData data, BaseFactory effectFactory)

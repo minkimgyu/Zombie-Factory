@@ -6,18 +6,18 @@ abstract public class BaseItem : MonoBehaviour
 {
     public enum Name
     {
-        Vandal,
-        Phantom,
-        Odin,
+        Vandal, // -> O
+        Phantom, // -> O
+        Odin, // -> O
 
         Judge,
-        Stinger,
-        Guardian,
+        Stinger, // -> O
+        Guardian, // -> X
         Bucky,
 
-        Operator,
-        Classic,
-        Knife
+        Operator, // -> X
+        Classic, // -> O
+        Knife // -> O
     }
 
     public virtual void Initialize() { }

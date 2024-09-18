@@ -52,8 +52,10 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
     /// </summary>
     public void OnUpdate()
     {
-        if (_timer.CurrentState == Timer.State.Finish) return;
-        MoveCamera(_zoomPosition, _fieldOfView, _timer.Ratio);
+        if (_timer.CurrentState == Timer.State.Running)
+        {
+            MoveCamera(_zoomPosition, _fieldOfView, _timer.Ratio);
+        }
     }
 
     void MoveCamera(Vector3 armPosition, float fieldOfView, float progress = 1)
