@@ -26,6 +26,7 @@ public class FactoryCollection
         Effect,
         Weapon,
         Life,
+        Ragdoll,
 
         ArmedCharacter
     }
@@ -39,7 +40,9 @@ public class FactoryCollection
         // DI를 통해 의존성 주입
 
         BaseFactory effectFactory = new EffectFactory(addressableHandler);
-        BaseFactory lifeFactory = new LifeFactory(addressableHandler, effectFactory);
+        BaseFactory ragdollFactory = new RagdollFactory(addressableHandler);
+
+        BaseFactory lifeFactory = new LifeFactory(addressableHandler, effectFactory, ragdollFactory);
         BaseFactory itemFactory = new ItemFactory(addressableHandler, effectFactory);
 
         Factories.Add(Type.Effect, effectFactory);

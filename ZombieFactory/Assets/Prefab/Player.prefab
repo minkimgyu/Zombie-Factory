@@ -1683,7 +1683,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9189124819648719070}
   - component: {fileID: 4157966610227821237}
-  - component: {fileID: 7037584066314540384}
+  - component: {fileID: 6025960364436089582}
   - component: {fileID: 6542864559961064118}
   - component: {fileID: 7744430859190197948}
   - component: {fileID: 3797444147352418980}
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3540569d854a40a71746714b11882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7037584066314540384
+--- !u!114 &6025960364436089582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1736,10 +1736,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7214857016241372895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3910ec6b84543e6469a4cb17b4242b80, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e555a144bf660d4f928d06806412821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 3122182715222279886}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &6542864559961064118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1755,8 +1757,6 @@ MonoBehaviour:
   _firePoint: {fileID: 898515014565962087}
   _armMesh: {fileID: 1645595469626557525}
   _cameraHolder: {fileID: 5598770071221521664}
-  _viewRotation: {x: 0, y: 0, z: 0}
-  _bone: {fileID: 827339553941822583}
 --- !u!114 &7744430859190197948
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,7 +32,6 @@ public class PlayerData : LifeData
 
     public PlayerData(
         float maxHp, 
-        IIdentifiable.Type type,
 
         float viewYRange, 
         SerializableVector2 viewSensitivity, 
@@ -45,7 +44,7 @@ public class PlayerData : LifeData
         float capsuleStandCenter, 
         float capsuleCrouchHeight, 
         float capsuleStandHeight, 
-        float capsuleCrouchCenter) : base(maxHp, type)
+        float capsuleCrouchCenter) : base(maxHp)
     {
         this.viewYRange = viewYRange;
         this.viewSensitivity = viewSensitivity;

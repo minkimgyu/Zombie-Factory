@@ -14,8 +14,8 @@ TagManager:
   - Capture
   - Ground
   - Penetratable
-  - 
-  - 
+  - Block
+  - NonPass
   - 
   - 
   - 

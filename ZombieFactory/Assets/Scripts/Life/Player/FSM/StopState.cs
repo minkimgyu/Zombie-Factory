@@ -7,9 +7,9 @@ using UnityEngine.Windows;
 
 public class StopState : BaseMovementState
 {
-    MoveComponent _moveComponent;
+    BaseMoveComponent _moveComponent;
 
-    public StopState(FSM<ActionController.MovementState> fsm, MoveComponent moveComponent) : base(fsm)
+    public StopState(FSM<MovementState> fsm, BaseMoveComponent moveComponent) : base(fsm)
     {
         _moveComponent = moveComponent;
     }
@@ -25,13 +25,13 @@ public class StopState : BaseMovementState
 
         if (input.magnitude > 0)
         {
-            _baseFSM.SetState(ActionController.MovementState.Walk);
+            _baseFSM.SetState(MovementState.Walk);
             return;
         }
     }
 
     public override void OnHandleJump()
     {
-        _baseFSM.SetState(ActionController.MovementState.Jump);
+        _baseFSM.SetState(MovementState.Jump);
     }
 }

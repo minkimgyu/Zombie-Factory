@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Life
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3e886bb94c870d42bfe6ed58a018456
+    m_Address: PoliceZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

@@ -2107,7 +2107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7788568108058039639}
-  - component: {fileID: 8706288640258834786}
+  - component: {fileID: 6753886226204434255}
   m_Layer: 0
   m_Name: PoliceZombieRagdoll
   m_TagString: Untagged
@@ -2135,7 +2135,7 @@ Transform:
   - {fileID: 8132657961613748769}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8706288640258834786
+--- !u!114 &6753886226204434255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2144,10 +2144,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6075784055412793287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7083dc47de59a3741a5d0f3b69778954, type: 3}
+  m_Script: {fileID: 11500000, guid: 56ff5ea4b41399c4c86af0b3191fb620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rig: {fileID: 8132657961613748769}
+  _duration: 5
+  _rag: {fileID: 8132657961613748769}
 --- !u!1 &6246239841124085526
 GameObject:
   m_ObjectHideFlags: 0

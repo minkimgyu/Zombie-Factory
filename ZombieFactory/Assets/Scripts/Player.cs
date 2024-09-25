@@ -48,7 +48,7 @@ public class Player : BaseLife
     {
         _effectFactory = effectFactory;
         _maxHp = data.maxHp;
-        _myType = data.type;
+        _myType = IIdentifiable.Type.Human;
 
         _viewYRange = data.viewYRange;
         _viewSensitivity = data.viewSensitivity;

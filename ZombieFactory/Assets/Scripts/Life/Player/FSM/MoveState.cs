@@ -6,11 +6,11 @@ public class MoveState : BaseMovementState
 {
     Vector3 _input;
     float _moveSpeed;
-    protected MoveComponent _moveComponent;
+    protected BaseMoveComponent _moveComponent;
 
     Vector3 _storedDirection;
 
-    public MoveState(FSM<ActionController.MovementState> fsm, MoveComponent moveComponent, float moveSpeed) : base(fsm)
+    public MoveState(FSM<MovementState> fsm, BaseMoveComponent moveComponent, float moveSpeed) : base(fsm)
     {
         _moveComponent = moveComponent;
         _moveSpeed = moveSpeed;

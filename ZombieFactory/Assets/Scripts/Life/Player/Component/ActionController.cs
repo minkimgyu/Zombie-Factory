@@ -1,36 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
-using UnityEngine.Windows;
 
-[RequireComponent(typeof(MoveComponent))]
-[RequireComponent(typeof(ViewComponent))]
+public enum PostureState
+{
+    Sit,
+    Stand
+}
+
+public enum MovementState
+{
+    Stop,
+    Walk,
+    Run,
+    Jump
+}
+
+[RequireComponent(typeof(FPSMoveComponent))]
+[RequireComponent(typeof(FPSViewComponent))]
 public class ActionController : MonoBehaviour
 {
-    public enum PostureState
-    {
-        Sit,
-        Stand
-    }
-
-    public enum MovementState
-    {
-        Stop,
-        Walk,
-        Run,
-        Jump
-    }
-
     PostureState _postureState;
-
-    Animator _animator;
 
     MovementFSM _movementFSM;
 
-    MoveComponent _moveComponent;
-    ViewComponent _viewComponent;
+    FPSMoveComponent _moveComponent;
+    FPSViewComponent _viewComponent;
     ZoomComponent _zoomComponent;
 
     CapsuleCollider _capsuleCollider;
@@ -87,12 +83,10 @@ public class ActionController : MonoBehaviour
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _rigidbody = GetComponent<Rigidbody>();
 
-        _moveComponent = GetComponent<MoveComponent>();
+        _moveComponent = GetComponent<FPSMoveComponent>();
         _moveComponent.Initialize();
 
-        _animator = GetComponentInChildren<Animator>();
-
-        _viewComponent = GetComponent<ViewComponent>();
+        _viewComponent = GetComponent<FPSViewComponent>();
         _viewComponent.Initialize(viewYRange, viewSensitivity); // viewYRange, viewSensitivity
 
         _zoomComponent = GetComponent<ZoomComponent>();
@@ -106,8 +100,8 @@ public class ActionController : MonoBehaviour
         {
             { MovementState.Stop, new StopState(_movementFSM, _moveComponent) },
             { MovementState.Walk, new WalkState(_movementFSM, _moveComponent, _walkSpeed) },
-            { MovementState.Run, new RunState(_movementFSM, _moveComponent, _animator, _runSpeed) },
-            { MovementState.Jump, new JumpState(_movementFSM, _moveComponent, _animator, _jumpSpeed) }
+            { MovementState.Run, new RunState(_movementFSM, _moveComponent, _runSpeed) },
+            { MovementState.Jump, new JumpState(_movementFSM, _moveComponent, _jumpSpeed) }
         };
 
         _movementFSM.Initialize(movementStates);
@@ -131,12 +125,12 @@ public class ActionController : MonoBehaviour
         switch (_postureState)
         {
             case PostureState.Sit:
-                _animator.SetBool("Sit", true);
+                //_animator.SetBool("Sit", true);
                 _currentCapsuleCenter = _capsuleCrouchCenter;
                 _currentCapsuleHeight = _capsuleCrouchHeight;
                 break;
             case PostureState.Stand:
-                _animator.SetBool("Sit", false);
+                //_animator.SetBool("Sit", false);
                 _currentCapsuleCenter = _capsuleStandCenter;
                 _currentCapsuleHeight = _capsuleStandHeight;
                 break;
@@ -173,28 +167,20 @@ public class ActionController : MonoBehaviour
         _movementFSM.OnHandleJump();
     }
 
-    Vector3 _storedDirection;
-    Vector3 _input;
-    float _lerpAnimationSpeed = 8;
-
     Vector2 _viewInput;
 
     public void OnHandleMove(Vector3 dir)
     {
-        _input = dir;
         _movementFSM.OnHandleMove(dir);
     }
 
     public void OnHandleView(Vector2 dir)
     {
-        //_viewComponent.ResetView(dir);
+        _viewInput = dir;
     }
 
     public void OnUpdate()
     {
-        //_storedDirection = Vector3.Lerp(_storedDirection, _input, Time.deltaTime * _lerpAnimationSpeed);
-        //_animator.SetFloat("Z", _storedDirection.z);
-        //_animator.SetFloat("X", _storedDirection.x);
         _zoomComponent.OnUpdate();
         _movementFSM.OnUpdate();
 
@@ -204,7 +190,7 @@ public class ActionController : MonoBehaviour
         }
 
         _moveComponent.CheckIsOnSlope();
-        _viewComponent.ResetView();
+        _viewComponent.View(_viewInput);
     }
 
     public void OnFixedUpdate()

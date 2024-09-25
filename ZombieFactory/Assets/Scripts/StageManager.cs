@@ -1,3 +1,4 @@
+using AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class StageManager : MonoBehaviour
 
     [SerializeField] CameraController _cameraController;
     [SerializeField] GameUIController _gameUIController;
+
+    [SerializeField] GroundPathfinder _groundPathfinder;
 
     AddressableHandler _addressableHandler;
     FactoryCollection _factoryCollection;
@@ -29,6 +32,12 @@ public class StageManager : MonoBehaviour
     {
         _factoryCollection = new FactoryCollection(_addressableHandler);
         _cameraController.Initialize();
+
+        BaseLife zombie = _factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.PoliceZombie);
+        IInjectPathfind injectPathfind = zombie.GetComponent<IInjectPathfind>();
+        injectPathfind.AddPathfind(_groundPathfinder.FindPath);
+
+        zombie.transform.position = new Vector3(3, 0, 3);
 
         BaseLife player = _factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.Player);
         player.AddObserverEvent

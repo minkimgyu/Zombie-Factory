@@ -6,8 +6,6 @@ using System;
 
 public class EffectCreater : Pool
 {
-    IPoolable _prefab;
-
     public EffectCreater(BaseEffect prefab) : base(prefab)
     {
     }

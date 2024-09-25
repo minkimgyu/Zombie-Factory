@@ -44,10 +44,10 @@ abstract public class JsonAssetLoader<Key, Value> : BaseAssetLoader<Key, Value, 
                     Key key = (Key)Enum.Parse(typeof(Key), location.PrimaryKey);
                     Value value = _parser.JsonToObject<Value>(handle.Result);
 
-                    Debug.Log(key);
-                    Debug.Log(handle.Result);
+                    //Debug.Log(key);
+                    //Debug.Log(handle.Result);
 
-                    Debug.Log(value);
+                    //Debug.Log(value);
 
                     dictionary.Add(key, value);
                     OnComplete?.Invoke();

@@ -13,10 +13,10 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
         Rook,
         Warden,
 
-        Mask,
-        Police,
-        Witch,
-        Mild
+        //Mask,
+        PoliceZombie,
+        //Witch,
+        //Mild
     }
 
     public enum LifeState
@@ -37,6 +37,7 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
 
     public virtual void Initialize() 
     {
+        _hp = _maxHp;
         _lifeState = LifeState.Alive;
         _hitPoints = GetComponentsInChildren<HitPoint>();
         for (int i = 0; i < _hitPoints.Length; i++)
@@ -46,8 +47,8 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
     }
 
     public virtual void ResetData(PlayerData data, BaseFactory effectFactory) { }
-    public virtual void ResetData(HelperData data) { }
-    public virtual void ResetData(ZombieData data) { }
+    public virtual void ResetData(HelperData data, BaseFactory effectFactory) { }
+    public virtual void ResetData(ZombieData data, BaseFactory effectFactory, BaseFactory ragdollFactory) { }
 
     public virtual void AddObserverEvent
     (

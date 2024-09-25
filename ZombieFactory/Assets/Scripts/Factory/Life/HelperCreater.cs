@@ -50,7 +50,6 @@ public class HelperData : LifeData
 
     public HelperData(
         float maxHp, 
-        IIdentifiable.Type type,
 
         BaseLife.Name name, 
         float destoryDelay, 
@@ -77,7 +76,7 @@ public class HelperData : LifeData
         float formationRadius, 
         float formationOffset, 
         float formationOffsetChangeDuration, 
-        string ragdollName) : base(maxHp, type)
+        string ragdollName) : base(maxHp)
     {
         this.name = name;
         this.destoryDelay = destoryDelay;
@@ -119,7 +118,7 @@ public class HelperCreater : LifeCreater
         BaseLife life = Object.Instantiate(_lifePrefab);
 
         HelperData playerData = _lifeData as HelperData;
-        life.ResetData(playerData);
+        life.ResetData(playerData, null);
         life.Initialize();
         return life;
     }

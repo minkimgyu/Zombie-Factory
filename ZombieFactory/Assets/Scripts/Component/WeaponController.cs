@@ -70,7 +70,7 @@ public class WeaponController : MonoBehaviour
         ZoomComponent zoomComponent = GetComponent<ZoomComponent>();
         zoomComponent.Initialize();
 
-        ViewComponent viewComponent = GetComponent<ViewComponent>();
+        FPSViewComponent viewComponent = GetComponent<FPSViewComponent>();
 
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetOnZoomRequested(zoomComponent.OnZoomCalled)

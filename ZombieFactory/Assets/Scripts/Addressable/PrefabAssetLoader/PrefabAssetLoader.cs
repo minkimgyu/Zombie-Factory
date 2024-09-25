@@ -12,6 +12,12 @@ public class LifeAssetLoader : PrefabAssetLoader<BaseLife.Name, BaseLife>
     {
     }
 }
+public class RagdollAssetLoader : PrefabAssetLoader<BaseLife.Name, Ragdoll>
+{
+    public RagdollAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseLife.Name, Ragdoll>> OnComplete) : base(label, OnComplete)
+    {
+    }
+}
 public class ItemAssetLoader : PrefabAssetLoader<BaseItem.Name, BaseItem>
 {
     public ItemAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, BaseItem>> OnComplete) : base(label, OnComplete)

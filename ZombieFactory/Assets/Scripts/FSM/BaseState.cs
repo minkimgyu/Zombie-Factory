@@ -19,6 +19,12 @@ abstract public class BaseState<T>
 
     public virtual void OnStateFixedUpdate() { }
 
+
+    public virtual void OnTargetEnter() { }
+    public virtual void OnTargetExit() { }
+    public virtual void OnNoiseEnter() { }
+
+
     public virtual void OnCollisionEnter(Collision collision) { }
 
     public virtual void OnHandleRunStart() { }

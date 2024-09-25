@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class BaseMovementState : BaseState<ActionController.MovementState>
+abstract public class BaseMovementState : BaseState<MovementState>
 {
-    public BaseMovementState(FSM<ActionController.MovementState> fsm) : base(fsm)
+    public BaseMovementState(FSM<MovementState> fsm) : base(fsm)
     {
     }
 
@@ -13,11 +13,10 @@ abstract public class BaseMovementState : BaseState<ActionController.MovementSta
     public override void OnStateUpdate() { }
 }
 
-public class MovementFSM : FSM<ActionController.MovementState>
+public class MovementFSM : FSM<MovementState>
 {
     public void OnStateFixedUpdate() => _currentState.OnStateFixedUpdate();
     public void OnCollisionEnter(Collision collision) => _currentState.OnCollisionEnter(collision);
-
     
     public void OnHandleRunStart() => _currentState.OnHandleRunStart();
     public void OnHandleRunEnd() => _currentState.OnHandleRunEnd();

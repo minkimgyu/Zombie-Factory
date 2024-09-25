@@ -10,9 +10,9 @@ public class InputHandler : MonoBehaviour, IInputable
 
     private void Update()
     {
-        float viewY = Input.GetAxisRaw("Mouse Y");
         float viewX = Input.GetAxisRaw("Mouse X");
-        Vector2 viewDirection = new Vector2(viewY, viewX).normalized;
+        float viewY = Input.GetAxisRaw("Mouse Y");
+        Vector2 viewDirection = new Vector2(viewX, viewY);
         Execute(IInputable.Type.View, viewDirection);
 
         float moveX = Input.GetAxisRaw("Horizontal");

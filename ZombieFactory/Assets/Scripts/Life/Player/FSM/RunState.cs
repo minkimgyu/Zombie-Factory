@@ -5,27 +5,14 @@ using UnityEngine.Windows;
 
 public class RunState : MoveState
 {
-    Animator _animator;
-
-    public RunState(FSM<ActionController.MovementState> fsm, MoveComponent moveComponent, Animator animator,  float moveForce)
+    public RunState(FSM<MovementState> fsm, BaseMoveComponent moveComponent, float moveForce)
          : base(fsm, moveComponent, moveForce)
     {
-        _animator = animator;
-    }
-
-    public override void OnStateExit()
-    {
-        _animator.SetBool("Run", false);
-    }
-
-    public override void OnStateEnter()
-    {
-        _animator.SetBool("Run", true);
     }
 
     public override void OnHandleRunEnd()
     {
-        _baseFSM.SetState(ActionController.MovementState.Walk);
+        _baseFSM.SetState(MovementState.Walk);
     }
 
     public override void OnHandleMove(Vector3 input)
@@ -33,13 +20,13 @@ public class RunState : MoveState
         base.OnHandleMove(input);
         if (input.magnitude == 0)
         {
-            _baseFSM.SetState(ActionController.MovementState.Stop);
+            _baseFSM.SetState(MovementState.Stop);
             return;
         }
     }
 
     public override void OnHandleJump()
     {
-        _baseFSM.SetState(ActionController.MovementState.Jump);
+        _baseFSM.SetState(MovementState.Jump);
     }
 }

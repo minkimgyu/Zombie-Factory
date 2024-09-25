@@ -7,12 +7,10 @@ using System;
 public class LifeData
 {
     public float maxHp;
-    public IIdentifiable.Type type;
 
-    public LifeData(float maxHp, IIdentifiable.Type type)
+    public LifeData(float maxHp)
     {
         this.maxHp = maxHp;
-        this.type = type;
     }
 }
 
@@ -31,7 +29,7 @@ public class LifeFactory : BaseFactory
 {
     Dictionary<BaseLife.Name, LifeCreater> _lifeCreaters;
 
-    public LifeFactory(AddressableHandler addressableHandler, BaseFactory effectFactory)
+    public LifeFactory(AddressableHandler addressableHandler, BaseFactory effectFactory, BaseFactory ragdollFactory)
     {
         _lifeCreaters = new Dictionary<BaseLife.Name, LifeCreater>();
         _lifeCreaters[BaseLife.Name.Player] = new PlayerCreater(addressableHandler.LifePrefabs[BaseLife.Name.Player], addressableHandler.LifeDataDictionary[BaseLife.Name.Player], effectFactory);
@@ -39,10 +37,10 @@ public class LifeFactory : BaseFactory
         //_lifeCreaters[BaseLife.Name.Rook] = new HelperCreater(lifePrefabs[BaseLife.Name.Rook], lifeDatas[BaseLife.Name.Rook]);
         //_lifeCreaters[BaseLife.Name.Warden] = new HelperCreater(lifePrefabs[BaseLife.Name.Warden], lifeDatas[BaseLife.Name.Warden]);
 
-        //_lifeCreaters[BaseLife.Name.Mask] = new ZombieCreater(lifePrefabs[BaseLife.Name.Mask], lifeDatas[BaseLife.Name.Mask]);
-        //_lifeCreaters[BaseLife.Name.Police] = new ZombieCreater(lifePrefabs[BaseLife.Name.Police], lifeDatas[BaseLife.Name.Police]);
-        //_lifeCreaters[BaseLife.Name.Witch] = new ZombieCreater(lifePrefabs[BaseLife.Name.Witch], lifeDatas[BaseLife.Name.Witch]);
-        //_lifeCreaters[BaseLife.Name.Mild] = new ZombieCreater(lifePrefabs[BaseLife.Name.Mild], lifeDatas[BaseLife.Name.Mild]);
+        //_lifeCreaters[BaseLife.Name.Mask] = new ZombieCreater(addressableHandler.LifePrefabs[BaseLife.Name.Mask], addressableHandler.LifeDataDictionary[BaseLife.Name.Mask], effectFactory);
+        _lifeCreaters[BaseLife.Name.PoliceZombie] = new ZombieCreater(addressableHandler.LifePrefabs[BaseLife.Name.PoliceZombie], addressableHandler.LifeDataDictionary[BaseLife.Name.PoliceZombie], effectFactory, ragdollFactory);
+        //_lifeCreaters[BaseLife.Name.Witch] = new ZombieCreater(addressableHandler.LifePrefabs[BaseLife.Name.Witch], addressableHandler.LifeDataDictionary[BaseLife.Name.Witch], effectFactory);
+        //_lifeCreaters[BaseLife.Name.Mild] = new ZombieCreater(addressableHandler.LifePrefabs[BaseLife.Name.Mild], addressableHandler.LifeDataDictionary[BaseLife.Name.Mild], effectFactory);
     }
 
     public override BaseLife Create(BaseLife.Name name)

@@ -65,7 +65,7 @@ public class IdleState : BaseWeaponState
     public override void OnWeaponReceived(BaseWeapon weapon)
     {
         bool containWeapon = _weaponsContainer.ContainsKey(weapon.WeaponType);
-        if(containWeapon)
+        if (containWeapon)
         {
             _baseFSM.SetState(WeaponController.State.Drop, weapon, "DropSameTypeWeaponAndRootNewWeapon");
         }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Ragdoll
+  m_EditorClassIdentifier: 
+  m_GroupName: Ragdoll
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3581da8442ded18488dfb1d6049fafed
+  m_SerializeEntries:
+  - m_GUID: f5172bc47cc52bd469495c1b9c266317
+    m_Address: PoliceZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ragdoll
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f70308454fb81524e9f661ae3877c88d, type: 2}
+    - {fileID: 11400000, guid: 86d2245e0d560a94da4ad8902db79f7c, type: 2}
