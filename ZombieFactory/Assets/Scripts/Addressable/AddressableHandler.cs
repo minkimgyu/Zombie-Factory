@@ -32,7 +32,7 @@ public class AddressableHandler
         RightRecoilData,
     }
 
-    Dictionary<Label, BaseLoader> _assetLoaders;
+    HashSet<BaseLoader> _assetLoaders;
 
     int _successCount;
     int _totalCount;
@@ -56,29 +56,22 @@ public class AddressableHandler
 
     public void Load(Action OnCompleted)
     {
-        _assetLoaders = new Dictionary<Label, BaseLoader>();
+        _assetLoaders = new HashSet<BaseLoader>();
 
-        _assetLoaders.Add(Label.Item, new ItemAssetLoader(Label.Item, (value) => { ItemPrefabs = value; OnSuccess(Label.Item); }));
-
-        _assetLoaders.Add(Label.Ragdoll, new RagdollAssetLoader(Label.Ragdoll, (value) => { RagdollPrefabs = value; OnSuccess(Label.Ragdoll); }));
-
-        _assetLoaders.Add(Label.Life, new LifeAssetLoader(Label.Life, (value) => { LifePrefabs = value; OnSuccess(Label.Life); }));
-
-        _assetLoaders.Add(Label.Effect, new EffectAssetLoader(Label.Effect, (value) => { EffectPrefabs = value; OnSuccess(Label.Effect); }));
-
-        _assetLoaders.Add(Label.ItemData, new ItemJsonAssetLoader(Label.ItemData, (value) => { ItemDataDictionary = value; OnSuccess(Label.ItemData); }));
-
-        _assetLoaders.Add(Label.LifeData, new LifeJsonAssetLoader(Label.LifeData, (value) => { LifeDataDictionary = value; OnSuccess(Label.LifeData); }));
-
-        _assetLoaders.Add(Label.LeftRecoilData, new RecoilJsonAssetLoader(Label.LeftRecoilData, (value) => { LeftRecoilDataDictionary = value; OnSuccess(Label.LeftRecoilData); }));
-
-        _assetLoaders.Add(Label.RightRecoilData, new RecoilJsonAssetLoader(Label.RightRecoilData, (value) => { RightRecoilDataDictionary = value; OnSuccess(Label.RightRecoilData); }));
+        _assetLoaders.Add(new ItemAssetLoader(Label.Item, (label, value) => { ItemPrefabs = value; OnSuccess(label); }));
+        _assetLoaders.Add(new RagdollAssetLoader(Label.Ragdoll, (label, value) => { RagdollPrefabs = value; OnSuccess(label); }));
+        _assetLoaders.Add(new LifeAssetLoader(Label.Life, (label, value) => { LifePrefabs = value; OnSuccess(label); }));
+        _assetLoaders.Add(new EffectAssetLoader(Label.Effect, (label, value) => { EffectPrefabs = value; OnSuccess(label); }));
+        _assetLoaders.Add(new ItemJsonAssetLoader(Label.ItemData, (label, value) => { ItemDataDictionary = value; OnSuccess(label); }));
+        _assetLoaders.Add(new LifeJsonAssetLoader(Label.LifeData, (label, value) => { LifeDataDictionary = value; OnSuccess(label); }));
+        _assetLoaders.Add(new RecoilJsonAssetLoader(Label.LeftRecoilData, (label, value) => { LeftRecoilDataDictionary = value; OnSuccess(label); }));
+        _assetLoaders.Add(new RecoilJsonAssetLoader(Label.RightRecoilData, (label, value) => { RightRecoilDataDictionary = value; OnSuccess(label); }));
 
         this.OnCompleted = OnCompleted;
         _totalCount = _assetLoaders.Count;
         foreach (var loader in _assetLoaders)
         {
-            loader.Value.Load();
+            loader.Load();
         }
     }
 
@@ -99,7 +92,7 @@ public class AddressableHandler
     {
         foreach (var loader in _assetLoaders)
         {
-            loader.Value.Release();
+            loader.Release();
         }
     }
 }

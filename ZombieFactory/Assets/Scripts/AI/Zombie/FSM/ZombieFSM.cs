@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI
+namespace AI.Zombie
 {
     abstract public class BaseZombieState : BaseState<Zombie.State>
     {
@@ -25,9 +25,5 @@ namespace AI
         public void OnNoiseEnter() => _currentState.OnNoiseEnter();
         public void OnTargetEnter() => _currentState.OnTargetEnter();
         public void OnTargetExit() => _currentState.OnTargetExit();
-
-
-        public void OnStateFixedUpdate() => _currentState.OnStateFixedUpdate();
-        public void OnCollisionEnter(Collision collision) => _currentState.OnCollisionEnter(collision);
     }
 }

@@ -47,7 +47,7 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
     }
 
     public virtual void ResetData(PlayerData data, BaseFactory effectFactory) { }
-    public virtual void ResetData(HelperData data, BaseFactory effectFactory) { }
+    public virtual void ResetData(SwatData data, BaseFactory effectFactory, BaseFactory ragdollFactory) { }
     public virtual void ResetData(ZombieData data, BaseFactory effectFactory, BaseFactory ragdollFactory) { }
 
     public virtual void AddObserverEvent

@@ -8,11 +8,13 @@ public class CaptureComponent<Target> : MonoBehaviour
     Action<Target> OnEnter; 
     Action<Target> OnExit;
     SphereCollider _sphereCollider;
+    protected LayerMask _layerMask;
 
     public void Initialize(Action<Target> OnEnter)
     {
         this.OnEnter += OnEnter;
         _sphereCollider = GetComponent<SphereCollider>();
+        _layerMask = LayerMask.GetMask("Target");
     }
 
     public void Initialize(Action<Target> OnEnter, Action<Target> OnExit)
@@ -20,6 +22,7 @@ public class CaptureComponent<Target> : MonoBehaviour
         this.OnEnter += OnEnter;
         this.OnExit += OnExit;
         _sphereCollider = GetComponent<SphereCollider>();
+        _layerMask = LayerMask.GetMask("Target");
     }
 
     public void Resize(float size)

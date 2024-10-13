@@ -8,7 +8,7 @@ public class SightComponent : CaptureComponent<ITarget>
     float _captureAngle = 90;
     [SerializeField] Transform _sightPoint;
 
-    public ITarget Target { get; private set; }
+    ITarget _target;
 
     protected List<ITarget> _capturedTargets = new List<ITarget>();
 
@@ -20,6 +20,7 @@ public class SightComponent : CaptureComponent<ITarget>
         _captureAngle = angle;
         _targetTypes = targetTypes;
         Initialize(OnEnter, OnExit);
+        
     }
 
     void OnEnter(ITarget target)
@@ -45,21 +46,23 @@ public class SightComponent : CaptureComponent<ITarget>
         Vector3 dir = (targetPos - sightPoint).normalized;
 
         RaycastHit hit;
-        Physics.Raycast(_sightPoint.position, dir, out hit, _captureRadius);
-        Debug.DrawRay(_sightPoint.position, dir * _captureRadius, Color.yellow);
-
+        Physics.Raycast(_sightPoint.position, dir, out hit, _captureRadius, _layerMask);
         if (hit.collider == null) return false;
         
         ITarget findTarget = hit.transform.GetComponent<ITarget>();
         if (findTarget == null) return false;
 
-        if (findTarget == target) return true;
+        if (findTarget == target)
+        {
+            Debug.DrawRay(_sightPoint.position, dir * _captureRadius, Color.yellow);
+            return true;
+        }
         else return false;
     }
 
     bool IsInAngle(float angle) { return angle <= _captureAngle / 2 && -_captureAngle / 2 <= angle; }
 
-    public ITarget ReturnTargetInSight() { return Target; }
+    public ITarget ReturnTargetInSight() { return _target; }
 
     public bool IsTargetInSight()
     {
@@ -76,7 +79,7 @@ public class SightComponent : CaptureComponent<ITarget>
             bool canRaycast = CanRaycastTarget(_sightPoint.position, target);
             if (canRaycast == false) continue;
 
-            Target = _capturedTargets[i];
+            _target = _capturedTargets[i];
             return true;
         }
 

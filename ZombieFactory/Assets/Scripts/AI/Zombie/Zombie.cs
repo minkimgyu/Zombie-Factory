@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI
+namespace AI.Zombie
 {
     public class Zombie : BaseLife, IInjectPathfind
     {
@@ -34,6 +34,8 @@ namespace AI
         float _attackPreDelay = 0.5f;
         float _attackAfterDelay = 3;
 
+        float _moveRange = 5;
+
         Animator _animator;
 
         TPSViewComponent _viewComponent;
@@ -63,8 +65,6 @@ namespace AI
             _noiseQueue.Enqueue(target.ReturnPosition());
             _zombieFSM.OnNoiseEnter();
         }
-
-        Func<Vector3, Vector3, List<Vector3>> FindPath;
 
         public override void ResetData(ZombieData data, BaseFactory effectFactory, BaseFactory ragdollFactory) 
         {
@@ -134,8 +134,11 @@ namespace AI
                     _zombieFSM,
                     _moveSpeed,
                     _stageChangeDuration,
+                    _moveRange,
                     _viewComponent,
                     _moveComponent,
+                    _animator,
+                    transform,
                     _sightComponent) },
                 {
                     State.NoiseTracking, new NoiseTrackingState(
@@ -144,6 +147,7 @@ namespace AI
                     _viewComponent,
                     _moveComponent,
                     _sightComponent,
+                    _animator,
                     _pathSeeker,
                     _noiseQueue)
                 },
@@ -183,7 +187,6 @@ namespace AI
 
         public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
         {
-            this.FindPath = FindPath;
             _pathSeeker.Initialize(FindPath, false);
         }
     }

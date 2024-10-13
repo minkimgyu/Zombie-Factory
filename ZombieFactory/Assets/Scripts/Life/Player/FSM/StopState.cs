@@ -14,15 +14,18 @@ public class StopState : BaseMovementState
         _moveComponent = moveComponent;
     }
 
-    public override void OnStateFixedUpdate()
+    public override void OnStateUpdate()
     {
         _moveComponent.Stop();
     }
 
+    public override void OnStateFixedUpdate()
+    {
+        _moveComponent.MoveRigidbody();
+    }
+
     public override void OnHandleMove(Vector3 input)
     {
-        //Debug.Log("StopState: " + input.magnitude);
-
         if (input.magnitude > 0)
         {
             _baseFSM.SetState(MovementState.Walk);

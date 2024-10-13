@@ -1691,7 +1691,7 @@ GameObject:
   - component: {fileID: 843916750487984480}
   - component: {fileID: 99856876841229717}
   - component: {fileID: 7314956974847303220}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firePoint: {fileID: 898515014565962087}
-  _armMesh: {fileID: 1645595469626557525}
+  _armMesh: {fileID: 827339553941822583}
   _cameraHolder: {fileID: 5598770071221521664}
 --- !u!114 &7744430859190197948
 MonoBehaviour:

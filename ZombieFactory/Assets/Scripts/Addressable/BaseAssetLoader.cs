@@ -19,11 +19,11 @@ abstract public class BaseAssetLoader<Key, Value, Type> : BaseLoader
     protected Dictionary<Key, Value> _assetDictionary;
 
     Label _label;
-    Action<Dictionary<Key, Value>> OnComplete;
+    Action<Label, Dictionary<Key, Value>> OnComplete;
     int _successCount;
     int _totalCount;
 
-    public BaseAssetLoader(Label label, Action<Dictionary<Key, Value>> OnComplete)
+    public BaseAssetLoader(Label label, Action<Label, Dictionary<Key, Value>> OnComplete)
     {
         _label = label;
         this.OnComplete = OnComplete;
@@ -54,7 +54,7 @@ abstract public class BaseAssetLoader<Key, Value, Type> : BaseLoader
         if (_successCount == _totalCount)
         {
             Debug.Log("Success");
-            OnComplete?.Invoke(_assetDictionary);
+            OnComplete?.Invoke(_label, _assetDictionary);
         }
     }
 

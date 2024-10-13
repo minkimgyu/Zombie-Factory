@@ -6,29 +6,29 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using System;
 
-public class AudioAssetLoader : PrefabAssetLoader<ISoundPlayable.SoundName, AudioSource>
+public class AudioAssetLoader : AssetLoader<ISoundPlayable.SoundName, AudioClip, AudioClip>
 {
-    public AudioAssetLoader(AddressableHandler.Label label, Action<Dictionary<ISoundPlayable.SoundName, AudioSource>> OnComplete) : base(label, OnComplete)
+    public AudioAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<ISoundPlayable.SoundName, AudioClip>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 
-public class ProfileSpriteAssetLoader : PrefabAssetLoader<BaseItem.Name, Sprite>
+public class ProfileSpriteAssetLoader : AssetLoader<BaseItem.Name, Sprite, Sprite>
 {
-    public ProfileSpriteAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
+    public ProfileSpriteAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
     {
     }
 }
-public class ItemSpriteAssetLoader : PrefabAssetLoader<BaseItem.Name, Sprite>
+public class ItemSpriteAssetLoader : AssetLoader<BaseItem.Name, Sprite, Sprite>
 {
-    public ItemSpriteAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
+    public ItemSpriteAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 
-public class PreviewSpriteAssetLoader : PrefabAssetLoader<BaseItem.Name, Sprite>
+public class PreviewSpriteAssetLoader : AssetLoader<BaseItem.Name, Sprite, Sprite>
 {
-    public PreviewSpriteAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
+    public PreviewSpriteAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, Sprite>> OnComplete) : base(label, OnComplete)
     {
     }
 }
@@ -36,7 +36,7 @@ public class PreviewSpriteAssetLoader : PrefabAssetLoader<BaseItem.Name, Sprite>
 
 abstract public class AssetLoader<Key, Value, Type> : BaseAssetLoader<Key, Value, Type>
 {
-    protected AssetLoader(AddressableHandler.Label label, Action<Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
+    protected AssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
     {
     }
 

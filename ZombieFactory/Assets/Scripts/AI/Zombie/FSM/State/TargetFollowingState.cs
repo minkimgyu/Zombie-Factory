@@ -2,9 +2,12 @@ using AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using BehaviorTree;
+using BehaviorTree.Nodes;
+using Tree = BehaviorTree.Tree;
+using Node = BehaviorTree.Node;
 
-namespace AI
+namespace AI.Zombie
 {
     public class TargetFollowingState : BaseZombieState
     {
@@ -20,14 +23,10 @@ namespace AI
         TPSMoveComponent _moveComponent;
         TPSViewComponent _viewComponent;
 
-        MeleeAttackComponent _meleeAttackComponent;
-        MoveState _state;
+        Animator _animator;
 
-        public enum MoveState
-        {
-            Stop,
-            Move,
-        }
+        NowCloseToTarget _nowCloseToTarget;
+        Tree _bt;
 
         public TargetFollowingState(
             ZombieFSM fsm,
@@ -55,26 +54,76 @@ namespace AI
             _stopDistance = stopDistance;
             _gap = gap;
 
-            _meleeAttackComponent = new MeleeAttackComponent(raycastPoint,
-                attackDamage,
-                attackPreDelay,
-                attackAfterDelay,
-                attackRadius,
-                animator);
-
             _moveComponent = moveComponent;
             _viewComponent = viewComponent;
 
             _myTransform = myTransform;
 
+            _animator = animator;
             _pathSeeker = pathSeeker;
             _sightComponent = sightComponent;
-            _state = MoveState.Stop;
+
+            _nowCloseToTarget = new NowCloseToTarget(_myTransform, _stopDistance, _gap);
+
+            _bt = new Tree();
+            List<Node> _childNodes;
+            _childNodes = new List<Node>()
+            {
+                new Sequencer
+                (
+                    new List<Node>()
+                    {
+                        new ViewTarget(_myTransform, _sightComponent, _viewComponent), // 정지 하는 코드 넣기
+
+                        new Selector
+                        (
+                            new List<Node>()
+                            {
+                                new Sequencer
+                                (
+                                    new List<Node>()
+                                    {
+                                        _nowCloseToTarget,
+                                        new Sequencer
+                                        (
+                                            new List<Node>()
+                                            {
+                                                new Stop(_moveComponent), // 정지 하는 코드 넣기
+                                                new Attack(
+                                                    _myTransform,
+                                                    raycastPoint,
+                                                    attackDamage,
+                                                    attackPreDelay,
+                                                    attackAfterDelay,
+                                                    attackRadius,
+                                                    _sightComponent,
+                                                    _animator
+                                                ),
+                                                // Wander에 이벤트를 보내는 방식으로 방향을 돌려준다.
+                                            }
+                                        ),
+                                    }
+                                ),
+                                new FollowTarget(_pathSeeker, _moveComponent, _moveSpeed)
+                            }
+                        )
+                    }
+                )
+            };
+            Node rootNode = new Selector(_childNodes);
+            _bt.SetUp(rootNode);
         }
 
         public override void OnStateFixedUpdate()
         {
             _viewComponent.RotateRigidbody();
+            _moveComponent.MoveRigidbody();
+        }
+
+        public override void OnStateEnter()
+        {
+            ITarget target = _sightComponent.ReturnTargetInSight();
+            _nowCloseToTarget.ResetTarget(target);
         }
 
         // bt 넣어주기
@@ -87,42 +136,7 @@ namespace AI
                 return;
             }
 
-            ITarget target = _sightComponent.ReturnTargetInSight();
-            Vector3 targetPos = target.ReturnPosition();
-
-            Vector3 viewDirection = (targetPos - _myTransform.position).normalized;
-            _viewComponent.View(viewDirection);
-
-            float diatance = Vector3.Distance(_myTransform.position, targetPos);
-            Vector3 dir = _pathSeeker.ReturnDirection(targetPos);
-
-            switch (_state)
-            {
-                case MoveState.Stop:
-                    if (diatance <= _stopDistance + _gap)
-                    {
-                        _moveComponent.Stop();
-                        _meleeAttackComponent.Attack(viewDirection); // 공격 기능 추가
-                        break;
-                    }
-
-                    //Debug.Log(_state);
-                    _state = MoveState.Move;
-                    break;
-                case MoveState.Move:
-                    if (diatance < _stopDistance)
-                    {
-                        //Debug.Log(_state);
-                        _state = MoveState.Stop;
-                        break;
-                    }
-
-                    if (_pathSeeker.IsFinish() == true) return;
-                    _moveComponent.Move(dir, _moveSpeed);
-                    break;
-                default:
-                    break;
-            }
+            _bt.OnUpdate();
         }
     }
 }

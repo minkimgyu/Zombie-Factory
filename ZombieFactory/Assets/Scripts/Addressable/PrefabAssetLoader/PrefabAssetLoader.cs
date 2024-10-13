@@ -8,31 +8,31 @@ using System;
 
 public class LifeAssetLoader : PrefabAssetLoader<BaseLife.Name, BaseLife>
 {
-    public LifeAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseLife.Name, BaseLife>> OnComplete) : base(label, OnComplete)
+    public LifeAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseLife.Name, BaseLife>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class RagdollAssetLoader : PrefabAssetLoader<BaseLife.Name, Ragdoll>
 {
-    public RagdollAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseLife.Name, Ragdoll>> OnComplete) : base(label, OnComplete)
+    public RagdollAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseLife.Name, Ragdoll>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class ItemAssetLoader : PrefabAssetLoader<BaseItem.Name, BaseItem>
 {
-    public ItemAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, BaseItem>> OnComplete) : base(label, OnComplete)
+    public ItemAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, BaseItem>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class EffectAssetLoader : PrefabAssetLoader<BaseEffect.Name, BaseEffect>
 {
-    public EffectAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseEffect.Name, BaseEffect>> OnComplete) : base(label, OnComplete)
+    public EffectAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseEffect.Name, BaseEffect>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class ViewerAssetLoader : PrefabAssetLoader<BaseViewer.Name, BaseViewer>
 {
-    public ViewerAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseViewer.Name, BaseViewer>> OnComplete) : base(label, OnComplete)
+    public ViewerAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseViewer.Name, BaseViewer>> OnComplete) : base(label, OnComplete)
     {
     }
 }
@@ -40,7 +40,7 @@ public class ViewerAssetLoader : PrefabAssetLoader<BaseViewer.Name, BaseViewer>
 
 abstract public class PrefabAssetLoader<Key, Value> : BaseAssetLoader<Key, Value, GameObject>
 {
-    protected PrefabAssetLoader(AddressableHandler.Label label, Action<Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
+    protected PrefabAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
     {
     }
 

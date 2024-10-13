@@ -66,19 +66,21 @@ abstract public class BaseMoveComponent : MonoBehaviour
         return false;
     }
 
+    public virtual void Jump(float force) { }
+
+    Vector3 _direction;
+
     public void Stop()
     {
         if (_isSlope)
         {
-            _rigid.velocity = Vector3.zero;
+            _direction = Vector3.zero;
         }
         else
         {
-            _rigid.velocity = new Vector3(0, _rigid.velocity.y, 0);
+            _direction = new Vector3(0, _rigid.velocity.y, 0);
         }
     }
-
-    public virtual void Jump(float force) { }
 
     public virtual void Move(Vector3 direction, float speed)
     {
@@ -96,11 +98,16 @@ abstract public class BaseMoveComponent : MonoBehaviour
         Vector3 moveDir = direction * speed;
         if (_isSlope)
         {
-            _rigid.velocity = moveDir; // 방향 백터에 맞게 조절
+            _direction = moveDir; // 방향 백터에 맞게 조절
         }
         else
         {
-            _rigid.velocity = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
+            _direction = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
         }
+    }
+
+    public void MoveRigidbody()
+    {
+        _rigid.velocity = _direction;
     }
 }

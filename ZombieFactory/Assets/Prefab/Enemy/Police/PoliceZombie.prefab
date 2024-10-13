@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 3878636172023484456}
   - component: {fileID: 4654998715541023827}
   - component: {fileID: 989538643974749224}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PoliceZombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2426,7 +2426,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c8ffe066f61c66d48b255fffd5dbc33b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

@@ -78,8 +78,6 @@ public class ActionController : MonoBehaviour
         _currentCapsuleCenter = _capsuleStandCenter;
         _currentCapsuleHeight = _capsuleStandHeight;
 
-        //_inputState = InputState.Enable;
-
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _rigidbody = GetComponent<Rigidbody>();
 
@@ -125,12 +123,10 @@ public class ActionController : MonoBehaviour
         switch (_postureState)
         {
             case PostureState.Sit:
-                //_animator.SetBool("Sit", true);
                 _currentCapsuleCenter = _capsuleCrouchCenter;
                 _currentCapsuleHeight = _capsuleCrouchHeight;
                 break;
             case PostureState.Stand:
-                //_animator.SetBool("Sit", false);
                 _currentCapsuleCenter = _capsuleStandCenter;
                 _currentCapsuleHeight = _capsuleStandHeight;
                 break;
@@ -201,7 +197,6 @@ public class ActionController : MonoBehaviour
 
     public void OnLateUpdate()
     {
-        _viewComponent.RotateSpineBone();
         _viewComponent.ResetCamera();
     }
 

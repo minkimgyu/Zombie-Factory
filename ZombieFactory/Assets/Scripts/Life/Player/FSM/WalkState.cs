@@ -18,7 +18,6 @@ public class WalkState : MoveState
     public override void OnHandleMove(Vector3 input)
     {
         base.OnHandleMove(input);
-
         if (input.magnitude == 0)
         {
             _baseFSM.SetState(MovementState.Stop);

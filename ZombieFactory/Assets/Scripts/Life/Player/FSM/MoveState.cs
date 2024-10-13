@@ -21,8 +21,13 @@ public class MoveState : BaseMovementState
         _input = input;
     }
 
-    public override void OnStateFixedUpdate()
+    public override void OnStateUpdate()
     {
         _moveComponent.Move(_input, _moveSpeed);
+    }
+
+    public override void OnStateFixedUpdate()
+    {
+        _moveComponent.MoveRigidbody();
     }
 }

@@ -8,19 +8,19 @@ using System;
 
 public class LifeJsonAssetLoader : JsonAssetLoader<BaseLife.Name, LifeData>
 {
-    public LifeJsonAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseLife.Name, LifeData>> OnComplete) : base(label, OnComplete)
+    public LifeJsonAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseLife.Name, LifeData>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class ItemJsonAssetLoader : JsonAssetLoader<BaseItem.Name, ItemData>
 {
-    public ItemJsonAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, ItemData>> OnComplete) : base(label, OnComplete)
+    public ItemJsonAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, ItemData>> OnComplete) : base(label, OnComplete)
     {
     }
 }
 public class RecoilJsonAssetLoader : JsonAssetLoader<BaseItem.Name, BaseRecoilData>
 {
-    public RecoilJsonAssetLoader(AddressableHandler.Label label, Action<Dictionary<BaseItem.Name, BaseRecoilData>> OnComplete) : base(label, OnComplete)
+    public RecoilJsonAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<BaseItem.Name, BaseRecoilData>> OnComplete) : base(label, OnComplete)
     {
     }
 }
@@ -28,7 +28,7 @@ public class RecoilJsonAssetLoader : JsonAssetLoader<BaseItem.Name, BaseRecoilDa
 abstract public class JsonAssetLoader<Key, Value> : BaseAssetLoader<Key, Value, TextAsset>
 {
     JsonParser _parser;
-    protected JsonAssetLoader(AddressableHandler.Label label, Action<Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
+    protected JsonAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<Key, Value>> OnComplete) : base(label, OnComplete)
     {
         _parser = new JsonParser();
     }

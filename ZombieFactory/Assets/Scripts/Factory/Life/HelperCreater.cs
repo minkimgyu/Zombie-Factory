@@ -5,7 +5,7 @@ using System;
 using Object = UnityEngine.Object;
 
 [System.Serializable]
-public class HelperData : LifeData
+public class SwatData : LifeData
 {
     public BaseLife.Name name;
     public float destoryDelay = 5;
@@ -48,7 +48,7 @@ public class HelperData : LifeData
 
     public string ragdollName;
 
-    public HelperData(
+    public SwatData(
         float maxHp, 
 
         BaseLife.Name name, 
@@ -109,15 +109,17 @@ public class HelperData : LifeData
 
 public class HelperCreater : LifeCreater
 {
-    public HelperCreater(BaseLife lifePrefab, LifeData lifeData) : base(lifePrefab, lifeData)
+    BaseFactory _effectFactory;
+    public HelperCreater(BaseLife lifePrefab, LifeData lifeData, BaseFactory effectFactory) : base(lifePrefab, lifeData)
     {
+        _effectFactory = effectFactory;
     }
 
     public override BaseLife Create()
     {
         BaseLife life = Object.Instantiate(_lifePrefab);
 
-        HelperData playerData = _lifeData as HelperData;
+        SwatData playerData = _lifeData as SwatData;
         life.ResetData(playerData, null);
         life.Initialize();
         return life;

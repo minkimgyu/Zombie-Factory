@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI
+namespace AI.Zombie
 {
     public class NoiseTrackingState : BaseZombieState
     {
@@ -15,6 +15,7 @@ namespace AI
         TPSViewComponent _viewComponent;
         TPSMoveComponent _moveComponent;
 
+        Animator _animator;
         SightComponent _sightComponent;
 
         public NoiseTrackingState(
@@ -26,6 +27,7 @@ namespace AI
             TPSMoveComponent moveComponent,
 
             SightComponent sightComponent,
+            Animator animator,
 
             PathSeeker pathSeeker,
             Queue<Vector3> noiseQueue) : base(fsm)
@@ -35,6 +37,7 @@ namespace AI
             _viewComponent = viewComponent;
             _moveComponent = moveComponent;
             _sightComponent = sightComponent;
+            _animator = animator;
 
             _pathSeeker = pathSeeker;
             _noiseQueue = noiseQueue;
@@ -45,6 +48,7 @@ namespace AI
 
         public override void OnStateExit()
         {
+            _animator.SetBool("Run", false);
             _noiseQueue.Clear();
         }
 
@@ -55,7 +59,14 @@ namespace AI
 
         public override void OnStateEnter()
         {
+            _animator.SetBool("Run", true);
             _targetPos = _noiseQueue.Dequeue();
+        }
+
+        public override void OnStateFixedUpdate()
+        {
+            _viewComponent.RotateRigidbody();
+            _moveComponent.MoveRigidbody();
         }
 
         public override void OnStateUpdate()
