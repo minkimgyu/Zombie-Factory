@@ -16,7 +16,7 @@ public class GroundUnit : MonoBehaviour
     void Start()
     {
         _pathSeeker = GetComponent<PathSeeker>();
-        _pathSeeker.Initialize(_pathfinder.FindPath, false);
+        _pathSeeker.Initialize();
 
         _viewComponent = GetComponent<BaseViewComponent>();
         _viewComponent.Initialize(70);

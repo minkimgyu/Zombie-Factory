@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Pathfinding;
+using static UnityEngine.GraphicsBuffer;
 
 public class WanderingFSM
 {
@@ -39,12 +41,15 @@ public class WanderingFSM
 
         TPSViewComponent viewComponent,
         TPSMoveComponent moveComponent,
+        PathSeeker pathSeeker,
 
         Transform myTransform,
         SightComponent sightComponent)
     {
         _viewComponent = viewComponent;
         _moveComponent = moveComponent;
+
+        _pathSeeker = pathSeeker;
 
         _myTransform = myTransform;
         _sightComponent = sightComponent;
@@ -69,9 +74,18 @@ public class WanderingFSM
                 _moveComponent.Stop();
                 break;
             case State.Move:
+
                 Vector3 dir = _pathSeeker.ReturnDirection(_movePoint);
-                _viewComponent.View(dir);
-                _moveComponent.Move(dir, _moveSpeed);
+
+                if (_pathSeeker.IsFinish() == true)
+                {
+                    _moveComponent.Stop();
+                }
+                else
+                {
+                    _viewComponent.View(dir);
+                    _moveComponent.Move(dir, _moveSpeed);
+                }
                 break;
         }
 

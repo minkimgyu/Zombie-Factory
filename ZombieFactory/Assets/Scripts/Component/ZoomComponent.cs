@@ -31,7 +31,7 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
         _fieldOfView = fieldOfView;
 
         SwitchCrosshair?.Invoke(nowTurnOn);
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveCrosshair, true);
+        //EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveCrosshair, true);
 
         // 바로 Zoom으로 들어감
         if (zoomDuration == 0)

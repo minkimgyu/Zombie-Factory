@@ -267,8 +267,8 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
     {
         if (penetratePower - durability >= 0)
         {
-            effectableTarget?.effectFactory(IEffectable.ConditionType.Penetration, penetrateData.EntryPoint, penetrateData.EntryNormal); // null일 수 있기 때문에 다음과 같이 작성
-            effectableTarget?.effectFactory(IEffectable.ConditionType.Penetration, penetrateData.ExitPoint, penetrateData.ExitNormal);
+            effectableTarget?.SpawnEffect(IEffectable.ConditionType.Penetration, penetrateData.EntryPoint, penetrateData.EntryNormal); // null일 수 있기 때문에 다음과 같이 작성
+            effectableTarget?.SpawnEffect(IEffectable.ConditionType.Penetration, penetrateData.ExitPoint, penetrateData.ExitNormal);
 
             penetratePower -= durability;
             if (isLastContact == true) DrawPenetrateLine(penetrateData, true);
@@ -276,7 +276,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
             return penetratePower;
         }
 
-        effectableTarget?.effectFactory(IEffectable.ConditionType.NonPenetration, penetrateData.EntryPoint, penetrateData.EntryNormal);
+        effectableTarget?.SpawnEffect(IEffectable.ConditionType.NonPenetration, penetrateData.EntryPoint, penetrateData.EntryNormal);
         DrawPenetrateLine(penetrateData, false);
         return 0;
     }
@@ -287,6 +287,8 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
 
     public override void Execute()
     {
+        Vector3 muzzlePosition = ReturnMuzzlePosition();
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Fire, muzzlePosition);
         DecreaseAmmoCount?.Invoke(_fireCountInOnce); // 총알 감소
 
         //Vector3 muzzlePos = ReturnMuzzlePos();

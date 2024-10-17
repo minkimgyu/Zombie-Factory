@@ -6,7 +6,12 @@ using UnityEngine.UIElements;
 
 public class InputHandler : MonoBehaviour, IInputable
 {
-    Dictionary<IInputable.Type, BaseCommand> _inputEvents = new Dictionary<IInputable.Type, BaseCommand>();
+    Dictionary<IInputable.Type, BaseCommand> _inputEvents;
+
+    public InputHandler()
+    {
+        _inputEvents = new Dictionary<IInputable.Type, BaseCommand>();
+    }
 
     private void Update()
     {

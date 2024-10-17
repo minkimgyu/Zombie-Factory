@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace AI.Swat
 {
-    public class Swat : BaseLife, IInjectPathfind
+    public class Swat : BaseLife, IHelper
     {
         public enum State
         {
@@ -43,16 +43,24 @@ namespace AI.Swat
 
         BaseFactory _ragdollFactory;
 
-        Vector3 _offset;
-
-        public void ResetPoints(Vector3 offset)
-        {
-            _offset = offset;
-        }
-
         public override void ResetData(SwatData data, BaseFactory effectFactory, BaseFactory ragdollFactory)
         {
 
+        }
+
+        ITarget _player;
+        Action<IHelper> RemoveHelper;
+        Vector3 _offset;
+
+        public void InitializeHelper(ITarget player, Action<IHelper> RemoveHelper)
+        {
+            _player = player;
+            this.RemoveHelper = RemoveHelper;
+        }
+
+        public void RestOffset(Vector3 offset)
+        {
+            _offset = offset;
         }
 
         public override void Initialize()
@@ -66,7 +74,7 @@ namespace AI.Swat
             Func<Vector3, Vector3, List<Vector3>> FindPath = FindObjectOfType<GroundPathfinder>().FindPath;
 
             _pathSeeker = GetComponent<PathSeeker>();
-            _pathSeeker.Initialize(FindPath, false);
+            _pathSeeker.Initialize();
 
             _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human });
             _sightComponent.Resize(_targetCaptureRadius);
@@ -124,10 +132,10 @@ namespace AI.Swat
             _movementFSM.OnFixedUpdate();
         }
 
-        public override void ResetData(SwatData data, BaseFactory effectFactory)
-        {
-            _effectFactory = effectFactory;
-        }
+        //public override void ResetData(SwatData data, BaseFactory effectFactory)
+        //{
+        //    _effectFactory = effectFactory;
+        //}
 
         public override void OnDieRequested()
         {
@@ -135,11 +143,6 @@ namespace AI.Swat
             ragdoll.Activate(_rig);
 
             Destroy(gameObject);
-        }
-
-        public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
-        {
-            _pathSeeker.Initialize(FindPath, false);
         }
     }
 }

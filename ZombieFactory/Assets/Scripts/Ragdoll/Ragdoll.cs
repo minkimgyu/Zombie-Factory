@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Ragdoll : PoolObject
 {
+    [SerializeField] float _duration;
     [SerializeField] Transform _rag;
     Action ReturnToPool;
 
     public void Activate(Transform origin)
     {
-        StartTimer();
+        StartTimer(_duration);
         CopyAnimCharacterTransformToRagdoll(origin, _rag);
     }
 

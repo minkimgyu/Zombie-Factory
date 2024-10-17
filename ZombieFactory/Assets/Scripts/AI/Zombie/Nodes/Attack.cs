@@ -11,36 +11,19 @@ namespace BehaviorTree.Nodes
         float _attackRadius;
         float _attackDamage;
 
-        float _attackPreDelay;
-        float _attackAfterDelay;
-
         SightComponent _sightComponent;
-        Animator _animator;
-
-        Timer _attackPreTimer;
-        Timer _attackAfterTimer;
 
         public Attack(
         Transform myTransform,
         Transform raycastPoint,
         float attackDamage,
-        float attackPreDelay,
-        float attackAfterDelay,
         float attackRadius,
-        SightComponent sightComponent,
-        Animator animator)
+        SightComponent sightComponent)
         {
             _myTransform = myTransform;
             _raycastPoint = raycastPoint;
 
-            _attackPreTimer = new Timer();
-            _attackAfterTimer = new Timer();
-
             _sightComponent = sightComponent;
-            _animator = animator;
-
-            _attackPreDelay = attackPreDelay;
-            _attackAfterDelay = attackAfterDelay;
 
             _attackDamage = attackDamage;
             _attackRadius = attackRadius;
@@ -52,24 +35,17 @@ namespace BehaviorTree.Nodes
             Vector3 targetPos = target.ReturnPosition();
             Vector3 dir = (targetPos - _myTransform.position).normalized;
 
-            _animator.SetTrigger("Attack");
-            _attackPreTimer.Start(_attackPreDelay);
+            RaycastHit hit;
+            Physics.Raycast(_raycastPoint.position, dir, out hit, _attackRadius, LayerMask.GetMask("Target"));
+            Debug.DrawRay(_raycastPoint.position, dir * _attackRadius, Color.red, 10);
 
-            if (_attackPreTimer.CurrentState == Timer.State.Finish)
-            {
-                _attackPreTimer.Reset();
+            if (hit.transform == null) return NodeState.SUCCESS;
 
-                RaycastHit hit;
-                Physics.Raycast(_raycastPoint.position, dir, out hit, _attackRadius);
-                Debug.DrawRay(_raycastPoint.position, dir * _attackRadius, Color.red, 10);
+            IHitable hitable = hit.transform.GetComponent<IHitable>();
+            if (hitable == null) return NodeState.SUCCESS;
 
-                if (hit.transform == null) return NodeState.SUCCESS;
-
-                IHitable hitable = hit.transform.GetComponent<IHitable>();
-                if (hitable == null) return NodeState.SUCCESS;
-
-                hitable.OnHit(_attackDamage, hit.point, hit.normal);
-            }
+            hitable.OnHit(_attackDamage, hit.point, hit.normal);
+            Debug.Log("Attack");
 
             return NodeState.SUCCESS;
         }

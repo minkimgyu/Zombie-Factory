@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class ServiceLocater
 {
-    static ISoundPlayable _soundPlayer;
-    static NullSoundPlayer _nullSoundPlayer;
+    static ISoundControllable _soundPlayer;
+    static NullSoundControllable _nullSoundPlayer;
 
     static IInputable _inputController;
     static NullInputHandler _nullInputController;
 
     public static void Initialize()
     {
-        _nullSoundPlayer = new NullSoundPlayer();
+        _nullSoundPlayer = new NullSoundControllable();
         _nullInputController = new NullInputHandler();
     }
 
-    public static void Provide(ISoundPlayable soundPlayer)
+    public static void Provide(ISoundControllable soundPlayer)
     {
         _soundPlayer = soundPlayer;
     }
@@ -26,7 +26,7 @@ public class ServiceLocater
         _inputController = inputController;
     }
 
-    public static ISoundPlayable ReturnSoundPlayer()
+    public static ISoundControllable ReturnSoundPlayer()
     {
         if (_soundPlayer == null) return _nullSoundPlayer;
         return _soundPlayer;

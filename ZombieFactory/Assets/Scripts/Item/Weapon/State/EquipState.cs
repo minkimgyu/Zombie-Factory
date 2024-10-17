@@ -12,6 +12,9 @@ public class EquipState : BaseWeaponState
 
     Dictionary<BaseWeapon.Type, BaseWeapon> _weaponsContainer;
 
+    Action<BaseItem.Name, BaseWeapon.Type> AddPreview;
+    Action<BaseWeapon.Type> RemovePreview;
+
     public EquipState(
         FSM<WeaponController.State> fsm,
         Dictionary<BaseWeapon.Type, BaseWeapon> weaponsContainer,
@@ -66,6 +69,7 @@ public class EquipState : BaseWeaponState
         }
 
         BaseWeapon equipedWeapon = ReturnWeapon();
+        AddPreview?.Invoke(equipedWeapon.WeaponName, equipedWeapon.WeaponType);
 
         if (equipedWeapon != null)
         {

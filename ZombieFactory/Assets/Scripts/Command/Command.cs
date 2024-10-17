@@ -12,11 +12,16 @@ abstract public class BaseCommand
     public virtual void Execute(float fieldOfView, float ratio) { }
     public virtual void Execute(int inMagazine, int inPossession) { }
 
-    public virtual void Execute(bool active) { }
-
+    public virtual void Execute(BaseItem.Name name, BaseWeapon.Type type) { }
     public virtual void Execute(BaseWeapon.Type type) { }
+
+    public virtual void Execute(bool active) { }
     public virtual void Execute(BaseWeapon.EventType type) { }
 
+    public virtual void Execute(bool nowActivate, string name, Vector3 position) { }
+
+
+    public virtual void Execute(BaseEffect.Name name, Vector3 hitPosition, Vector3 hitNormal) { }
     public virtual void Execute(IPoint point) { }
 }
 

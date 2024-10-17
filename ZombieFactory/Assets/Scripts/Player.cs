@@ -39,91 +39,96 @@ public class Player : BaseLife
         Action<BaseItem.Name, BaseWeapon.Type> AddPreview,
         Action<BaseWeapon.Type> RemovePreview)
     {
-        this.OnHpChangeRequested = OnHpChangeRequested;
-        _actionController.AddObserverEvent(MoveCamera, OnFieldOfViewChange, SwitchCrosshair);
-        _weaponController.AddObserverEvent(ActiveAmmoViewer, UpdateAmmoViewer, AddPreview, RemovePreview);
+        //this.OnHpChangeRequested = OnHpChangeRequested;
+        //_actionController.AddObserverEvent(MoveCamera, OnFieldOfViewChange, SwitchCrosshair);
+        //_weaponController.AddObserverEvent(ActiveAmmoViewer, UpdateAmmoViewer, AddPreview, RemovePreview);
     }
 
     public override void ResetData(PlayerData data, BaseFactory effectFactory)
     {
-        _effectFactory = effectFactory;
-        _maxHp = data.maxHp;
-        _myType = IIdentifiable.Type.Human;
+        //_effectFactory = effectFactory;
+        //_maxHp = data.maxHp;
+        //_hp = _maxHp;
 
-        _viewYRange = data.viewYRange;
-        _viewSensitivity = data.viewSensitivity;
+        //_myType = IIdentifiable.Type.Human;
 
-        _weaponThrowPower = data.weaponThrowPower;
-        _walkSpeed = data.walkSpeed;
-        _walkSpeedOnAir= data.walkSpeedOnAir;
-        _jumpSpeed = data.jumpSpeed;
+        //_viewYRange = data.viewYRange;
+        //_viewSensitivity = data.viewSensitivity;
 
-        _postureSwitchDuration = data.postureSwitchDuration;
+        //_weaponThrowPower = data.weaponThrowPower;
+        //_walkSpeed = data.walkSpeed;
+        //_walkSpeedOnAir = data.walkSpeedOnAir;
+        //_jumpSpeed = data.jumpSpeed;
 
-        _capsuleCrouchCenter = data.capsuleCrouchCenter;
-        _capsuleCrouchHeight = data.capsuleCrouchHeight;
+        //_postureSwitchDuration = data.postureSwitchDuration;
 
-        _capsuleStandCenter = data.capsuleStandCenter;
-        _capsuleStandHeight = data.capsuleStandHeight;
+        //_capsuleCrouchCenter = data.capsuleCrouchCenter;
+        //_capsuleCrouchHeight = data.capsuleCrouchHeight;
+
+        //_capsuleStandCenter = data.capsuleStandCenter;
+        //_capsuleStandHeight = data.capsuleStandHeight;
     }
 
     public override void AddWeapon(BaseWeapon weapon)
     {
-        _weaponController.OnWeaponReceived(weapon);
+        //_weaponController.OnWeaponReceived(weapon);
     }
 
     public override void Initialize()
     {
-        _actionController = GetComponent<ActionController>();
-        _actionController.Initialize(_walkSpeed, _runSpeed, _walkSpeedOnAir, _jumpSpeed, _postureSwitchDuration,
-            _capsuleStandCenter, _capsuleStandHeight, _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2);
+        //base.Initialize();
 
-        _weaponController = GetComponent<WeaponController>();
-        _weaponController.Initialize(_weaponThrowPower);
+        //_actionController = GetComponent<ActionController>();
+        //_actionController.Initialize(_walkSpeed, _runSpeed, _walkSpeedOnAir, _jumpSpeed, _postureSwitchDuration,
+        //    _capsuleStandCenter, _capsuleStandHeight, _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2);
+
+        //_weaponController = GetComponent<WeaponController>();
+        //_weaponController.Initialize(_weaponThrowPower);
 
 
-        _interactionController = GetComponent<InteractionController>();
-        _interactionController.Initialize();
+        //_interactionController = GetComponent<InteractionController>();
+        //_interactionController.Initialize();
 
-        IInputable inputable = ServiceLocater.ReturnInputHandler();
+        //IInputable inputable = ServiceLocater.ReturnInputHandler();
 
-        inputable.AddEvent(IInputable.Type.View, new ViewCommand(_actionController.OnHandleView));
+        //inputable.AddEvent(IInputable.Type.View, new ViewCommand(_actionController.OnHandleView));
+        //inputable.AddEvent(IInputable.Type.Interact, new KeyCommand(_interactionController.OnHandleInteract));
 
-        inputable.AddEvent(IInputable.Type.Jump, new KeyCommand(_actionController.OnHandleJump));
-        inputable.AddEvent(IInputable.Type.Move, new MoveCommand(_actionController.OnHandleMove));
+        //inputable.AddEvent(IInputable.Type.Jump, new KeyCommand(_actionController.OnHandleJump));
+        //inputable.AddEvent(IInputable.Type.Move, new MoveCommand(_actionController.OnHandleMove));
 
-        inputable.AddEvent(IInputable.Type.CrouchStart, new KeyCommand(_actionController.OnHandleSit));
-        inputable.AddEvent(IInputable.Type.CrouchEnd, new KeyCommand(_actionController.OnHandleStand));
+        //inputable.AddEvent(IInputable.Type.CrouchStart, new KeyCommand(_actionController.OnHandleSit));
+        //inputable.AddEvent(IInputable.Type.CrouchEnd, new KeyCommand(_actionController.OnHandleStand));
 
-        inputable.AddEvent(IInputable.Type.RunStart, new KeyCommand(_actionController.OnHandleRunStart));
-        inputable.AddEvent(IInputable.Type.RunEnd, new KeyCommand(_actionController.OnHandleRunEnd));
+        //inputable.AddEvent(IInputable.Type.RunStart, new KeyCommand(_actionController.OnHandleRunStart));
+        //inputable.AddEvent(IInputable.Type.RunEnd, new KeyCommand(_actionController.OnHandleRunEnd));
 
-        inputable.AddEvent(IInputable.Type.Equip, new EquipCommand(_weaponController.OnHandleEquip));
-        inputable.AddEvent(IInputable.Type.Reload, new KeyCommand(_weaponController.OnHandleReload));
-        inputable.AddEvent(IInputable.Type.Drop, new KeyCommand(_weaponController.OnHandleDrop));
+        //inputable.AddEvent(IInputable.Type.Equip, new EquipCommand(_weaponController.OnHandleEquip));
+        //inputable.AddEvent(IInputable.Type.Reload, new KeyCommand(_weaponController.OnHandleReload));
+        //inputable.AddEvent(IInputable.Type.Drop, new KeyCommand(_weaponController.OnHandleDrop));
 
-        inputable.AddEvent(IInputable.Type.EventStart, new InputEventCommand(_weaponController.OnHandleEventStart));
-        inputable.AddEvent(IInputable.Type.EventEnd, new InputEventCommand(_weaponController.OnHandleEventEnd));
+        //inputable.AddEvent(IInputable.Type.EventStart, new InputEventCommand(_weaponController.OnHandleEventStart));
+        //inputable.AddEvent(IInputable.Type.EventEnd, new InputEventCommand(_weaponController.OnHandleEventEnd));
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        _actionController.OnCollisionEnterRequested(collision);
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    _actionController.OnCollisionEnterRequested(collision);
+    //}
 
     private void Update()
     {
-        _actionController.OnUpdate();
-        _weaponController.OnUpdate();
+        //_actionController.OnUpdate();
+        //_weaponController.OnUpdate();
     }
 
-    private void FixedUpdate()
-    {
-        _actionController.OnFixedUpdate();
-    }
+    //private void FixedUpdate()
+    //{
+    //    _actionController.OnFixedUpdate();
+    //}
 
-    private void LateUpdate()
-    {
-        _actionController.OnLateUpdate();
-    }
+    //private void LateUpdate()
+    //{
+    //    _actionController.OnLateUpdate();
+    //}
 }

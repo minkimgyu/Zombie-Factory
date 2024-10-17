@@ -9,8 +9,6 @@ public class DropState : BaseWeaponState
 
     Func<BaseWeapon> ReturnWeapon;
     Action<BaseWeapon> ChangeWeapon;
-    Action<BaseWeapon.Type> RemovePreview;
-
 
     Dictionary<BaseWeapon.Type, BaseWeapon> _weaponsContainer;
     WeaponBlackboard _eventBlackboard;
@@ -30,12 +28,12 @@ public class DropState : BaseWeaponState
 
         this.ReturnWeapon = ReturnWeapon;
         this.ChangeWeapon = ChangeWeapon;
-
         _eventBlackboard = eventBlackboard;
     }
 
     bool DropWeapon(BaseWeapon weapon)
     {
+        _eventBlackboard.RemovePreview(weapon.WeaponType);
         weapon.ThrowWeapon(_weaponThrowPower);
         weapon.gameObject.SetActive(true);
 
@@ -52,7 +50,6 @@ public class DropState : BaseWeaponState
         bool canDrop = equipedWeapon.CanDrop();
         if (canDrop)
         {
-            RemovePreview?.Invoke(equipedWeapon.WeaponType);
             DropWeapon(equipedWeapon);
             ChangeWeapon?.Invoke(null);
             _baseFSM.SetState(WeaponController.State.Equip, type, "EquipNextWeapon");
@@ -74,6 +71,7 @@ public class DropState : BaseWeaponState
 
             if (canDrop)
             {
+                _eventBlackboard.RemovePreview?.Invoke(newWeapon.WeaponType);
                 DropWeapon(equipedWeapon);
                 ChangeWeapon?.Invoke(null);
                 _baseFSM.SetState(WeaponController.State.Root, newWeapon, "RootWeapon");

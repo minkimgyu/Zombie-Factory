@@ -17,10 +17,18 @@ abstract public class BaseItem : MonoBehaviour
 
         Operator, // -> X
         Classic, // -> O
-        Knife // -> O
+        Knife, // -> O
+
+        AmmoPack,
+        AidPack
     }
 
+    public virtual void PositionWeapon(bool nowDrop) { }
+
     public virtual void Initialize() { }
+
+    public virtual void ResetData(AidPackData data) { }
+    public virtual void ResetData(AmmoPackData data) { }
 
     public virtual void ResetData(AutomaticGunData data, RecoilMapData recoilData, BaseFactory effectFactory) { }
     public virtual void ResetData(OperatorData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }

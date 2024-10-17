@@ -5,7 +5,6 @@ using System;
 
 public interface IHelper
 {
-    void Initialize(ITarget commander, Action<IHelper> RemoveHelper);
-
-    void ApplyOffset(Vector3 offset); // mediator¿¡¼­ ¹Þ¾Æ¿È
+    void InitializeHelper(ITarget commander, Action<IHelper> RemoveHelper);
+    void RestOffset(Vector3 offset); // mediator¿¡¼­ ¹Þ¾Æ¿È
 }

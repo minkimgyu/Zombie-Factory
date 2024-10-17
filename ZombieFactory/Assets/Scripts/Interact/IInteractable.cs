@@ -4,9 +4,16 @@ using UnityEngine;
 
 public interface IInteractable
 {
+    void Interact(IInteracter interacter);
+
     void OnSightEnter();
     void OnSightExit();
-
-    T ReturnComponent<T>(); // 오브젝트 리턴 후, 이걸 사용해서 GetComponent 진행
     bool IsInteractable();
+}
+
+public interface IInteracter
+{
+    void GetWeapon(BaseWeapon weapon);
+    void GetAmmoPack(int ammoCount);
+    void GetAidPack(float healPoint);
 }

@@ -5,8 +5,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using System;
-using static AddressableHandler;
-
 
 abstract public class BaseLoader
 {
@@ -18,19 +16,18 @@ abstract public class BaseAssetLoader<Key, Value, Type> : BaseLoader
 {
     protected Dictionary<Key, Value> _assetDictionary;
 
-    Label _label;
-    Action<Label, Dictionary<Key, Value>> OnComplete;
     int _successCount;
     int _totalCount;
+    AddressableHandler.Label _label;
+    Action<AddressableHandler.Label, Dictionary<Key, Value>> OnComplete;
 
-    public BaseAssetLoader(Label label, Action<Label, Dictionary<Key, Value>> OnComplete)
+    public BaseAssetLoader(AddressableHandler.Label label, Action<AddressableHandler.Label, Dictionary<Key, Value>> OnComplete)
     {
         _label = label;
         this.OnComplete = OnComplete;
         _assetDictionary = new Dictionary<Key, Value>();
         _successCount = 0;
     }
-
 
     public override void Load()
     {

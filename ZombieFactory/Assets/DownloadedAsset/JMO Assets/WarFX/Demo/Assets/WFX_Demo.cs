@@ -150,7 +150,7 @@ public class WFX_Demo : MonoBehaviour
 		if(m4.GetComponent<Renderer>().enabled)
 		{
 			GUILayout.BeginArea(new Rect(5, Screen.height - 100, Screen.width - 10, 90));
-			rotate_m4 = GUILayout.Toggle(rotate_m4, "AutoRotate Weapon", GUILayout.Width(250));
+			rotate_m4 = GUILayout.Toggle(rotate_m4, "AutoRotate Item", GUILayout.Width(250));
 			GUI.enabled = !rotate_m4;
 			float rx = m4.transform.localEulerAngles.x;
 			rx = rx > 90 ? rx-180 : rx;

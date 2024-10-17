@@ -10,6 +10,11 @@ public class GameUIController : MonoBehaviour
 
     [SerializeField] AmmoViwer _ammoViewer;
 
+    public void Initialize(Dictionary<BaseItem.Name, Sprite> weaponIconSprite)
+    {
+        _weaponViewer.Initialize(weaponIconSprite);
+    }
+
     public void ChangeHpRatio(float ratio)
     {
         _hpViewer.UpdateViewer(ratio);
@@ -22,8 +27,6 @@ public class GameUIController : MonoBehaviour
 
     public void ChangeAmmo(int inMagazine, int inPossession)
     {
-        Debug.Log(inMagazine);
-        Debug.Log(inPossession);
         _ammoViewer.ChangeAmmo(inMagazine, inPossession);
     }
 

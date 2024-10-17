@@ -2,31 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
+using System;
 
-public class WeaponInfoViwer : MonoBehaviour
+public class WeaponInfoViewer : MonoBehaviour
 {
-    [SerializeField] GameObject _viewr;
+    [SerializeField] GameObject _content;
 
     [SerializeField] TMP_Text _objectName;
 
     [SerializeField] float _offsetYPos = 0.5f;
 
-    Transform _cameraTransform;
+    bool _nowActivate = false;
 
-    private void Start()
+    public void Initialize()
     {
-        _cameraTransform = Camera.main.transform;
+        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveItemInfo, new ActiveWeaponViewerCommand(OnViewEventReceived));
+        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveItemInfo, new ActivateCommand(Activate));
+    }
+
+    void Activate(bool active)
+    {
+        _content.SetActive(active);
     }
 
     public void OnViewEventReceived(bool nowActivate, string name, Vector3 position)
     {
-        _viewr.SetActive(nowActivate);
-        _objectName.text = name;
+        _nowActivate = nowActivate;
+        Activate(nowActivate);
+        _objectName.text = $"Get {name}";
         transform.position = position + Vector3.up * _offsetYPos;
     }
 
     private void Update()
     {
-        transform.LookAt(_viewr.transform.position + _cameraTransform.forward);
+        if (_nowActivate == false) return;
+        transform.LookAt(_content.transform.position + Camera.main.transform.forward);
     }
 }

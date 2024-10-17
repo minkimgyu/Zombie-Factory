@@ -36,7 +36,7 @@ public class GridGenerator : MonoBehaviour
                     else // 이후에 obstacleCollider 검출
                     {
                         Collider[] obstacleCollider = Physics.OverlapBox(pos, boxSize, Quaternion.identity, obstacleLayer);
-                        if (obstacleCollider.Length > 0)
+                        if (obstacleCollider.Length == 1)
                         {
                             // 레이케스트를 아래로 쏴서 확인해보기
                             RaycastHit hit;
@@ -58,6 +58,13 @@ public class GridGenerator : MonoBehaviour
                                     .SetSurfacePosition(surfacePos)
                                     .Build();
                             }
+                        }
+                        else if(obstacleCollider.Length > 1) // 1개 보다 많은 콜라이더가 검출된다면 Block으로 적용
+                        {
+                            node = new Node.Builder()
+                                .SetPosition(pos)
+                                .SetState(Node.State.Block)
+                                .Build();
                         }
                         else
                         {

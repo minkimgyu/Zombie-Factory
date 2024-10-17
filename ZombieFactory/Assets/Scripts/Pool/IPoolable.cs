@@ -6,6 +6,7 @@ using System;
 
 public interface IPoolable
 {
+    void Initialize();
     void SetReturnToPoolEvent(Action ReturnToPool);
     void SetActive(bool active);
 

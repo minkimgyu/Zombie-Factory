@@ -120,7 +120,7 @@ public class HelperCreater : LifeCreater
         BaseLife life = Object.Instantiate(_lifePrefab);
 
         SwatData playerData = _lifeData as SwatData;
-        life.ResetData(playerData, null);
+        //life.ResetData(playerData, null);
         life.Initialize();
         return life;
     }

@@ -24,11 +24,10 @@ public class FactoryCollection
     public enum Type
     {
         Effect,
-        Weapon,
+        Item,
         Life,
         Ragdoll,
-
-        ArmedCharacter
+        SoundPlayer,
     }
 
     public Dictionary<Type, BaseFactory> Factories { get; private set; }
@@ -44,9 +43,11 @@ public class FactoryCollection
 
         BaseFactory lifeFactory = new LifeFactory(addressableHandler, effectFactory, ragdollFactory);
         BaseFactory itemFactory = new ItemFactory(addressableHandler, effectFactory);
+        BaseFactory soundFactory = new SoundPlayerFactory(addressableHandler);
 
         Factories.Add(Type.Effect, effectFactory);
         Factories.Add(Type.Life, lifeFactory);
-        Factories.Add(Type.Weapon, itemFactory);
+        Factories.Add(Type.Item, itemFactory);
+        Factories.Add(Type.SoundPlayer, soundFactory);
     }
 }

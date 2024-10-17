@@ -48,7 +48,7 @@ namespace AI.Swat
             // Á¤Áö
             _viewComponent = viewComponent;
             _moveComponent = moveComponent;
-            _wanderingFSM = new WanderingFSM(moveSpeed, stateChangeDuration, moveRange, viewComponent, moveComponent, myTransform, sightComponent);
+            _wanderingFSM = new WanderingFSM(moveSpeed, stateChangeDuration, moveRange, viewComponent, moveComponent, pathSeeker, myTransform, sightComponent);
 
             _myTransform = myTransform;
             _sightComponent = sightComponent;

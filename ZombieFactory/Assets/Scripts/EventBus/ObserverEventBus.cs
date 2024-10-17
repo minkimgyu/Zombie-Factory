@@ -1,68 +1,49 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Input;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MoveCameraCommand : BaseCommand
+public class ActiveWeaponViewerCommand : BaseCommand
 {
-    Action<Vector3, Vector3> MoveEvent;
+    Action<bool, string, Vector3> ActiveWeaponViewerEvent;
 
-    public MoveCameraCommand(Action<Vector3, Vector3> MoveEvent)
+    public ActiveWeaponViewerCommand(Action<bool, string, Vector3> ActiveWeaponViewerEvent)
     {
-        this.MoveEvent = MoveEvent;
+        this.ActiveWeaponViewerEvent = ActiveWeaponViewerEvent;
     }
 
-    public override void Execute(Vector3 cameraHolderPosition, Vector3 viewRotation)
+    public override void Execute(bool nowActivate, string name, Vector3 position)
     {
-        MoveEvent?.Invoke(cameraHolderPosition, viewRotation);
+        ActiveWeaponViewerEvent?.Invoke(nowActivate, name, position);
     }
 }
 
-public class ChangeFieldOfViewCommand : BaseCommand
+public class SpawnEffectCommand : BaseCommand
 {
-    Action<float, float> ChangeEvent;
+    Action<BaseEffect.Name, Vector3, Vector3> SpawnEffect;
 
-    public ChangeFieldOfViewCommand(Action<float, float> ChangeEvent)
+    public SpawnEffectCommand(Action<BaseEffect.Name, Vector3, Vector3> SpawnEffect)
     {
-        this.ChangeEvent = ChangeEvent;
+        this.SpawnEffect = SpawnEffect;
     }
-
-    public override void Execute(float fieldOfView, float ratio)
+    public override void Execute(BaseEffect.Name name, Vector3 hitPosition, Vector3 hitNormal)
     {
-        ChangeEvent?.Invoke(fieldOfView, ratio);
+        SpawnEffect?.Invoke(name, hitPosition, hitNormal);
     }
 }
 
-public class ChangeAmmoCommand : BaseCommand
-{
-    Action<int, int> ChangeEvent;
-
-    public ChangeAmmoCommand(Action<int, int> ChangeEvent)
-    {
-        this.ChangeEvent = ChangeEvent;
-    }
-
-    public override void Execute(int inMagazine, int inPossession)
-    {
-        ChangeEvent?.Invoke(inMagazine, inPossession);
-    }
-}
-
-public class ActiveCommand : BaseCommand
+public class ActivateCommand : BaseCommand
 {
     Action<bool> ActivateEvent;
 
-    public ActiveCommand(Action<bool> ActivateEvent)
+    public ActivateCommand(Action<bool> SpawnEffect)
     {
-        this.ActivateEvent = ActivateEvent;
+        this.ActivateEvent = SpawnEffect;
     }
-
-    public override void Execute(bool active)
+    public override void Execute(bool activate)
     {
-        ActivateEvent?.Invoke(active);
+        ActivateEvent?.Invoke(activate);
     }
 }
 
@@ -80,5 +61,38 @@ public class ObserverEventBus : BaseBus<ObserverEventBus.Type>
 
         AddPreview,
         RemovePreview,
+
+        SpawnEffect,
+
+        ActiveItemInfo,
+    }
+
+    public override void Publish(Type type, BaseEffect.Name name, Vector3 hitPosition, Vector3 hitNormal) 
+    {
+        if (_commands.ContainsKey(type) == false) return;  
+        for (int i = 0; i < _commands[type].Count; i++)
+        {
+            _commands[type][i].Execute(name, hitPosition, hitNormal);
+        }
+    }
+
+    public override void Publish(Type type, bool nowActivate, string name, Vector3 position)
+    {
+        if (_commands.ContainsKey(type) == false) return;
+
+        for (int i = 0; i < _commands[type].Count; i++)
+        {
+            _commands[type][i].Execute(nowActivate, name, position);
+        }
+    }
+
+    public override void Publish(Type type, bool nowActivate)
+    {
+        if (_commands.ContainsKey(type) == false) return;
+
+        for (int i = 0; i < _commands[type].Count; i++)
+        {
+            _commands[type][i].Execute(nowActivate);
+        }
     }
 }

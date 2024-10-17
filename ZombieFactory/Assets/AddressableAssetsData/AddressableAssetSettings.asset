@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: a6cad8f6306c01048abcd2f809ccbd7d
   m_currentHash:
     serializedVersion: 2
-    Hash: 7e7a3efb464b05df5cf53df00dcbcd76
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -48,15 +48,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d55405aeae75b14aab36280e0777cc0, type: 2}
   - {fileID: 11400000, guid: 39c9bc863bdf57f4ebeae9acfa7f6bc2, type: 2}
   - {fileID: 11400000, guid: b04f3164b69646548b03c0bb25f71de0, type: 2}
-  - {fileID: 11400000, guid: e1ceec2f429221e45b6bbe91ad2e8119, type: 2}
   - {fileID: 11400000, guid: 5be5d892c4c084749bc9b15c6840f601, type: 2}
   - {fileID: 11400000, guid: fa67f04504bcde84daf93398a6a3ca69, type: 2}
   - {fileID: 11400000, guid: 3701037332ab5724dafde4db0d0ae8fc, type: 2}
   - {fileID: 11400000, guid: 763da414eaf85ce47a64d3e84534e286, type: 2}
-  - {fileID: 11400000, guid: b4667f7820b75974aa01aa77bbf21fd4, type: 2}
   - {fileID: 11400000, guid: befa54cfebe5f3d4da92ea164ead9a5f, type: 2}
-  - {fileID: 11400000, guid: be469fb1f41d48d4db33062bbd214639, type: 2}
   - {fileID: 11400000, guid: a23192248a4e213478c2184937a1eb3d, type: 2}
+  - {fileID: 11400000, guid: 8715707e5c52aa4448c85e937449bb52, type: 2}
+  - {fileID: 11400000, guid: c8add2a7f8d1d3d46bcdb8af6dde86b0, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -106,6 +105,9 @@ MonoBehaviour:
     - LeftRecoilData
     - RightRecoilData
     - Ragdoll
+    - SoundPlayer
+    - Sound
+    - ItemSprite
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 8e53ba8e1ae448342bad8ddbadef4116, type: 2}

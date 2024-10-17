@@ -6,7 +6,7 @@ using System;
 
 public class EffectCreater : Pool
 {
-    public EffectCreater(BaseEffect prefab) : base(prefab)
+    public EffectCreater(BaseEffect prefab, int startSize = 0) : base(prefab, startSize)
     {
     }
 

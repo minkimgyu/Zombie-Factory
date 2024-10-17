@@ -50,6 +50,8 @@ abstract public class BaseWeapon : BaseItem
 
     protected Action<string, int, float> OnPlayOwnerAnimation;
 
+    public virtual void RefillAmmo(int ammoCount) { }
+
     void ChangeChildLayer(Transform child, int layer)
     {
         //child.gameObject.layer = layer;
@@ -73,7 +75,7 @@ abstract public class BaseWeapon : BaseItem
     public override void Initialize()
     {
         _animator = GetComponent<Animator>();
-        _targetLayer = LayerMask.GetMask("Penetratable"); // 레이어 할당해준다.
+        _targetLayer = LayerMask.GetMask("Penetratable", "Block"); // 레이어 할당해준다.
     }
 
     public virtual void MatchStrategy() { }
@@ -93,8 +95,6 @@ abstract public class BaseWeapon : BaseItem
     }
 
     protected virtual void OnCollisionEnter(Collision collision) { }
-
-    public virtual void PositionWeapon(bool nowDrop) { }
 
     public virtual void OnEquip()
     {

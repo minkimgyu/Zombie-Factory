@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponAddable
+public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponEquipable
 {
     public enum Name
     {
@@ -13,10 +13,9 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
         Rook,
         Warden,
 
-        //Mask,
+        MaskZombie,
         PoliceZombie,
-        //Witch,
-        //Mild
+        WitchZombie,
     }
 
     public enum LifeState
@@ -34,6 +33,11 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponA
     protected LifeState _lifeState;
 
     protected BaseFactory _effectFactory;
+
+    public void ResetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
 
     public virtual void Initialize() 
     {

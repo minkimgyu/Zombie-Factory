@@ -32,7 +32,15 @@ namespace BehaviorTree.Nodes
             if (_target as UnityEngine.Object == null) return NodeState.FAILURE;
 
             Vector3 dir = _pathSeeker.ReturnDirection(_target.ReturnPosition());
-            _moveComponent.Move(dir, _moveSpeed);
+
+            if (_pathSeeker.IsFinish() == true)
+            {
+                _moveComponent.Stop();
+            }
+            else
+            {
+                _moveComponent.Move(dir, _moveSpeed);
+            }
 
             return NodeState.SUCCESS;
         }

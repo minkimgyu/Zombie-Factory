@@ -84,6 +84,9 @@ abstract public class BaseMoveComponent : MonoBehaviour
 
     public virtual void Move(Vector3 direction, float speed)
     {
+        Debug.Log(transform.position);
+        
+
         //direction = transform.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
 
         bool canClimb = CanClimbSlope(direction, speed);

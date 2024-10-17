@@ -23,10 +23,10 @@ namespace AI.Zombie
         TPSMoveComponent _moveComponent;
         TPSViewComponent _viewComponent;
 
-        Animator _animator;
-
         NowCloseToTarget _nowCloseToTarget;
         Tree _bt;
+
+        FollowTarget _followTarget;
 
         public TargetFollowingState(
             ZombieFSM fsm,
@@ -59,11 +59,11 @@ namespace AI.Zombie
 
             _myTransform = myTransform;
 
-            _animator = animator;
             _pathSeeker = pathSeeker;
             _sightComponent = sightComponent;
 
             _nowCloseToTarget = new NowCloseToTarget(_myTransform, _stopDistance, _gap);
+            _followTarget = new FollowTarget(_pathSeeker, _moveComponent, _moveSpeed);
 
             _bt = new Tree();
             List<Node> _childNodes;
@@ -89,22 +89,27 @@ namespace AI.Zombie
                                             new List<Node>()
                                             {
                                                 new Stop(_moveComponent), // 정지 하는 코드 넣기
-                                                new Attack(
-                                                    _myTransform,
-                                                    raycastPoint,
-                                                    attackDamage,
-                                                    attackPreDelay,
-                                                    attackAfterDelay,
-                                                    attackRadius,
-                                                    _sightComponent,
-                                                    _animator
+
+                                                new Sequencer
+                                                (
+                                                    new List<Node>()
+                                                    {
+                                                        new WaitForNextAttack(attackPreDelay, attackAfterDelay, () =>{ animator.Play("Attack"); }),
+
+                                                        new Attack(
+                                                            _myTransform,
+                                                            raycastPoint,
+                                                            attackDamage,
+                                                            attackRadius,
+                                                            _sightComponent
+                                                        ),
+                                                    }
                                                 ),
-                                                // Wander에 이벤트를 보내는 방식으로 방향을 돌려준다.
                                             }
                                         ),
                                     }
                                 ),
-                                new FollowTarget(_pathSeeker, _moveComponent, _moveSpeed)
+                                _followTarget
                             }
                         )
                     }
@@ -124,6 +129,7 @@ namespace AI.Zombie
         {
             ITarget target = _sightComponent.ReturnTargetInSight();
             _nowCloseToTarget.ResetTarget(target);
+            _followTarget.ResetTarget(target);
         }
 
         // bt 넣어주기

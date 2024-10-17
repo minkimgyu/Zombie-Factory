@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolObject : MonoBehaviour, IPoolable
+abstract public class PoolObject : MonoBehaviour, IPoolable
 {
-    [SerializeField] protected float _duration = 5;
     protected Timer _timer = new Timer();
     Action ReturnToPool;
 
-    protected void StartTimer()
+    public virtual void Initialize() { }
+
+    protected void StartTimer(float duration)
     {
-        _timer.Start(_duration);
+        _timer.Start(duration);
     }
 
     protected virtual void Update()
@@ -25,7 +26,7 @@ public class PoolObject : MonoBehaviour, IPoolable
     protected virtual void OnDisable()
     {
         transform.rotation = Quaternion.identity;
-        transform.position = Vector3.zero;
+        //transform.position = Vector3.zero;
         _timer.Reset();
         ReturnToPool?.Invoke();
     }

@@ -5,6 +5,9 @@ using System;
 
 public class WeaponBlackboard 
 {
+    public Action<BaseItem.Name, BaseWeapon.Type> AddPreview { get; private set; }
+    public Action<BaseWeapon.Type> RemovePreview { get; private set; }
+
     public Action<bool> ActiveAmmoViewer { get; private set; }
     public Action<int, int> UpdateAmmoViewer { get; private set; }
 
@@ -29,6 +32,18 @@ public class WeaponBlackboard
         }
 
         private readonly WeaponBlackboard _blackboard = new WeaponBlackboard();
+
+        public Builder SetAddPreview(Action<BaseItem.Name, BaseWeapon.Type> AddPreview)
+        {
+            _blackboard.AddPreview = AddPreview;
+            return this;
+        }
+
+        public Builder SetRemovePreview(Action<BaseWeapon.Type> RemovePreview)
+        {
+            _blackboard.RemovePreview = RemovePreview;
+            return this;
+        }
 
         public Builder SetActiveAmmoViewer(Action<bool> activeAmmoViewer)
         {

@@ -5,41 +5,49 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] List<Wall> walls;
     [SerializeField] InputHandler _inputHandler;
 
     [SerializeField] CameraController _cameraController;
     [SerializeField] GameUIController _gameUIController;
+    [SerializeField] WeaponInfoViewer _weaponInfoViewer;
 
-    [SerializeField] GroundPathfinder _groundPathfinder;
+    [SerializeField] GridComponent _gridComponent;
 
-    AddressableHandler _addressableHandler;
-    FactoryCollection _factoryCollection;
+    [SerializeField] WeaponSpawner _weaponSpawner;
+    [SerializeField] ZombieSpawner _zombieSpawner;
+    EffectEmitter _effectEmitter;
 
-    private void Awake()
+    private void OnApplicationFocus(bool focus)
     {
-        ServiceLocater.Provide(_inputHandler);
+        if (focus) Cursor.lockState = CursorLockMode.Locked;
+        else Cursor.lockState = CursorLockMode.None;
     }
 
     private void Start()
     {
         EventBusManager.Instance.Initialize(new ObserverEventBus());
-        _addressableHandler = new AddressableHandler();
-        _addressableHandler.Load(Initialize);
+        AddressableHandler addressableHandler = new AddressableHandler();
+        addressableHandler.Load(() => { Initialize(addressableHandler); });
     }
 
-    public void Initialize()
+    public void Initialize(AddressableHandler addressableHandler)
     {
-        _factoryCollection = new FactoryCollection(_addressableHandler);
+        _gridComponent.Initialize();
+        ServiceLocater.Provide(_inputHandler);
+
+        _gameUIController.Initialize(addressableHandler.ItemSpriteAssets);
+        _weaponInfoViewer.Initialize();
+
+        FactoryCollection factoryCollection = new FactoryCollection(addressableHandler);
         _cameraController.Initialize();
 
-        //BaseLife zombie = _factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.PoliceZombie);
-        //IInjectPathfind injectPathfind = zombie.GetComponent<IInjectPathfind>();
-        //injectPathfind.AddPathfind(_groundPathfinder.FindPath);
+        SoundController soundController = FindObjectOfType<SoundController>();
+        soundController.Initialize(addressableHandler.AudioAssets, factoryCollection.Factories[FactoryCollection.Type.SoundPlayer]);
+        ServiceLocater.Provide(soundController);
 
-        //zombie.transform.position = new Vector3(3, 0, 3);
+        _effectEmitter = new EffectEmitter(factoryCollection.Factories[FactoryCollection.Type.Effect]);
 
-        BaseLife player = _factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.Player);
+        BaseLife player = factoryCollection.Factories[FactoryCollection.Type.Life].Create(BaseLife.Name.Player);
         player.AddObserverEvent
         (
             _cameraController.MoveCamera,
@@ -54,18 +62,16 @@ public class StageManager : MonoBehaviour
             _gameUIController.RemoveWeaponViewer
         );
 
-        BaseItem knife = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Knife);
-        BaseItem classic = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Stinger);
-        BaseItem phantom = _factoryCollection.Factories[FactoryCollection.Type.Weapon].Create(BaseItem.Name.Guardian);
+        BaseItem knife = factoryCollection.Factories[FactoryCollection.Type.Item].Create(BaseItem.Name.Knife);
+        BaseItem classic = factoryCollection.Factories[FactoryCollection.Type.Item].Create(BaseItem.Name.Stinger);
+        BaseItem phantom = factoryCollection.Factories[FactoryCollection.Type.Item].Create(BaseItem.Name.Odin);
 
         player.AddWeapon(knife as BaseWeapon);
         player.AddWeapon(classic as BaseWeapon);
         player.AddWeapon(phantom as BaseWeapon);
+        player.transform.position = new Vector3(15, 3, 15);
 
-
-        for (int i = 0; i < walls.Count; i++)
-        {
-            walls[i].Initialize(_factoryCollection.Factories[FactoryCollection.Type.Effect]);
-        }
+        //_weaponSpawner.Initialize(factoryCollection.Factories[FactoryCollection.Type.Item]);
+        //_zombieSpawner.Initialize(factoryCollection.Factories[FactoryCollection.Type.Life]);
     }
 }

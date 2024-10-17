@@ -33,7 +33,7 @@ public class LifeFactory : BaseFactory
     {
         _lifeCreaters = new Dictionary<BaseLife.Name, LifeCreater>();
         _lifeCreaters[BaseLife.Name.Player] = new PlayerCreater(addressableHandler.LifePrefabs[BaseLife.Name.Player], addressableHandler.LifeDataDictionary[BaseLife.Name.Player], effectFactory);
-        _lifeCreaters[BaseLife.Name.Rook] = new HelperCreater(addressableHandler.LifePrefabs[BaseLife.Name.Rook], addressableHandler.LifeDataDictionary[BaseLife.Name.Rook], effectFactory);
+        //_lifeCreaters[BaseLife.Name.Rook] = new HelperCreater(addressableHandler.LifePrefabs[BaseLife.Name.Rook], addressableHandler.LifeDataDictionary[BaseLife.Name.Rook], effectFactory);
 
 
 

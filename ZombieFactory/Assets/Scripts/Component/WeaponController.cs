@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Animations.Rigging;
 
 public class WeaponController : MonoBehaviour
 {
@@ -27,11 +26,7 @@ public class WeaponController : MonoBehaviour
 
     WeaponFSM _weaponFSM;
     //public Action<float> OnWeaponWeightChangeRequested;
-
     //Action<BaseItem.Name> OnProfileChangeRequested;
-
-    protected Action<BaseItem.Name, BaseWeapon.Type> AddPreview;
-    protected Action<BaseWeapon.Type> RemovePreview;
 
     Rigidbody _rigidbody;
     public float SendMoveDisplacement() { return _rigidbody.velocity.magnitude * 0.01f; }
@@ -41,20 +36,17 @@ public class WeaponController : MonoBehaviour
     Animator _animator;
     WeaponBlackboard _weaponBlackboard;
 
-    // OnShowRounds --> 이거는 이벤트 버스로 구현해주자
-
     public void AddObserverEvent(
         Action<bool> ActiveAmmoViewer,
         Action<int, int> UpdateAmmoViewer,
         Action<BaseItem.Name, BaseWeapon.Type> AddPreview,
         Action<BaseWeapon.Type> RemovePreview)
     {
-        this.AddPreview = AddPreview;
-        this.RemovePreview = RemovePreview;
-
         _weaponBlackboard = new WeaponBlackboard.Builder(_weaponBlackboard)
         .SetActiveAmmoViewer(ActiveAmmoViewer)
         .SetUpdateAmmoViewer(UpdateAmmoViewer)
+        .SetAddPreview(AddPreview)
+        .SetRemovePreview(RemovePreview)
         .Build();
     }
 
@@ -96,6 +88,11 @@ public class WeaponController : MonoBehaviour
 
         _weaponFSM.Initialize(weaponStates);
         _weaponFSM.SetState(State.Idle);
+    }
+
+    public void RefillAmmo(int ammoCount) 
+    {
+        _nowEquipedWeapon.RefillAmmo(ammoCount);
     }
 
     void PlayOwnerAnimation(string name, int index, float time)

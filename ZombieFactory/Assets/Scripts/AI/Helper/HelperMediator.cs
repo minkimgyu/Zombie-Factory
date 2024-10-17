@@ -13,7 +13,7 @@ public class HelperMediator
 {
     const int _distanceFromPlayer = 3;
 
-    ITarget _commander;
+    ITarget _player;
     List<IHelper> _helpers;
 
     void RemoveHelper(IHelper helper)
@@ -26,8 +26,8 @@ public class HelperMediator
         Vector2 pos = Random.insideUnitCircle * _distanceFromPlayer;
         for (int i = 0; i < _helpers.Count; i++)
         {
-            _helpers[i].Initialize(_commander, RemoveHelper);
-            _helpers[i].ApplyOffset(pos);
+            _helpers[i].InitializeHelper(_player, RemoveHelper);
+            _helpers[i].RestOffset(pos);
         }
     }
 
@@ -36,7 +36,7 @@ public class HelperMediator
         Vector3[] points = GetCirclePoints(_distanceFromPlayer, _helpers.Count);
         for (int i = 0; i < _helpers.Count; i++)
         {
-            _helpers[i].ApplyOffset(points[i]);
+            _helpers[i].RestOffset(points[i]);
         }
     }
 

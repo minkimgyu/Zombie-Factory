@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RagdollCreater : Pool
+public class RagdollCreater
 {
-    IPoolable _prefab;
+    protected Ragdoll _ragdoll;
 
-    public RagdollCreater(Ragdoll prefab) : base(prefab)
+    public RagdollCreater(Ragdoll prefab)
     {
+        _ragdoll = prefab;
     }
 
     public Ragdoll Create(Vector3 pos, Quaternion rotation)
     {
-        Ragdoll ragdoll = (Ragdoll)_pool.Get();
+        Ragdoll ragdoll = Object.Instantiate(_ragdoll, pos, rotation);
         ragdoll.transform.position = pos;
         ragdoll.transform.rotation = rotation;
 

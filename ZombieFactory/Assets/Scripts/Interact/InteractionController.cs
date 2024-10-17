@@ -4,27 +4,47 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-public class InteractionController : MonoBehaviour
+public class InteractionController : MonoBehaviour, IInteracter
 {
     [SerializeField] InteractableCaptureComponent _interactableCaptureComponent;
     IInteractable _interactableTarget;
     Action<BaseWeapon> SendWeaponToController;
+    Action<int> RefillAmmo;
+    Action<float> GetHeal;
+
+    public void GetWeapon(BaseWeapon weapon)
+    {
+        SendWeaponToController?.Invoke(weapon);
+    }
+
+    public void GetAmmoPack(int ammoCount)
+    {
+        RefillAmmo?.Invoke(ammoCount);
+    }
+
+    public void GetAidPack(float healPoint)
+    {
+        GetHeal?.Invoke(healPoint);
+    }
 
     public void OnHandleInteract()
     {
-        if(_interactableTarget == null) return;
+        if (_interactableTarget as UnityEngine.Object == null) return;
 
-        BaseWeapon weapon = _interactableTarget.ReturnComponent<BaseWeapon>();
-        if (weapon == null) return;
-
-        SendWeaponToController?.Invoke(weapon);
+        _interactableTarget.Interact(this);
+        _interactableTarget = null; // null로 초기화
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, false);
     }
 
     public void Initialize()
     {
         _interactableCaptureComponent.Initialize(OnEnter, OnExit);
         WeaponController weaponController = GetComponentInParent<WeaponController>();
+        BaseLife life = GetComponentInParent<BaseLife>();
+
         SendWeaponToController = weaponController.OnWeaponReceived;
+        RefillAmmo = weaponController.RefillAmmo;
+        GetHeal = life.GetHeal;
     }
 
     void OnEnter(IInteractable interactable)
@@ -39,7 +59,11 @@ public class InteractionController : MonoBehaviour
 
     void OnExit(IInteractable interactable)
     {
-        if (_interactableTarget != null) _interactableTarget.OnSightExit();
+        if (_interactableTarget != null)
+        {
+            _interactableTarget.OnSightExit();
+            _interactableTarget = null;
+        }
     }
 
     bool CanInteract(IInteractable target)

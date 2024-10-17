@@ -6,13 +6,14 @@ using TMPro;
 
 public class WeaponViewer : BaseViewer
 {
-    [SerializeField] List<Image> images;
+    [SerializeField] Image[] images;
 
     Dictionary<BaseItem.Name, Sprite> _weaponIconSprite;
 
     public void Initialize(Dictionary<BaseItem.Name, Sprite> weaponIconSprite)
     {
         _weaponIconSprite = weaponIconSprite;
+        images = GetComponentsInChildren<Image>();
     }
 
     public void AddPreview(BaseItem.Name name, BaseWeapon.Type type)

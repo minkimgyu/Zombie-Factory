@@ -6,8 +6,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.SceneManagement;
 using System;
-using System.Reflection;
-using Unity.VisualScripting.Antlr3.Runtime;
 
 public class AddressableHandler
 {
@@ -22,7 +20,7 @@ public class AddressableHandler
         Ragdoll,
 
         ProfileSprite,
-        itemSprite,
+        ItemSprite,
         PreviewSprite,
 
         LifeData,
@@ -30,6 +28,8 @@ public class AddressableHandler
 
         LeftRecoilData,
         RightRecoilData,
+
+        SoundPlayer,
     }
 
     HashSet<BaseLoader> _assetLoaders;
@@ -44,10 +44,15 @@ public class AddressableHandler
         _totalCount = 0;
     }
 
+    public SoundPlayer SoundPlayer { get; private set; }
     public Dictionary<BaseEffect.Name, BaseEffect> EffectPrefabs { get; private set; }
     public Dictionary<BaseLife.Name, BaseLife> LifePrefabs { get; private set; }
     public Dictionary<BaseLife.Name, Ragdoll> RagdollPrefabs { get; private set; }
     public Dictionary<BaseItem.Name, BaseItem> ItemPrefabs { get; private set; }
+
+    public Dictionary<BaseItem.Name, Sprite> ItemSpriteAssets { get; private set; }
+
+    public Dictionary<ISoundControllable.SoundName, AudioClip> AudioAssets { get; private set; }
 
     public Dictionary<BaseLife.Name, LifeData> LifeDataDictionary { get; private set; }
     public Dictionary<BaseItem.Name, ItemData> ItemDataDictionary { get; private set; }
@@ -57,6 +62,13 @@ public class AddressableHandler
     public void Load(Action OnCompleted)
     {
         _assetLoaders = new HashSet<BaseLoader>();
+
+        _assetLoaders.Add(new SoundPlayerAssetLoader(Label.SoundPlayer, (label, value) => { SoundPlayer = value; OnSuccess(label); }));
+        _assetLoaders.Add(new AudioAssetLoader(Label.Sound, (label, value) => { AudioAssets = value; OnSuccess(label); }));
+
+
+        _assetLoaders.Add(new ItemSpriteAssetLoader(Label.ItemSprite, (label, value) => { ItemSpriteAssets = value; OnSuccess(label); }));
+
 
         _assetLoaders.Add(new ItemAssetLoader(Label.Item, (label, value) => { ItemPrefabs = value; OnSuccess(label); }));
         _assetLoaders.Add(new RagdollAssetLoader(Label.Ragdoll, (label, value) => { RagdollPrefabs = value; OnSuccess(label); }));

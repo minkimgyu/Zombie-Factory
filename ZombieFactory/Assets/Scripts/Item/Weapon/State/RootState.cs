@@ -15,8 +15,7 @@ public class RootState : BaseWeaponState
         Dictionary<BaseWeapon.Type, BaseWeapon> weaponsContainer,
         Transform weaponParent,
         WeaponBlackboard eventBlackboard,
-        Func<BaseWeapon> ReturnWeapon
-        ) : base(fsm)
+        Func<BaseWeapon> ReturnWeapon) : base(fsm)
     {
         _weaponsContainer = weaponsContainer;
         _weaponParent = weaponParent;
@@ -35,7 +34,7 @@ public class RootState : BaseWeaponState
 
     public override void OnStateEnter(BaseWeapon weapon, string message)
     {
-        //_eventBlackboard?.Invoke(weapon.WeaponName, weapon.WeaponType);
+        _eventBlackboard.AddPreview?.Invoke(weapon.WeaponName, weapon.WeaponType);
 
         // 현재 장착한 무기랑 같은 타입의 무기인 경우
         // 아니면 다른 경우

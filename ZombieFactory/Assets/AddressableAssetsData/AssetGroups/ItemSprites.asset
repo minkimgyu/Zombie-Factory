@@ -16,7 +16,67 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 0c09d085ee9a52d479c827b4ccbd8a0b
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 6fd9355c12581634ea8d51970159de73
+    m_Address: Vandal
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97c6cc840215a1b499692f95917fd4e2
+    m_Address: Phantom
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 016ee9139ff86c740a6ad6da2fd7f6c1
+    m_Address: Judge
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 206e0097e35be944a977c9fcd3e54f7e
+    m_Address: Guardian
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10f95623fa2ae5946b6b93a50f005b1a
+    m_Address: Knife
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5ad386e07c273942b7a3543054a782e
+    m_Address: Odin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 104517281a36af24b9d02ebb5e299827
+    m_Address: Classic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 411096e95f45ddb4cb524d3b01ffa175
+    m_Address: Bucky
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79303cd933ffe934788b5015b7d57dfa
+    m_Address: Stinger
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5cfc7831f893cfd41bfebbbd64547e3c
+    m_Address: Operator
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSprite
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

@@ -3,20 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathSeeker : MonoBehaviour
+public class PathSeeker : MonoBehaviour, IInjectPathfind
 {
     Func<Vector3, Vector3, List<Vector3>> FindPath;
-    bool _onAir;
 
     List<Vector3> _path;
     int _pathIndex = 0;
     const float _reachDistance = 0.1f;
 
-
-    public void Initialize(Func<Vector3, Vector3, List<Vector3>> FindPath, bool onAir)
+    public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
     {
         this.FindPath = FindPath;
-        _onAir = onAir;
+    }
+
+    public void Initialize()
+    {
         _storedTargetPos = Vector3.positiveInfinity;
     }
 
@@ -47,7 +48,6 @@ public class PathSeeker : MonoBehaviour
     {
         if (Vector3.Distance(targetPos, _storedTargetPos) > 0.5f)
         {
-            Debug.Log("FindPath");
             _path = FindPath(transform.position, targetPos);
             _pathIndex = 0;
             _storedTargetPos = targetPos;

@@ -28,11 +28,15 @@ namespace AI.Zombie
             TPSViewComponent viewComponent,
             TPSMoveComponent moveComponent,
             Animator animator,
+            PathSeeker pathSeeker,
 
             Transform myTransform,
             SightComponent sightComponent) : base(fsm)
         {
-            _wanderingFSM = new WanderingFSM(speed, stateChangeDuration, moveRange, viewComponent, moveComponent, myTransform, sightComponent);
+            _viewComponent = viewComponent;
+            _moveComponent = moveComponent;
+
+            _wanderingFSM = new WanderingFSM(speed, stateChangeDuration, moveRange, viewComponent, moveComponent, pathSeeker, myTransform, sightComponent);
             _animator = animator;
             _sightComponent = sightComponent;
 

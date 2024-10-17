@@ -22,12 +22,12 @@ abstract public class BaseEffect : PoolObject
         ObjectFragmentation // 관통하여 오브젝트가 부서지는 경우
     }
 
+    [SerializeField] protected float _duration = 5;
+
     public virtual void Play()
     {
-        StartTimer();
+        StartTimer(_duration);
     }
-
-    public virtual void Initialize() { }
 
     public virtual void ResetData(Vector3 hitPosition) { }
 

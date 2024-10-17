@@ -62,7 +62,7 @@ abstract public class MeleeAttack : ApplyAttack
         IEffectable effectable = hit.collider.GetComponent<IEffectable>();
         if (effectable == null) return;
 
-        effectable.effectFactory(IEffectable.ConditionType.Stabbing, hit.point, hit.normal);
+        effectable.SpawnEffect(IEffectable.ConditionType.Stabbing, hit.point, hit.normal);
 
         IHitable hitable = hit.collider.GetComponent<IHitable>();
         if (hitable == null) return;

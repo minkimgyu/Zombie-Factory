@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
@@ -10,7 +11,6 @@ public class GridComponent : MonoBehaviour
     // 막힌 공간의 표면을 따라 이동할 수 있는 좀비, 조력자로 나뉜다.
     // 모두 상하좌우 1칸씩 이동가능하게끔 해보자
     GridGenerator _gridGenerator;
-    AirPathfinder _airPathfinder;
     GroundPathfinder _groundPathfinder;
 
     [SerializeField] float _nodeSize = 0.5f;
@@ -34,12 +34,20 @@ public class GridComponent : MonoBehaviour
 
     Node[,,] _grid;
 
-    private void Awake()
-    {
-        _gridGenerator = GetComponent<GridGenerator>();
-        _airPathfinder = GetComponent<AirPathfinder>();
-        _groundPathfinder = GetComponent<GroundPathfinder>();
+    PathSeekerCaptureComponent _pathSeekerCaptureComponent;
 
+    void OnEnter(IInjectPathfind injectPathfind)
+    {
+        injectPathfind.AddPathfind(_groundPathfinder.FindPath);
+    }
+
+    public void Initialize()
+    {
+        _pathSeekerCaptureComponent = GetComponentInChildren<PathSeekerCaptureComponent>();
+        _pathSeekerCaptureComponent.Initialize(OnEnter);
+
+        _gridGenerator = GetComponent<GridGenerator>();
+        _groundPathfinder = GetComponent<GroundPathfinder>();
 
         _grid = _gridGenerator.CreateGrid(_nodeSize, _sizeOfGrid, _blockMask, _nonPassMask);
         for (int x = 0; x < _sizeOfGrid.x; x++)
@@ -55,7 +63,6 @@ public class GridComponent : MonoBehaviour
             }
         }
 
-        _airPathfinder.Initialize(this);
         _groundPathfinder.Initialize(this);
     }
 

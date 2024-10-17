@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AI.Zombie
 {
-    public class Zombie : BaseLife, IInjectPathfind
+    public class Zombie : BaseLife
     {
         public enum State
         {
@@ -138,6 +138,7 @@ namespace AI.Zombie
                     _viewComponent,
                     _moveComponent,
                     _animator,
+                    _pathSeeker,
                     transform,
                     _sightComponent) },
                 {
@@ -183,11 +184,6 @@ namespace AI.Zombie
         private void FixedUpdate()
         {
             _zombieFSM.OnFixedUpdate();
-        }
-
-        public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
-        {
-            _pathSeeker.Initialize(FindPath, false);
         }
     }
 }

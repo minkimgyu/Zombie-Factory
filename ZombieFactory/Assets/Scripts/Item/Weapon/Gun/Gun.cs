@@ -33,17 +33,25 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     BoxCollider _gunCollider;
     Rigidbody _gunRigidbody;
-    bool _nowAttachToGround;
+    //bool _nowAttachToGround;
 
-    public Action<bool, string, Vector3> OnViewEventRequest;
+    //public Action<bool, string, Vector3> OnViewEventRequest;
 
-    protected Action<Vector3> OnGenerateNoiseRequest;
+    //protected Action<Vector3> OnGenerateNoiseRequest;
 
     protected void SpawnEmptyCartridge() => _emptyCartridgeSpawner.Play();
     protected void SpawnMuzzleFlashEffect() => _muzzleFlash.Play();
 
     Action<bool> ActiveAmmoViewer;
     Action<int, int> UpdateAmmoViewer;
+
+    public override void RefillAmmo(int ammoCount) 
+    {
+        int refillCount = _ammoCountsInPossession + ammoCount;
+        if (refillCount > _maxAmmoCountsInPossession) refillCount = _maxAmmoCountsInPossession;
+
+        OnReloadRequested(_ammoCountsInMagazine, refillCount);
+    }
 
     public override void OnRooting(WeaponBlackboard blackboard)
     {
@@ -121,18 +129,23 @@ abstract public class Gun : BaseWeapon, IInteractable
         _gunRigidbody.AddForce(direction * force, ForceMode.Impulse);
     }
 
+    bool _nowDrop = false;
+
     public override void PositionWeapon(bool nowDrop)
     {
+        _nowDrop = nowDrop;
+
         if (nowDrop)
         {
             _gunCollider.enabled = true;
             _gunRigidbody.isKinematic = false;
+            _gunRigidbody.useGravity = true;
         }
         else
         {
-            _nowAttachToGround = false;
             _gunCollider.enabled = false;
             _gunRigidbody.isKinematic = true;
+            _gunRigidbody.useGravity = false;
             gameObject.SetActive(false);
         }
     }
@@ -183,20 +196,23 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public void OnSightEnter()
     {
-        OnViewEventRequest?.Invoke(true, _weaponName.ToString(), _objectMesh.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, true, _weaponName.ToString(), _objectMesh.position);
     }
 
     public void OnSightExit()
     {
-        OnViewEventRequest?.Invoke(false, _weaponName.ToString(), _objectMesh.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, false);
     }
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        _nowAttachToGround = true; // 어디든 부딫히면 그때부터 Interaction 적용
+        //_nowAttachToGround = true; // 어디든 부딪히면 그때부터 Interaction 적용
     }
 
-    public bool IsInteractable() { return _nowAttachToGround; }
+    public bool IsInteractable() { return _nowDrop; }
 
-    public T ReturnComponent<T>() { return GetComponent<T>(); }
+    public void Interact(IInteracter interacter)
+    {
+        interacter.GetWeapon(this);
+    }
 }
