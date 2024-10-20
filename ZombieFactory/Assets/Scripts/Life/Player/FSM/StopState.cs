@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Windows;
+using FSM.Movement;
 
 public class StopState : BaseMovementState
 {
     BaseMoveComponent _moveComponent;
 
-    public StopState(FSM<MovementState> fsm, BaseMoveComponent moveComponent) : base(fsm)
+    public StopState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent) : base(fsm)
     {
         _moveComponent = moveComponent;
     }
@@ -28,13 +26,13 @@ public class StopState : BaseMovementState
     {
         if (input.magnitude > 0)
         {
-            _baseFSM.SetState(MovementState.Walk);
+            _baseFSM.SetState(ActionController.MovementState.Walk);
             return;
         }
     }
 
     public override void OnHandleJump()
     {
-        _baseFSM.SetState(MovementState.Jump);
+        _baseFSM.SetState(ActionController.MovementState.Jump);
     }
 }

@@ -9,6 +9,7 @@ public interface IPoolable
     void Initialize();
     void SetReturnToPoolEvent(Action ReturnToPool);
     void SetActive(bool active);
+    void SetParent(Transform parent);
 
     GameObject ReturnObject();
 }

@@ -27,8 +27,8 @@ public interface IInputable
         EventEnd,
         EventStart,
 
-        RightMouseButtonUp,
-        RightMouseButtonDown,
+        GoToFreeRole,
+        GoToBuildFormation
     }
 
     void AddEvent(Type type, BaseCommand command);

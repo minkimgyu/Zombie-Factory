@@ -26,11 +26,11 @@ public class AidPack : BaseItem, IInteractable
 
     public void OnSightEnter()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, true, _itemName.ToString(), transform.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, _itemName.ToString(), transform.position);
     }
 
     public void OnSightExit()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, false);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, false);
     }
 }

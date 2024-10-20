@@ -7,7 +7,6 @@ public class SoundController : MonoBehaviour, ISoundControllable
     Dictionary<ISoundControllable.SoundName, AudioClip> _clipDictionary;
 
     BaseFactory _soundFactory;
-
     AudioSource _bgmPlayer;
     AudioSource[] _sfxPlayer;
 

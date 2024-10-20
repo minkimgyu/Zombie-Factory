@@ -196,12 +196,12 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public void OnSightEnter()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, true, _weaponName.ToString(), _objectMesh.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, _weaponName.ToString(), _objectMesh.position);
     }
 
     public void OnSightExit()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveItemInfo, false);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, false);
     }
 
     protected override void OnCollisionEnter(Collision collision)
@@ -213,6 +213,6 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public void Interact(IInteracter interacter)
     {
-        interacter.GetWeapon(this);
+        interacter.AddWeapon(this);
     }
 }

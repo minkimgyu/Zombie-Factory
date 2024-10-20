@@ -57,13 +57,23 @@ namespace AI.Zombie
 
         void OnNoiseEnter(ITarget target)
         {
-            if (_noiseQueue.Count == _maxNoiseQueueSize) return;
+            if (_noiseQueue.Count == _maxNoiseQueueSize)
+            {
+                _noiseQueue.Dequeue(); // 하나 뺴준다.
+            }
 
             bool isOpponent = target.IsOpponent(new List<IIdentifiable.Type> { IIdentifiable.Type.Sound });
             if (isOpponent == false) return;
 
-            _noiseQueue.Enqueue(target.ReturnPosition());
+            _noiseQueue.Enqueue(target.ReturnPosition()); // 그리고 추가해준다.
             _zombieFSM.OnNoiseEnter();
+        }
+
+        Action OnDie;
+
+        public override void AddObserverEvent(Action OnDie)
+        {
+            this.OnDie = OnDie;
         }
 
         public override void ResetData(ZombieData data, BaseFactory effectFactory, BaseFactory ragdollFactory) 
@@ -94,38 +104,29 @@ namespace AI.Zombie
             _ragdollFactory = ragdollFactory;
         }
 
-        public override void OnDieRequested()
+        protected override void OnDieRequested()
         {
             Ragdoll ragdoll = _ragdollFactory.Create(Name.PoliceZombie, transform.position, transform.rotation);
             ragdoll.Activate(_rig);
 
+            OnDie?.Invoke();
             Destroy(gameObject);
         }
 
-        public override void Initialize()
+        void ResetAnimator(Vector3 dir)
         {
-            base.Initialize();
+            if (dir == Vector3.zero)
+            {
+                _animator.SetBool("Run", false);
+            }
+            else
+            {
+                _animator.SetBool("Run", true);
+            }
+        }
 
-            _animator = GetComponentInChildren<Animator>();
-
-            _myType = IIdentifiable.Type.Zombie;
-            _noiseQueue = new Queue<Vector3>();
-            _targetList = new List<ITarget>();
-
-            _pathSeeker = GetComponent<PathSeeker>();
-
-            _noiseCaptureComponent.Initialize(OnNoiseEnter);
-            _noiseCaptureComponent.Resize(_noiseCaptureRadius);
-            
-            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human });
-            _sightComponent.Resize(_targetCaptureRadius);
-
-            _viewComponent = GetComponent<TPSViewComponent>();
-            _viewComponent.Initialize(70);
-
-            _moveComponent = GetComponent<TPSMoveComponent>();
-            _moveComponent.Initialize();
-
+        public override void InitializeFSM()
+        {
             _zombieFSM = new ZombieFSM();
             Dictionary<State, BaseState<State>> states = new Dictionary<State, BaseState<State>>
             {
@@ -175,9 +176,37 @@ namespace AI.Zombie
             _zombieFSM.SetState(State.Idle);
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            _animator = GetComponentInChildren<Animator>();
+
+            _myType = IIdentifiable.Type.Zombie;
+            _noiseQueue = new Queue<Vector3>();
+            _targetList = new List<ITarget>();
+
+            _pathSeeker = GetComponent<PathSeeker>();
+
+            _noiseCaptureComponent.Initialize(OnNoiseEnter);
+            _noiseCaptureComponent.Resize(_noiseCaptureRadius);
+            
+            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human });
+            _sightComponent.Resize(_targetCaptureRadius);
+
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+
+            _viewComponent = GetComponent<TPSViewComponent>();
+            _viewComponent.Initialize(70, rigidbody);
+
+            _moveComponent = GetComponent<TPSMoveComponent>();
+            _moveComponent.Initialize(rigidbody, ResetAnimator);
+        }
+
         // Update is called once per frame
         void Update()
         {
+            _moveComponent.CheckIsOnSlope();
             _zombieFSM.OnUpdate();
         }
 

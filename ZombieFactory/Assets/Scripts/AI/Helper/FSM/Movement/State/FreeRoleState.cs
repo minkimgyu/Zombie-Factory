@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI.Swat
+namespace AI.Swat.Movement
 {
     public class FreeRoleState : BaseMovementState
     {
@@ -15,11 +15,8 @@ namespace AI.Swat
 
         FreeRoleFSM _freeRoleFSM;
 
-        IdleState _idleState;
-        EncounterState _encounterState;
-
         public FreeRoleState(
-            FSM<Swat.State> fsm,
+            FSM<Swat.MovementState> fsm,
             float moveSpeed,
             float stateChangeDuration,
             float moveRange,
@@ -29,69 +26,59 @@ namespace AI.Swat
             float farDistance,
             float closeDistance,
 
+            FormationData formationData,
+
             TPSViewComponent viewComponent,
             TPSMoveComponent moveComponent,
-            Animator animator,
 
             Transform myTransform,
             SightComponent sightComponent,
             PathSeeker pathSeeker) : base(fsm)
         {
             _freeRoleFSM = new FreeRoleFSM();
-
-            _idleState = new IdleState(
-                _freeRoleFSM,
-                moveSpeed,
-                stateChangeDuration,
-                moveRange,
-                retreatDistance,
-                gap,
-
-                viewComponent,
-                moveComponent,
-                myTransform,
-                sightComponent,
-                pathSeeker);
-
-            _encounterState = new EncounterState(
-                _freeRoleFSM,
-                moveSpeed,
-                farDistance,
-                closeDistance,
-                gap,
-                myTransform,
-                sightComponent,
-                pathSeeker,
-                viewComponent,
-                moveComponent
-            );
-
             Dictionary<State, BaseState<State>> states = new Dictionary<State, BaseState<State>>
             {
                 {
                     State.Idle,
-                    _idleState
+                    new IdleState(
+                        _freeRoleFSM,
+                        moveSpeed,
+                        stateChangeDuration,
+                        moveRange,
+                        retreatDistance,
+                        gap,
+
+                        formationData,
+
+                        viewComponent,
+                        moveComponent,
+                        myTransform,
+                        sightComponent,
+                        pathSeeker)
                 },
                 { 
                     State.Encounter,
-                    _encounterState
+                    new EncounterState(
+                        _freeRoleFSM,
+                        moveSpeed,
+                        farDistance,
+                        closeDistance,
+                        retreatDistance,
+                        gap,
+
+                        formationData,
+
+                        myTransform,
+                        sightComponent,
+                        pathSeeker,
+                        viewComponent,
+                        moveComponent
+                    )
                 },
             };
             _freeRoleFSM.Initialize(states);
             _freeRoleFSM.SetState(State.Idle);
 
-        }
-
-        public void ResetRetreatOffset(Vector3 offset)
-        {
-            _idleState.ResetRetreatOffset(offset);
-            _encounterState.ResetRetreatOffset(offset);
-        }
-
-        public void ResetRetreatTarget(ITarget target)
-        {
-            _idleState.ResetRetreatTarget(target);
-            _encounterState.ResetRetreatTarget(target);
         }
 
         public override void OnStateUpdate()

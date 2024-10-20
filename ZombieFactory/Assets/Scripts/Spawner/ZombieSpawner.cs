@@ -1,36 +1,53 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Random = UnityEngine.Random;
 
-public class ZombieSpawner : MonoBehaviour
+public class ZombieSpawner : BaseSpawner
 {
-    BaseFactory _zombieFactory;
-    [SerializeField] int _zombieCount = 5;
+    [SerializeField] Color _rangeColor;
+    [SerializeField] BaseLife.Name[] _lifeNames;
     [SerializeField] float _range = 3f;
 
-    BaseLife.Name[] zombies = { BaseLife.Name.PoliceZombie}; // , BaseLife.Name.WitchZombie, BaseLife.Name.MaskZombie 
+    BaseFactory _lifeFactory;
+    int _spawnCount;
+    Action OnDie;
 
-    public void Initialize(BaseFactory zombieFactory)
+    public override void Initialize(int spawnCount, BaseFactory factory, Action OnDie) 
     {
-        _zombieFactory = zombieFactory;
-
-        for (int i = 0; i < _zombieCount; i++)
-        {
-            Vector2 randomPos = Random.insideUnitCircle * _range;
-            Vector3 randomRange = new Vector3(randomPos.x, transform.position.y, randomPos.y);
-
-            Debug.Log(randomRange);
-
-            Spawn(randomRange);
-        }
+        _spawnCount = spawnCount;
+        _lifeFactory = factory;
+        this.OnDie = OnDie;
     }
 
-    void Spawn(Vector3 randomRange)
+    protected BaseLife CreateRandomLife()
     {
-        BaseLife.Name zombieName = zombies[Random.Range(0, zombies.Length)];
-        BaseLife zombie = _zombieFactory.Create(zombieName);
-        zombie.transform.position = randomRange;
+        BaseLife.Name lifeName = _lifeNames[Random.Range(0, _lifeNames.Length)];
+        return _lifeFactory.Create(lifeName);
+    }
+
+    protected Vector3 ReturnRandomPos()
+    {
+        Vector2 randomPos = Random.insideUnitCircle * _range;
+        return transform.position + new Vector3(randomPos.x, 0, randomPos.y);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = _rangeColor;
+        Gizmos.DrawSphere(transform.position, _range);
+    }
+
+    public override void Spawn()
+    {
+        for (int i = 0; i < _spawnCount; i++)
+        {
+            BaseLife zombie = CreateRandomLife();
+            Vector3 pos = ReturnRandomPos();
+
+            zombie.AddObserverEvent(OnDie);
+            zombie.ResetPosition(pos);
+        }
     }
 }

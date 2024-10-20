@@ -1,17 +1,80 @@
+using BehaviorTree;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Tree = BehaviorTree.Tree;
+using Node = BehaviorTree.Node;
+using BehaviorTree.Nodes;
 
-namespace AI.Swat
+namespace AI.Swat.Movement
 {
-    // bt 넣어주기
-
     public class BuildFormationState : BaseMovementState
     {
-        public BuildFormationState(FSM<Swat.State> fsm) : base(fsm)
+        // bt 넣어주기
+        Tree _bt;
+        TPSViewComponent _viewComponent;
+        TPSMoveComponent _moveComponent;
+
+        public BuildFormationState(
+            FSM<Swat.MovementState> fsm,
+            float moveSpeed,
+            float targetCaptureRadius,
+            float gap,
+
+            FormationData formationData,
+
+            TPSViewComponent viewComponent,
+            TPSMoveComponent moveComponent,
+
+            Transform myTransform,
+            SightComponent sightComponent,
+            PathSeeker pathSeeker
+            ) : base(fsm)
         {
+            _viewComponent = viewComponent;
+            _moveComponent = moveComponent;
+
+            _bt = new Tree();
+            List<Node> _childNodes;
+            _childNodes = new List<Node>()
+            {
+                new Sequencer
+                (
+                    new List<Node>()
+                    {
+                        new RetreatToPlayer(pathSeeker, moveComponent, formationData, moveSpeed), // 플레이어
+
+                        new Selector
+                        (
+                            new List<Node>()
+                            {
+                                new Sequencer
+                                (
+                                    new List<Node>()
+                                    {
+                                        new NowCloseToTargetInSight(sightComponent, myTransform, targetCaptureRadius, gap),
+                                        new ViewTarget(myTransform, sightComponent, viewComponent)
+                                    }
+                                ),
+                                new FaceDirection(myTransform, formationData, viewComponent)
+                            }
+                        )
+                    }
+                )
+            };
+            Node rootNode = new Selector(_childNodes);
+            _bt.SetUp(rootNode);
         }
 
+        public override void OnStateFixedUpdate()
+        {
+            _viewComponent.RotateRigidbody();
+            _moveComponent.MoveRigidbody();
+        }
 
+        public override void OnStateUpdate()
+        {
+            _bt.OnUpdate();
+        }
     }
 }

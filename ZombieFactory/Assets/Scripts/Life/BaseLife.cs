@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponEquipable
+public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
 {
     public enum Name
     {
@@ -36,8 +36,12 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponE
 
     public void ResetPosition(Vector3 pos)
     {
-        transform.position = pos;
+        // interpolate 사용 시 Rigidbody를 사용해서 위치를 변경해줘야한다.
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.position = pos;
     }
+
+    public virtual void InitializeFSM() { }
 
     public virtual void Initialize() 
     {
@@ -50,7 +54,7 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponE
         }
     }
 
-    public virtual void ResetData(PlayerData data, BaseFactory effectFactory) { }
+    public virtual void ResetData(PlayerData data, HelperMediator mediator, BaseFactory effectFactory) { }
     public virtual void ResetData(SwatData data, BaseFactory effectFactory, BaseFactory ragdollFactory) { }
     public virtual void ResetData(ZombieData data, BaseFactory effectFactory, BaseFactory ragdollFactory) { }
 
@@ -68,7 +72,10 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponE
         Action<BaseWeapon.Type> RemovePreview)
     { }
 
-    public virtual void OnDieRequested() { }
+    public virtual void AddObserverEvent(Action OnDie)
+    { }
+
+    protected virtual void OnDieRequested() { }
 
     public bool IsOpponent(List<IIdentifiable.Type> types)
     {
@@ -122,6 +129,4 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget, IWeaponE
     {
         return transform.position;
     }
-
-    public virtual void AddWeapon(BaseWeapon weapon) { }
 }

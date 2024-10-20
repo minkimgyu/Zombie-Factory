@@ -5,20 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tree = BehaviorTree.Tree;
 using Node = BehaviorTree.Node;
-using static UnityEngine.GraphicsBuffer;
 
-namespace AI.Swat
+namespace AI.Swat.Movement
 {
     public class EncounterState : BaseFreeRoleState
     {
         protected Tree _bt;
         SightComponent _sightComponent;
 
-        NowFarFromTarget _nowFarFromTargetNode; // 상속으로 여러개를 만드는게 더 효율적이다.
-        NowCloseToTarget _nowCloseToTargetNode;
-
-        FollowTarget _followTargetNode;
-        Retreat _retreatNode;
+        TPSViewComponent _viewComponent;
+        TPSMoveComponent _moveComponent;
 
         public EncounterState(
             FSM<FreeRoleState.State> fsm,
@@ -26,7 +22,10 @@ namespace AI.Swat
             float moveSpeed,
             float farDistance,
             float closeDistance,
+            float retreatDistance,
             float gap,
+
+            FormationData formationData,
 
             Transform myTransform,
             SightComponent sightComponent,
@@ -41,12 +40,8 @@ namespace AI.Swat
             // 타겟이 가까워진다면 뒤로 가고 --> 플레이어의 주변 위치로 이동한다.
             // 타겟이 멀어진다면 가까히 간다.
 
-            _nowFarFromTargetNode = new NowFarFromTarget(myTransform, farDistance, gap);
-            _nowCloseToTargetNode = new NowCloseToTarget(myTransform, closeDistance, gap);
-
-            _followTargetNode = new FollowTarget(pathSeeker, moveComponent, moveSpeed); // 적
-            _retreatNode = new Retreat(pathSeeker, moveComponent, moveSpeed); // 플레이어
-
+            _viewComponent = viewComponent;
+            _moveComponent = moveComponent;
             _sightComponent = sightComponent;
 
             _bt = new Tree();
@@ -62,25 +57,36 @@ namespace AI.Swat
                         (
                             new List<Node>()
                             {
-                                new Sequencer
+                                new Selector
                                 (
                                     new List<Node>()
                                     {
-                                        new Selector
+                                        // 플레이어로부터 멀어지면 후퇴 적용
+                                        new Sequencer
                                         (
                                             new List<Node>()
                                             {
-                                                _nowFarFromTargetNode,
-                                                _followTargetNode // 적
+                                                new NowFarFromPlayer(myTransform, formationData, retreatDistance, gap),
+                                                new RetreatToPlayer(pathSeeker, moveComponent, formationData, moveSpeed)
                                             }
                                         ),
 
-                                        new Selector
+                                        // 적으로부터 멀어지면 추적 진행
+                                        new Sequencer
                                         (
                                             new List<Node>()
                                             {
-                                                _nowCloseToTargetNode,
-                                                _retreatNode // 플레이어
+                                               new NowFarFromTargetInSight(sightComponent, myTransform, farDistance, gap),
+                                               new FollowTargetInSight(sightComponent, pathSeeker, moveComponent, moveSpeed)
+                                            }
+                                        ),
+
+                                        new Sequencer
+                                        (
+                                            new List<Node>()
+                                            {
+                                                new NowCloseToTargetInSight(sightComponent, myTransform, closeDistance, gap),
+                                                new RetreatToPlayer(pathSeeker, moveComponent, formationData, moveSpeed)
                                             }
                                         ),
 
@@ -97,23 +103,6 @@ namespace AI.Swat
             _bt.SetUp(rootNode);
         }
 
-        public void ResetRetreatOffset(Vector3 offset)
-        {
-            _retreatNode.ResetOffset(offset);
-        }
-
-        public void ResetRetreatTarget(ITarget target)
-        {
-            _retreatNode.ResetTarget(target);
-        }
-
-        void ResetTarget(ITarget target)
-        {
-            _nowFarFromTargetNode.ResetTarget(target);
-            _nowCloseToTargetNode.ResetTarget(target);
-            _followTargetNode.ResetTarget(target);
-        }
-
         public override void OnStateUpdate()
         {
             bool isInSight = _sightComponent.IsTargetInSight();
@@ -123,10 +112,13 @@ namespace AI.Swat
                 return;
             }
 
-            ITarget target = _sightComponent.ReturnTargetInSight();
-            ResetTarget(target);
-
             _bt.OnUpdate();
+        }
+
+        public override void OnStateFixedUpdate()
+        {
+            _viewComponent.RotateRigidbody();
+            _moveComponent.MoveRigidbody();
         }
     }
 }

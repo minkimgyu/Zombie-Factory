@@ -4,29 +4,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using Tree = BehaviorTree.Tree;
 using Node = BehaviorTree.Node;
 
-namespace AI.Swat
+namespace AI.Swat.Movement
 {
     public class IdleState : BaseFreeRoleState
     {
-        float _moveRange;
-        float _stateChangeDuration;
-        float _moveSpeed;
-
         Transform _myTransform;
         SightComponent _sightComponent;
 
-        WanderingFSM _wanderingFSM;
-
         TPSViewComponent _viewComponent;
         TPSMoveComponent _moveComponent;
-        protected Tree _bt;
+        Tree _bt;
 
-        NowFarFromTarget _nowFarFromTargetNode; // 상속으로 여러개를 만드는게 더 효율적이다.
-        Retreat _retreatNode;
+        NowFarFromPlayer _nowFarFromTargetNode; // 상속으로 여러개를 만드는게 더 효율적이다.
+        StopWandering _stopWandering;
+        RetreatToPlayer _retreatNode;
+
+        FormationData _formationData; // 상위 클레스에서 상황에 따라 수정하여 사용
 
         public IdleState(
             FSM<FreeRoleState.State> fsm,
@@ -35,6 +31,8 @@ namespace AI.Swat
             float moveRange,
             float retreatDistance,
             float gap,
+
+            FormationData formationData,
 
             TPSViewComponent viewComponent,
             TPSMoveComponent moveComponent,
@@ -48,18 +46,10 @@ namespace AI.Swat
             // 정지
             _viewComponent = viewComponent;
             _moveComponent = moveComponent;
-            _wanderingFSM = new WanderingFSM(moveSpeed, stateChangeDuration, moveRange, viewComponent, moveComponent, pathSeeker, myTransform, sightComponent);
+            WanderingFSM wanderingFSM = new WanderingFSM(moveSpeed, stateChangeDuration, moveRange, viewComponent, moveComponent, pathSeeker, myTransform, sightComponent);
 
             _myTransform = myTransform;
             _sightComponent = sightComponent;
-
-
-            _moveSpeed = moveSpeed;
-            _stateChangeDuration = stateChangeDuration;
-            _moveRange = moveRange;
-
-            _nowFarFromTargetNode = new NowFarFromTarget(myTransform, retreatDistance, gap);
-            _retreatNode = new Retreat(pathSeeker, moveComponent, moveSpeed); // 플레이어
 
             _bt = new Tree();
             List<Node> _childNodes;
@@ -73,28 +63,20 @@ namespace AI.Swat
                         (
                             new List<Node>()
                             {
-                                _nowFarFromTargetNode,
-                                _retreatNode
+                                new NowFarFromPlayer(myTransform, formationData, retreatDistance, gap),
+
+                                new StopWandering(wanderingFSM),
+                                new RetreatToPlayer(pathSeeker, moveComponent, formationData, moveSpeed)
                             }
                         ),
 
-                        new Wandering(_wanderingFSM)
+                        new Wandering(wanderingFSM)
                     }
                 )
             };
 
             Node rootNode = new Selector(_childNodes);
             _bt.SetUp(rootNode);
-        }
-
-        public void ResetRetreatOffset(Vector3 offset)
-        {
-            _retreatNode.ResetOffset(offset);
-        }
-
-        public void ResetRetreatTarget(ITarget target)
-        {
-            _retreatNode.ResetTarget(target);
         }
 
         public override void OnStateFixedUpdate()

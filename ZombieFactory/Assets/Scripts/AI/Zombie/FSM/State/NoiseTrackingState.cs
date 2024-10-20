@@ -82,10 +82,11 @@ namespace AI.Zombie
             _viewComponent.View(_dir);
             _moveComponent.Move(_dir, _moveSpeed);
 
-            bool isFinish = _pathSeeker.IsFinish();
+            bool isFinish = _pathSeeker.NowFinish();
             if(isFinish && _noiseQueue.Count > 0)
             {
                 _targetPos = _noiseQueue.Dequeue();
+                Debug.Log(_targetPos);
             }
             else if (isFinish && _noiseQueue.Count == 0)
             {

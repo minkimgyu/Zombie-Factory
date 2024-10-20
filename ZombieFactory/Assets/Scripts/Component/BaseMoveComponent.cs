@@ -2,22 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using System;
 
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 abstract public class BaseMoveComponent : MonoBehaviour
 {
     protected Rigidbody _rigid;
     [SerializeField] LayerMask _layerMask;
 
-    public void Initialize()
+    Action<Vector3> ResetAnimator;
+
+    public void Initialize(Rigidbody rigidbody, Action<Vector3> ResetAnimator = null)
     {
-        _rigid = GetComponent<Rigidbody>();
+        _rigid = rigidbody;
+        this.ResetAnimator = ResetAnimator;
     }
 
-    float maxSlopeAngle = 60f;
+    float maxSlopeAngle = 70f;
 
     bool _isSlope;
     RaycastHit _hitPoint;
+
+    public void TeleportTo(Vector3 pos)
+    {
+        _rigid.position = pos;
+    }
 
     public void CheckIsOnSlope()
     {
@@ -28,7 +37,8 @@ abstract public class BaseMoveComponent : MonoBehaviour
     {
         RaycastHit hit;
 
-        bool canHit = Physics.Raycast(_rigid.position + Vector3.up, Vector3.down, out hit, 1.25f, _layerMask);
+        Vector3 nextFramePlayerPosition = _rigid.position + Vector3.up + _storedDirection * _storedSpeed * Time.fixedDeltaTime;
+        bool canHit = Physics.Raycast(nextFramePlayerPosition, Vector3.down, out hit, 1.25f, _layerMask);
         if (canHit == false)
         {
             hitPoint = hit;
@@ -59,7 +69,6 @@ abstract public class BaseMoveComponent : MonoBehaviour
         if (canHit == true)
         {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
-            //Debug.Log(angle);
             return angle < maxSlopeAngle;
         }
 
@@ -68,27 +77,29 @@ abstract public class BaseMoveComponent : MonoBehaviour
 
     public virtual void Jump(float force) { }
 
-    Vector3 _direction;
+    Vector3 _storedDirection;
+    float _storedSpeed;
 
     public void Stop()
     {
+        ResetAnimator?.Invoke(Vector3.zero);
+
         if (_isSlope)
         {
-            _direction = Vector3.zero;
+            _storedDirection = Vector3.zero;
         }
         else
         {
-            _direction = new Vector3(0, _rigid.velocity.y, 0);
+            _storedDirection = new Vector3(0, _rigid.velocity.y, 0);
         }
+
+        ResetAnimator?.Invoke(_storedDirection);
     }
 
     public virtual void Move(Vector3 direction, float speed)
     {
-        Debug.Log(transform.position);
-        
-
         //direction = transform.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
-
+        _storedSpeed = speed;
         bool canClimb = CanClimbSlope(direction, speed);
         if (canClimb == false) return;
         
@@ -101,16 +112,18 @@ abstract public class BaseMoveComponent : MonoBehaviour
         Vector3 moveDir = direction * speed;
         if (_isSlope)
         {
-            _direction = moveDir; // 방향 백터에 맞게 조절
+            _storedDirection = moveDir; // 방향 백터에 맞게 조절
         }
         else
         {
-            _direction = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
+            _storedDirection = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
         }
+
+        ResetAnimator?.Invoke(_storedDirection);
     }
 
     public void MoveRigidbody()
     {
-        _rigid.velocity = _direction;
+        _rigid.velocity = _storedDirection;
     }
 }

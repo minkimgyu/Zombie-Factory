@@ -11,22 +11,41 @@ using UnityEngine;
 
 public class HelperMediator
 {
-    const int _distanceFromPlayer = 3;
+    const float _distanceFromPlayer = 2;
+    const float _offsetRange = 2f;
 
     ITarget _player;
+    public ITarget Player
+    {
+        get { return _player; }
+    }
+
     List<IHelper> _helpers;
+
+    public HelperMediator()
+    {
+        _helpers = new List<IHelper>();
+    }
 
     void RemoveHelper(IHelper helper)
     {
         _helpers.Remove(helper);
     }
 
-    public void OnAddHelper()
+    public void AddPlayer(ITarget target)
     {
-        Vector2 pos = Random.insideUnitCircle * _distanceFromPlayer;
+        _player = target;
+    }
+
+    public void AddHelper(IHelper helper)
+    {
+        helper.OnAddHelper(_player, RemoveHelper);
+        _helpers.Add(helper);
+        
         for (int i = 0; i < _helpers.Count; i++)
         {
-            _helpers[i].InitializeHelper(_player, RemoveHelper);
+            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
+            Vector3 pos = new Vector3(offset.x, 0, offset.y);
             _helpers[i].RestOffset(pos);
         }
     }
@@ -34,9 +53,50 @@ public class HelperMediator
     public void BuildFormation()
     {
         Vector3[] points = GetCirclePoints(_distanceFromPlayer, _helpers.Count);
+
+        // 원형으로 포지션 적용
         for (int i = 0; i < _helpers.Count; i++)
         {
-            _helpers[i].RestOffset(points[i]);
+            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
+            Vector3 pos = points[i] + new Vector3(offset.x, 0, offset.y);
+            _helpers[i].RestOffset(pos);
+            _helpers[i].ChangeState(AI.Swat.Swat.MovementState.BuildFormation);
+        }
+    }
+
+    public void FreeRole()
+    {
+        for (int i = 0; i < _helpers.Count; i++)
+        {
+            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
+            Vector3 pos = new Vector3(offset.x, 0, offset.y);
+            _helpers[i].RestOffset(pos);
+            _helpers[i].ChangeState(AI.Swat.Swat.MovementState.FreeRole);
+        }
+    }
+
+    public void GetAmmoPack(int ammoCount)
+    {
+        for (int i = 0; i < _helpers.Count; i++)
+        {
+            _helpers[i].GetAmmoPack(ammoCount);
+        }
+    }
+
+    public void GetAidPack(float healPoint)
+    {
+        for (int i = 0; i < _helpers.Count; i++)
+        {
+            _helpers[i].GetAidPack(healPoint);
+        }
+    }
+
+    public void TeleportTo(Vector3 pos)
+    {
+        Vector3[] points = GetCirclePoints(_distanceFromPlayer, _helpers.Count);
+        for (int i = 0; i < _helpers.Count; i++)
+        {
+            _helpers[i].TeleportTo(pos + points[i]);
         }
     }
 

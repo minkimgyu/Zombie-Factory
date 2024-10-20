@@ -32,7 +32,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
         }
     }
 
-    public bool IsFinish()
+    public bool NowFinish()
     {
         if (_path != null && _pathIndex == _path.Count - 1)
         {

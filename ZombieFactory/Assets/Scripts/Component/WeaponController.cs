@@ -7,7 +7,7 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField] FirePoint _firePoint;
     [SerializeField] Transform _weaponParent;
-    float _weaponThrowPower;
+    float _weaponThrowPower = 5f;
 
     BaseWeapon _nowEquipedWeapon = null;
     Dictionary<BaseWeapon.Type, BaseWeapon> _weaponsContainer;
@@ -31,8 +31,6 @@ public class WeaponController : MonoBehaviour
     Rigidbody _rigidbody;
     public float SendMoveDisplacement() { return _rigidbody.velocity.magnitude * 0.01f; }
 
-    bool _applyTPSAnimation; // TPS 모델인 경우
-
     Animator _animator;
     WeaponBlackboard _weaponBlackboard;
 
@@ -50,19 +48,49 @@ public class WeaponController : MonoBehaviour
         .Build();
     }
 
-    public void Initialize(float weaponThrowPower)
+    public void Initialize()
     {
-        _weaponThrowPower = weaponThrowPower;
-        _applyTPSAnimation = false;
-
         _weaponsContainer = new Dictionary<BaseWeapon.Type, BaseWeapon>();
         _rigidbody = GetComponent<Rigidbody>();
 
         _animator = GetComponentInChildren<Animator>();
-        ZoomComponent zoomComponent = GetComponent<ZoomComponent>();
-        zoomComponent.Initialize();
+        BaseViewComponent viewComponent = GetComponent<BaseViewComponent>();
 
-        FPSViewComponent viewComponent = GetComponent<FPSViewComponent>();
+        _weaponBlackboard = new WeaponBlackboard.Builder()
+        .SetSendMoveDisplacement(SendMoveDisplacement)
+        .SetOnPlayOwnerAnimation(PlayOwnerAnimation)
+        .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
+        .SetAttackPoint(_firePoint)
+        .Build();
+
+        _weaponFSM = new WeaponFSM();
+        Dictionary<State, BaseState<State>> weaponStates = new Dictionary<State, BaseState<State>>
+        {
+            { State.Idle, new IdleState(_weaponFSM, _weaponsContainer, ReturnWeapon) },
+            { State.Equip, new EquipState(_weaponFSM, _weaponsContainer, ChangeWeapon, ReturnWeapon)
+            },
+            { State.Reload, new ReloadState(_weaponFSM, true, ChangeWeapon, ReturnWeapon) },
+
+            { State.LeftAction, new LeftActionState(_weaponFSM, ReturnWeapon) },
+            { State.RightAction, new RightActionState(_weaponFSM, ReturnWeapon) },
+            { State.Root, new RootState(_weaponFSM, _weaponsContainer, _weaponParent, _weaponBlackboard, ReturnWeapon) }, // --> 여기 내부에 이벤트를 넣자
+            { State.Drop, new DropState(_weaponFSM, _weaponThrowPower, _weaponsContainer, _weaponBlackboard, ReturnWeapon, ChangeWeapon) },
+        };
+
+        _weaponFSM.Initialize(weaponStates);
+        _weaponFSM.SetState(State.Idle);
+    }
+
+    public void Initialize(ZoomComponent zoomComponent, float weaponThrowPower)
+    {
+        _weaponThrowPower = weaponThrowPower;
+        _weaponsContainer = new Dictionary<BaseWeapon.Type, BaseWeapon>();
+        _rigidbody = GetComponent<Rigidbody>();
+
+        _animator = GetComponentInChildren<Animator>();
+
+
+        BaseViewComponent viewComponent = GetComponent<BaseViewComponent>();
 
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetOnZoomRequested(zoomComponent.OnZoomCalled)
@@ -78,7 +106,7 @@ public class WeaponController : MonoBehaviour
             { State.Idle, new IdleState(_weaponFSM, _weaponsContainer, ReturnWeapon) },
             { State.Equip, new EquipState(_weaponFSM, _weaponsContainer, ChangeWeapon, ReturnWeapon)
             },
-            { State.Reload, new ReloadState(_weaponFSM, _applyTPSAnimation, ChangeWeapon, ReturnWeapon) },
+            { State.Reload, new ReloadState(_weaponFSM, false, ChangeWeapon, ReturnWeapon) },
 
             { State.LeftAction, new LeftActionState(_weaponFSM, ReturnWeapon) },
             { State.RightAction, new RightActionState(_weaponFSM, ReturnWeapon) },
@@ -90,6 +118,11 @@ public class WeaponController : MonoBehaviour
         _weaponFSM.SetState(State.Idle);
     }
 
+    public bool IsAmmoEmpty()
+    {
+        return _nowEquipedWeapon.IsAmmoEmpty();
+    }
+
     public void RefillAmmo(int ammoCount) 
     {
         _nowEquipedWeapon.RefillAmmo(ammoCount);
@@ -97,10 +130,16 @@ public class WeaponController : MonoBehaviour
 
     void PlayOwnerAnimation(string name, int index, float time)
     {
+        Debug.Log(name);
+        Debug.Log(index);
+        Debug.Log(time);
+
         _animator.Play(name, index, time);
     }
 
     BaseWeapon ReturnWeapon() { return _nowEquipedWeapon; }
+
+    public BaseWeapon ReturnWeapon(BaseWeapon.Type type) { return _weaponsContainer[type]; }
 
     void ChangeWeapon(BaseWeapon weapon) { _nowEquipedWeapon = weapon; }
 

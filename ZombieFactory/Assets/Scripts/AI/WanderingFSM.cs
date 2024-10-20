@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Pathfinding;
-using static UnityEngine.GraphicsBuffer;
 
 public class WanderingFSM
 {
@@ -62,6 +61,16 @@ public class WanderingFSM
         _stateChangeDuration = stateChangeDuration;
     }
 
+    public void GoToStopState()
+    {
+        if( _state != State.Stop )
+        {
+            _state = State.Stop;
+            _stateTimer.Reset();
+            _stateTimer.Start(_stateChangeDuration);
+        }
+    }
+
     public void OnUpdate()
     {
         switch (_state)
@@ -77,7 +86,7 @@ public class WanderingFSM
 
                 Vector3 dir = _pathSeeker.ReturnDirection(_movePoint);
 
-                if (_pathSeeker.IsFinish() == true)
+                if (_pathSeeker.NowFinish() == true)
                 {
                     _moveComponent.Stop();
                 }
@@ -98,8 +107,6 @@ public class WanderingFSM
         {
             int size = Enum.GetValues(typeof(State)).Length;
             _state = (State)Random.Range(0, size);
-
-            Debug.Log(_state);
 
             Vector3 dir;
             switch (_state)

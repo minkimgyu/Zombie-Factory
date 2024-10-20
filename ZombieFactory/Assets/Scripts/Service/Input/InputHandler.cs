@@ -4,16 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class InputHandler : MonoBehaviour, IInputable
+public class InputHandler : IInputable
 {
-    Dictionary<IInputable.Type, BaseCommand> _inputEvents;
+    Dictionary<IInputable.Type, BaseCommand> _inputEvents = new Dictionary<IInputable.Type, BaseCommand>();
 
-    public InputHandler()
-    {
-        _inputEvents = new Dictionary<IInputable.Type, BaseCommand>();
-    }
-
-    private void Update()
+    public void OnUpdate()
     {
         float viewX = Input.GetAxisRaw("Mouse X");
         float viewY = Input.GetAxisRaw("Mouse Y");
@@ -99,6 +94,15 @@ public class InputHandler : MonoBehaviour, IInputable
         else
         {
             Execute(IInputable.Type.RunEnd);
+        }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            Execute(IInputable.Type.GoToFreeRole);
+        }
+        else if (Input.GetKey(KeyCode.Y))
+        {
+            Execute(IInputable.Type.GoToBuildFormation);
         }
     }
 

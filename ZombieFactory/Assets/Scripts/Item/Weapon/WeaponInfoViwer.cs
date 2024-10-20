@@ -17,8 +17,8 @@ public class WeaponInfoViewer : MonoBehaviour
 
     public void Initialize()
     {
-        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveItemInfo, new ActiveWeaponViewerCommand(OnViewEventReceived));
-        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveItemInfo, new ActivateCommand(Activate));
+        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveInteractableInfo, new ActiveWeaponViewerCommand(OnViewEventReceived));
+        EventBusManager.Instance.ObserverEventBus.Register(ObserverEventBus.Type.ActiveInteractableInfo, new ActivateCommand(Activate));
     }
 
     void Activate(bool active)

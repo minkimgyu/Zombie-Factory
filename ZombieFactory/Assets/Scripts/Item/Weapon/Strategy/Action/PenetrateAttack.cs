@@ -281,10 +281,6 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
         return 0;
     }
 
-
-
-    //public override void OnOtherActionEventRequested() { }
-
     public override void Execute()
     {
         Vector3 muzzlePosition = ReturnMuzzlePosition();

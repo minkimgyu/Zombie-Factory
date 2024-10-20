@@ -11,9 +11,10 @@ public interface IInteractable
     bool IsInteractable();
 }
 
-public interface IInteracter
+public interface IInteracter : IWeaponEquipable
 {
-    void GetWeapon(BaseWeapon weapon);
+    void TeleportTo(Vector3 pos);
     void GetAmmoPack(int ammoCount);
     void GetAidPack(float healPoint);
+    void MovePosition(Vector3 position);
 }

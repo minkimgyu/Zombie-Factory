@@ -102,13 +102,24 @@ abstract public class BaseReload : ReloadStrategy
         OnPlayOwnerAnimation = null;
     }
 
-    protected void PlayAnimation(string aniName)
+    protected void PlayAnimation(string aniName, bool isTPS = false)
     {
-        Debug.Log(aniName);
-        _animator.Play(aniName, 0, 0);
+        string reloadString;
+        int layer;
 
-        Debug.Log(_weaponName.ToString() + aniName);
-        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName, 0, 0);
+        if (isTPS)
+        {
+            reloadString = "TPS" + aniName;
+            layer = 1;
+        }
+        else
+        {
+            reloadString = aniName;
+            layer = 0;
+        }
+
+        _animator.Play(reloadString, 0, 0);
+        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName, layer, 0);
     }
 
     public override bool IsReloadFinish()
@@ -139,10 +150,7 @@ public class MagazineReload : BaseReload
 
         _reloadExitTimer.Reset(); // 시작 전 리셋시켜주기
         _reloadExitTimer.Start(_reloadExitDuration);
-
-        string reloadString = "Reload";
-        if (isTPS) reloadString = "TPS" + reloadString;
-        PlayAnimation(reloadString);
+        PlayAnimation("Reload", isTPS);
     }
 
     public override void OnUpdate() 

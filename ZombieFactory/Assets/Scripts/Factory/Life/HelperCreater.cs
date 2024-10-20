@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Object = UnityEngine.Object;
+using UnityEditor;
+using AI.Swat;
 
 [System.Serializable]
 public class SwatData : LifeData
@@ -110,18 +112,32 @@ public class SwatData : LifeData
 public class HelperCreater : LifeCreater
 {
     BaseFactory _effectFactory;
-    public HelperCreater(BaseLife lifePrefab, LifeData lifeData, BaseFactory effectFactory) : base(lifePrefab, lifeData)
+    BaseFactory _itemFactory;
+    HelperMediator _mediator;
+
+    public HelperCreater(BaseLife lifePrefab, HelperMediator mediator, BaseFactory itemFactory, BaseFactory effectFactory) : base(lifePrefab, null)
     {
         _effectFactory = effectFactory;
+        _itemFactory = itemFactory;
+        _mediator = mediator;
     }
 
-    public override BaseLife Create()
+    public override BaseLife Create(List<BaseItem.Name> weaponNames) // list로 사용 가능한 무기 받기
     {
         BaseLife life = Object.Instantiate(_lifePrefab);
-
-        SwatData playerData = _lifeData as SwatData;
-        //life.ResetData(playerData, null);
         life.Initialize();
+
+        IWeaponEquipable equipable = life.GetComponent<IWeaponEquipable>();
+        for (int j = 0; j < weaponNames.Count; j++)
+        {
+            BaseItem item = _itemFactory.Create(weaponNames[j]); // 랜덤한 무기 생성 후 추가
+            equipable.AddWeapon(item as BaseWeapon);
+        }
+
+        IHelper helper = life.GetComponent<IHelper>();
+        _mediator.AddHelper(helper);
+
+        life.InitializeFSM();
         return life;
     }
 }

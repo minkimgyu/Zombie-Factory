@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
-
+using FSM.Movement;
 public class RunState : MoveState
 {
-    public RunState(FSM<MovementState> fsm, BaseMoveComponent moveComponent, float moveForce)
+    public RunState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float moveForce)
          : base(fsm, moveComponent, moveForce)
     {
     }
 
     public override void OnHandleRunEnd()
     {
-        _baseFSM.SetState(MovementState.Walk);
+        _baseFSM.SetState(ActionController.MovementState.Walk);
     }
 
     public override void OnHandleMove(Vector3 input)
@@ -20,13 +19,13 @@ public class RunState : MoveState
         base.OnHandleMove(input);
         if (input.magnitude == 0)
         {
-            _baseFSM.SetState(MovementState.Stop);
+            _baseFSM.SetState(ActionController.MovementState.Stop);
             return;
         }
     }
 
     public override void OnHandleJump()
     {
-        _baseFSM.SetState(MovementState.Jump);
+        _baseFSM.SetState(ActionController.MovementState.Jump);
     }
 }

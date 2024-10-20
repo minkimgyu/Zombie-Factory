@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI.Swat
+namespace AI.Swat.Movement
 {
-    abstract public class BaseMovementState : BaseState<Swat.State>
+    abstract public class BaseMovementState : BaseState<Swat.MovementState>
     {
-        public BaseMovementState(FSM<Swat.State> fsm) : base(fsm)
+        public BaseMovementState(FSM<Swat.MovementState> fsm) : base(fsm)
         {
         }
 
@@ -30,7 +30,7 @@ namespace AI.Swat
     {
     }
 
-    public class MovementFSM : FSM<Swat.State>
+    public class MovementFSM : FSM<Swat.MovementState>
     {
     }
 }

@@ -23,11 +23,7 @@ namespace AI.Zombie
         TPSMoveComponent _moveComponent;
         TPSViewComponent _viewComponent;
 
-        NowCloseToTarget _nowCloseToTarget;
         Tree _bt;
-
-        FollowTarget _followTarget;
-
         public TargetFollowingState(
             ZombieFSM fsm,
 
@@ -62,9 +58,6 @@ namespace AI.Zombie
             _pathSeeker = pathSeeker;
             _sightComponent = sightComponent;
 
-            _nowCloseToTarget = new NowCloseToTarget(_myTransform, _stopDistance, _gap);
-            _followTarget = new FollowTarget(_pathSeeker, _moveComponent, _moveSpeed);
-
             _bt = new Tree();
             List<Node> _childNodes;
             _childNodes = new List<Node>()
@@ -83,7 +76,7 @@ namespace AI.Zombie
                                 (
                                     new List<Node>()
                                     {
-                                        _nowCloseToTarget,
+                                        new NowCloseToTargetInSight(sightComponent, myTransform, _stopDistance, gap),
                                         new Sequencer
                                         (
                                             new List<Node>()
@@ -109,7 +102,7 @@ namespace AI.Zombie
                                         ),
                                     }
                                 ),
-                                _followTarget
+                                new FollowTargetInSight(sightComponent, _pathSeeker, _moveComponent, _moveSpeed)
                             }
                         )
                     }
@@ -123,13 +116,6 @@ namespace AI.Zombie
         {
             _viewComponent.RotateRigidbody();
             _moveComponent.MoveRigidbody();
-        }
-
-        public override void OnStateEnter()
-        {
-            ITarget target = _sightComponent.ReturnTargetInSight();
-            _nowCloseToTarget.ResetTarget(target);
-            _followTarget.ResetTarget(target);
         }
 
         // bt 넣어주기

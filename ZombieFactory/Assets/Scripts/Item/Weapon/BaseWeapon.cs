@@ -75,7 +75,7 @@ abstract public class BaseWeapon : BaseItem
     public override void Initialize()
     {
         _animator = GetComponent<Animator>();
-        _targetLayer = LayerMask.GetMask("Penetratable", "Block"); // 레이어 할당해준다.
+        _targetLayer = LayerMask.GetMask("Penetratable", "Block", "NonPass"); // 레이어 할당해준다.
     }
 
     public virtual void MatchStrategy() { }

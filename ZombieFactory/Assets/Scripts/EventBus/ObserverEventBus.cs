@@ -64,7 +64,7 @@ public class ObserverEventBus : BaseBus<ObserverEventBus.Type>
 
         SpawnEffect,
 
-        ActiveItemInfo,
+        ActiveInteractableInfo,
     }
 
     public override void Publish(Type type, BaseEffect.Name name, Vector3 hitPosition, Vector3 hitNormal) 

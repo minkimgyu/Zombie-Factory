@@ -47,4 +47,9 @@ abstract public class PoolObject : MonoBehaviour, IPoolable
     {
         gameObject.SetActive(active);
     }
+
+    public void SetParent(Transform parent)
+    {
+        transform.SetParent(parent);
+    }
 }

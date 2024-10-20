@@ -4,6 +4,21 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/InitScene.unity
+    guid: c26f1939c37efbe47ae73a2f0c5f1035
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 59e116b2c3fad4642952ab3d13bad858
+  - enabled: 1
+    path: Assets/Scenes/PlayScene.unity
+    guid: 4f4a2f35e44f8c84783d98040515c8f6
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 320f4923854d5534a92958bc4f54d239
+  - enabled: 1
+    path: Assets/Scenes/GameClearScene.unity
+    guid: e9e2af950b621444d9ae9e671a7264c1
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: aa5c14b5370029148ac5f2d1aec26520, type: 2}

@@ -10,7 +10,7 @@ public class GroundPathfinder : MonoBehaviour
     const int maxSize = 1000;
 
     Heap<Node> _openList = new Heap<Node>(maxSize);
-    List<Node> _closedList = new List<Node>();
+    HashSet<Node> _closedList = new HashSet<Node>();
 
     Vector3 _startNodePos;
     Vector3 _endNodePos;

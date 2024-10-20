@@ -19,10 +19,10 @@ public class GroundUnit : MonoBehaviour
         _pathSeeker.Initialize();
 
         _viewComponent = GetComponent<BaseViewComponent>();
-        _viewComponent.Initialize(70);
+        //_viewComponent.Initialize(70);
 
         _moveComponent = GetComponent<BaseMoveComponent>();
-        _moveComponent.Initialize();
+        //_moveComponent.Initialize();
     }
 
     Vector3 direction;

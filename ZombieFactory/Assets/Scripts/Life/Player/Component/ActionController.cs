@@ -2,25 +2,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum PostureState
-{
-    Sit,
-    Stand
-}
-
-public enum MovementState
-{
-    Stop,
-    Walk,
-    Run,
-    Jump
-}
+using FSM.Movement;
 
 [RequireComponent(typeof(FPSMoveComponent))]
 [RequireComponent(typeof(FPSViewComponent))]
 public class ActionController : MonoBehaviour
 {
+    public enum PostureState
+    {
+        Sit,
+        Stand
+    }
+
+    public enum MovementState
+    {
+        Stop,
+        Walk,
+        Run,
+        Jump
+    }
+
     PostureState _postureState;
 
     MovementFSM _movementFSM;
@@ -30,7 +31,6 @@ public class ActionController : MonoBehaviour
     ZoomComponent _zoomComponent;
 
     CapsuleCollider _capsuleCollider;
-    Rigidbody _rigidbody;
 
     //[SerializeField] Transform _direction;
     float _walkSpeed;
@@ -61,7 +61,7 @@ public class ActionController : MonoBehaviour
     }
 
     public void Initialize(float walkSpeed, float runSpeed, float onAirSpeed, float jumpSpeed, float postureSwitchDuration, float capsuleStandCenter,
-        float capsuleStandHeight, float capsuleCrouchCenter, float capsuleCrouchHeight, float viewYRange, Vector2 viewSensitivity)
+        float capsuleStandHeight, float capsuleCrouchCenter, float capsuleCrouchHeight, float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody)
     {
         _walkSpeed = walkSpeed;
         _runSpeed = runSpeed;
@@ -79,13 +79,12 @@ public class ActionController : MonoBehaviour
         _currentCapsuleHeight = _capsuleStandHeight;
 
         _capsuleCollider = GetComponent<CapsuleCollider>();
-        _rigidbody = GetComponent<Rigidbody>();
 
         _moveComponent = GetComponent<FPSMoveComponent>();
-        _moveComponent.Initialize();
+        _moveComponent.Initialize(rigidbody);
 
         _viewComponent = GetComponent<FPSViewComponent>();
-        _viewComponent.Initialize(viewYRange, viewSensitivity); // viewYRange, viewSensitivity
+        _viewComponent.Initialize(viewYRange, viewSensitivity, rigidbody); // viewYRange, viewSensitivity
 
         _zoomComponent = GetComponent<ZoomComponent>();
         _zoomComponent.Initialize();

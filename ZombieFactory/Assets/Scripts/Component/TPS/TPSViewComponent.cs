@@ -10,10 +10,10 @@ public class TPSViewComponent : BaseViewComponent
 
     Quaternion _rotation;
 
-    public override void Initialize(float viewYRange) 
+    public override void Initialize(float viewYRange, Rigidbody rigidbody)
     {
         _rotation = Quaternion.identity;
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = rigidbody;
         _viewYRange = viewYRange;
 
         Animator animator = GetComponentInChildren<Animator>();

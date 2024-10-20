@@ -78,6 +78,7 @@ public class ZombieCreater : LifeCreater
 
         life.ResetData(data, _effectFactory, _ragdollFactory);
         life.Initialize();
+        life.InitializeFSM();
         return life;
     }
 }

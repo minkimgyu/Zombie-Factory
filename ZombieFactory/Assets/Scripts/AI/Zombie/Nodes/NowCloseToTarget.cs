@@ -24,6 +24,8 @@ public class NowCloseToTarget : EvaluatingDistance
 
         SwitchState(_target.ReturnPosition());
 
+        Debug.Log($"NowCloseToTarget : {_state}");
+
         switch (_state)
         {
             case State.WithinRange:

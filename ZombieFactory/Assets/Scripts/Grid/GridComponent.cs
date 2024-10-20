@@ -27,6 +27,7 @@ public class GridComponent : MonoBehaviour
 
     [SerializeField] Color _surfaceNodeColor;
 
+    [SerializeField] bool _showRect;
     [SerializeField] bool _showNonPass;
     [SerializeField] bool _showBlockNode;
     [SerializeField] bool _showSurface;
@@ -218,6 +219,8 @@ public class GridComponent : MonoBehaviour
 
     void DrawGrid()
     {
+        if (_showRect == false) return;
+
         for (int x = 0; x < _sizeOfGrid.x; x++)
         {
             for (int y = 0; y < _sizeOfGrid.y; y++)

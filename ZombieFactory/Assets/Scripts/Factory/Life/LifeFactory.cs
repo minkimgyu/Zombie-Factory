@@ -22,18 +22,19 @@ abstract public class LifeCreater
     public LifeCreater(BaseLife lifePrefab, LifeData lifeData)
     { _lifePrefab = lifePrefab; _lifeData = lifeData; }
 
-    public abstract BaseLife Create();
+    public virtual BaseLife Create() { return default; }
+    public virtual BaseLife Create(List<BaseItem.Name> weaponNames) { return default; }
 }
 
 public class LifeFactory : BaseFactory
 {
     Dictionary<BaseLife.Name, LifeCreater> _lifeCreaters;
 
-    public LifeFactory(AddressableHandler addressableHandler, BaseFactory effectFactory, BaseFactory ragdollFactory)
+    public LifeFactory(AddressableHandler addressableHandler, HelperMediator mediator, BaseFactory effectFactory, BaseFactory itemFactory, BaseFactory ragdollFactory)
     {
         _lifeCreaters = new Dictionary<BaseLife.Name, LifeCreater>();
-        _lifeCreaters[BaseLife.Name.Player] = new PlayerCreater(addressableHandler.LifePrefabs[BaseLife.Name.Player], addressableHandler.LifeDataDictionary[BaseLife.Name.Player], effectFactory);
-        //_lifeCreaters[BaseLife.Name.Rook] = new HelperCreater(addressableHandler.LifePrefabs[BaseLife.Name.Rook], addressableHandler.LifeDataDictionary[BaseLife.Name.Rook], effectFactory);
+        _lifeCreaters[BaseLife.Name.Player] = new PlayerCreater(addressableHandler.LifePrefabs[BaseLife.Name.Player], mediator, addressableHandler.LifeDataDictionary[BaseLife.Name.Player], effectFactory);
+        _lifeCreaters[BaseLife.Name.Rook] = new HelperCreater(addressableHandler.LifePrefabs[BaseLife.Name.Rook], mediator, itemFactory, effectFactory);
 
 
 
@@ -50,5 +51,10 @@ public class LifeFactory : BaseFactory
     public override BaseLife Create(BaseLife.Name name)
     {
         return _lifeCreaters[name].Create();
+    }
+
+    public override BaseLife Create(BaseLife.Name name, List<BaseItem.Name> itemNames)
+    {
+        return _lifeCreaters[name].Create(itemNames);
     }
 }

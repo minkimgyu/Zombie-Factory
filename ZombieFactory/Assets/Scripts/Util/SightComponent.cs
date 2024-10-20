@@ -71,6 +71,12 @@ public class SightComponent : CaptureComponent<ITarget>
         for (int i = 0; i < _capturedTargets.Count; i++)
         {
             ITarget target = _capturedTargets[i];
+            if (target as UnityEngine.Object == null)
+            {
+                _capturedTargets.Remove(target);
+                i--;
+                continue;
+            }
 
             float angle = ReturnAngleBetween(target.ReturnPosition());
             bool inInAngle = IsInAngle(angle);

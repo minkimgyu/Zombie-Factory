@@ -64,15 +64,26 @@ public class PlayerData : LifeData
 public class PlayerCreater : LifeCreater
 {
     BaseFactory _effectFactory;
-    public PlayerCreater(BaseLife lifePrefab, LifeData lifeData, BaseFactory effectFactory) : base(lifePrefab, lifeData) { _effectFactory = effectFactory; }
+    HelperMediator _mediator;
 
-    public override BaseLife Create()
+    public PlayerCreater(
+        BaseLife lifePrefab,
+        HelperMediator mediator,
+        LifeData lifeData,
+        BaseFactory effectFactory) : base(lifePrefab, lifeData) 
+    {
+        _mediator = mediator;
+        _effectFactory = effectFactory;
+    }
+
+    public override BaseLife Create(List<BaseItem.Name> weaponNames)
     {
         BaseLife life = Object.Instantiate(_lifePrefab);
-        PlayerData playerData = _lifeData as PlayerData;
 
-        life.ResetData(playerData, _effectFactory);
+        PlayerData playerData = _lifeData as PlayerData;
+        life.ResetData(playerData, _mediator, _effectFactory);
         life.Initialize();
+        life.InitializeFSM();
         return life;
     }
 }

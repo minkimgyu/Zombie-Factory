@@ -1,18 +1,22 @@
+using AI.Swat;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleFSM : MonoBehaviour
+namespace AI.Swat.Battle
 {
-    // Start is called before the first frame update
-    void Start()
+    abstract public class BaseBattleState : BaseState<Swat.BattleState>
     {
-        
+        public BaseBattleState(FSM<Swat.BattleState> fsm) : base(fsm)
+        {
+        }
+
+        public override void OnStateEnter() { }
+        public override void OnStateExit() { }
+        public override void OnStateUpdate() { }
     }
 
-    // Update is called once per frame
-    void Update()
+    public class BattleFSM : FSM<Swat.BattleState>
     {
-        
     }
 }

@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSpawner : MonoBehaviour
+public class WeaponSpawner : BaseSpawner
 {
     [SerializeField] Transform[] _spawnPoints;
     BaseFactory _itemFactory;
 
-    public void Initialize(BaseFactory itemFactory)
+    public override void Initialize(BaseFactory itemFactory)
     {
         _itemFactory = itemFactory;
 

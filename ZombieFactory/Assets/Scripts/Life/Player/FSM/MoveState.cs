@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FSM.Movement;
 
 public class MoveState : BaseMovementState
 {
@@ -10,7 +11,7 @@ public class MoveState : BaseMovementState
 
     Vector3 _storedDirection;
 
-    public MoveState(FSM<MovementState> fsm, BaseMoveComponent moveComponent, float moveSpeed) : base(fsm)
+    public MoveState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float moveSpeed) : base(fsm)
     {
         _moveComponent = moveComponent;
         _moveSpeed = moveSpeed;
