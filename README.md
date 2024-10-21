@@ -1,7 +1,7 @@
 # Zombie Factory
 
 ![ZF](https://github.com/minkimgyu/GraduationProject/assets/48249824/d4a7accb-8bf7-4e6b-a8cf-ca28b6830452)
-참고 영상: https://www.youtube.com/watch?v=Bqul9EeTsTc
+참고 영상: https://www.youtube.com/watch?v=3kd6LchrqfI
 
 ## 프로젝트 소개
 Unity를 사용하여 개발한 FPS 게임
