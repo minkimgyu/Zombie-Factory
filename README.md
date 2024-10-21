@@ -1,6 +1,6 @@
 # Zombie Factory
 
-![ZF](https://github.com/minkimgyu/GraduationProject/assets/48249824/d4a7accb-8bf7-4e6b-a8cf-ca28b6830452)
+![image](https://github.com/user-attachments/assets/e5485387-4ee3-4d36-a0c1-b91566f2c27f)
 참고 영상: https://www.youtube.com/watch?v=3kd6LchrqfI
 
 ## 프로젝트 소개
