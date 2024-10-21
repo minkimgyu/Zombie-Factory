@@ -17,23 +17,23 @@ public class Heap<T> where T : INode<T>
         _count = 0;
     }
 
-    int getLastIndexHavingChild()
+    int GetLastIndexHavingChild()
     {
         return (_count - 2) / 2;
     }
 
-    int getParentIndex(int index)
+    int GetParentIndex(int index)
     {
         return (index - 1) / 2;
     }
 
-    int getChild(int index, bool isLeft = true)
+    int GetChild(int index, bool isLeft = true)
     {
         if (isLeft) return 2 * index + 1;
         else return 2 * index + 2;
     }
 
-    void swap(int index1, int index2)
+    void Swap(int index1, int index2)
     {
         T tmp = _items[index2];
         _items[index2] = _items[index1];
@@ -44,40 +44,40 @@ public class Heap<T> where T : INode<T>
     }
 
 
-    void percolateUp(int index)
+    void PercolateUp(int index)
     {
         int currentIndex = index;
-        int parentIndex = getParentIndex(index);
+        int parentIndex = GetParentIndex(index);
 
         while (currentIndex > 0 && _items[parentIndex].CompareTo(_items[currentIndex]) > 0)
         {
-            swap(parentIndex, currentIndex);
+            Swap(parentIndex, currentIndex);
 
             currentIndex = parentIndex;
-            parentIndex = getParentIndex(parentIndex);
+            parentIndex = GetParentIndex(parentIndex);
         }
     }
 
-    void percolateDown(int index)
+    void PercolateDown(int index)
     {
         int currentIndex = index;
-        int childIndex = returnMinIndexInChildren(index);
+        int childIndex = ReturnMinIndexInChildren(index);
 
         while (childIndex < _count && _items[childIndex].CompareTo(_items[currentIndex]) < 0)
         {
-            swap(childIndex, currentIndex);
+            Swap(childIndex, currentIndex);
 
-            if (childIndex > getLastIndexHavingChild()) break; // 자식이 존재하지 않는 경우 탈출
+            if (childIndex > GetLastIndexHavingChild()) break; // 자식이 존재하지 않는 경우 탈출
 
             currentIndex = childIndex;
-            childIndex = returnMinIndexInChildren(childIndex); // 조건 봐주기
+            childIndex = ReturnMinIndexInChildren(childIndex); // 조건 봐주기
         }
     }
 
-    int returnMinIndexInChildren(int index)
+    int ReturnMinIndexInChildren(int index)
     {
-        int leftChildIndex = getChild(index);
-        int rightChildIndex = getChild(index, false);
+        int leftChildIndex = GetChild(index);
+        int rightChildIndex = GetChild(index, false);
 
         T leftChild = _items[leftChildIndex];
         T rightChild = _items[rightChildIndex];
@@ -107,7 +107,7 @@ public class Heap<T> where T : INode<T>
     {
         item.StoredIndex = _count;
         _items[_count] = item;
-        percolateUp(_count);
+        PercolateUp(_count);
         _count++;
     }
 
@@ -129,7 +129,7 @@ public class Heap<T> where T : INode<T>
 
         _items[0] = lastItem; // 첫번째 아이템으로 바꿔줌
 
-        percolateDown(0);
+        PercolateDown(0);
     }
 
     public T ReturnMin() { return _items[0]; }
