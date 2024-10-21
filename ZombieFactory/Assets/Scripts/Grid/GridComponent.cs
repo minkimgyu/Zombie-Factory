@@ -57,7 +57,6 @@ public class GridComponent : MonoBehaviour
             {
                 for (int z = 0; z < _sizeOfGrid.z; z++)
                 {
-                    _grid[x, y, z].NearNodesInAir = ReturnNearNodesInAir(new Vector3Int(x, y, z));
                     _grid[x, y, z].NearNodesInGround = ReturnNearNodesInGround(new Vector3Int(x, y, z));
                     _grid[x, y, z].NearNodes = ReturnNearNodes(new Vector3Int(x, y, z));
                 }
@@ -93,39 +92,6 @@ public class GridComponent : MonoBehaviour
 
             Node node = ReturnNode(closeIndex[i]);
             if(node.CurrentState != Node.State.Surface) continue;
-
-            nearNodes.Add(node);
-        }
-
-        return nearNodes;
-    }
-
-    public List<Node> ReturnNearNodesInAir(Vector3Int index)
-    {
-        List<Node> nearNodes = new List<Node>();
-
-        // 주변 그리드
-        List<Vector3Int> closeIndex = new List<Vector3Int> {
-            new Vector3Int(index.x - 1, index.y - 1, index.z + 1), new Vector3Int(index.x, index.y - 1, index.z + 1), new Vector3Int(index.x + 1, index.y - 1, index.z + 1),
-            new Vector3Int(index.x - 1, index.y - 1, index.z), new Vector3Int(index.x, index.y - 1, index.z), new Vector3Int(index.x + 1, index.y - 1, index.z),
-            new Vector3Int(index.x - 1, index.y - 1, index.z - 1), new Vector3Int(index.x, index.y - 1, index.z - 1), new Vector3Int(index.x + 1, index.y - 1, index.z - 1),
-
-            new Vector3Int(index.x - 1, index.y, index.z + 1), new Vector3Int(index.x, index.y, index.z + 1), new Vector3Int(index.x + 1, index.y, index.z + 1),
-            new Vector3Int(index.x - 1, index.y, index.z), new Vector3Int(index.x + 1, index.y, index.z),
-            new Vector3Int(index.x - 1, index.y, index.z - 1), new Vector3Int(index.x, index.y, index.z - 1), new Vector3Int(index.x + 1, index.y, index.z - 1),
-
-            new Vector3Int(index.x - 1, index.y + 1, index.z + 1), new Vector3Int(index.x, index.y + 1, index.z + 1), new Vector3Int(index.x + 1, index.y + 1, index.z + 1),
-            new Vector3Int(index.x - 1, index.y + 1, index.z), new Vector3Int(index.x, index.y + 1, index.z), new Vector3Int(index.x + 1, index.y + 1, index.z),
-            new Vector3Int(index.x - 1, index.y + 1, index.z - 1), new Vector3Int(index.x, index.y + 1, index.z - 1), new Vector3Int(index.x + 1, index.y + 1, index.z - 1)
-        };
-
-        for (int i = 0; i < closeIndex.Count; i++)
-        {
-            bool isOutOfRange = closeIndex[i].x < 0 || closeIndex[i].y < 0 || closeIndex[i].z < 0 || closeIndex[i].x >= _sizeOfGrid.x || closeIndex[i].y >= _sizeOfGrid.y || closeIndex[i].z >= _sizeOfGrid.z;
-            if (isOutOfRange == true) continue;
-
-            Node node = ReturnNode(closeIndex[i]);
-            if (node.CurrentState != Node.State.Empty) continue;
 
             nearNodes.Add(node);
         }
