@@ -34,24 +34,26 @@ namespace AI.Swat
         FormationData _formationData;
         MovementState _state;
 
-        float _targetCaptureRadius = 8;
-        float _moveRange = 2.5f;
-        float _moveSpeed = 5;
-        float _stateChangeDuration = 3;
+        float _moveRange;
+        float _moveSpeed;
+        float _stateChangeDuration;
 
-        float _retreatDistance = 2.5f;
+        float _retreatDistance;
 
-        float _stopDistance = 1f;
-        float _gap = 0.5f;
+        float _stopDistance;
+        float _gap;
 
 
-        float _farDistance = 4f;
-        float _closeDistance = 2f;
+        float _farDistance;
+        float _closeDistance;
 
-        float _attackDuration = 1.5f;
-        float _attackDelay = 3f;
+        float _attackDuration;
+        float _attackDelay;
 
-        float _weaponThrowPower = 5f;
+        float _weaponThrowPower;
+
+        float _captureRadius;
+        float _captureAngle;
 
         Animator _animator;
 
@@ -60,6 +62,7 @@ namespace AI.Swat
         MovementFSM _movementFSM;
         BattleFSM _battleFSM;
 
+        [SerializeField] Name _ragdollName;
         [SerializeField] Transform _rig;
         [SerializeField] SightComponent _sightComponent;
 
@@ -72,6 +75,30 @@ namespace AI.Swat
 
         public override void ResetData(SwatData data, BaseFactory effectFactory, BaseFactory ragdollFactory)
         {
+            _maxHp = data.maxHp;
+            _hp = _maxHp;
+
+            _moveRange = data.moveRange;
+            _moveSpeed = data.moveSpeed;
+
+            _stateChangeDuration = data.stateChangeDuration;
+            _retreatDistance = data.retreatDistance;
+
+            _stopDistance = data.stopDistance;
+            _gap = data.gap;
+
+            _farDistance = data.farDistance;
+            _closeDistance = data.closeDistance;
+
+            _attackDuration = data.attackDuration;
+            _attackDelay = data.attackDelay;
+            _weaponThrowPower = data.weaponThrowPower;
+
+            _captureRadius = data.captureRadius;
+            _captureAngle = data.captureAngle;
+
+            _effectFactory = effectFactory;
+            _ragdollFactory = ragdollFactory;
         }
 
         public void AddWeapon(BaseWeapon weapon)
@@ -176,7 +203,7 @@ namespace AI.Swat
                     (
                         _movementFSM,
                         _moveSpeed,
-                        _targetCaptureRadius,
+                        _captureRadius,
                         _gap,
 
                         _formationData,
@@ -208,9 +235,7 @@ namespace AI.Swat
             _pathSeeker = GetComponent<PathSeeker>();
             _pathSeeker.Initialize();
 
-            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Zombie });
-            _sightComponent.Resize(_targetCaptureRadius);
-
+            _sightComponent.SetUp(_captureRadius, _captureAngle, new List<IIdentifiable.Type> { IIdentifiable.Type.Zombie });
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 
             _viewComponent = GetComponent<TPSViewComponent>();
@@ -243,7 +268,7 @@ namespace AI.Swat
 
         protected override void OnDieRequested()
         {
-            Ragdoll ragdoll = _ragdollFactory.Create(Name.Rook, transform.position, transform.rotation);
+            Ragdoll ragdoll = _ragdollFactory.Create(_ragdollName, transform.position, transform.rotation);
             ragdoll.Activate(_rig);
 
             RemoveHelper?.Invoke(this);

@@ -8,6 +8,7 @@ public class GameMode : MonoBehaviour
     [SerializeField] PlayerUIController _playerUIController;
     [SerializeField] WeaponInfoViewer _weaponInfoViewer;
     [SerializeField] Transform _effectParent;
+    [SerializeField] int _totalStageCount = 5;
 
     StageController _stageController;
     EffectEmitter _effectEmitter;
@@ -49,11 +50,11 @@ public class GameMode : MonoBehaviour
         _playerUIController.Initialize(system.AddressableHandler.ItemSpriteAssets);
         _weaponInfoViewer.Initialize();
 
-        HelperMediator mediator = new HelperMediator();
+        HelperMediator mediator = new HelperMediator(_playerUIController.OnFreeRoleRequested, _playerUIController.OnBuildFormationRequested);
         FactoryCollection factoryCollection = new FactoryCollection(system.AddressableHandler, mediator, _effectParent);
         _cameraController.Initialize();
 
         _effectEmitter = new EffectEmitter(factoryCollection.Factories[FactoryCollection.Type.Effect]);
-        _stageController.Initialize(15, factoryCollection, _cameraController, _playerUIController);
+        _stageController.Initialize(_totalStageCount, factoryCollection, _cameraController, _playerUIController);
     }
 }

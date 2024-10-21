@@ -7,11 +7,12 @@ public class StartStage : BaseStage
 {
     PlayerSpawner _playerSpawner;
     SwatSpawner _swatSpawner;
-    WeaponSpawner _weaponSpawner;
+    ItemSpawner _weaponSpawner;
 
     public override void Initialize(
         BaseFactory lifeFactory, 
         BaseFactory weaponFactory, 
+        BaseFactory viewerFactory, 
 
         CameraController cameraController,
         PlayerUIController gameUIController,
@@ -19,14 +20,14 @@ public class StartStage : BaseStage
         Action OnStageClearRequested,
         Action OnMoveToNextStageRequested)
     {
-        base.Initialize(lifeFactory, weaponFactory, cameraController, gameUIController, OnStageClearRequested, OnMoveToNextStageRequested);
+        base.Initialize(lifeFactory, weaponFactory, viewerFactory, cameraController, gameUIController, OnStageClearRequested, OnMoveToNextStageRequested);
 
         _playerSpawner = GetComponentInChildren<PlayerSpawner>();
         _swatSpawner = GetComponentInChildren<SwatSpawner>();
-        _weaponSpawner = GetComponentInChildren<WeaponSpawner>();
+        _weaponSpawner = GetComponentInChildren<ItemSpawner>();
 
         _playerSpawner.Initialize(lifeFactory, weaponFactory, cameraController, gameUIController);
-        _swatSpawner.Initialize(lifeFactory);
+        _swatSpawner.Initialize(lifeFactory, viewerFactory);
         _weaponSpawner.Initialize(weaponFactory);
     }
 

@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nodeSize: 0.5
-  _sizeOfGrid: {x: 70, y: 5, z: 74}
+  _sizeOfGrid: {x: 70, y: 7, z: 74}
   _blockMask:
     serializedVersion: 2
     m_Bits: 512
@@ -1540,10 +1540,10 @@ MonoBehaviour:
   _blockNodeColor: {r: 0.968105, g: 1, b: 0.2588235, a: 0}
   _surfaceNodeColor: {r: 0.17479558, g: 1, b: 0.16470587, a: 0.7529412}
   _showRect: 0
-  _showNonPass: 1
-  _showBlockNode: 1
-  _showSurface: 1
-  _showNavigationRect: 1
+  _showNonPass: 0
+  _showBlockNode: 0
+  _showSurface: 0
+  _showNavigationRect: 0
 --- !u!114 &7647808515236043913
 MonoBehaviour:
   m_ObjectHideFlags: 0

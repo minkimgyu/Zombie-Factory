@@ -1,0 +1,1 @@
+{"$type":"SwatData, Assembly-CSharp","moveRange":2.5,"moveSpeed":4.0,"stateChangeDuration":3.0,"retreatDistance":2.5,"stopDistance":1.0,"gap":0.5,"farDistance":4.0,"closeDistance":2.0,"attackDuration":1.5,"attackDelay":3.0,"weaponThrowPower":5.0,"maxHp":100.0, "captureRadius":5, "captureAngle":360}

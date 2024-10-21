@@ -6,30 +6,30 @@ using UnityEngine;
 public class Ragdoll : PoolObject
 {
     [SerializeField] float _duration;
-    [SerializeField] Transform _rag;
+    [SerializeField] Transform _rig;
     Action ReturnToPool;
 
     public void Activate(Transform origin)
     {
         StartTimer(_duration);
-        CopyAnimCharacterTransformToRagdoll(origin, _rag);
+        CopyAnimCharacterTransformToRagdoll(origin, _rig);
     }
 
-    void CopyAnimCharacterTransformToRagdoll(Transform origin, Transform rag)
+    void CopyAnimCharacterTransformToRagdoll(Transform origin, Transform rig)
     {
-        rag.position = origin.position;
-        rag.rotation = origin.rotation;
+        rig.position = origin.position;
+        rig.rotation = origin.rotation;
 
         for (int i = 0; i < origin.transform.childCount; i++)
         {
-            if (origin.childCount != rag.childCount) continue;
+            if (origin.childCount != rig.childCount) continue;
             if (origin.transform.childCount != 0)
             {
-                CopyAnimCharacterTransformToRagdoll(origin.transform.GetChild(i), rag.transform.GetChild(i));
+                CopyAnimCharacterTransformToRagdoll(origin.transform.GetChild(i), rig.transform.GetChild(i));
             }
 
-            rag.transform.GetChild(i).localPosition = origin.transform.GetChild(i).localPosition;
-            rag.transform.GetChild(i).localRotation = origin.transform.GetChild(i).localRotation;
+            rig.transform.GetChild(i).localPosition = origin.transform.GetChild(i).localPosition;
+            rig.transform.GetChild(i).localRotation = origin.transform.GetChild(i).localRotation;
         }
     }
 }

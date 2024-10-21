@@ -24,7 +24,7 @@ public class SoundPlayerFactory : BaseFactory
 
     public SoundPlayerFactory(AddressableHandler addressableHandler, Transform parent)
     {
-        _soundCreater = new SoundPlayerCreater(addressableHandler.SoundPlayer, 30, parent);
+        _soundCreater = new SoundPlayerCreater(addressableHandler.SoundPlayer, 100, parent);
     }
 
     public override SoundPlayer Create()

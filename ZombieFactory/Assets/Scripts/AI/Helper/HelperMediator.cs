@@ -2,6 +2,8 @@ using AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 // 조력자를 위해 mediator
 // 플레이어에서 해당 스크립트를 가지고 명령을 내린다.
@@ -11,7 +13,8 @@ using UnityEngine;
 
 public class HelperMediator
 {
-    const float _distanceFromPlayer = 2;
+    const float _distanceFromPlayerInFreeRoleState = 4;
+    const float _distanceFromPlayerInBuildFormationState = 2;
     const float _offsetRange = 2f;
 
     ITarget _player;
@@ -22,9 +25,14 @@ public class HelperMediator
 
     List<IHelper> _helpers;
 
-    public HelperMediator()
+    Action OnFreeRoleRequested;
+    Action OnBuildFormationRequested;
+
+    public HelperMediator(Action OnFreeRoleRequested, Action OnBuildFormationRequested)
     {
         _helpers = new List<IHelper>();
+        this.OnFreeRoleRequested = OnFreeRoleRequested;
+        this.OnBuildFormationRequested = OnBuildFormationRequested;
     }
 
     void RemoveHelper(IHelper helper)
@@ -44,7 +52,7 @@ public class HelperMediator
         
         for (int i = 0; i < _helpers.Count; i++)
         {
-            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
+            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayerInFreeRoleState;
             Vector3 pos = new Vector3(offset.x, 0, offset.y);
             _helpers[i].RestOffset(pos);
         }
@@ -52,12 +60,13 @@ public class HelperMediator
 
     public void BuildFormation()
     {
-        Vector3[] points = GetCirclePoints(_distanceFromPlayer, _helpers.Count);
+        OnBuildFormationRequested?.Invoke();
+        Vector3[] points = GetCirclePoints(_distanceFromPlayerInBuildFormationState, _helpers.Count);
 
         // 원형으로 포지션 적용
         for (int i = 0; i < _helpers.Count; i++)
         {
-            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
+            Vector2 offset = Random.insideUnitCircle * _offsetRange;
             Vector3 pos = points[i] + new Vector3(offset.x, 0, offset.y);
             _helpers[i].RestOffset(pos);
             _helpers[i].ChangeState(AI.Swat.Swat.MovementState.BuildFormation);
@@ -66,10 +75,13 @@ public class HelperMediator
 
     public void FreeRole()
     {
+        OnFreeRoleRequested?.Invoke();
+        Vector3[] points = GetCirclePoints(_distanceFromPlayerInFreeRoleState, _helpers.Count);
+
         for (int i = 0; i < _helpers.Count; i++)
         {
-            Vector2 offset = Random.insideUnitCircle * _distanceFromPlayer;
-            Vector3 pos = new Vector3(offset.x, 0, offset.y);
+            Vector2 offset = Random.insideUnitCircle * _offsetRange;
+            Vector3 pos = points[i] + new Vector3(offset.x, 0, offset.y);
             _helpers[i].RestOffset(pos);
             _helpers[i].ChangeState(AI.Swat.Swat.MovementState.FreeRole);
         }
@@ -93,7 +105,7 @@ public class HelperMediator
 
     public void TeleportTo(Vector3 pos)
     {
-        Vector3[] points = GetCirclePoints(_distanceFromPlayer, _helpers.Count);
+        Vector3[] points = GetCirclePoints(_distanceFromPlayerInBuildFormationState, _helpers.Count);
         for (int i = 0; i < _helpers.Count; i++)
         {
             _helpers[i].TeleportTo(pos + points[i]);

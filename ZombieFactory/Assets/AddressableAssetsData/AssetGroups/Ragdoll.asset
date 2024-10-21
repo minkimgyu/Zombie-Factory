@@ -23,6 +23,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - Ragdoll
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d9c92d5d4f73c44a84d11ec3cd47d32
+    m_Address: MaskZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ragdoll
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80c8182a30a06e4e9d97aef6b6de7db
+    m_Address: WitchZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ragdoll
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 986b577292e1f9243b2ddfc689c7aca4
+    m_Address: Warden
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ragdoll
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67a7bbfdfb46fdb44a5cf81bf2ff37fa
+    m_Address: Rook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ragdoll
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

@@ -9,6 +9,7 @@ abstract public class BaseFactory
     public virtual BaseEffect Create(BaseEffect.Name name) { return default; }
 
     public virtual SoundPlayer Create() { return default; }
+    public virtual BaseViewer Create(BaseViewer.Name name) { return default; }
 
     public virtual Ragdoll Create(BaseLife.Name name, Vector3 pos, Quaternion rotation) { return default; }
     public virtual BaseLife Create(BaseLife.Name name, List<BaseItem.Name> weaponNames) { return default; }

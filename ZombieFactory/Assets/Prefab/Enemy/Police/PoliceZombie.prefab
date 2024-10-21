@@ -2045,7 +2045,7 @@ Transform:
   m_GameObject: {fileID: 6394970595499557561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 0, z: -2.77}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2086,7 +2086,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6394970595499557561}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2119,6 +2119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _raycastPoint: {fileID: 7763335474382001041}
   _rig: {fileID: 2204180086871243639}
+  _ragdoolName: 4
   _sightComponent: {fileID: 5025806758419804637}
   _noiseCaptureComponent: {fileID: 2116995745682359489}
 --- !u!114 &3878636172023484456

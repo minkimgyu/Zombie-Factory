@@ -40,10 +40,11 @@ abstract public class MeleeAttack : ApplyAttack
         return _damageConverter.ReturnDamage(camFowardDir, Vector3.zero);
     }
 
-    protected override void ApplyDamage(IHitable hitable, RaycastHit hit)
+    protected override void ApplyDamage(IHitable hitable, IEffectable effectable, RaycastHit hit)
     {
         float damage = CalculateDamage(hitable);
         hitable.OnHit(damage, hit.point, hit.normal);
+        effectable.SpawnEffect(damage, hit.point, hit.normal);
     }
 
     protected abstract void PlayMeleeAnimation();
@@ -67,7 +68,7 @@ abstract public class MeleeAttack : ApplyAttack
         IHitable hitable = hit.collider.GetComponent<IHitable>();
         if (hitable == null) return;
 
-        ApplyDamage(hitable, hit);
+        ApplyDamage(hitable, effectable, hit);
     }
 
     public override void OnUpdate()

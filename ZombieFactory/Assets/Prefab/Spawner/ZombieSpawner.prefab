@@ -45,6 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeColor: {r: 0.8301887, g: 0.41117835, b: 0.41117835, a: 0.3254902}
-  _lifeNames: 05000000
-  _spawnCount: 5
+  _lifeNames: 050000000400000003000000
   _range: 3

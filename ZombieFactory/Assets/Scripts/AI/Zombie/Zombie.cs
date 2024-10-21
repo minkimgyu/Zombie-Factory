@@ -14,27 +14,27 @@ namespace AI.Zombie
             TargetFollowing
         }
 
-        float _destoryDelay = 5;
-        float _stageChangeDuration = 3;
+        float _destoryDelay;
+        float _stageChangeDuration;
 
-        float _moveSpeed = 5;
-        float _viewSpeed = 5;
+        float _moveSpeed;
+        float _viewSpeed;
 
-        float _stopDistance = 1f;
-        float _gap = 0.5f;
+        float _stopDistance;
+        float _gap;
 
-        float _targetCaptureRadius = 5;
+        float _targetCaptureRadius;
 
-        float _noiseCaptureRadius = 11;
-        int _maxNoiseQueueSize = 3;
+        float _noiseCaptureRadius;
+        int _maxNoiseQueueSize;
 
-        float _attackRadius = 1.5f;
-        float _attackDamage = 30;
+        float _attackRadius;
+        float _attackDamage;
 
-        float _attackPreDelay = 0.5f;
-        float _attackAfterDelay = 3;
+        float _attackPreDelay;
+        float _attackAfterDelay;
 
-        float _moveRange = 5;
+        float _moveRange;
 
         Animator _animator;
 
@@ -51,7 +51,7 @@ namespace AI.Zombie
         BaseFactory _ragdollFactory;
 
         [SerializeField] Transform _rig;
-
+        [SerializeField] Name _ragdoolName;
         [SerializeField] SightComponent _sightComponent;
         [SerializeField] TargetCaptureComponent _noiseCaptureComponent;
 
@@ -106,7 +106,7 @@ namespace AI.Zombie
 
         protected override void OnDieRequested()
         {
-            Ragdoll ragdoll = _ragdollFactory.Create(Name.PoliceZombie, transform.position, transform.rotation);
+            Ragdoll ragdoll = _ragdollFactory.Create(_ragdoolName, transform.position, transform.rotation);
             ragdoll.Activate(_rig);
 
             OnDie?.Invoke();

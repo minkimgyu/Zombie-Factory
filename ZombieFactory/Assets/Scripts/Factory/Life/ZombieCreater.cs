@@ -7,25 +7,25 @@ using Object = UnityEngine.Object;
 [System.Serializable]
 public class ZombieData : LifeData
 {
-    public float destoryDelay = 5;
-    public float stageChangeDuration = 3;
+    public float destoryDelay;
+    public float stageChangeDuration;
 
-    public float moveSpeed = 5;
-    public float viewSpeed = 5;
+    public float moveSpeed;
+    public float viewSpeed;
 
-    public float stopDistance = 1f;
-    public float gap = 0.5f;
+    public float stopDistance;
+    public float gap;
 
-    public float targetCaptureRadius = 5;
+    public float targetCaptureRadius;
 
-    public float noiseCaptureRadius = 11;
-    public int maxNoiseQueueSize = 3;
+    public float noiseCaptureRadius;
+    public int maxNoiseQueueSize;
 
-    public float attackRadius = 1.5f;
-    public float attackDamage = 30;
+    public float attackRadius;
+    public float attackDamage;
 
-    public float attackPreDelay = 0.5f;
-    public float attackAfterDelay = 3;
+    public float attackPreDelay;
+    public float attackAfterDelay;
 
     public ZombieData(
         float maxHp,

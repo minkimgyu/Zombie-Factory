@@ -10,6 +10,7 @@ public class FactoryCollection
         Item,
         Life,
         Ragdoll,
+        Viewer,
     }
 
     public Dictionary<Type, BaseFactory> Factories { get; private set; }
@@ -23,9 +24,11 @@ public class FactoryCollection
         BaseFactory ragdollFactory = new RagdollFactory(addressableHandler);
         BaseFactory itemFactory = new ItemFactory(addressableHandler, effectFactory);
         BaseFactory lifeFactory = new LifeFactory(addressableHandler, mediator, effectFactory, itemFactory, ragdollFactory);
+        BaseFactory viewerFactory = new ViewerFactory(addressableHandler);
         
         Factories.Add(Type.Effect, effectFactory);
         Factories.Add(Type.Life, lifeFactory);
         Factories.Add(Type.Item, itemFactory);
+        Factories.Add(Type.Viewer, viewerFactory);
     }
 }

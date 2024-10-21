@@ -7,7 +7,10 @@ abstract public class BaseSpawner : MonoBehaviour
 {
     public virtual void Initialize(BaseFactory factory) { }
     public virtual void Initialize(int spawnCount, BaseFactory lifeFactory, Action OnDie) { }
-    public virtual void Initialize(BaseFactory lifeFactory, BaseFactory itemFactory) { }
+    public virtual void Initialize(BaseFactory factory1, BaseFactory factory2) { }
+
+
+
     public virtual void Initialize(
         BaseFactory lifeFactory,
         BaseFactory itemFactory,

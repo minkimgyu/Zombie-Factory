@@ -163,10 +163,11 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
         return damage;
     }
 
-    protected override void ApplyDamage(IHitable hit, PenetrateData data, float decreaseRatio)
+    protected override void ApplyDamage(IHitable hit, IEffectable effectable, PenetrateData data, float decreaseRatio)
     {
         float damage = CalculateDamage(hit, data, decreaseRatio);
         hit.OnHit(damage, data.EntryPoint, data.EntryNormal); // 데미지 적용
+        effectable.SpawnEffect(damage, data.EntryPoint, data.EntryNormal); // 데미지 택스트 생성
     }
 
     //bool CheckIsAlreadyDamaged(IHitable hit, List<IDamageable> alreadyDamagedObjects)
@@ -230,15 +231,16 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
             GameObject target = penetrateDatas[i].Target;
             
             IPenetrable penetrable = target.GetComponent<IPenetrable>(); // IPenetrable 가져옴
-            if(penetrable != null)
+            IEffectable effectable = target.GetComponent<IEffectable>(); //IEffectable 가져옴
+
+            if (penetrable != null && effectable != null)
             {
                 // 오브젝트의 내구도를 가져옴
                 float finalDurability = penetrateDatas[i].ReturnDistance() * penetrable.ReturnDurability();
 
                 bool IsLastContact = false;
                 if (i == penetrateDatas.Count - 1) IsLastContact = true; // 마지막 충돌 시
-
-                IEffectable effectable = target.GetComponent<IEffectable>(); //IEffectable 가져옴
+                
                 tmpPenetratePower = CalculatePenetratePower(tmpPenetratePower, finalDurability, effectable, penetrateDatas[i], IsLastContact);
 
                 // 관통 수치가 0이면 break
@@ -251,7 +253,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
             {
                 // 데미지 감소 적용
                 float decreasePowerRatio = (_penetratePower - tmpPenetratePower) / _penetratePower;
-                if (hitable != null) ApplyDamage(hitable, penetrateDatas[i], decreasePowerRatio);
+                if (hitable != null) ApplyDamage(hitable, effectable, penetrateDatas[i], decreasePowerRatio);
             }
 
             if (penetrateDatas.Count <= i + 1) continue; // 뒤에 관통 정보가 없다면 진행하지 않음

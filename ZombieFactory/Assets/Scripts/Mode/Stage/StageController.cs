@@ -77,6 +77,7 @@ public class StageController : MonoBehaviour
         _startStage.Initialize(
                 _factoryCollection.Factories[FactoryCollection.Type.Life],
                 _factoryCollection.Factories[FactoryCollection.Type.Item],
+                _factoryCollection.Factories[FactoryCollection.Type.Viewer],
 
                 _cameraController,
                 _playerUIController,

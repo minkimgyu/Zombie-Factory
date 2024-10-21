@@ -6,6 +6,7 @@ using AI.Swat;
 public class SwatSpawner : BaseSpawner
 {
     BaseFactory _lifeFactory;
+    BaseFactory _viewerFactory;
     BaseFactory _itemFactory;
 
     [SerializeField] Color _rangeColor;
@@ -14,9 +15,10 @@ public class SwatSpawner : BaseSpawner
     [SerializeField] List<BaseItem.Name> _weaponNames;
     [SerializeField] BaseLife.Name[] _lifeNames;
 
-    public override void Initialize(BaseFactory lifeFactory) 
+    public override void Initialize(BaseFactory lifeFactory, BaseFactory viewerFactory) 
     {
         _lifeFactory = lifeFactory;
+        _viewerFactory = viewerFactory;
     }
 
     protected Vector3 ReturnRandomPos()
@@ -42,6 +44,12 @@ public class SwatSpawner : BaseSpawner
         for (int i = 0; i < _spawnCount; i++)
         {
             BaseLife swat = CreateRandomLife();
+
+            BaseViewer hpViewer = _viewerFactory.Create(BaseViewer.Name.MoveableHpViewer);
+            hpViewer.transform.SetParent(swat.transform);
+            hpViewer.transform.localPosition = new Vector3(0, 1.8f, 0);
+            swat.AddObserverEvent(hpViewer.UpdateViewer);
+
             Vector3 pos = ReturnRandomPos();
             swat.ResetPosition(pos);
         }

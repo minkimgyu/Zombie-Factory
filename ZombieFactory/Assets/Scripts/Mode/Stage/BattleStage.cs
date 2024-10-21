@@ -5,7 +5,7 @@ using System;
 
 public class BattleStage : BaseStage
 {
-    WeaponSpawner _weaponSpawner;
+    ItemSpawner _weaponSpawner;
     ZombieSpawner[] _zombieSpawners;
 
     int _spawnCount = 0;
@@ -19,7 +19,7 @@ public class BattleStage : BaseStage
         Action OnMoveToNextStageRequested)
     {
         base.Initialize(lifeFactory, weaponFactory, OnStageClearRequested, OnMoveToNextStageRequested);
-        _weaponSpawner = GetComponentInChildren<WeaponSpawner>();
+        _weaponSpawner = GetComponentInChildren<ItemSpawner>();
         _weaponSpawner.Initialize(weaponFactory);
 
         _zombieSpawners = GetComponentsInChildren<ZombieSpawner>();
@@ -27,6 +27,12 @@ public class BattleStage : BaseStage
         {
             _zombieSpawners[i].Initialize(_maxSpawnCount, lifeFactory, OnZombieDie);
         }
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        _weaponSpawner.DestroyItems();
     }
 
     void OnZombieDie()

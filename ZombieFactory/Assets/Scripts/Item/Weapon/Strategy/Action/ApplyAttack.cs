@@ -62,7 +62,7 @@ abstract public class ApplyAttack : ActionStrategy
 
     protected virtual float CalculateDamage(IHitable hitable) { return default; }
 
-    protected virtual void ApplyDamage(IHitable hitable, RaycastHit hit) { }
+    protected virtual void ApplyDamage(IHitable hitable, IEffectable effectable, RaycastHit hit) { }
 
-    protected virtual void ApplyDamage(IHitable hitable, PenetrateData data, float decreaseRatio) { }
+    protected virtual void ApplyDamage(IHitable hitable, IEffectable effectable, PenetrateData data, float decreaseRatio) { }
 }

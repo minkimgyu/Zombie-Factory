@@ -20,7 +20,9 @@ public class SightComponent : CaptureComponent<ITarget>
         _captureAngle = angle;
         _targetTypes = targetTypes;
         Initialize(OnEnter, OnExit);
-        
+
+        CircularSectorDrawer drawer = GetComponent<CircularSectorDrawer>();
+        drawer.ResetData(angle, radius);
     }
 
     void OnEnter(ITarget target)

@@ -35,6 +35,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Life
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09a0cf727660279428d888113bd0f122
+    m_Address: Warden
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d72b07c5b3ee5524f8d666bbb92b7ffa
+    m_Address: MaskZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1c23cf0ddbdb45843b4b384351662b7f
+    m_Address: WitchZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

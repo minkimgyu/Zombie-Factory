@@ -46,6 +46,7 @@ public class AddressableHandler
 
     public SoundPlayer SoundPlayer { get; private set; }
     public Dictionary<BaseEffect.Name, BaseEffect> EffectPrefabs { get; private set; }
+    public Dictionary<BaseViewer.Name, BaseViewer> ViewerPrefabs { get; private set; }
     public Dictionary<BaseLife.Name, BaseLife> LifePrefabs { get; private set; }
     public Dictionary<BaseLife.Name, Ragdoll> RagdollPrefabs { get; private set; }
     public Dictionary<BaseItem.Name, BaseItem> ItemPrefabs { get; private set; }
@@ -68,7 +69,7 @@ public class AddressableHandler
 
 
         _assetLoaders.Add(new ItemSpriteAssetLoader(Label.ItemSprite, (label, value) => { ItemSpriteAssets = value; OnSuccess(label); }));
-
+        _assetLoaders.Add(new ViewerAssetLoader(Label.Viewer, (label, value) => { ViewerPrefabs = value; OnSuccess(label); }));
 
         _assetLoaders.Add(new ItemAssetLoader(Label.Item, (label, value) => { ItemPrefabs = value; OnSuccess(label); }));
         _assetLoaders.Add(new RagdollAssetLoader(Label.Ragdoll, (label, value) => { RagdollPrefabs = value; OnSuccess(label); }));

@@ -26,14 +26,13 @@ public class EffectFactory : BaseFactory
     {
         _effectCreaters = new Dictionary<BaseEffect.Name, EffectCreater>();
 
-        // 여기서 추가
-        _effectCreaters[BaseEffect.Name.PenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.PenetrateBulletHole], 10, parent);
-        _effectCreaters[BaseEffect.Name.NonPenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.NonPenetrateBulletHole], 10, parent);
-        _effectCreaters[BaseEffect.Name.WallFragmentation] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.WallFragmentation], 10, parent);
+        _effectCreaters[BaseEffect.Name.PenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.PenetrateBulletHole], 50, parent);
+        _effectCreaters[BaseEffect.Name.NonPenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.NonPenetrateBulletHole], 50, parent);
+        _effectCreaters[BaseEffect.Name.ObjectFragmentation] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.ObjectFragmentation], 50, parent);
         _effectCreaters[BaseEffect.Name.KnifeMark] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.KnifeMark], 3, parent);
         _effectCreaters[BaseEffect.Name.DamageTxt] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.DamageTxt], 10, parent);
         _effectCreaters[BaseEffect.Name.Explosion] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.Explosion], 0, parent);
-        _effectCreaters[BaseEffect.Name.TrajectoryLine] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.TrajectoryLine], 10, parent);
+        _effectCreaters[BaseEffect.Name.TrajectoryLine] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.TrajectoryLine], 100, parent);
     }
 
     public override BaseEffect Create(BaseEffect.Name name)

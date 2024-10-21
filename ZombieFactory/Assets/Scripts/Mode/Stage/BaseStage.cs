@@ -14,6 +14,7 @@ abstract public class BaseStage : MonoBehaviour
     public virtual void Initialize(
         BaseFactory lifeFactory,
         BaseFactory weaponFactory,
+        BaseFactory viewerFactory, 
 
         CameraController cameraController,
         PlayerUIController plaUIController,

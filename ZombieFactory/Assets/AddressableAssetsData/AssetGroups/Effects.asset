@@ -42,7 +42,7 @@ MonoBehaviour:
     - Effect
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ccf6d1329f2a7d849ae487552b8fbd5b
-    m_Address: WallFragmentation
+    m_Address: ObjectFragmentation
     m_ReadOnly: 0
     m_SerializedLabels:
     - Effect

@@ -29,8 +29,11 @@ public class RagdollFactory : BaseFactory
     {
         _ragdollCreaters = new Dictionary<BaseLife.Name, RagdollCreater>();
 
-        // 여기서 추가
         _ragdollCreaters[BaseLife.Name.PoliceZombie] = new RagdollCreater(addressableHandler.RagdollPrefabs[BaseLife.Name.PoliceZombie]);
+        _ragdollCreaters[BaseLife.Name.WitchZombie] = new RagdollCreater(addressableHandler.RagdollPrefabs[BaseLife.Name.WitchZombie]);
+        _ragdollCreaters[BaseLife.Name.MaskZombie] = new RagdollCreater(addressableHandler.RagdollPrefabs[BaseLife.Name.MaskZombie]);
+        _ragdollCreaters[BaseLife.Name.Warden] = new RagdollCreater(addressableHandler.RagdollPrefabs[BaseLife.Name.Warden]);
+        _ragdollCreaters[BaseLife.Name.Rook] = new RagdollCreater(addressableHandler.RagdollPrefabs[BaseLife.Name.Rook]);
     }
 
     public override Ragdoll Create(BaseLife.Name name, Vector3 pos, Quaternion rotation)

@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] WeaponViewer _weaponViewer;
     [SerializeField] CrosshairViewer _crosshairViewer;
     [SerializeField] HpViewer _hpViewer;
-
     [SerializeField] AmmoViwer _ammoViewer;
+    [SerializeField] TMP_Text _helperModeViewer;
 
     public void Initialize(Dictionary<BaseItem.Name, Sprite> weaponIconSprite)
     {
         _weaponViewer.Initialize(weaponIconSprite);
+        OnFreeRoleRequested();
+    }
+
+    public void OnFreeRoleRequested()
+    {
+        _helperModeViewer.text = "FreeRole";
+    }
+
+    public void OnBuildFormationRequested()
+    {
+        _helperModeViewer.text = "BuildFormation";
     }
 
     public void ChangeHpRatio(float ratio)

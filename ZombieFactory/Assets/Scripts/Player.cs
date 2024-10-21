@@ -88,11 +88,13 @@ public class Player : BaseLife, IInteracter
 
     public void GetAmmoPack(int ammoCount)
     {
+        _weaponController.RefillAmmo(ammoCount);
         _helperMediator.GetAmmoPack(ammoCount);
     }
 
     public void GetAidPack(float healPoint)
     {
+        GetHeal(healPoint);
         _helperMediator.GetAidPack(healPoint);
     }
 

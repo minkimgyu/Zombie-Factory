@@ -9,7 +9,6 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
     {
         Player,
 
-        Oryx,
         Rook,
         Warden,
 
@@ -74,6 +73,9 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
 
     public virtual void AddObserverEvent(Action OnDie)
     { }
+
+    public void AddObserverEvent(Action<float> OnHpChangeRequested)
+    { this.OnHpChangeRequested = OnHpChangeRequested; }
 
     protected virtual void OnDieRequested() { }
 

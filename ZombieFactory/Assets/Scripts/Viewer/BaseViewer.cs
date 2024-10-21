@@ -6,9 +6,7 @@ public class BaseViewer : MonoBehaviour
 {
     public enum Name
     {
-
-        HpViewer,
-        ItemSlot
+        MoveableHpViewer,
     }
 
     public virtual void ActiveViewer(bool active) { }

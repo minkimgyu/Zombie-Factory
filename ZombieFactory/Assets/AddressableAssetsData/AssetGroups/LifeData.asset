@@ -29,6 +29,30 @@ MonoBehaviour:
     m_SerializedLabels:
     - LifeData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dce6dec362c37b54ba8cae0f85b9a2ad
+    m_Address: Rook
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LifeData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 085f1f4cc48fa1147b8e44028b7eebf0
+    m_Address: Warden
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LifeData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dafd07017a03967479ff41c2b4ba8769
+    m_Address: MaskZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LifeData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b288d9dbae4b3043bb51b6eca4cbc7f
+    m_Address: WitchZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LifeData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

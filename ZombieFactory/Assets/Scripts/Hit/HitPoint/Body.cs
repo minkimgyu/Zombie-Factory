@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Body : HitPoint
+public class Body : LifePart
 {
     public override void Initialize(IDamageable parentDamageable, IPoint parentBody, BaseFactory effectFactory)
     {
