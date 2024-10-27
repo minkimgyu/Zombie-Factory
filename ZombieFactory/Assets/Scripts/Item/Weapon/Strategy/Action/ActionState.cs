@@ -5,7 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using Unity.Burst.CompilerServices;
 
-abstract public class ActionStrategy : BaseStrategy
+abstract public class ActionState : WeaponState
 {
     /// <summary>
     /// Action을 호출할 수 있는지 확인하는 함수
@@ -23,6 +23,6 @@ abstract public class ActionStrategy : BaseStrategy
     public virtual void TurnOffZoomDirectly() { }
 }
 
-public class NoAction : ActionStrategy
+public class NoAction : ActionState
 {
 }

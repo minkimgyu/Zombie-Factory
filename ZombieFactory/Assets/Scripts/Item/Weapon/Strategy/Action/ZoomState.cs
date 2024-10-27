@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseZoomStrategy : ActionStrategy
+public class BaseZoomState : ActionState
 {
     protected float _zoomDuration;
 
@@ -22,7 +22,7 @@ public class BaseZoomStrategy : ActionStrategy
     /// </summary>
     protected Action<bool> OnZoomRequested;
 
-    public BaseZoomStrategy(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public BaseZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         Action<bool> OnZoomRequested)
     {
         _zoomDuration = zoomDuration;
@@ -46,7 +46,7 @@ public class BaseZoomStrategy : ActionStrategy
     }
 }
 
-public class ZoomStrategy : BaseZoomStrategy
+public class ZoomState : BaseZoomState
 {
     public enum State
     {
@@ -56,7 +56,7 @@ public class ZoomStrategy : BaseZoomStrategy
 
     State _state;
 
-    public ZoomStrategy(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public ZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         Action<bool> OnZoomRequested) : base(zoomCameraPosition, zoomDuration, normalFieldOfView, zoomFieldOfView, OnZoomRequested)
     {
         _state = State.Idle;
@@ -91,7 +91,7 @@ public class ZoomStrategy : BaseZoomStrategy
     }
 }
 
-public class DoubleZoomStrategy : BaseZoomStrategy
+public class DoubleZoomState : BaseZoomState
 {
     public enum State
     {
@@ -103,7 +103,7 @@ public class DoubleZoomStrategy : BaseZoomStrategy
     float _doubleZoomFieldOfView;
     State _state;
 
-    public DoubleZoomStrategy(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public DoubleZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         float doubleZoomFieldOfView, Action<bool> OnZoomRequested)
         : base(zoomCameraPosition, zoomDuration, normalFieldOfView, zoomFieldOfView, OnZoomRequested)
     {

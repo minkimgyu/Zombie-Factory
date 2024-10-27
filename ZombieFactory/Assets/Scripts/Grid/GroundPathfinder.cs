@@ -42,7 +42,7 @@ public class GroundPathfinder : MonoBehaviour
     bool HaveAlternativeNode(Node node, out Node alternativeNode)
     {
         // 이미 찾아놓은 노드가 존재한다면
-        if (node.AlternativeNode != null && node.AlternativeNode.CurrentState == Node.State.Surface)
+        if (node.AlternativeNode != null && node.AlternativeNode.CanStep == true)
         {
             alternativeNode = node.AlternativeNode;
             return true;
@@ -71,7 +71,7 @@ public class GroundPathfinder : MonoBehaviour
                 bool nowHave = closeHash.Contains(nearNodes[i]);
                 if (nowHave == true) continue;
 
-                if (closeNode.CurrentState == Node.State.Surface) return closeNode;
+                if (closeNode.CanStep == true) return closeNode;
 
                 closeHash.Add(nearNodes[i]);
                 nodeQueue.Enqueue(nearNodes[i]); // 가지고 있지 않다면 넣는다.
@@ -98,7 +98,7 @@ public class GroundPathfinder : MonoBehaviour
 
         if (startNode == null || endNode == null) { return null; }
 
-        if (startNode.CurrentState != Node.State.Surface)
+        if (startNode.CanStep == false)
         {
             Node startAlternativeNode;
 
@@ -114,7 +114,7 @@ public class GroundPathfinder : MonoBehaviour
             }
         }
 
-        if (endNode.CurrentState != Node.State.Surface)
+        if (endNode.CanStep == false)
         {
             Node endAlternativeNode;
 
@@ -169,7 +169,7 @@ public class GroundPathfinder : MonoBehaviour
         for (int i = 0; i < targetNode.NearNodesInGround.Count; i++)
         {
             Node nearNode = targetNode.NearNodesInGround[i];
-            if (nearNode.CurrentState != Node.State.Surface || _closedList.Contains(nearNode)) continue; // 막혀있지 않거나 닫힌 리스트에 있는 경우 다음 그리드 탐색 --> Ground의 경우 막혀있어야 탐색 가능함
+            if (nearNode.CanStep == false || _closedList.Contains(nearNode)) continue; // 막혀있지 않거나 닫힌 리스트에 있는 경우 다음 그리드 탐색 --> Ground의 경우 막혀있어야 탐색 가능함
 
             // 공중에 있는 경우는 Pos, 땅에 있는 경우는 SurfacePos로 처리한다.
             float moveCost = Vector3.Distance(targetNode.SurfacePos, nearNode.SurfacePos);

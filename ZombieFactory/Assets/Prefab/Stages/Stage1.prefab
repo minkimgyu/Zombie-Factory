@@ -740,15 +740,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   _surfaceHeight: 0.2
-  _wireColor: {r: 0.27058828, g: 0.37527406, b: 1, a: 0.6745098}
+  _wireColor: {r: 0.27058828, g: 0.37527406, b: 1, a: 0.12941177}
   _passNodeColor: {r: 0.3160377, g: 0.7216206, b: 1, a: 0}
   _nonPassNodeColor: {r: 1, g: 0.33333337, b: 0.43584827, a: 0.44705883}
-  _blockNodeColor: {r: 0.968105, g: 1, b: 0.2588235, a: 0}
+  _blockNodeColor: {r: 0.968105, g: 1, b: 0.2588235, a: 0.43137255}
   _surfaceNodeColor: {r: 0.17479558, g: 1, b: 0.16470587, a: 0.7529412}
   _showRect: 0
-  _showNonPass: 0
-  _showBlockNode: 0
-  _showSurface: 0
+  _showNonPass: 1
+  _showBlockNode: 1
+  _showSurface: 1
   _showNavigationRect: 0
 --- !u!114 &8099704749014135685
 MonoBehaviour:

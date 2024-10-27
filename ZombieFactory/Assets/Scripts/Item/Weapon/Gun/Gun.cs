@@ -96,24 +96,24 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public override void OnReloadStart(bool isTPS)
     {
-        for (int i = 0; i < _actionStrategies.Count; i++) _actionStrategies[(EventType)i].TurnOffZoomDirectly();
-        _reloadStrategy.Execute(isTPS, _ammoCountsInMagazine, _ammoCountsInPossession);
+        for (int i = 0; i < _actionStates.Count; i++) _actionStates[(EventType)i].TurnOffZoomDirectly();
+        _reloadState.Execute(isTPS, _ammoCountsInMagazine, _ammoCountsInPossession);
     }
 
     // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    public override bool CanCancelReloadAndGoToMainAction() { return _reloadStrategy.CanCancelReloadingByLeftClick(); }
+    public override bool CanCancelReloadAndGoToMainAction() { return _reloadState.CanCancelReloadingByLeftClick(); }
 
     // 장전 하는 도중에 마우스 입력을 통한 장전 캔슬
-    public override bool CanCancelReloadAndGoToSubAction() { return _reloadStrategy.CanCancelReloadingByLeftClick(); }
+    public override bool CanCancelReloadAndGoToSubAction() { return _reloadState.CanCancelReloadingByLeftClick(); }
 
     public override bool IsReloadFinish() // 재장전이 끝난 경우
     {
-        return _reloadStrategy.IsReloadFinish();
+        return _reloadState.IsReloadFinish();
     }
 
     public override void ResetReload() // 재장전을 취소할 경우
     {
-        _reloadStrategy.OnCancelReload();
+        _reloadState.OnCancelReload();
     }
 
     #endregion

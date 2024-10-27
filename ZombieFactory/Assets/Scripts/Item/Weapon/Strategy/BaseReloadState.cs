@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 // 장전 테스크 적용
-abstract public class ReloadStrategy : BaseStrategy
+abstract public class BaseReloadState : WeaponState
 {
     public virtual void Execute(bool isTPS, int ammoCountInMagazine, int ammoCountInPossession) { }
 
@@ -47,11 +47,11 @@ abstract public class ReloadStrategy : BaseStrategy
     //public abstract void OnInintialize();
 }
 
-public class NoReload : ReloadStrategy
+public class NoReload : BaseReloadState
 {
 }
 
-abstract public class BaseReload : ReloadStrategy
+abstract public class BaseReload : BaseReloadState
 {
     protected Timer _reloadTimer;
     protected Timer _reloadExitTimer;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class AirUnit : MonoBehaviour
 {
     [SerializeField] Transform _endTarget;
-    [SerializeField] AirPathfinder _pathfinder;
+    //[SerializeField] AirPathfinder _pathfinder;
     [SerializeField] float _moveSpeed;
 
     PathSeeker _pathSeeker;

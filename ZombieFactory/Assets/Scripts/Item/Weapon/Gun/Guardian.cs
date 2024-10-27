@@ -33,7 +33,7 @@ public class Guardian : VariationGun
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 
         _actionStorage.Add(new(EventType.Sub, Conditon.Both),
-            new ZoomStrategy(data.cameraPositionWhenZoom.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, OnZoomRequested));
+            new ZoomState(data.cameraPositionWhenZoom.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, OnZoomRequested));
 
 
         _recoilStorage.Add(new(EventType.Main, Conditon.ZoomIn),
@@ -44,9 +44,9 @@ public class Guardian : VariationGun
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
 
-        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
+        _reloadState = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
 
 
-        MatchStrategy();
+        MatchState();
     }
 }

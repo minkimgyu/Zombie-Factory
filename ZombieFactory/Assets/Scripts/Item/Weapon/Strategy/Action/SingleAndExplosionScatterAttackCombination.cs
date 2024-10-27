@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleAndExplosionScatterAttackCombination : ActionStrategy // Attack이 아니라 다른 방식으로 명명해야할 듯
+public class SingleAndExplosionScatterAttackCombination : ActionState // Attack이 아니라 다른 방식으로 명명해야할 듯
 {
     SingleProjectileAttack singleProjectileAttack;
     ScatterProjectileAttack scatterProjectileGunAttack;

@@ -70,15 +70,11 @@ public class GridComponent : MonoBehaviour
     {
         List<Node> nearNodes = new List<Node>();
 
-        // 주변 그리드
+        // y축 높낮이 차이가 있는 경우
         List<Vector3Int> closeIndex = new List<Vector3Int> {
             new Vector3Int(index.x - 1, index.y - 1, index.z + 1), new Vector3Int(index.x, index.y - 1, index.z + 1), new Vector3Int(index.x + 1, index.y - 1, index.z + 1),
             new Vector3Int(index.x - 1, index.y - 1, index.z), new Vector3Int(index.x + 1, index.y - 1, index.z),
             new Vector3Int(index.x - 1, index.y - 1, index.z - 1), new Vector3Int(index.x, index.y - 1, index.z - 1), new Vector3Int(index.x + 1, index.y - 1, index.z - 1),
-
-            new Vector3Int(index.x - 1, index.y, index.z + 1), new Vector3Int(index.x, index.y, index.z + 1), new Vector3Int(index.x + 1, index.y, index.z + 1),
-            new Vector3Int(index.x - 1, index.y, index.z), new Vector3Int(index.x + 1, index.y, index.z),
-            new Vector3Int(index.x - 1, index.y, index.z - 1), new Vector3Int(index.x, index.y, index.z - 1), new Vector3Int(index.x + 1, index.y, index.z - 1),
 
             new Vector3Int(index.x - 1, index.y + 1, index.z + 1), new Vector3Int(index.x, index.y + 1, index.z + 1), new Vector3Int(index.x + 1, index.y + 1, index.z + 1),
             new Vector3Int(index.x - 1, index.y + 1, index.z), new Vector3Int(index.x + 1, index.y + 1, index.z),
@@ -87,13 +83,98 @@ public class GridComponent : MonoBehaviour
 
         for (int i = 0; i < closeIndex.Count; i++)
         {
-            bool isOutOfRange = closeIndex[i].x < 0 || closeIndex[i].z < 0 || closeIndex[i].y < 0 || closeIndex[i].x >= _sizeOfGrid.x || closeIndex[i].y >= _sizeOfGrid.y || closeIndex[i].z >= _sizeOfGrid.z;
+            bool isOutOfRange = IsOutOfRange(closeIndex[i]);
             if (isOutOfRange == true) continue;
 
             Node node = ReturnNode(closeIndex[i]);
-            if(node.CurrentState != Node.State.Surface) continue;
+            if (node.CurrentState != Node.State.Block) continue;
 
             nearNodes.Add(node);
+        }
+
+
+        // y축 높이가 같고 주변 그리드 ↑ ↓ ← → 의 경우
+        //       (0)
+        //        ↑ 
+        // (1) ←  ※ → (2)
+        //        ↓ 
+        //       (3)
+
+        //Tuple<Vector3Int, bool>
+
+        List<Vector3Int> nearIndex = new List<Vector3Int> {
+            new Vector3Int(index.x - 1, index.y, index.z),
+            new Vector3Int(index.x, index.y, index.z - 1), new Vector3Int(index.x, index.y, index.z + 1),
+            new Vector3Int(index.x + 1, index.y, index.z),
+        };
+
+        for (int i = 0; i < nearIndex.Count; i++)
+        {
+            bool isOutOfRange = IsOutOfRange(nearIndex[i]);
+            if (isOutOfRange == true) continue;
+
+            Node node = ReturnNode(nearIndex[i]);
+            if(node.CurrentState != Node.State.Block) continue;
+
+            nearNodes.Add(node);
+        }
+
+
+        // y축 높이가 같고 주변 그리드 ↗ ↘ ↙ ↖ 의 경우
+        // (0)      (1)
+        //   ↖    ↗
+        //      ※
+        //   ↙    ↘ 
+        // (2)      (3)
+
+        List<Vector3Int> crossIndex = new List<Vector3Int> {
+            new Vector3Int(index.x - 1, index.y, index.z - 1), new Vector3Int(index.x - 1, index.y, index.z + 1),
+            new Vector3Int(index.x + 1, index.y, index.z - 1), new Vector3Int(index.x + 1, index.y, index.z + 1),
+        };
+
+        for (int i = 0; i < crossIndex.Count; i++)
+        {
+            bool isOutOfRange = IsOutOfRange(crossIndex[i]);
+            if (isOutOfRange == true) continue;
+
+            Node node = ReturnNode(crossIndex[i]);
+            if (node.CurrentState != Node.State.Block) continue;
+
+            // 갈 수 있는 코너인지 체크
+            Node node1, node2;
+            switch (i)
+            {
+                case 0:
+                    if(IsOutOfRange(nearIndex[0]) == true || IsOutOfRange(nearIndex[1]) == true) continue;
+
+                    node1 = ReturnNode(nearIndex[0]);
+                    node2 = ReturnNode(nearIndex[1]);
+                    if (node1.CanStep == false || node2.CanStep == false) continue;
+                    break;
+                case 1:
+                    if (IsOutOfRange(nearIndex[0]) == true || IsOutOfRange(nearIndex[2]) == true) continue;
+
+                    node1 = ReturnNode(nearIndex[0]);
+                    node2 = ReturnNode(nearIndex[2]);
+                    if (node1.CanStep == false || node2.CanStep == false) continue;
+                    break;
+                case 2:
+                    if (IsOutOfRange(nearIndex[1]) == true || IsOutOfRange(nearIndex[3]) == true) continue;
+
+                    node1 = ReturnNode(nearIndex[1]);
+                    node2 = ReturnNode(nearIndex[3]);
+                    if (node1.CanStep == false || node2.CanStep == false) continue;
+                    break;
+                case 3:
+                    if (IsOutOfRange(nearIndex[2]) == true || IsOutOfRange(nearIndex[3]) == true) continue;
+
+                    node1 = ReturnNode(nearIndex[2]);
+                    node2 = ReturnNode(nearIndex[3]);
+                    if (node1.CanStep == false || node2.CanStep == false) continue;
+                    break;
+            }
+
+            nearNodes.Add(ReturnNode(crossIndex[i]));
         }
 
         return nearNodes;
@@ -120,7 +201,7 @@ public class GridComponent : MonoBehaviour
 
         for (int i = 0; i < closeIndex.Count; i++)
         {
-            bool isOutOfRange = closeIndex[i].x < 0 || closeIndex[i].y < 0 || closeIndex[i].z < 0 || closeIndex[i].x >= _sizeOfGrid.x || closeIndex[i].y >= _sizeOfGrid.y || closeIndex[i].z >= _sizeOfGrid.z;
+            bool isOutOfRange = IsOutOfRange(closeIndex[i]);
             if (isOutOfRange == true) continue;
 
             Node node = ReturnNode(closeIndex[i]);
@@ -129,6 +210,15 @@ public class GridComponent : MonoBehaviour
 
         return nearNodes;
     }
+
+    bool IsOutOfRange(Vector3Int index)
+    {
+        bool isOutOfRange = index.x < 0 || index.y < 0 || index.z < 0 || index.x >= _sizeOfGrid.x || index.y >= _sizeOfGrid.y || index.z >= _sizeOfGrid.z;
+        if (isOutOfRange == true) return true;
+
+        return false;
+    }
+
 
     public Node ReturnNode(Vector3Int index) { return _grid[index.x, index.y, index.z]; }
     public Node ReturnNode(int x, int y, int z) { return _grid[x, y, z]; }
@@ -189,9 +279,9 @@ public class GridComponent : MonoBehaviour
 
         for (int x = 0; x < _sizeOfGrid.x; x++)
         {
-            for (int y = 0; y < _sizeOfGrid.y; y++)
+            for (int z = 0; z < _sizeOfGrid.z; z++)
             {
-                for (int z = 0; z < _sizeOfGrid.z; z++)
+                for (int y = 0; y < _sizeOfGrid.y; y++)
                 {
                     if (_showNavigationRect)
                     {
@@ -200,7 +290,14 @@ public class GridComponent : MonoBehaviour
                     }
 
                     if (_grid == null) continue;
+
                     Node node = _grid[x, y, z];
+
+                    if (node.CurrentState == Node.State.Empty)
+                    {
+                        DrawGizmoCube(node.Pos, _passNodeColor, _nodeSize);
+                        continue;
+                    }
 
                     if (_showNonPass && node.CurrentState == Node.State.NonPass)
                     {
@@ -208,20 +305,14 @@ public class GridComponent : MonoBehaviour
                         continue;
                     }
 
-                    if (_showBlockNode && _grid != null)
+                    if (_showBlockNode && node.CurrentState == Node.State.Block)
                     {
-                        if (node.CurrentState == Node.State.Empty)
-                        {
-                            DrawGizmoCube(node.Pos, _passNodeColor, _nodeSize);
-                        }
-                        else
-                        {
-                            if (_showSurface == true)
-                            {
-                                DrawGizmoCube(node.SurfacePos, _surfaceNodeColor, new Vector3(_nodeSize, _nodeSize * _surfaceHeight, _nodeSize));
-                            }
-                            DrawGizmoCube(node.Pos, _blockNodeColor, _nodeSize);
-                        }
+                        DrawGizmoCube(node.Pos, _blockNodeColor, _nodeSize);
+                    }
+
+                    if (_showSurface == true && node.CanStep == true)
+                    {
+                        DrawGizmoCube(node.SurfacePos, _surfaceNodeColor, new Vector3(_nodeSize, _nodeSize * _surfaceHeight, _nodeSize));
                     }
                 }
             }

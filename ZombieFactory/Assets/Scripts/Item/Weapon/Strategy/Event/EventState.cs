@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-abstract public class EventStrategy : BaseStrategy
+abstract public class EventState : WeaponState
 {
     /// <summary>
     /// 이벤트 시작 시 호출됨
@@ -23,7 +23,7 @@ abstract public class EventStrategy : BaseStrategy
     /// </summary>
     public Action<BaseWeapon.EventType> OnAction;
 
-    public EventStrategy(BaseWeapon.EventType type, Action<BaseWeapon.EventType> OnEventStart, Action<BaseWeapon.EventType> OnEventUpdate,
+    public EventState(BaseWeapon.EventType type, Action<BaseWeapon.EventType> OnEventStart, Action<BaseWeapon.EventType> OnEventUpdate,
         Action<BaseWeapon.EventType> OnEventEnd, Action<BaseWeapon.EventType> OnAction) 
     {
         _callType = type;
@@ -42,7 +42,7 @@ abstract public class EventStrategy : BaseStrategy
     public virtual void OnMouseClickEnd() => OnEventEnd?.Invoke(_callType);
 }
 
-public class NoEvent : EventStrategy
+public class NoEvent : EventState
 {
     public NoEvent() : base(default, null, null, null, null)
     {
@@ -52,7 +52,7 @@ public class NoEvent : EventStrategy
 /// <summary>
 /// 연사 액션
 /// </summary>
-public class AutoEvent : EventStrategy
+public class AutoEvent : EventState
 {
     float _actionDelay;
 
@@ -106,7 +106,7 @@ public class AutoEvent : EventStrategy
 /// <summary>
 /// 단발 액션
 /// </summary>
-public class ManualEvent : EventStrategy
+public class ManualEvent : EventState
 {
     float _actionDelay;
 
@@ -137,7 +137,7 @@ public class ManualEvent : EventStrategy
 /// <summary>
 /// 점사 액션
 /// </summary>
-public class BurstEvent: EventStrategy
+public class BurstEvent: EventState
 {
     float _actionDelay;
 
