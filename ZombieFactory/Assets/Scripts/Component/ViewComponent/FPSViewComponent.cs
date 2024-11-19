@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class FPSViewComponent : BaseViewComponent
+public class FPSViewComponent : BaseViewComponent, IRecoilReceiver
 {
     [SerializeField] private Transform _firePoint;
     [SerializeField] private Transform _armMesh;
     [SerializeField] private Transform _cameraHolder;
 
+    protected Vector3 _recoilForce;
     protected Vector2 _viewSensitivity = new Vector2(150, 150);
 
+    protected Vector3 _viewRotation;
     Vector2 FinalViewRotation { get { return _viewRotation + _recoilForce; } }
     Action<Vector3, Vector3> MoveCamera;
 
@@ -46,5 +48,10 @@ public class FPSViewComponent : BaseViewComponent
         _firePoint.rotation = Quaternion.Euler(FinalViewRotation.x, FinalViewRotation.y, 0);
         _armMesh.rotation = Quaternion.Euler(FinalViewRotation.x, FinalViewRotation.y, 0);
         MoveCamera?.Invoke(_cameraHolder.position, FinalViewRotation);
+    }
+
+    public void OnRecoilRequested(Vector2 recoilForce)
+    {
+        _recoilForce = new Vector3(recoilForce.y, recoilForce.x);
     }
 }

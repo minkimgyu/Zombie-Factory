@@ -54,12 +54,12 @@ public class WeaponController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
 
         _animator = GetComponentInChildren<Animator>();
-        BaseViewComponent viewComponent = GetComponent<BaseViewComponent>();
+        IRecoilReceiver recoilReceiver = GetComponent<IRecoilReceiver>();
 
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetSendMoveDisplacement(SendMoveDisplacement)
         .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, true); })
-        .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
+        .SetOnRecoilRequested(recoilReceiver.OnRecoilRequested)
         .SetAttackPoint(_firePoint)
         .Build();
 
@@ -90,13 +90,13 @@ public class WeaponController : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
 
 
-        BaseViewComponent viewComponent = GetComponent<BaseViewComponent>();
+        IRecoilReceiver recoilReceiver = GetComponent<IRecoilReceiver>();
 
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetOnZoomRequested(zoomComponent.OnZoomCalled)
         .SetSendMoveDisplacement(SendMoveDisplacement)
         .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, false); })
-        .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
+        .SetOnRecoilRequested(recoilReceiver.OnRecoilRequested)
         .SetAttackPoint(_firePoint)
         .Build();
 

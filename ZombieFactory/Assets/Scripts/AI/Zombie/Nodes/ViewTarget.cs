@@ -24,7 +24,7 @@ namespace BehaviorTree.Nodes
             Vector3 targetPos = target.ReturnPosition();
 
             Vector3 dir = (targetPos - _myTransform.position).normalized;
-            dir = new Vector3(dir.x, 0, dir.z);
+            //dir = new Vector3(dir.x, 0, dir.z);
 
             _viewComponent.View(dir);
             return NodeState.SUCCESS;

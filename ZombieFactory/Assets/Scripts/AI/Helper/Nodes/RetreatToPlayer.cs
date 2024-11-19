@@ -15,6 +15,7 @@ namespace BehaviorTree.Nodes
         PathSeeker _pathSeeker;
         TPSMoveComponent _moveComponent;
         float _moveSpeed;
+        float _findDelay;
 
         FormationData _formationData;
 

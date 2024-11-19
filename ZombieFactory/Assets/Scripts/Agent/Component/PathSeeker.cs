@@ -9,7 +9,10 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     List<Vector3> _path;
     int _pathIndex = 0;
+    const float _delayDuration = 0.8f;
     const float _reachDistance = 0.3f;
+
+    Timer _delayTimer;
 
     public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
     {
@@ -19,6 +22,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
     public void Initialize()
     {
         _storedTargetPos = Vector3.positiveInfinity;
+        _delayTimer = new Timer();
     }
 
     private void OnDrawGizmos()
@@ -46,11 +50,20 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     public Vector3 ReturnDirection(Vector3 targetPos)
     {
-        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance)
+        bool notRunning = _delayTimer.CurrentState != Timer.State.Running;
+
+        // 도착 거리보다 멀거나 타이머가 다 된 경우
+        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance || notRunning)
         {
             _path = FindPath(transform.position, targetPos);
             _pathIndex = 0;
             _storedTargetPos = targetPos;
+
+            if (notRunning)
+            {
+                _delayTimer.Reset();
+                _delayTimer.Start(_delayDuration);
+            }
         }
 
         // 경로가 없는 경우

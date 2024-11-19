@@ -2027,7 +2027,7 @@ GameObject:
   - component: {fileID: 3308642246377634079}
   - component: {fileID: 1753802649834424379}
   - component: {fileID: 3878636172023484456}
-  - component: {fileID: 4654998715541023827}
+  - component: {fileID: 3812291641277219856}
   - component: {fileID: 989538643974749224}
   m_Layer: 11
   m_Name: PoliceZombie
@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683b43f781a26a84b98c6c71dfe01c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4654998715541023827
+--- !u!114 &3812291641277219856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2143,10 +2143,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6394970595499557561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a55627840135d048881aab7804eca86, type: 3}
+  m_Script: {fileID: 11500000, guid: e8c28c3ca4b089b408e71d24f6a34905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChestOffset: {x: 0, y: 45, z: 0}
 --- !u!114 &989538643974749224
 MonoBehaviour:
   m_ObjectHideFlags: 0

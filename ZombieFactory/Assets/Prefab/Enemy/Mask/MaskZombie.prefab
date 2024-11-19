@@ -2710,7 +2710,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7121205101618168468, guid: 337cec6cc56b7e949948f916a82c3289, type: 3}
+  - {fileID: 2100000, guid: 9ddab45cd097f6a448c2e94e4e69e596, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2853,7 +2853,7 @@ GameObject:
   - component: {fileID: 2710846237248530296}
   - component: {fileID: 615365307228153184}
   - component: {fileID: 4846163108167099484}
-  - component: {fileID: 6921986222423112015}
+  - component: {fileID: 4615352667909877364}
   - component: {fileID: 5483777198573699669}
   m_Layer: 11
   m_Name: MaskZombie
@@ -2960,7 +2960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683b43f781a26a84b98c6c71dfe01c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6921986222423112015
+--- !u!114 &4615352667909877364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2969,10 +2969,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8665722316821843721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a55627840135d048881aab7804eca86, type: 3}
+  m_Script: {fileID: 11500000, guid: e8c28c3ca4b089b408e71d24f6a34905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChestOffset: {x: 0, y: 45, z: 0}
 --- !u!114 &5483777198573699669
 MonoBehaviour:
   m_ObjectHideFlags: 0

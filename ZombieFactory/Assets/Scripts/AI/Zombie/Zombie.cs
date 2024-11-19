@@ -187,6 +187,7 @@ namespace AI.Zombie
             _targetList = new List<ITarget>();
 
             _pathSeeker = GetComponent<PathSeeker>();
+            _pathSeeker.Initialize();
 
             _noiseCaptureComponent.Initialize(OnNoiseEnter);
             _noiseCaptureComponent.Resize(_noiseCaptureRadius);
