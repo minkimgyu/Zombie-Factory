@@ -16,7 +16,7 @@ public class HpViewer : BaseViewer
     float dieContentAlphaValue;
     float dieBackgroundAlphaValue;
 
-    public override void UpdateViewer(float ratio)
+    public void UpdateHp(float ratio)
     {
         Color mixColor = Color.Lerp(endColor, startColor, ratio);
         _content.DOFillAmount(ratio, 0.5f);

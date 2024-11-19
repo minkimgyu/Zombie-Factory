@@ -45,10 +45,10 @@ public class SwatSpawner : BaseSpawner
         {
             BaseLife swat = CreateRandomLife();
 
-            BaseViewer hpViewer = _viewerFactory.Create(BaseViewer.Name.MoveableHpViewer);
+            HpViewer hpViewer = (HpViewer)_viewerFactory.Create(BaseViewer.Name.MoveableHpViewer);
             hpViewer.transform.SetParent(swat.transform);
             hpViewer.transform.localPosition = new Vector3(0, 1.8f, 0);
-            swat.AddObserverEvent(hpViewer.UpdateViewer);
+            swat.AddObserverEvent(hpViewer.UpdateHp);
 
             Vector3 pos = ReturnRandomPos();
             swat.ResetPosition(pos);

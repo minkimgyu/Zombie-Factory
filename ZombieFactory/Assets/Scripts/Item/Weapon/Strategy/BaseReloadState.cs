@@ -119,7 +119,7 @@ abstract public class BaseReload : BaseReloadState
         }
 
         _animator.Play(reloadString, 0, 0);
-        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + aniName, layer, 0);
+        OnPlayOwnerAnimation?.Invoke(_weaponName.ToString() + reloadString, layer, 0);
     }
 
     public override bool IsReloadFinish()

@@ -23,8 +23,10 @@ public class TPSViewComponent : BaseViewComponent
     // 이 부분은 플레이어 컨트롤러에서 돌려주자
     public override void View(Vector3 dir)
     {
+        dir.y = 0;
         if (dir == Vector3.zero) return;
-        _rotation = Quaternion.Lerp(_rotation, Quaternion.LookRotation(dir), Time.deltaTime * 5);
+
+        _rotation = Quaternion.Lerp(_rotation, Quaternion.LookRotation(dir, Vector3.up), Time.deltaTime * 5);
     }
 
     public override void RotateSpineBone()

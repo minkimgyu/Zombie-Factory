@@ -9,7 +9,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     List<Vector3> _path;
     int _pathIndex = 0;
-    const float _reachDistance = 0.5f;
+    const float _reachDistance = 0.3f;
 
     public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
     {
@@ -46,7 +46,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     public Vector3 ReturnDirection(Vector3 targetPos)
     {
-        if (Vector3.Distance(targetPos, _storedTargetPos) > 0.5f)
+        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance)
         {
             _path = FindPath(transform.position, targetPos);
             _pathIndex = 0;

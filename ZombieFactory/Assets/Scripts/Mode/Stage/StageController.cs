@@ -43,11 +43,7 @@ public class StageController : MonoBehaviour
 
     public void OnStageClearRequested()
     {
-        if (_stageQueue.Count == 0)
-        {
-            EventBusManager.Instance.MainEventBus.Publish(MainEventBus.Type.GameClear);
-            return;
-        }
+        if (_stageQueue.Count == 0) return;
 
         _stageViewer.OnStageClear();
         _nextStage = _stageQueue.Dequeue();
@@ -57,6 +53,12 @@ public class StageController : MonoBehaviour
 
     public void OnMoveToNextStageRequested()
     {
+        if (_stageQueue.Count == 0)
+        {
+            EventBusManager.Instance.MainEventBus.Publish(MainEventBus.Type.GameClear);
+            return;
+        }
+
         _stageCount++;
         _stageViewer.OnStageChange(_stageCount);
         _currentStage.Disable();

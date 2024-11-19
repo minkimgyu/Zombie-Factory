@@ -68,6 +68,7 @@ public class Player : BaseLife, IInteracter
 
         _weaponThrowPower = data.weaponThrowPower;
         _walkSpeed = data.walkSpeed;
+        _runSpeed = data.runSpeed;
         _walkSpeedOnAir = data.walkSpeedOnAir;
         _jumpSpeed = data.jumpSpeed;
 

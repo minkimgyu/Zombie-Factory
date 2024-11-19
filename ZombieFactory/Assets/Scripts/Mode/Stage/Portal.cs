@@ -40,7 +40,7 @@ public class Portal : MonoBehaviour, IInteractable
 
     public void OnSightEnter()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, "Move to next Stage", transform.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, "Move to next stage", transform.position);
     }
 
     public void OnSightExit()

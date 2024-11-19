@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
 public class WeaponInfoViewer : MonoBehaviour
 {
+    [SerializeField] ContentSizeFitter _contentSizeFitter; 
     [SerializeField] GameObject _content;
-
     [SerializeField] TMP_Text _objectName;
-
     [SerializeField] float _offsetYPos = 0.5f;
 
     bool _nowActivate = false;
@@ -30,6 +30,7 @@ public class WeaponInfoViewer : MonoBehaviour
         _nowActivate = nowActivate;
         Activate(nowActivate);
         _objectName.text = $"Get {name}";
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_contentSizeFitter.transform);
         transform.position = position + Vector3.up * _offsetYPos;
     }
 

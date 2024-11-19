@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FSM.Movement;
+
 public class RunState : MoveState
 {
     public RunState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float moveForce)

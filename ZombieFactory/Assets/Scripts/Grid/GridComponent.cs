@@ -286,7 +286,7 @@ public class GridComponent : MonoBehaviour
                     if (_showNavigationRect)
                     {
                         Vector3 originPos = transform.position + new Vector3(_nodeSize / 2, _nodeSize / 2, _nodeSize / 2);
-                        DrawGizmoCube(originPos + new Vector3(x, y, z) * _nodeSize, _wireColor, _nodeSize, true);
+                        DrawGizmoCube(originPos + new Vector3(x, y, z) * _nodeSize, _wireColor, _nodeSize);
                     }
 
                     if (_grid == null) continue;

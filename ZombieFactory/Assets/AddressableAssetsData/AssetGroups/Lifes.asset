@@ -29,12 +29,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Life
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 61e14f98f9626d2449705297a60449e7
-    m_Address: Rook
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Life
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09a0cf727660279428d888113bd0f122
     m_Address: Warden
     m_ReadOnly: 0
@@ -49,6 +43,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1c23cf0ddbdb45843b4b384351662b7f
     m_Address: WitchZombie
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Life
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61e14f98f9626d2449705297a60449e7
+    m_Address: Rook
     m_ReadOnly: 0
     m_SerializedLabels:
     - Life

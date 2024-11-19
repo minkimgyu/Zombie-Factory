@@ -58,7 +58,7 @@ public class WeaponController : MonoBehaviour
 
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetSendMoveDisplacement(SendMoveDisplacement)
-        .SetOnPlayOwnerAnimation(PlayOwnerAnimation)
+        .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, true); })
         .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
         .SetAttackPoint(_firePoint)
         .Build();
@@ -95,7 +95,7 @@ public class WeaponController : MonoBehaviour
         _weaponBlackboard = new WeaponBlackboard.Builder()
         .SetOnZoomRequested(zoomComponent.OnZoomCalled)
         .SetSendMoveDisplacement(SendMoveDisplacement)
-        .SetOnPlayOwnerAnimation(PlayOwnerAnimation)
+        .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, false); })
         .SetOnRecoilRequested(viewComponent.OnRecoilRequested)
         .SetAttackPoint(_firePoint)
         .Build();
@@ -128,8 +128,13 @@ public class WeaponController : MonoBehaviour
         _nowEquipedWeapon.RefillAmmo(ammoCount);
     }
 
-    void PlayOwnerAnimation(string name, int index, float time)
+    void PlayOwnerAnimation(string name, int index, float time, bool isTPS)
     {
+        if(isTPS)
+        {
+            index = _animator.GetLayerIndex("UpperBody");
+        }
+
         Debug.Log(name);
         Debug.Log(index);
         Debug.Log(time);

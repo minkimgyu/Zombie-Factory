@@ -29,7 +29,7 @@ public class PlayerUIController : MonoBehaviour
 
     public void ChangeHpRatio(float ratio)
     {
-        _hpViewer.UpdateViewer(ratio);
+        _hpViewer.UpdateHp(ratio);
     }
 
     public void ActiveCrosshair(bool active)

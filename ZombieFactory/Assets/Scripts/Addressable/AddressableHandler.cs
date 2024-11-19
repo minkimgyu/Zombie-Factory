@@ -67,7 +67,6 @@ public class AddressableHandler
         _assetLoaders.Add(new SoundPlayerAssetLoader(Label.SoundPlayer, (label, value) => { SoundPlayer = value; OnSuccess(label); }));
         _assetLoaders.Add(new AudioAssetLoader(Label.Sound, (label, value) => { AudioAssets = value; OnSuccess(label); }));
 
-
         _assetLoaders.Add(new ItemSpriteAssetLoader(Label.ItemSprite, (label, value) => { ItemSpriteAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new ViewerAssetLoader(Label.Viewer, (label, value) => { ViewerPrefabs = value; OnSuccess(label); }));
 
@@ -91,12 +90,12 @@ public class AddressableHandler
     void OnSuccess(Label label)
     {
         _successCount++;
-        Debug.Log(_successCount);
-        Debug.Log(label.ToString() + "Success");
+        //Debug.Log(_successCount);
+        //Debug.Log(label.ToString() + "Success");
 
         if (_successCount == _totalCount)
         {
-            Debug.Log("Complete!");
+            //Debug.Log("Complete!");
             OnCompleted?.Invoke();
         }
     }
