@@ -5,20 +5,18 @@ using UnityEngine.XR;
 
 public class SwatViewComponent : TPSViewComponent, IRecoilReceiver
 {
-    protected Vector3 _recoilForce;
-    Transform _viewObject;
+    Vector3 _recoilForce;
+    Transform _attackObject;
 
-    Quaternion _yIKLookRotation;
-    [SerializeField] protected Vector3 ChestOffset = new Vector3(0, 45, 0);
-    protected Transform _bone;
+    [SerializeField] Vector3 _chestOffset = new Vector3(0, 45, 0);
+    [SerializeField] float _angleOffset = 10;
+    Transform _bone;
 
-    public override void Initialize(float viewYRange, Rigidbody rigidbody, Transform viewObject) 
+    public override void Initialize(float viewYRange, Rigidbody rigidbody, Transform attackObject) 
     {
-        _rotation = Quaternion.identity;
-        _yIKLookRotation = Quaternion.identity;
         _rigidbody = rigidbody;
         _viewYRange = viewYRange;
-        _viewObject = viewObject;
+        _attackObject = attackObject;
 
         Animator animator = GetComponentInChildren<Animator>();
         _bone = animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
@@ -26,19 +24,26 @@ public class SwatViewComponent : TPSViewComponent, IRecoilReceiver
 
     public override void RotateSpineBone()
     {
-        _bone.rotation = _yIKLookRotation * Quaternion.Euler(ChestOffset); // 상체 로테이션 보정
+        float faceAngle = Vector3.SignedAngle(transform.forward, _dir, transform.right);
+
+        Quaternion xRotation = Quaternion.AngleAxis(faceAngle + _angleOffset, Vector3.right); // x축을 기준으로 돌린다.
+        Vector3 spineRotation = _bone.localRotation.eulerAngles;
+
+        _bone.localRotation = xRotation * Quaternion.Euler(_chestOffset) * _bone.localRotation;
     }
 
-    //public override void View(Vector3 dir)
-    //{
-    //    base.View(dir);
+    Vector3 _dir;
 
-    //    Vector3 rotationDir = dir;
-    //    if (rotationDir == Vector3.zero) return;
+    // 이 부분은 플레이어 컨트롤러에서 돌려주자
+    public override void View(Vector3 dir)
+    {
+        base.View(dir);
+        if (dir == Vector3.zero) return;
 
-    //    _viewObject.transform.rotation = 
-    //        Quaternion.Lerp(_yIKLookRotation, Quaternion.LookRotation(rotationDir, Vector3.up), Time.deltaTime * 5);
-    //}
+        _dir = dir;
+        Debug.DrawRay(_attackObject.position, _dir * 3, Color.yellow);
+        Debug.DrawRay(_attackObject.position, transform.forward * 3, Color.red);
+    }
 
     public void OnRecoilRequested(Vector2 recoilForce)
     {

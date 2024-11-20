@@ -65,7 +65,7 @@ namespace AI.Swat
         [SerializeField] Name _ragdollName;
         [SerializeField] Transform _rig;
         [SerializeField] SightComponent _sightComponent;
-        [SerializeField] Transform _yIKTransform;
+        [SerializeField] Transform _firePoint;
 
         FreeRoleState _freeRoleState;
         BaseFactory _ragdollFactory;
@@ -240,7 +240,7 @@ namespace AI.Swat
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 
             _viewComponent = GetComponent<TPSViewComponent>();
-            _viewComponent.Initialize(70, rigidbody, _yIKTransform);
+            _viewComponent.Initialize(70, rigidbody, _firePoint);
 
             _moveComponent = GetComponent<TPSMoveComponent>();
             _moveComponent.Initialize(rigidbody, ResetAnimator);

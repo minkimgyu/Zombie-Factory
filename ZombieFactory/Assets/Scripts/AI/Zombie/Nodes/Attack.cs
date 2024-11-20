@@ -37,7 +37,7 @@ namespace BehaviorTree.Nodes
 
             RaycastHit hit;
             Physics.Raycast(_raycastPoint.position, dir, out hit, _attackRadius, LayerMask.GetMask("Target"));
-            Debug.DrawRay(_raycastPoint.position, dir * _attackRadius, Color.red, 10);
+            //Debug.DrawRay(_raycastPoint.position, dir * _attackRadius, Color.red, 10);
 
             if (hit.transform == null) return NodeState.SUCCESS;
 

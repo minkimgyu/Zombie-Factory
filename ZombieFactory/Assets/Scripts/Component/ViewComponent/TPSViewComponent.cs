@@ -5,11 +5,11 @@ using UnityEngine;
 // Zombie View와 Swat View를 나눠주자
 abstract public class TPSViewComponent : BaseViewComponent
 {
-    protected Quaternion _rotation;
-
+    protected Quaternion _yIgnoreRotation;
+    
     public override void Initialize(float viewYRange, Rigidbody rigidbody)
     {
-        _rotation = Quaternion.identity;
+        _yIgnoreRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
         _rigidbody = rigidbody;
         _viewYRange = viewYRange;
     }
@@ -20,14 +20,13 @@ abstract public class TPSViewComponent : BaseViewComponent
         Vector3 rotationDir = dir;
         rotationDir.y = 0;
         if (rotationDir == Vector3.zero) return;
-
-        _rotation = Quaternion.Lerp(_rotation, Quaternion.LookRotation(rotationDir, Vector3.up), Time.deltaTime * 5);
+        _yIgnoreRotation = Quaternion.Lerp(_yIgnoreRotation, Quaternion.LookRotation(rotationDir, Vector3.up), Time.deltaTime * 5);
     }
 
     public override void RotateRigidbody()
     {
-        if (_rotation == Quaternion.identity) return;
+        if (_yIgnoreRotation == Quaternion.identity) return;
 
-        _rigidbody.MoveRotation(_rotation);
+        _rigidbody.MoveRotation(_yIgnoreRotation.normalized);
     }
 }

@@ -45,8 +45,8 @@ abstract public class BaseMoveComponent : MonoBehaviour
             return false;
         }
 
-        Debug.DrawLine(hit.point + Vector3.up, hit.point, Color.blue, 5f);
-        Debug.DrawLine(hit.point, hit.point + hit.normal, Color.cyan, 5f);
+        //Debug.DrawLine(hit.point + Vector3.up, hit.point, Color.blue, 5f);
+        //Debug.DrawLine(hit.point, hit.point + hit.normal, Color.cyan, 5f);
 
         float angle = Vector3.Angle(Vector3.up, hit.normal);
         hitPoint = hit;
@@ -65,7 +65,7 @@ abstract public class BaseMoveComponent : MonoBehaviour
         RaycastHit hit;
         bool canHit = Physics.Raycast(nextFramePlayerPosition, Vector3.down, out hit, 3f, _layerMask);
 
-        Debug.DrawLine(nextFramePlayerPosition, hit.point, Color.magenta, 5f);
+        //Debug.DrawLine(nextFramePlayerPosition, hit.point, Color.magenta, 5f);
         if (canHit == true)
         {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
@@ -106,7 +106,7 @@ abstract public class BaseMoveComponent : MonoBehaviour
         if (_isSlope)
         {
             direction = AdjustDirectionToSlope(direction, _hitPoint.normal);
-            Debug.DrawRay(_hitPoint.point, direction, Color.red, 5f);
+            //Debug.DrawRay(_hitPoint.point, direction, Color.red, 5f);
         }
 
         Vector3 moveDir = direction * speed;

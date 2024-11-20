@@ -25,16 +25,16 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
         _delayTimer = new Timer();
     }
 
-    private void OnDrawGizmos()
-    {
-        if (_path == null) return;
+    //private void OnDrawGizmos()
+    //{
+    //    if (_path == null) return;
 
-        for (int i = 1; i < _path.Count; i++)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(_path[i - 1], _path[i]);
-        }
-    }
+    //    for (int i = 1; i < _path.Count; i++)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawLine(_path[i - 1], _path[i]);
+    //    }
+    //}
 
     public bool NowFinish()
     {
@@ -53,17 +53,14 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
         bool notRunning = _delayTimer.CurrentState != Timer.State.Running;
 
         // 도착 거리보다 멀거나 타이머가 다 된 경우
-        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance || notRunning)
+        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance && notRunning)
         {
             _path = FindPath(transform.position, targetPos);
             _pathIndex = 0;
-            _storedTargetPos = targetPos;
 
-            if (notRunning)
-            {
-                _delayTimer.Reset();
-                _delayTimer.Start(_delayDuration);
-            }
+            _storedTargetPos = targetPos;
+            _delayTimer.Reset();
+            _delayTimer.Start(_delayDuration);
         }
 
         // 경로가 없는 경우
