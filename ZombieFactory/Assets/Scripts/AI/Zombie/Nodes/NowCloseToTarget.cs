@@ -22,7 +22,7 @@ public class NowCloseToTarget : EvaluatingDistance
         // fake null ÆÄ¾Ç
         if (_target as UnityEngine.Object == null) return NodeState.FAILURE;
 
-        SwitchState(_target.ReturnPosition());
+        SwitchState(_target.ReturnTargetPoint().position);
 
         Debug.Log($"NowCloseToTarget : {_state}");
 

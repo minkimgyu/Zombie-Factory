@@ -36,7 +36,7 @@ abstract public class MeleeAttack : ApplyAttack
 
     protected override float CalculateDamage(IHitable hitable)
     {
-        Vector3 camFowardDir = _attackPoint.ReturnDirection();
+        Vector3 camFowardDir = _attackPoint.forward;
         return _damageConverter.ReturnDamage(camFowardDir, Vector3.zero);
     }
 
@@ -51,8 +51,8 @@ abstract public class MeleeAttack : ApplyAttack
 
     protected void Stab()
     {
-        Vector3 camPos = _attackPoint.ReturnPosition();
-        Vector3 camFowardDir = _attackPoint.ReturnDirection();
+        Vector3 camPos = _attackPoint.position;
+        Vector3 camFowardDir = _attackPoint.forward;
 
         //PlaySound?.Invoke(SoundType.Attack, true);
 

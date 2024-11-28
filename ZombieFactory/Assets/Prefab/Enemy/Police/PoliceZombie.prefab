@@ -390,7 +390,7 @@ GameObject:
   m_Layer: 0
   m_Name: SightPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -403,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 1102940772342325556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.362, z: 0}
+  m_LocalPosition: {x: 0, y: 2.856, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -609,6 +609,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 71081560323448868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1619448048883616853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8355686157477375559}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8355686157477375559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619448048883616853}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.606, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 69686200213281630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698913367740149487
 GameObject:
@@ -2053,6 +2084,7 @@ Transform:
   - {fileID: 197217773769823322}
   - {fileID: 4763966542282588561}
   - {fileID: 7763335474382001041}
+  - {fileID: 8355686157477375559}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &8833606332012070857
@@ -2122,6 +2154,8 @@ MonoBehaviour:
   _ragdoolName: 4
   _sightComponent: {fileID: 5025806758419804637}
   _noiseCaptureComponent: {fileID: 2116995745682359489}
+  _attackPoint: {fileID: 8355686157477375559}
+  _sightPoint: {fileID: 7763335474382001041}
 --- !u!114 &3878636172023484456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +2868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1d16200fe435e40b9d0edb839aa531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sightPoint: {fileID: 7763335474382001041}
 --- !u!135 &2936859136719405007
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ namespace AI.Zombie
         PathSeeker _pathSeeker;
         SightComponent _sightComponent;
 
+        Transform _sightPoint;
         Transform _myTransform;
 
         float _moveSpeed;
@@ -37,8 +38,8 @@ namespace AI.Zombie
             float attackPreDelay,
             float attackAfterDelay,
 
+            Transform sightPoint,
             Transform myTransform,
-            Transform raycastPoint,
             TPSViewComponent viewComponent,
             TPSMoveComponent moveComponent,
 
@@ -53,6 +54,7 @@ namespace AI.Zombie
             _moveComponent = moveComponent;
             _viewComponent = viewComponent;
 
+            _sightPoint = sightPoint;
             _myTransform = myTransform;
 
             _pathSeeker = pathSeeker;
@@ -66,7 +68,7 @@ namespace AI.Zombie
                 (
                     new List<Node>()
                     {
-                        new ViewTarget(_myTransform, _sightComponent, _viewComponent), // 정지 하는 코드 넣기
+                        new ViewTarget(_sightPoint, _sightComponent, _viewComponent), // 정지 하는 코드 넣기
 
                         new Selector
                         (
@@ -76,7 +78,7 @@ namespace AI.Zombie
                                 (
                                     new List<Node>()
                                     {
-                                        new NowCloseToTargetInSight(sightComponent, myTransform, _stopDistance, gap),
+                                        new NowCloseToTargetInSight(sightComponent, _myTransform, _stopDistance, gap),
                                         new Sequencer
                                         (
                                             new List<Node>()
@@ -90,8 +92,7 @@ namespace AI.Zombie
                                                         new WaitForNextAttack(attackPreDelay, attackAfterDelay, () =>{ animator.Play("Attack"); }),
 
                                                         new Attack(
-                                                            _myTransform,
-                                                            raycastPoint,
+                                                            _sightPoint,
                                                             attackDamage,
                                                             attackRadius,
                                                             _sightComponent

@@ -116,8 +116,8 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
         //Vector3 camPos = Vector3.zero;
         //Vector3 camFowardDir = Vector3.zero;
 
-        Vector3 attackPosition = _attackPoint.ReturnPosition();
-        Vector3 attackDirection = _attackPoint.ReturnDirection();
+        Vector3 attackPosition = _attackPoint.position;
+        Vector3 attackDirection = _attackPoint.forward;
 
         RaycastHit[] entryHits = DetectCollider(attackPosition, attackDirection + directionOffset, _range, _targetLayer);
 
@@ -185,7 +185,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
 
     void DrawPenetrateDebugLine(Vector3 hitPoint)
     {
-        Vector3 attackPosition = _attackPoint.ReturnPosition();
+        Vector3 attackPosition = _attackPoint.position;
         float diatance = Vector3.Distance(attackPosition, hitPoint);
         Vector3 direction = (hitPoint - attackPosition).normalized;
 

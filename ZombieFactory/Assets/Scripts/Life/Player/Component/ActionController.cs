@@ -61,7 +61,7 @@ public class ActionController : MonoBehaviour
     }
 
     public void Initialize(float walkSpeed, float runSpeed, float onAirSpeed, float jumpSpeed, float postureSwitchDuration, float capsuleStandCenter,
-        float capsuleStandHeight, float capsuleCrouchCenter, float capsuleCrouchHeight, float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody)
+        float capsuleStandHeight, float capsuleCrouchCenter, float capsuleCrouchHeight, float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody, Transform cameraPoint)
     {
         _walkSpeed = walkSpeed;
         _runSpeed = runSpeed;
@@ -84,7 +84,7 @@ public class ActionController : MonoBehaviour
         _moveComponent.Initialize(rigidbody);
 
         _viewComponent = GetComponent<FPSViewComponent>();
-        _viewComponent.Initialize(viewYRange, viewSensitivity, rigidbody); // viewYRange, viewSensitivity
+        _viewComponent.Initialize(cameraPoint, viewYRange, viewSensitivity, rigidbody); // viewYRange, viewSensitivity
 
         _zoomComponent = GetComponent<ZoomComponent>();
         _zoomComponent.Initialize();

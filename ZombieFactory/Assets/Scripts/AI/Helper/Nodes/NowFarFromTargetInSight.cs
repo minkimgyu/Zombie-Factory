@@ -3,6 +3,7 @@ using BehaviorTree.Nodes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NowFarFromTargetInSight : EvaluatingDistance
 {
@@ -23,7 +24,7 @@ public class NowFarFromTargetInSight : EvaluatingDistance
         if (nowTargetInSight == false) return NodeState.FAILURE;
 
         ITarget target = _sightComponent.ReturnTargetInSight();
-        SwitchState(target.ReturnPosition());
+        SwitchState(target.ReturnTargetPoint().position);
 
         Debug.Log($"NowCloseToTarget : {_state}");
 

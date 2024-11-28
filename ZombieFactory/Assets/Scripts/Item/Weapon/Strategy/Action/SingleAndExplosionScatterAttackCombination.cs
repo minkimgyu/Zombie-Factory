@@ -14,7 +14,7 @@ public class SingleAndExplosionScatterAttackCombination : ActionState // Attack¿
     //Func<Vector3> ReturnRaycastDir;
 
     int _targetLayer;
-    IPoint _attackPoint;
+    Transform _attackPoint;
     float _findRange;
     bool _isInFront;
 
@@ -57,8 +57,8 @@ public class SingleAndExplosionScatterAttackCombination : ActionState // Attack¿
 
     protected bool IsTargetPlacedInFront()
     {
-        Vector3 camPos = _attackPoint.ReturnPosition();
-        Vector3 camFowardDir = _attackPoint.ReturnDirection();
+        Vector3 camPos = _attackPoint.position;
+        Vector3 camFowardDir = _attackPoint.forward;
 
         RaycastHit hit;
         Physics.Raycast(camPos, camFowardDir, out hit, _findRange, _targetLayer);

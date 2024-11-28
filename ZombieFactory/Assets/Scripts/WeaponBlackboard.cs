@@ -16,7 +16,7 @@ public class WeaponBlackboard
     public Func<float> SendMoveDisplacement { get; private set; }
     public Action<Vector2> OnRecoilRequested { get; private set; }
 
-    public IPoint AttackPoint { get; private set; }
+    public Transform AttackPoint { get; private set; }
 
     private WeaponBlackboard() { }
 
@@ -81,7 +81,7 @@ public class WeaponBlackboard
             return this;
         }
 
-        public Builder SetAttackPoint(IPoint attackPoint)
+        public Builder SetAttackPoint(Transform attackPoint)
         {
             _blackboard.AttackPoint = attackPoint;
             return this;

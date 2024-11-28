@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
+abstract public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
 {
     public enum Name
     {
@@ -122,13 +122,10 @@ public class BaseLife : MonoBehaviour, IDamageable, IHealable, ITarget
         OnHpChangeRequested?.Invoke(_hp / _maxHp);
     }
 
-    public Vector3 ReturnDirection()
-    {
-        return transform.forward;
-    }
+    abstract public Transform ReturnSightPoint();
 
-    public Vector3 ReturnPosition()
+    public Transform ReturnTargetPoint()
     {
-        return transform.position;
+        return transform;
     }
 }

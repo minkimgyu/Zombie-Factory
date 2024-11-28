@@ -23,7 +23,7 @@ public class NowFarFromPlayer : EvaluatingDistance
         ITarget target = _formationData.Target;
         if (target as UnityEngine.Object == null) return NodeState.FAILURE;
 
-        SwitchState(target.ReturnPosition());
+        SwitchState(target.ReturnTargetPoint().position);
 
         switch (_state)
         {

@@ -5,7 +5,7 @@ using System;
 
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField] FirePoint _firePoint;
+    //[SerializeField] FirePoint _firePoint;
     [SerializeField] Transform _weaponParent;
     float _weaponThrowPower = 5f;
 
@@ -48,7 +48,7 @@ public class WeaponController : MonoBehaviour
         .Build();
     }
 
-    public void Initialize()
+    public void Initialize(Transform firePoint)
     {
         _weaponsContainer = new Dictionary<BaseWeapon.Type, BaseWeapon>();
         _rigidbody = GetComponent<Rigidbody>();
@@ -60,7 +60,7 @@ public class WeaponController : MonoBehaviour
         .SetSendMoveDisplacement(SendMoveDisplacement)
         .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, true); })
         .SetOnRecoilRequested(recoilReceiver.OnRecoilRequested)
-        .SetAttackPoint(_firePoint)
+        .SetAttackPoint(firePoint)
         .Build();
 
         _weaponFSM = new WeaponFSM();
@@ -81,7 +81,7 @@ public class WeaponController : MonoBehaviour
         _weaponFSM.SetState(State.Idle);
     }
 
-    public void Initialize(ZoomComponent zoomComponent, float weaponThrowPower)
+    public void Initialize(Transform firePoint, ZoomComponent zoomComponent, float weaponThrowPower)
     {
         _weaponThrowPower = weaponThrowPower;
         _weaponsContainer = new Dictionary<BaseWeapon.Type, BaseWeapon>();
@@ -97,7 +97,7 @@ public class WeaponController : MonoBehaviour
         .SetSendMoveDisplacement(SendMoveDisplacement)
         .SetOnPlayOwnerAnimation((name, index, time) => { PlayOwnerAnimation(name, index, time, false); })
         .SetOnRecoilRequested(recoilReceiver.OnRecoilRequested)
-        .SetAttackPoint(_firePoint)
+        .SetAttackPoint(firePoint)
         .Build();
 
         _weaponFSM = new WeaponFSM();

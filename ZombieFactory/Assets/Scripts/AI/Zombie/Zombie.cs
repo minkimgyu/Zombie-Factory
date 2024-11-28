@@ -43,7 +43,6 @@ namespace AI.Zombie
         PathSeeker _pathSeeker;
 
         ZombieFSM _zombieFSM;
-        [SerializeField] Transform _raycastPoint;
 
         Queue<Vector3> _noiseQueue;
         List<ITarget> _targetList;
@@ -55,6 +54,8 @@ namespace AI.Zombie
         [SerializeField] SightComponent _sightComponent;
         [SerializeField] TargetCaptureComponent _noiseCaptureComponent;
 
+        [SerializeField] Transform _sightPoint; // 시아 포인트, 공격 포인트
+
         void OnNoiseEnter(ITarget target)
         {
             if (_noiseQueue.Count == _maxNoiseQueueSize)
@@ -65,7 +66,7 @@ namespace AI.Zombie
             bool isOpponent = target.IsOpponent(new List<IIdentifiable.Type> { IIdentifiable.Type.Sound });
             if (isOpponent == false) return;
 
-            _noiseQueue.Enqueue(target.ReturnPosition()); // 그리고 추가해준다.
+            _noiseQueue.Enqueue(target.ReturnTargetPoint().position); // 그리고 추가해준다.
             _zombieFSM.OnNoiseEnter();
         }
 
@@ -163,8 +164,8 @@ namespace AI.Zombie
                     _attackDamage,
                     _attackPreDelay,
                     _attackAfterDelay,
+                    _sightPoint,
                     transform,
-                    _raycastPoint,
                     _viewComponent,
                     _moveComponent,
                     _pathSeeker,
@@ -192,7 +193,7 @@ namespace AI.Zombie
             _noiseCaptureComponent.Initialize(OnNoiseEnter);
             _noiseCaptureComponent.Resize(_noiseCaptureRadius);
             
-            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human });
+            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human }, _sightPoint);
             _sightComponent.Resize(_targetCaptureRadius);
 
             Rigidbody rigidbody = GetComponent<Rigidbody>();
@@ -214,6 +215,11 @@ namespace AI.Zombie
         private void FixedUpdate()
         {
             _zombieFSM.OnFixedUpdate();
+        }
+
+        public override Transform ReturnSightPoint()
+        {
+            return _sightPoint;
         }
     }
 }

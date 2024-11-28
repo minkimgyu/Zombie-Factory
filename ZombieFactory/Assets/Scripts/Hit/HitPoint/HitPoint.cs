@@ -10,10 +10,10 @@ public class HitPoint : MonoBehaviour, IPenetrable, IEffectable, IHitable
     protected IHitable.Area _area;
 
     IDamageable _damageable;
-    IPoint _bodyPoint;
+    ITarget _bodyPoint;
     protected BaseFactory _effectFactory;
 
-    public virtual void Initialize(IDamageable parentDamageable, IPoint parentBody, BaseFactory effectFactory)
+    public virtual void Initialize(IDamageable parentDamageable, ITarget parentBody, BaseFactory effectFactory)
     {
         _damageable = parentDamageable;
         _bodyPoint = parentBody;
@@ -22,7 +22,7 @@ public class HitPoint : MonoBehaviour, IPenetrable, IEffectable, IHitable
 
     public Vector3 ReturnParentBodyDirection()
     {
-        return _bodyPoint.ReturnDirection();
+        return _bodyPoint.ReturnTargetPoint().forward;
     }
 
     public float ReturnDurability()

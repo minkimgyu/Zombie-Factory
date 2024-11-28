@@ -16,13 +16,13 @@ public class Noise : MonoBehaviour, ITarget
         return false;
     }
 
-    public Vector3 ReturnDirection()
+    public Transform ReturnTargetPoint()
     {
-        return transform.forward;
+        return transform;
     }
 
-    public Vector3 ReturnPosition()
+    public Transform ReturnSightPoint()
     {
-        return transform.position;
+        return transform;
     }
 }

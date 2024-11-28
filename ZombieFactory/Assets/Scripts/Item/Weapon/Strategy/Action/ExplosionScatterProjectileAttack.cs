@@ -25,8 +25,8 @@ public class ExplosionScatterProjectileAttack : ScatterProjectileAttack // ªÍ≈∫¿
 
     public override void Execute()
     {
-        Vector3 camFowardDir = _attackPoint.ReturnDirection();
-        Vector3 camPos = _attackPoint.ReturnPosition();
+        Vector3 camFowardDir = _attackPoint.forward;
+        Vector3 camPos = _attackPoint.position;
 
         _frontPosition = camPos + (camFowardDir * _frontDistance);
 

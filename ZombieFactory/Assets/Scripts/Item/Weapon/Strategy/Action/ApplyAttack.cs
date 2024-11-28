@@ -20,7 +20,7 @@ abstract public class ApplyAttack : ActionState
     /// <summary>
     /// 공격 적용 위치
     /// </summary>
-    protected IPoint _attackPoint;
+    protected Transform _attackPoint;
 
     protected float _range;
     protected int _targetLayer;

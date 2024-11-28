@@ -38,7 +38,7 @@ namespace BehaviorTree.Nodes
             ITarget target = _formationData.Target;
             if (target as UnityEngine.Object == null) return NodeState.FAILURE;
 
-            Vector3 dir = _pathSeeker.ReturnDirection(target.ReturnPosition() + _formationData.Offset);
+            Vector3 dir = _pathSeeker.ReturnDirection(target.ReturnTargetPoint().position + _formationData.Offset);
             bool nowFinish = _pathSeeker.NowFinish();
             if (nowFinish == true)
             {

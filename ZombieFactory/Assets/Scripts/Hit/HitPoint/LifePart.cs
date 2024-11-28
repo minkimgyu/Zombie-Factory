@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LifePart : HitPoint
 {
-    public override void Initialize(IDamageable parentDamageable, IPoint parentBody, BaseFactory effectFactory)
+    public override void Initialize(IDamageable parentDamageable, ITarget parentBody, BaseFactory effectFactory)
     {
         base.Initialize(parentDamageable, parentBody, effectFactory);
         _hitEffects = new Dictionary<IEffectable.ConditionType, BaseEffect.Name>()

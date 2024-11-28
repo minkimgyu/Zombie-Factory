@@ -125,7 +125,7 @@ abstract public class Gun : BaseWeapon, IInteractable
     public override void ThrowWeapon(float force)
     {
         PositionWeapon(true);
-        Vector3 direction = _attackPoint.ReturnDirection();
+        Vector3 direction = _attackPoint.forward;
         _gunRigidbody.AddForce(direction * force, ForceMode.Impulse);
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEditor;
 
 public class AddressableHandler
 {
@@ -37,6 +38,7 @@ public class AddressableHandler
     int _successCount;
     int _totalCount;
     Action OnCompleted;
+    Action<float> OnProgress;
 
     public AddressableHandler()
     {
@@ -60,7 +62,7 @@ public class AddressableHandler
     public Dictionary<BaseItem.Name, BaseRecoilData> LeftRecoilDataDictionary { get; private set; }
     public Dictionary<BaseItem.Name, BaseRecoilData> RightRecoilDataDictionary { get; private set; }
 
-    public void Load(Action OnCompleted)
+    public void Load(Action OnCompleted, Action<float> OnProgress)
     {
         _assetLoaders = new HashSet<BaseLoader>();
 
@@ -80,6 +82,8 @@ public class AddressableHandler
         _assetLoaders.Add(new RecoilJsonAssetLoader(Label.RightRecoilData, (label, value) => { RightRecoilDataDictionary = value; OnSuccess(label); }));
 
         this.OnCompleted = OnCompleted;
+        this.OnProgress = OnProgress;
+
         _totalCount = _assetLoaders.Count;
         foreach (var loader in _assetLoaders)
         {
@@ -90,12 +94,14 @@ public class AddressableHandler
     void OnSuccess(Label label)
     {
         _successCount++;
-        //Debug.Log(_successCount);
-        //Debug.Log(label.ToString() + "Success");
+        Debug.Log(_successCount);
+        Debug.Log(label.ToString() + "Success");
 
+        OnProgress?.Invoke((float)_successCount / _totalCount);
         if (_successCount == _totalCount)
         {
-            //Debug.Log("Complete!");
+
+            Debug.Log("Complete!");
             OnCompleted?.Invoke();
         }
     }

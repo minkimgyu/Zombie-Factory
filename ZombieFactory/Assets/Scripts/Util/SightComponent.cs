@@ -6,7 +6,8 @@ public class SightComponent : CaptureComponent<ITarget>
 {
     float _captureRadius = 5;
     float _captureAngle = 90;
-    [SerializeField] Transform _sightPoint;
+    Transform _sightPoint;
+    public Transform SightPoint { get { return _sightPoint; } }
 
     ITarget _target;
 
@@ -14,11 +15,12 @@ public class SightComponent : CaptureComponent<ITarget>
 
     List<IIdentifiable.Type> _targetTypes = new List<IIdentifiable.Type>();
 
-    public void SetUp(float radius, float angle, List<IIdentifiable.Type> targetTypes)
+    public void SetUp(float radius, float angle, List<IIdentifiable.Type> targetTypes, Transform sightPoint)
     {
         _captureRadius = radius;
         _captureAngle = angle;
         _targetTypes = targetTypes;
+        _sightPoint = sightPoint;
         Initialize(OnEnter, OnExit);
 
         CircularSectorDrawer drawer = GetComponent<CircularSectorDrawer>();
@@ -43,7 +45,7 @@ public class SightComponent : CaptureComponent<ITarget>
 
     bool CanRaycastTarget(Vector3 sightPoint, ITarget target)
     {
-        Vector3 targetPos = target.ReturnPosition();
+        Vector3 targetPos = target.ReturnSightPoint().position;
         targetPos = new Vector3(targetPos.x, sightPoint.y, targetPos.z);
         Vector3 dir = (targetPos - sightPoint).normalized;
 
@@ -80,7 +82,7 @@ public class SightComponent : CaptureComponent<ITarget>
                 continue;
             }
 
-            float angle = ReturnAngleBetween(target.ReturnPosition());
+            float angle = ReturnAngleBetween(target.ReturnTargetPoint().position);
             bool inInAngle = IsInAngle(angle);
             if (inInAngle == false) continue;
 

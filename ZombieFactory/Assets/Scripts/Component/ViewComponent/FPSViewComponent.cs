@@ -5,7 +5,7 @@ using System;
 
 public class FPSViewComponent : BaseViewComponent, IRecoilReceiver
 {
-    [SerializeField] private Transform _firePoint;
+    Transform _firePoint;
     [SerializeField] private Transform _armMesh;
     [SerializeField] private Transform _cameraHolder;
 
@@ -21,8 +21,9 @@ public class FPSViewComponent : BaseViewComponent, IRecoilReceiver
         this.MoveCamera = MoveCamera;
     }
 
-    public override void Initialize(float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody)
+    public override void Initialize(Transform firePoint, float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody)
     {
+        _firePoint = firePoint;
         _rigidbody = rigidbody;
         _viewYRange = viewYRange;
         _viewSensitivity = viewSensitivity;

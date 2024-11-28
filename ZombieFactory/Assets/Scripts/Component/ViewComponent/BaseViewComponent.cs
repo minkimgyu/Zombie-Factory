@@ -9,7 +9,7 @@ abstract public class BaseViewComponent : MonoBehaviour
 
     public virtual void Initialize(float viewYRange, Rigidbody rigidbody) { }
     public virtual void Initialize(float viewYRange, Rigidbody rigidbody, Transform viewObject) { }
-    public virtual void Initialize(float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody) { }
+    public virtual void Initialize(Transform firePoint, float viewYRange, Vector2 viewSensitivity, Rigidbody rigidbody) { }
 
     public virtual void View(Vector2 dir) { }
     public virtual void View(Vector3 dir) { }

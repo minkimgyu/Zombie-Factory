@@ -65,7 +65,9 @@ namespace AI.Swat
         [SerializeField] Name _ragdollName;
         [SerializeField] Transform _rig;
         [SerializeField] SightComponent _sightComponent;
-        [SerializeField] Transform _firePoint;
+
+        [SerializeField] Transform _attackPoint;
+        [SerializeField] Transform _sightPoint;
 
         FreeRoleState _freeRoleState;
         BaseFactory _ragdollFactory;
@@ -227,7 +229,7 @@ namespace AI.Swat
             base.Initialize();
 
             _weaponController = GetComponent<WeaponController>();
-            _weaponController.Initialize();
+            _weaponController.Initialize(_attackPoint);
 
             _animator = GetComponentInChildren<Animator>();
 
@@ -236,11 +238,11 @@ namespace AI.Swat
             _pathSeeker = GetComponent<PathSeeker>();
             _pathSeeker.Initialize();
 
-            _sightComponent.SetUp(_captureRadius, _captureAngle, new List<IIdentifiable.Type> { IIdentifiable.Type.Zombie });
+            _sightComponent.SetUp(_captureRadius, _captureAngle, new List<IIdentifiable.Type> { IIdentifiable.Type.Zombie }, _sightPoint);
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 
             _viewComponent = GetComponent<TPSViewComponent>();
-            _viewComponent.Initialize(70, rigidbody, _firePoint);
+            _viewComponent.Initialize(70, rigidbody, _attackPoint);
 
             _moveComponent = GetComponent<TPSMoveComponent>();
             _moveComponent.Initialize(rigidbody, ResetAnimator);
@@ -284,6 +286,11 @@ namespace AI.Swat
         public void TeleportTo(Vector3 pos)
         {
             ResetPosition(pos);
+        }
+
+        public override Transform ReturnSightPoint()
+        {
+            return _sightPoint;
         }
     }
 }

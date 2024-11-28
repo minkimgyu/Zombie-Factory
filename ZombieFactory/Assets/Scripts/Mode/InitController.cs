@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class InitController : MonoBehaviour
 {
+    [SerializeField] Image _loadindImg;
+    [SerializeField] TMP_Text _loadingTxt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +26,11 @@ public class InitController : MonoBehaviour
         DontDestroyObjects dontDestroyObjects = obj.AddComponent<DontDestroyObjects>();
         dontDestroyObjects.Initialize(addressableHandler, inputHandler, soundController);
 
-        addressableHandler.Load(() => { Initialize(dontDestroyObjects); });
+        addressableHandler.Load
+        (
+            () => { Initialize(dontDestroyObjects); }, 
+            (ratio) => { _loadindImg.fillAmount = ratio; _loadingTxt.text = $"{Mathf.RoundToInt(ratio * 100)}%"; }
+        );
     }
 
     void Initialize(DontDestroyObjects dontDestroyObjects)
@@ -31,7 +40,10 @@ public class InitController : MonoBehaviour
         dontDestroyObjects.SoundController.Initialize(dontDestroyObjects.AddressableHandler.AudioAssets, soundFactory);
 
         SceneController sceneController = new SceneController();
+        TimeController timeController = new TimeController();
         ServiceLocater.Provide(sceneController);
+        ServiceLocater.Provide(timeController);
+
         sceneController.ChangeScene(ISceneControllable.SceneName.StartScene);
     }
 }

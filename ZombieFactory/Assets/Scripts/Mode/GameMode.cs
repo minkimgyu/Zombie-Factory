@@ -10,11 +10,15 @@ public class GameMode : MonoBehaviour
     [SerializeField] Transform _effectParent;
     [SerializeField] int _totalStageCount = 5;
 
+    [SerializeField] PauseController _pauseController;
+
     StageController _stageController;
     EffectEmitter _effectEmitter;
 
     private void OnApplicationFocus(bool focus)
     {
+        if (_pauseController.NowPause == true) return;
+
         if (focus) Cursor.lockState = CursorLockMode.Locked;
         else Cursor.lockState = CursorLockMode.None;
     }
@@ -49,6 +53,7 @@ public class GameMode : MonoBehaviour
 
         _playerUIController.Initialize(system.AddressableHandler.ItemSpriteAssets);
         _weaponInfoViewer.Initialize();
+        _pauseController.Initialize();
 
         HelperMediator mediator = new HelperMediator(_playerUIController.OnFreeRoleRequested, _playerUIController.OnBuildFormationRequested);
         FactoryCollection factoryCollection = new FactoryCollection(system.AddressableHandler, mediator, _effectParent);

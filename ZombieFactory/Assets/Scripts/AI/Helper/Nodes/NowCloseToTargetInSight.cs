@@ -23,7 +23,7 @@ public class NowCloseToTargetInSight : EvaluatingDistance
         if (nowTargetInSight == false) return NodeState.FAILURE;
 
         ITarget target = _sightComponent.ReturnTargetInSight();
-        SwitchState(target.ReturnPosition());
+        SwitchState(target.ReturnTargetPoint().position);
 
         switch (_state)
         {

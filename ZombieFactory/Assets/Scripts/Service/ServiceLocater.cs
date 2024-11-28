@@ -13,11 +13,15 @@ public class ServiceLocater
     static ISceneControllable _sceneController;
     static NullSceneController _nullSceneController;
 
+    static ITimeControllable _timeControllable;
+    static NullTimeControllable _nullTimeControllable;
+
     public static void Initialize()
     {
         _nullSoundPlayer = new NullSoundControllable();
         _nullInputController = new NullInputHandler();
         _nullSceneController = new NullSceneController();
+        _nullTimeControllable = new NullTimeControllable();
     }
 
     public static void Provide(ISoundControllable soundPlayer)
@@ -33,6 +37,11 @@ public class ServiceLocater
     public static void Provide(IInputable inputController)
     {
         _inputController = inputController;
+    }
+
+    public static void Provide(ITimeControllable timeControllable)
+    {
+        _timeControllable = timeControllable;
     }
 
 
@@ -52,5 +61,11 @@ public class ServiceLocater
     {
         if (_inputController == null) return _nullInputController;
         return _inputController;
+    }
+
+    public static ITimeControllable ReturnTimeController()
+    {
+        if (_timeControllable == null) return _nullTimeControllable;
+        return _timeControllable;
     }
 }

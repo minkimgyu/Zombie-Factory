@@ -27,7 +27,7 @@ abstract public class BaseWeapon : BaseItem
     public Type WeaponType { get { return _weaponType; } }
 
     protected int _targetLayer; // 공격 대상 레이어
-    protected IPoint _attackPoint; // 공격 Raycast 시작 위치
+    protected Transform _attackPoint; // 공격 Raycast 시작 위치
 
     protected Dictionary<EventType, EventState> _eventStates = new Dictionary<EventType, EventState>();
     protected Dictionary<EventType, ActionState> _actionStates = new Dictionary<EventType, ActionState>();

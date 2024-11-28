@@ -7,13 +7,13 @@ namespace BehaviorTree.Nodes
 {
     public class ViewTarget : Node
     {
-        Transform _myTransform;
+        Transform _sightPoint;
         SightComponent _sightComponent;
         TPSViewComponent _viewComponent;
 
-        public ViewTarget(Transform myTransform, SightComponent sightComponent, TPSViewComponent viewComponent)
+        public ViewTarget(Transform sightPoint, SightComponent sightComponent, TPSViewComponent viewComponent)
         {
-            _myTransform = myTransform;
+            _sightPoint = sightPoint;
             _sightComponent = sightComponent;
             _viewComponent = viewComponent;
         }
@@ -21,10 +21,10 @@ namespace BehaviorTree.Nodes
         public override NodeState Evaluate()
         {
             ITarget target =  _sightComponent.ReturnTargetInSight();
-            Vector3 targetPos = target.ReturnPosition();
+            Vector3 targetPos = target.ReturnSightPoint().position;
 
-            Vector3 dir = (targetPos - _myTransform.position).normalized;
-            //dir = new Vector3(dir.x, 0, dir.z);
+            // sightPoint 2개 가져와서 방향 구하기
+            Vector3 dir = (targetPos - _sightPoint.position).normalized;
 
             _viewComponent.View(dir);
             return NodeState.SUCCESS;

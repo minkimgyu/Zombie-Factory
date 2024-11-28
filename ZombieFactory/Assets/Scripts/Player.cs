@@ -29,6 +29,9 @@ public class Player : BaseLife, IInteracter
     WeaponController _weaponController;
     InteractionController _interactionController;
 
+    [SerializeField] Transform _cameraPoint; // 공격 포인트
+    [SerializeField] Transform _sightPoint;
+
     public override void AddObserverEvent
     (
         Action<Vector3, Vector3> MoveCamera,
@@ -105,7 +108,7 @@ public class Player : BaseLife, IInteracter
         _actionController = GetComponent<ActionController>();
 
         _actionController.Initialize(_walkSpeed, _runSpeed, _walkSpeedOnAir, _jumpSpeed, _postureSwitchDuration,
-            _capsuleStandCenter, _capsuleStandHeight, _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2, rigidbody);
+            _capsuleStandCenter, _capsuleStandHeight, _capsuleCrouchCenter, _capsuleCrouchHeight, _viewYRange, _viewSensitivity.V2, rigidbody, _cameraPoint);
 
         _interactionController = GetComponent<InteractionController>();
         _interactionController.Initialize();
@@ -143,7 +146,7 @@ public class Player : BaseLife, IInteracter
         zoomComponent.Initialize();
 
         _weaponController = GetComponent<WeaponController>();
-        _weaponController.Initialize(zoomComponent, _weaponThrowPower);
+        _weaponController.Initialize(_cameraPoint, zoomComponent, _weaponThrowPower);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -176,5 +179,10 @@ public class Player : BaseLife, IInteracter
     {
         ResetPosition(pos);
         _helperMediator.TeleportTo(pos);
+    }
+
+    public override Transform ReturnSightPoint()
+    {
+        return _sightPoint;
     }
 }

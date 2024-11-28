@@ -30,7 +30,7 @@ namespace BehaviorTree.Nodes
             if (nowTargetInSight == false) return NodeState.FAILURE;
 
             ITarget target = _sightComponent.ReturnTargetInSight();
-            Vector3 dir = _pathSeeker.ReturnDirection(target.ReturnPosition());
+            Vector3 dir = _pathSeeker.ReturnDirection(target.ReturnTargetPoint().position);
 
             if (_pathSeeker.NowFinish() == true)
             {

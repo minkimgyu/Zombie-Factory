@@ -6,17 +6,17 @@ using UnityEngine.XR;
 public class SwatViewComponent : TPSViewComponent, IRecoilReceiver
 {
     Vector3 _recoilForce;
-    Transform _attackObject;
+    Transform _attackPoint;
 
     [SerializeField] Vector3 _chestOffset = new Vector3(0, 45, 0);
     [SerializeField] float _angleOffset = 10;
     Transform _bone;
 
-    public override void Initialize(float viewYRange, Rigidbody rigidbody, Transform attackObject) 
+    public override void Initialize(float viewYRange, Rigidbody rigidbody, Transform attackPoint) 
     {
         _rigidbody = rigidbody;
         _viewYRange = viewYRange;
-        _attackObject = attackObject;
+        _attackPoint = attackPoint;
 
         Animator animator = GetComponentInChildren<Animator>();
         _bone = animator.GetBoneTransform(HumanBodyBones.Spine); // 해당 본의 transform 가져오기 --> 매개 변수로 받아오기
@@ -40,9 +40,9 @@ public class SwatViewComponent : TPSViewComponent, IRecoilReceiver
         base.View(dir);
         if (dir == Vector3.zero) return;
 
-        _dir = dir;
-        Debug.DrawRay(_attackObject.position, _dir * 3, Color.yellow);
-        Debug.DrawRay(_attackObject.position, transform.forward * 3, Color.red);
+        //_dir = dir;
+        //Debug.DrawRay(_attackObject.position, _dir * 3, Color.yellow);
+        //Debug.DrawRay(_attackObject.position, transform.forward * 3, Color.red);
     }
 
     public void OnRecoilRequested(Vector2 recoilForce)

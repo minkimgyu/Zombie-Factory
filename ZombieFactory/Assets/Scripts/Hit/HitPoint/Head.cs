@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Head : LifePart
 {
-    public override void Initialize(IDamageable parentDamageable, IPoint parentBody, BaseFactory effectFactory)
+    public override void Initialize(IDamageable parentDamageable, ITarget parentBody, BaseFactory effectFactory)
     {
         base.Initialize(parentDamageable, parentBody, effectFactory);
         _durability = 1.5f;
