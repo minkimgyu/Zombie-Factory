@@ -3323,6 +3323,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1154165851623013233, guid: fbea4bb9ecbc5904d8d2e530249f8bb5, type: 3}
+      propertyPath: m_Intensity
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8684173419261425313, guid: fbea4bb9ecbc5904d8d2e530249f8bb5, type: 3}
       propertyPath: m_Name
       value: Object7 (1)
@@ -3481,10 +3485,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2239468464421018730}
     m_Modifications:
-    - target: {fileID: 1341873963057502083, guid: fb69280639881044aa44fcacb637347f, type: 3}
-      propertyPath: _weaponNames.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3781346756423904983, guid: fb69280639881044aa44fcacb637347f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.01

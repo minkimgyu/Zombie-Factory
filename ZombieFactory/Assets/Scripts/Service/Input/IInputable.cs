@@ -33,4 +33,5 @@ public interface IInputable
 
     void AddEvent(Type type, BaseCommand command);
     void RemoveEvent(Type type);
+    void Clear();
 }

@@ -9,9 +9,9 @@ public class FPSMoveComponent : BaseMoveComponent
         _rigid.AddForce(transform.up * force, ForceMode.Impulse);
     }
 
-    public override void Move(Vector3 direction, float speed)
+    public override void Move(Vector3 direction, float speed, bool onAir = false)
     {
         Vector3 localDirection = transform.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
-        base.Move(localDirection, speed);
+        base.Move(localDirection, speed, onAir);
     }
 }

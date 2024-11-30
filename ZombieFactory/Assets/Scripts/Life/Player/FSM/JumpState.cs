@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using FSM.Movement;
 
-public class JumpState : BaseMovementState
+public class JumpState : MoveState
 {
     float _jumpForce;
-    BaseMoveComponent _moveComponent;
 
-    public JumpState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float jumpForce) : base(fsm)
+    public JumpState(
+        FSM<ActionController.MovementState> fsm,
+        BaseMoveComponent moveComponent,
+        float jumpForce,
+
+        float moveSpeed) : base(fsm, moveComponent, moveSpeed, true)
     {
-        _moveComponent = moveComponent;
         _jumpForce = jumpForce;
     }
 

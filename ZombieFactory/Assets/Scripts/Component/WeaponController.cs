@@ -69,7 +69,7 @@ public class WeaponController : MonoBehaviour
             { State.Idle, new IdleState(_weaponFSM, _weaponsContainer, ReturnWeapon) },
             { State.Equip, new EquipState(_weaponFSM, _weaponsContainer, ChangeWeapon, ReturnWeapon)
             },
-            { State.Reload, new ReloadState(_weaponFSM, true, ChangeWeapon, ReturnWeapon) },
+            { State.Reload, new ReloadState(_weaponFSM, _weaponsContainer, true, ChangeWeapon, ReturnWeapon) },
 
             { State.LeftAction, new LeftActionState(_weaponFSM, ReturnWeapon) },
             { State.RightAction, new RightActionState(_weaponFSM, ReturnWeapon) },
@@ -106,7 +106,7 @@ public class WeaponController : MonoBehaviour
             { State.Idle, new IdleState(_weaponFSM, _weaponsContainer, ReturnWeapon) },
             { State.Equip, new EquipState(_weaponFSM, _weaponsContainer, ChangeWeapon, ReturnWeapon)
             },
-            { State.Reload, new ReloadState(_weaponFSM, false, ChangeWeapon, ReturnWeapon) },
+            { State.Reload, new ReloadState(_weaponFSM, _weaponsContainer, false, ChangeWeapon, ReturnWeapon) },
 
             { State.LeftAction, new LeftActionState(_weaponFSM, ReturnWeapon) },
             { State.RightAction, new RightActionState(_weaponFSM, ReturnWeapon) },

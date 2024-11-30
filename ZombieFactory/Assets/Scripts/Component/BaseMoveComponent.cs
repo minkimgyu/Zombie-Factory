@@ -96,27 +96,33 @@ abstract public class BaseMoveComponent : MonoBehaviour
         ResetAnimator?.Invoke(_storedDirection);
     }
 
-    public virtual void Move(Vector3 direction, float speed)
+    public virtual void Move(Vector3 direction, float speed, bool onAir = false)
     {
-        //direction = transform.TransformVector(direction); // 먼저 diretion을 변형해줘야한다.
-        _storedSpeed = speed;
-        bool canClimb = CanClimbSlope(direction, speed);
-        if (canClimb == false) return;
-        
-        if (_isSlope)
+        if(onAir)
         {
-            direction = AdjustDirectionToSlope(direction, _hitPoint.normal);
-            //Debug.DrawRay(_hitPoint.point, direction, Color.red, 5f);
-        }
-
-        Vector3 moveDir = direction * speed;
-        if (_isSlope)
-        {
-            _storedDirection = moveDir; // 방향 백터에 맞게 조절
+            Vector3 moveDir = direction * speed;
+            _storedDirection = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
         }
         else
         {
-            _storedDirection = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
+            _storedSpeed = speed;
+            bool canClimb = CanClimbSlope(direction, speed);
+            if (canClimb == false) return;
+
+            if (_isSlope)
+            {
+                direction = AdjustDirectionToSlope(direction, _hitPoint.normal);
+            }
+
+            Vector3 moveDir = direction * speed;
+            if (_isSlope)
+            {
+                _storedDirection = moveDir; // 방향 백터에 맞게 조절
+            }
+            else
+            {
+                _storedDirection = new Vector3(moveDir.x, _rigid.velocity.y, moveDir.z); // 경사로가 아닌 경우 _rigid.velocity.y를 적용해준다.
+            }
         }
 
         ResetAnimator?.Invoke(_storedDirection);

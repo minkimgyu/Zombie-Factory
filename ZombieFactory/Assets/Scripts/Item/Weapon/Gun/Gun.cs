@@ -11,13 +11,6 @@ abstract public class Gun : BaseWeapon, IInteractable
     [SerializeField] protected ParticleSystem _muzzleFlash;
     [SerializeField] protected ParticleSystem _emptyCartridgeSpawner;
 
-    [SerializeField] Transform _magOriginPoint; // 총기에 탄창이 존재하는 원래 위치
-    [SerializeField] Transform _grapPoint; // 왼손이 탄창을 잡는 위치
-    [SerializeField] Transform _magazineObject; // 탄창 오브젝트
-
-    [SerializeField] Transform _leftHandGripPoint; // 왼손 그립 포인트
-
-    //protected float _penetratePower = 15;
     protected float _trajectoryLineOffset = 1.3f;
 
     [SerializeField] protected Transform _muzzle;
@@ -33,11 +26,6 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     BoxCollider _gunCollider;
     Rigidbody _gunRigidbody;
-    //bool _nowAttachToGround;
-
-    //public Action<bool, string, Vector3> OnViewEventRequest;
-
-    //protected Action<Vector3> OnGenerateNoiseRequest;
 
     protected void SpawnEmptyCartridge() => _emptyCartridgeSpawner.Play();
     protected void SpawnMuzzleFlashEffect() => _muzzleFlash.Play();
@@ -163,12 +151,6 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     #endregion;
 
-    //public override void OnRooting(WeaponBlackboard blackboard)
-    //{
-    //    base.OnRooting(blackboard);
-    //    blackboard.AssignIKPoints?.Invoke(_leftHandGripPoint, _magOriginPoint, _grapPoint, _magazineObject); // 총기 재장전 애니메이션에 필요한 변수 할당
-    //}
-
     public override void Initialize()
     {
         base.Initialize();
@@ -178,21 +160,7 @@ abstract public class Gun : BaseWeapon, IInteractable
 
         _gunCollider.enabled = false;
         _gunRigidbody.isKinematic = true;
-
-        //WeaponInfoViwer weaponInfoViwer = FindObjectOfType<WeaponInfoViwer>();
-        //if (weaponInfoViwer == null) return;
-        //OnViewEventRequest = weaponInfoViwer.OnViewEventReceived; // 드랍 시 해제 필요
-        //NoiseGenerator noiseGenerator = FindObjectOfType<NoiseGenerator>();
-        //OnGenerateNoiseRequest = noiseGenerator.GenerateNoise;
     }
-
-    //public override void RefillAmmo() 
-    //{
-    //    _ammoCountsInMagazine = _maxAmmoCountInMagazine;
-    //    _ammoCountsInPossession = _maxAmmoCountsInPossession;
-
-    //    OnShowRounds?.Invoke(true, _ammoCountsInMagazine, _ammoCountsInPossession);
-    //}
 
     public void OnSightEnter()
     {
@@ -202,11 +170,6 @@ abstract public class Gun : BaseWeapon, IInteractable
     public void OnSightExit()
     {
         EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, false);
-    }
-
-    protected override void OnCollisionEnter(Collision collision)
-    {
-        //_nowAttachToGround = true; // 어디든 부딪히면 그때부터 Interaction 적용
     }
 
     public bool IsInteractable() { return _nowDrop; }

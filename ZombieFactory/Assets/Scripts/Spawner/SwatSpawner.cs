@@ -27,12 +27,6 @@ public class SwatSpawner : BaseSpawner
         return transform.position + new Vector3(randomPos.x, 0, randomPos.y);
     }
 
-    protected BaseLife CreateRandomLife()
-    {
-        BaseLife.Name lifeName = _lifeNames[Random.Range(0, _lifeNames.Length)];
-        return _lifeFactory.Create(lifeName, _weaponNames);
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = _rangeColor;
@@ -41,13 +35,15 @@ public class SwatSpawner : BaseSpawner
 
     public override void Spawn()
     {
-        for (int i = 0; i < _spawnCount; i++)
+        for (int i = 0; i < _lifeNames.Length; i++)
         {
-            BaseLife swat = CreateRandomLife();
+            BaseLife swat = _lifeFactory.Create(_lifeNames[i], _weaponNames);
 
-            HpViewer hpViewer = (HpViewer)_viewerFactory.Create(BaseViewer.Name.MoveableHpViewer);
+            TrackableHpViewer hpViewer = (TrackableHpViewer)_viewerFactory.Create(BaseViewer.Name.MoveableHpViewer);
             hpViewer.transform.SetParent(swat.transform);
             hpViewer.transform.localPosition = new Vector3(0, 1.8f, 0);
+
+            hpViewer.ResetName(_lifeNames[i].ToString());
             swat.AddObserverEvent(hpViewer.UpdateHp);
 
             Vector3 pos = ReturnRandomPos();

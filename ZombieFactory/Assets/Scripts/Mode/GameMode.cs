@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameMode : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class GameMode : MonoBehaviour
         EventBusManager.Instance.MainEventBus.Register(
             MainEventBus.Type.GameClear, 
             new ResultCommand(() => {
+
+                IInputable inputable = ServiceLocater.ReturnInputHandler();
+                inputable.Clear();
+
                 Cursor.lockState = CursorLockMode.None;
                 ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.GameClearScene); 
             })
@@ -39,6 +44,10 @@ public class GameMode : MonoBehaviour
         EventBusManager.Instance.MainEventBus.Register(
             MainEventBus.Type.GameOver, 
             new ResultCommand(() => {
+
+                IInputable inputable = ServiceLocater.ReturnInputHandler();
+                inputable.Clear();
+
                 Cursor.lockState = CursorLockMode.None;
                 ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.GameOverScene); 
             })

@@ -24,10 +24,6 @@ public class DontDestroyObjects : MonoBehaviour
     }
 
     InputHandler _inputHandler;
-    public InputHandler InputHandler
-    {
-        get { return _inputHandler; }
-    }
 
     SoundController _soundController;
     public SoundController SoundController

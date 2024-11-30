@@ -2960,7 +2960,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &615365307228153184
 MonoBehaviour:
@@ -2978,7 +2978,6 @@ MonoBehaviour:
   _ragdoolName: 3
   _sightComponent: {fileID: 7646547717473651823}
   _noiseCaptureComponent: {fileID: 7207065263505098190}
-  _attackPoint: {fileID: 8073338172374648347}
   _sightPoint: {fileID: 7624582713301544381}
 --- !u!114 &4846163108167099484
 MonoBehaviour:

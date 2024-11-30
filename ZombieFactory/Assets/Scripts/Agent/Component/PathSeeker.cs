@@ -10,7 +10,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
     List<Vector3> _path;
     int _pathIndex = 0;
     const float _delayDuration = 0.8f;
-    const float _reachDistance = 0.3f;
+    const float _reachDistance = 0.8f;
 
     Timer _delayTimer;
 

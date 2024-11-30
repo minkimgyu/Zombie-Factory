@@ -8,4 +8,5 @@ public class NullInputHandler : IInputable
 {
     public void AddEvent(IInputable.Type type, BaseCommand command) { }
     public void RemoveEvent(IInputable.Type type) { }
+    public void Clear() { }
 }

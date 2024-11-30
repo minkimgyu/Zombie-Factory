@@ -98,7 +98,7 @@ public class ActionController : MonoBehaviour
             { MovementState.Stop, new StopState(_movementFSM, _moveComponent) },
             { MovementState.Walk, new WalkState(_movementFSM, _moveComponent, _walkSpeed) },
             { MovementState.Run, new RunState(_movementFSM, _moveComponent, _runSpeed) },
-            { MovementState.Jump, new JumpState(_movementFSM, _moveComponent, _jumpSpeed) }
+            { MovementState.Jump, new JumpState(_movementFSM, _moveComponent, _jumpSpeed, _walkSpeed) }
         };
 
         _movementFSM.Initialize(movementStates);

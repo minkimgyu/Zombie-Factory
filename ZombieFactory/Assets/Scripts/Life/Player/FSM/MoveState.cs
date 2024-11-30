@@ -11,10 +11,18 @@ public class MoveState : BaseMovementState
 
     Vector3 _storedDirection;
 
-    public MoveState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float moveSpeed) : base(fsm)
+    bool _onAir;
+
+    public MoveState(
+        FSM<ActionController.MovementState> fsm,
+        BaseMoveComponent moveComponent,
+        float moveSpeed,
+        bool onAir) : base(fsm)
     {
         _moveComponent = moveComponent;
         _moveSpeed = moveSpeed;
+
+        _onAir = onAir;
     }
 
     public override void OnHandleMove(Vector3 input)
@@ -24,7 +32,7 @@ public class MoveState : BaseMovementState
 
     public override void OnStateUpdate()
     {
-        _moveComponent.Move(_input, _moveSpeed);
+        _moveComponent.Move(_input, _moveSpeed, _onAir);
     }
 
     public override void OnStateFixedUpdate()

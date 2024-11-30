@@ -2135,7 +2135,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1753802649834424379
 MonoBehaviour:
@@ -2149,12 +2149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f33b2d5531a617429ac4b4f8158b518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _raycastPoint: {fileID: 7763335474382001041}
   _rig: {fileID: 2204180086871243639}
   _ragdoolName: 4
   _sightComponent: {fileID: 5025806758419804637}
   _noiseCaptureComponent: {fileID: 2116995745682359489}
-  _attackPoint: {fileID: 8355686157477375559}
   _sightPoint: {fileID: 7763335474382001041}
 --- !u!114 &3878636172023484456
 MonoBehaviour:

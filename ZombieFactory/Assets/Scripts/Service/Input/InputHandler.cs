@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class InputHandler : IInputable
 {
@@ -52,6 +51,11 @@ public class InputHandler : IInputable
             Execute(IInputable.Type.Equip, BaseWeapon.Type.Melee);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Execute(IInputable.Type.Escape);
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             Execute(IInputable.Type.Reload);
@@ -65,12 +69,6 @@ public class InputHandler : IInputable
         if (Input.GetKeyDown(KeyCode.G))
         {
             Execute(IInputable.Type.Drop);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Execute(IInputable.Type.Escape);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -150,5 +148,10 @@ public class InputHandler : IInputable
     public void RemoveEvent(IInputable.Type type)
     {
         _inputEvents.Remove(type);
+    }
+
+    public void Clear()
+    {
+        _inputEvents.Clear();
     }
 }

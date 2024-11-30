@@ -6,13 +6,13 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class WeightApplier
 {
-    public float storedWeight;
+    public float storedWeight = 0;
     [JsonIgnore] public float StoredWeight { get { return storedWeight; } }
 
     float minWeight = 0;
-    public float maxWeight = 0.05f;
-    public float weightMultiplier = 0.01f;
-    public float weightDecreation = 0.0001f;
+    public float maxWeight = 0.03f;
+    public float weightMultiplier = 0.005f;
+    public float weightDecreation = 0.01f;
 
     public WeightApplier(float maxWeight, float weightMultiplier, float weightDecreation)
     {

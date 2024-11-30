@@ -6,7 +6,7 @@ using FSM.Movement;
 public class RunState : MoveState
 {
     public RunState(FSM<ActionController.MovementState> fsm, BaseMoveComponent moveComponent, float moveForce)
-         : base(fsm, moveComponent, moveForce)
+         : base(fsm, moveComponent, moveForce, false)
     {
     }
 

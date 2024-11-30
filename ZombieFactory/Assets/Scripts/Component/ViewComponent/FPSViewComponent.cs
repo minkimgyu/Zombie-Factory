@@ -9,10 +9,10 @@ public class FPSViewComponent : BaseViewComponent, IRecoilReceiver
     [SerializeField] private Transform _armMesh;
     [SerializeField] private Transform _cameraHolder;
 
-    protected Vector3 _recoilForce;
+    [SerializeField] protected Vector3 _recoilForce;
     protected Vector2 _viewSensitivity = new Vector2(150, 150);
 
-    protected Vector3 _viewRotation;
+    [SerializeField] protected Vector3 _viewRotation;
     Vector2 FinalViewRotation { get { return _viewRotation + _recoilForce; } }
     Action<Vector3, Vector3> MoveCamera;
 

@@ -47,5 +47,5 @@ MonoBehaviour:
   _rangeColor: {r: 0.9076432, g: 1, b: 0.23113209, a: 0.20392157}
   _spawnCount: 2
   _range: 3
-  _weaponNames: 0000000004000000
+  _weaponNames: 0100000004000000
   _lifeNames: 0200000001000000

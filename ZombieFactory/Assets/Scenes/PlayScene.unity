@@ -2314,7 +2314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -4205,10 +4205,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 616082762219964443, guid: 065e232814ca5364695147fb3d8b5550, type: 3}
-      propertyPath: m_Intensity
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2239468464421018730, guid: 065e232814ca5364695147fb3d8b5550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 266.5

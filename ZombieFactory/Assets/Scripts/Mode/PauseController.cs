@@ -12,14 +12,6 @@ public class PauseController : MonoBehaviour
     bool _nowPause = false;
     public bool NowPause { get { return _nowPause; } }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Activate();
-        }
-    }
-
     public void Activate()
     {
         _nowPause = !_nowPause;
@@ -39,8 +31,17 @@ public class PauseController : MonoBehaviour
 
     public void Initialize()
     {
+        IInputable inputable = ServiceLocater.ReturnInputHandler();
+        inputable.AddEvent(IInputable.Type.Escape, new KeyCommand(Activate));
+
         _content.SetActive(false);
         _resumeBtn.onClick.AddListener(() => { Activate(); });
-        _returnToMenuBtn.onClick.AddListener(() => { ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.StartScene); });
+        _returnToMenuBtn.onClick.AddListener(() => 
+        {
+            IInputable inputable = ServiceLocater.ReturnInputHandler();
+            inputable.Clear();
+
+            ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.StartScene); 
+        });
     }
 }
