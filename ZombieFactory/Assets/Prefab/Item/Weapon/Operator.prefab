@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8941269393229011998}
   - component: {fileID: 4080545118740139864}
   - component: {fileID: 2781852553821390025}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,10 +214,6 @@ MonoBehaviour:
   _weaponType: 0
   _muzzleFlash: {fileID: 5040405790995054526}
   _emptyCartridgeSpawner: {fileID: 8960788812342875383}
-  _magOriginPoint: {fileID: 0}
-  _grapPoint: {fileID: 0}
-  _magazineObject: {fileID: 0}
-  _leftHandGripPoint: {fileID: 0}
   _muzzle: {fileID: 7336753557101198376}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -264,7 +260,7 @@ GameObject:
   - component: {fileID: 4447747691617875527}
   - component: {fileID: 771674827031248986}
   - component: {fileID: 6525718042173408423}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +346,7 @@ GameObject:
   - component: {fileID: 2604365386304666633}
   - component: {fileID: 1378794594936089664}
   - component: {fileID: 127495318941623060}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5319,7 +5315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5900797488664927474}
   - component: {fileID: 602319365400876407}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15140,7 +15136,7 @@ GameObject:
   - component: {fileID: 3205293891357424023}
   - component: {fileID: 2535858260249864507}
   - component: {fileID: 363779662162209947}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cheekrest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20105,7 +20101,7 @@ GameObject:
   - component: {fileID: 5066093870679142808}
   - component: {fileID: 6149041015339206137}
   - component: {fileID: 4714891417794531463}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25070,7 +25066,7 @@ GameObject:
   - component: {fileID: 1368576844436371767}
   - component: {fileID: 3713227652170964081}
   - component: {fileID: 3033263521641146543}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25153,7 +25149,7 @@ GameObject:
   - component: {fileID: 4178375858322186693}
   - component: {fileID: 4412221697990762048}
   - component: {fileID: 4519038584686380348}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: silencer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25236,7 +25232,7 @@ GameObject:
   - component: {fileID: 3040846001574376698}
   - component: {fileID: 3617481754749415169}
   - component: {fileID: 7872930014346824532}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25320,7 +25316,7 @@ GameObject:
   - component: {fileID: 2397631790819997551}
   - component: {fileID: 4069627556197094444}
   - component: {fileID: 5104833460311735367}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Lens1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35217,7 +35213,7 @@ GameObject:
   - component: {fileID: 8297654080143413835}
   - component: {fileID: 1635098924555452060}
   - component: {fileID: 4660886933244923692}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40182,7 +40178,7 @@ GameObject:
   - component: {fileID: 4162596720516989806}
   - component: {fileID: 3228967047891698000}
   - component: {fileID: 343065298587035543}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: boltrear
   m_TagString: Untagged
   m_Icon: {fileID: 0}

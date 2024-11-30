@@ -14676,7 +14676,7 @@ GameObject:
   - component: {fileID: 8327405982592130602}
   - component: {fileID: 5787185882477541124}
   - component: {fileID: 162752245314917538}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14759,7 +14759,7 @@ GameObject:
   - component: {fileID: 7035295525640200515}
   - component: {fileID: 2967517165070129884}
   - component: {fileID: 7643144772879557717}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14842,7 +14842,7 @@ GameObject:
   - component: {fileID: 6206192814304639684}
   - component: {fileID: 9061085166542447460}
   - component: {fileID: 6321158313990889559}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: butt_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15042,10 +15042,6 @@ MonoBehaviour:
   _weaponType: 0
   _muzzleFlash: {fileID: 9191189518318670753}
   _emptyCartridgeSpawner: {fileID: 3319994588934741116}
-  _magOriginPoint: {fileID: 0}
-  _grapPoint: {fileID: 0}
-  _magazineObject: {fileID: 0}
-  _leftHandGripPoint: {fileID: 0}
   _muzzle: {fileID: 3146813861619879844}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -19948,7 +19944,7 @@ GameObject:
   - component: {fileID: 4468603469933242661}
   - component: {fileID: 2265596589142048321}
   - component: {fileID: 4601689465056104751}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20032,7 +20028,7 @@ GameObject:
   - component: {fileID: 730616578216231052}
   - component: {fileID: 7353004803346585297}
   - component: {fileID: 3521046573915939011}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base_new
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20118,7 +20114,7 @@ GameObject:
   - component: {fileID: 7570774976655889342}
   - component: {fileID: 1119003292870019214}
   - component: {fileID: 81280227382775830}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: release
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34851,7 +34847,7 @@ GameObject:
   - component: {fileID: 7028374701167497496}
   - component: {fileID: 5551909724169811045}
   - component: {fileID: 4172557052795717181}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: fuse_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34934,7 +34930,7 @@ GameObject:
   - component: {fileID: 7616556603617417497}
   - component: {fileID: 1810238919014449825}
   - component: {fileID: 6647272361675201841}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: handle_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35017,7 +35013,7 @@ GameObject:
   - component: {fileID: 1923231003065519213}
   - component: {fileID: 3966140936310444806}
   - component: {fileID: 1929669448112220530}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

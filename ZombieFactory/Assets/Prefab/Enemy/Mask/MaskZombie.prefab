@@ -2698,7 +2698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411772408596258480}
   - component: {fileID: 7659942119670526801}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ch45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2931,10 +2931,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 3.968815
+  m_Radius: 0.3
+  m_Height: 3.3847723
   m_Direction: 1
-  m_Center: {x: 0, y: 1.9844075, z: 0}
+  m_Center: {x: 0, y: 1.6923862, z: 0}
 --- !u!54 &2710846237248530296
 Rigidbody:
   m_ObjectHideFlags: 0

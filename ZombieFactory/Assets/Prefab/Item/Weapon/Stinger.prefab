@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2644433253910949209}
   - component: {fileID: 3418544960474024879}
   - component: {fileID: 3607615528606850379}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5094,10 +5094,6 @@ MonoBehaviour:
   _weaponType: 1
   _muzzleFlash: {fileID: 1053891633872937651}
   _emptyCartridgeSpawner: {fileID: 109248459240450419}
-  _magOriginPoint: {fileID: 0}
-  _grapPoint: {fileID: 0}
-  _magazineObject: {fileID: 0}
-  _leftHandGripPoint: {fileID: 0}
   _muzzle: {fileID: 829747231535206965}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -14877,7 +14873,7 @@ GameObject:
   - component: {fileID: 1748131231406171580}
   - component: {fileID: 2256780427005545278}
   - component: {fileID: 7716568293155643361}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24730,7 +24726,7 @@ GameObject:
   - component: {fileID: 667893092305127493}
   - component: {fileID: 9213725911200196155}
   - component: {fileID: 8477047012191826249}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24844,7 +24840,7 @@ GameObject:
   - component: {fileID: 780656286965061589}
   - component: {fileID: 4092843342296277401}
   - component: {fileID: 7135461571497834292}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: carrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24958,7 +24954,7 @@ GameObject:
   - component: {fileID: 261052506335054967}
   - component: {fileID: 6104986277440924310}
   - component: {fileID: 137850104497715598}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34797,7 +34793,7 @@ GameObject:
   - component: {fileID: 1501950663739899846}
   - component: {fileID: 7539490634505859383}
   - component: {fileID: 1519604678219398092}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

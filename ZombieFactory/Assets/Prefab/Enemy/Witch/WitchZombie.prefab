@@ -1465,7 +1465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3764505803303898182}
   - component: {fileID: 7087109608131951525}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ZombieGirl_Pants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2095,10 +2095,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 3.968815
+  m_Radius: 0.3
+  m_Height: 3.3363085
   m_Direction: 1
-  m_Center: {x: 0, y: 1.9844075, z: 0}
+  m_Center: {x: 0, y: 1.6681542, z: 0}
 --- !u!54 &6100865593574298046
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2606,7 +2606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1490848779315524761}
   - component: {fileID: 8975779951148782921}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ZombieGirl_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2787,7 +2787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7097773117244452781}
   - component: {fileID: 9180181387668069458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ZombieGirl_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

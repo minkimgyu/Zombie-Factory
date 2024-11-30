@@ -1345,7 +1345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8132841729998733438}
   - component: {fileID: 1562283914692450549}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: ZombieGirl_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2717,7 +2717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3993942003994543963}
   - component: {fileID: 7454134472538516833}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: ZombieGirl_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3283,7 +3283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5645067516215000240}
   - component: {fileID: 5731781857488661605}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: ZombieGirl_Pants
   m_TagString: Untagged
   m_Icon: {fileID: 0}

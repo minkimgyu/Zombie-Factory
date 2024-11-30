@@ -121,10 +121,6 @@ MonoBehaviour:
   _weaponType: 0
   _muzzleFlash: {fileID: 2616586416474306046}
   _emptyCartridgeSpawner: {fileID: 328791121436821414}
-  _magOriginPoint: {fileID: 0}
-  _grapPoint: {fileID: 0}
-  _magazineObject: {fileID: 0}
-  _leftHandGripPoint: {fileID: 0}
   _muzzle: {fileID: 156925057393344503}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -140,7 +136,7 @@ GameObject:
   - component: {fileID: 7256368429764828444}
   - component: {fileID: 5366198884709230318}
   - component: {fileID: 3971283168726641602}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9987,7 +9983,7 @@ GameObject:
   - component: {fileID: 7102171319487935439}
   - component: {fileID: 4179093641619145846}
   - component: {fileID: 7639898422335904871}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10101,7 +10097,7 @@ GameObject:
   - component: {fileID: 6603765505080035184}
   - component: {fileID: 4315682205409400188}
   - component: {fileID: 4755671998445942964}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10213,7 +10209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 897661941148122734}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bmg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15134,7 +15130,7 @@ GameObject:
   - component: {fileID: 7676955347229274170}
   - component: {fileID: 2216134877921070977}
   - component: {fileID: 3951842270368454235}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Lens1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20103,7 +20099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79386936526232104}
   - component: {fileID: 6398556125295781176}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20187,7 +20183,7 @@ GameObject:
   - component: {fileID: 5734463917539957022}
   - component: {fileID: 380215497373433117}
   - component: {fileID: 1383443432638978665}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25207,7 +25203,7 @@ GameObject:
   - component: {fileID: 2159003758302650503}
   - component: {fileID: 5593023017045227288}
   - component: {fileID: 2943823715535099222}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30172,7 +30168,7 @@ GameObject:
   - component: {fileID: 8736726648425407382}
   - component: {fileID: 596441834471451618}
   - component: {fileID: 4129855522177117272}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35113,7 +35109,7 @@ GameObject:
   - component: {fileID: 5439888472086464260}
   - component: {fileID: 5401785828790680653}
   - component: {fileID: 6693632069610913432}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35196,7 +35192,7 @@ GameObject:
   - component: {fileID: 4941157379236902283}
   - component: {fileID: 4509960151227970456}
   - component: {fileID: 972132530127880747}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

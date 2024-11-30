@@ -1045,7 +1045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3987540163938928066}
   - component: {fileID: 7312115183919107275}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Soldier_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1849,7 +1849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1720032925960095153}
   - component: {fileID: 1633081229518109008}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Soldier_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8039498339312985587}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

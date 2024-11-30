@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6818037145369953632
+--- !u!1 &1948336194013051497
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1466488286344760585}
-  - component: {fileID: 3794500096117120139}
-  - component: {fileID: 9060064204062124895}
-  - component: {fileID: 6894296699640472168}
-  - component: {fileID: 4443972262589509059}
-  - component: {fileID: 8322050256858010680}
-  m_Layer: 11
-  m_Name: AmmoPack
+  - component: {fileID: 1707266538381778840}
+  - component: {fileID: 5872249978551855114}
+  - component: {fileID: 3432767922520636047}
+  m_Layer: 13
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1466488286344760585
+--- !u!4 &1707266538381778840
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818037145369953632}
+  m_GameObject: {fileID: 1948336194013051497}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.4905155, y: 0, z: -3.6450999}
-  m_LocalScale: {x: 2.161, y: 2.161, z: 2.161}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1466488286344760585}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3794500096117120139
+--- !u!33 &5872249978551855114
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818037145369953632}
+  m_GameObject: {fileID: 1948336194013051497}
   m_Mesh: {fileID: 4300000, guid: 05849f5e02b594f45806f79fe7fdfdc7, type: 3}
---- !u!23 &9060064204062124895
+--- !u!23 &3432767922520636047
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818037145369953632}
+  m_GameObject: {fileID: 1948336194013051497}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,6 +83,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6818037145369953632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466488286344760585}
+  - component: {fileID: 6894296699640472168}
+  - component: {fileID: 4443972262589509059}
+  - component: {fileID: 8322050256858010680}
+  m_Layer: 11
+  m_Name: AmmoPack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466488286344760585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6818037145369953632}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.4905155, y: 0, z: -3.6450999}
+  m_LocalScale: {x: 2.161, y: 2.161, z: 2.161}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1707266538381778840}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!65 &6894296699640472168
 BoxCollider:
   m_ObjectHideFlags: 0

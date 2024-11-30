@@ -314,10 +314,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
-  m_Height: 2.678743
+  m_Radius: 0.07
+  m_Height: 5.985534
   m_Direction: 2
-  m_Center: {x: 0, y: 0.04162148, z: 1.872856}
+  m_Center: {x: 0, y: 0.041621484, z: 3.5262516}
 --- !u!114 &8527862183502449028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306714263867185469}
   - component: {fileID: 8448810880224304503}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: armmesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -31,10 +31,12 @@ public class ItemSpawner : BaseSpawner
 
     void Spawn(int index)
     {
-        int enumCount = Enum.GetNames(typeof(BaseItem.Name)).Length;
-        BaseItem.Name itemName = (BaseItem.Name)UnityEngine.Random.Range(0, enumCount);
+        //int enumCount = Enum.GetNames(typeof(BaseItem.Name)).Length;
+        //BaseItem.Name itemName = (BaseItem.Name)UnityEngine.Random.Range(0, enumCount);
 
-        if(itemName == BaseItem.Name.Knife)
+        BaseItem.Name itemName = BaseItem.Name.Operator;
+
+        if (itemName == BaseItem.Name.Knife)
         {
             Spawn(index); // 다시 돌린다.
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4457131431951224065}
   - component: {fileID: 1604220181520215282}
   - component: {fileID: 575750155659115020}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9838,7 +9838,7 @@ GameObject:
   - component: {fileID: 3130038171736406880}
   - component: {fileID: 329173805160598886}
   - component: {fileID: 5162630181038629540}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29468,7 +29468,7 @@ GameObject:
   - component: {fileID: 7921030485134675817}
   - component: {fileID: 7843764305376111820}
   - component: {fileID: 7423920941902810637}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29551,7 +29551,7 @@ GameObject:
   - component: {fileID: 6658657187221801814}
   - component: {fileID: 2655939625159311698}
   - component: {fileID: 8078458076209805375}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29784,10 +29784,6 @@ MonoBehaviour:
   _weaponType: 1
   _muzzleFlash: {fileID: 2107759679256808453}
   _emptyCartridgeSpawner: {fileID: 8854378238840112560}
-  _magOriginPoint: {fileID: 0}
-  _grapPoint: {fileID: 0}
-  _magazineObject: {fileID: 0}
-  _leftHandGripPoint: {fileID: 0}
   _muzzle: {fileID: 1211931533362079851}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -29803,7 +29799,7 @@ GameObject:
   - component: {fileID: 4282356685801140647}
   - component: {fileID: 1853993528271305804}
   - component: {fileID: 5811649237956103306}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34768,7 +34764,7 @@ GameObject:
   - component: {fileID: 8415028556698473553}
   - component: {fileID: 6001913604978893279}
   - component: {fileID: 8672658138139741862}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34851,7 +34847,7 @@ GameObject:
   - component: {fileID: 4682230124420105284}
   - component: {fileID: 5254969283940412052}
   - component: {fileID: 6218913380687362540}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: slidecatch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34934,7 +34930,7 @@ GameObject:
   - component: {fileID: 6103760983111877384}
   - component: {fileID: 9159988218403958582}
   - component: {fileID: 3687898055353680723}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39899,7 +39895,7 @@ GameObject:
   - component: {fileID: 2796554127381572600}
   - component: {fileID: 2695565007662502005}
   - component: {fileID: 7131523236025094613}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: muzzlebreak
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -458,7 +458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6979831066748350840}
   - component: {fileID: 2485104382224550258}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1089,7 +1089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1720362246362403953}
   - component: {fileID: 2725512344638068659}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: FuzZombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2159,7 +2159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7225340252817640462}
   - component: {fileID: 60777286020353229}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2882,7 +2882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 806133850700123304}
   - component: {fileID: 5044286653350171958}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

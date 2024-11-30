@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &576044966277691926
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 701503803736245645}
-  m_Layer: 0
-  m_Name: MagazineOriginPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &701503803736245645
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576044966277691926}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.009816844, z: 0.16611621}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 19192491914421028}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643741942767344511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4929,7 +4898,7 @@ GameObject:
   - component: {fileID: 3421715988805525470}
   - component: {fileID: 3545063411272905344}
   - component: {fileID: 1987055092611769687}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9896,7 +9865,7 @@ GameObject:
   - component: {fileID: 9069560263359669296}
   - component: {fileID: 8876681383175140740}
   - component: {fileID: 7340334744910761888}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9968,37 +9937,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1899889400279416288
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5005435516571684253}
-  m_Layer: 0
-  m_Name: LeftHandGripPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5005435516571684253
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899889400279416288}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.27933994, y: 0.7645461, z: 0.5694117, w: -0.11492981}
-  m_LocalPosition: {x: -0.067, y: 0.002, z: 0.239}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 19192491914421028}
-  m_LocalEulerAnglesHint: {x: -110.789, y: 336.35, z: -123.418}
 --- !u!1 &2030941234187931589
 GameObject:
   m_ObjectHideFlags: 0
@@ -10010,7 +9948,7 @@ GameObject:
   - component: {fileID: 8005475983715707925}
   - component: {fileID: 7876894964467526004}
   - component: {fileID: 3807498916265188764}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14975,7 +14913,7 @@ GameObject:
   - component: {fileID: 1865817351595486872}
   - component: {fileID: 5253087018412682991}
   - component: {fileID: 1646960673248443756}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19938,7 +19876,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9003089473480040724}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GrapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19993,10 +19931,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5005435516571684253}
   - {fileID: 3176523970315810931}
   - {fileID: 8005475983715707925}
-  - {fileID: 701503803736245645}
   - {fileID: 3421715988805525470}
   - {fileID: 217812848142154862}
   - {fileID: 1865817351595486872}
@@ -20091,10 +20027,6 @@ MonoBehaviour:
   _weaponType: 0
   _muzzleFlash: {fileID: 6138010244093628210}
   _emptyCartridgeSpawner: {fileID: 3781653716495308920}
-  _magOriginPoint: {fileID: 701503803736245645}
-  _grapPoint: {fileID: 9003089473480040724}
-  _magazineObject: {fileID: 3421715988805525470}
-  _leftHandGripPoint: {fileID: 5005435516571684253}
   _muzzle: {fileID: 1838434614815562059}
   _ammoCountsInMagazine: 0
   _ammoCountsInPossession: 0
@@ -20110,7 +20042,7 @@ GameObject:
   - component: {fileID: 217812848142154862}
   - component: {fileID: 1834450802524031520}
   - component: {fileID: 4023203303388849294}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: release
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20193,7 +20125,7 @@ GameObject:
   - component: {fileID: 3176523970315810931}
   - component: {fileID: 7994399112863235407}
   - component: {fileID: 1461295129137712822}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
