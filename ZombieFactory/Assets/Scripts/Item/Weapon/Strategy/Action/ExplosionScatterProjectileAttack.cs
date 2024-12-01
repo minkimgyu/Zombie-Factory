@@ -8,14 +8,14 @@ public class ExplosionScatterProjectileAttack : ScatterProjectileAttack // ªÍ≈∫¿
     string _explosionEffectName;
     float _frontDistance;
 
-    public ExplosionScatterProjectileAttack(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public ExplosionScatterProjectileAttack(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName, float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, int pelletCount, float spreadOffset, float frontDistance,
         string explosionEffectName, Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
         Animator animator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio, pelletCount, spreadOffset,
+        : base(weaponName, fireSoundName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio, pelletCount, spreadOffset,
             damageDictionary, animator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount,
             DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge)
     {

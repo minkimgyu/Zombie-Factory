@@ -27,12 +27,12 @@ public class Operator : VariationGun
 
 
         _actionStorage.Add(new(EventType.Main, Conditon.ZoomIn),
-            new SingleProjectileAttack(_weaponName, data.range, _targetLayer, data.fireCnt,
+            new SingleProjectileAttack(_weaponName, ISoundControllable.SoundName.SniperFire, data.range, _targetLayer, data.fireCnt,
             data.penetratePower, data.mainActionbulletSpreadPowerRatio, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 
         _actionStorage.Add(new(EventType.Main, Conditon.ZoomOut),
-            new SingleProjectileAttackWithWeight(_weaponName, data.range, _targetLayer, data.fireCnt,
+            new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.SniperFire, data.range, _targetLayer, data.fireCnt,
             data.penetratePower, data.mainActionbulletSpreadPowerRatio, data.mainWeightApplier, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 

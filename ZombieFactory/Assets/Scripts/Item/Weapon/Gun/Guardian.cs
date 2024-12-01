@@ -28,7 +28,7 @@ public class Guardian : VariationGun
 
 
         _actionStorage.Add(new(EventType.Main, Conditon.Both),
-            new SingleProjectileAttackWithWeight(_weaponName, data.range, _targetLayer, data.fireCnt,
+            new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.DMRFire, data.range, _targetLayer, data.fireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.mainWeightApplier, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 

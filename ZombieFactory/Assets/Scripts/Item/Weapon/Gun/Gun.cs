@@ -112,14 +112,14 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public override void ThrowWeapon(float force)
     {
-        PositionWeapon(true);
+        PositionItem(true);
         Vector3 direction = _attackPoint.forward;
         _gunRigidbody.AddForce(direction * force, ForceMode.Impulse);
     }
 
     bool _nowDrop = false;
 
-    public override void PositionWeapon(bool nowDrop)
+    public override void PositionItem(bool nowDrop)
     {
         _nowDrop = nowDrop;
 
@@ -137,6 +137,8 @@ abstract public class Gun : BaseWeapon, IInteractable
             gameObject.SetActive(false);
         }
     }
+
+    public override bool NowDrop() { return _nowDrop; }
 
     #endregion
 
@@ -177,5 +179,25 @@ abstract public class Gun : BaseWeapon, IInteractable
     public void Interact(IInteracter interacter)
     {
         interacter.AddWeapon(this);
+    }
+
+    public void MagazinePush()
+    {
+
+    }
+
+    public void MagazinePop()
+    {
+
+    }
+
+    public void SliderPull()
+    {
+
+    }
+
+    public void LeverAdd()
+    {
+
     }
 }

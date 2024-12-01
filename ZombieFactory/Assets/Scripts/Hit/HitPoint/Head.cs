@@ -7,7 +7,7 @@ public class Head : LifePart
     public override void Initialize(IDamageable parentDamageable, ITarget parentBody, BaseFactory effectFactory)
     {
         base.Initialize(parentDamageable, parentBody, effectFactory);
-        _durability = 1.5f;
+        _durability = 10f;
         _area = IHitable.Area.Head;
     }
 }

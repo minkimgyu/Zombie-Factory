@@ -29,12 +29,6 @@ public class BattleStage : BaseStage
         }
     }
 
-    public override void Disable()
-    {
-        base.Disable();
-        _weaponSpawner.DestroyItems();
-    }
-
     void OnZombieDie()
     {
         _spawnCount -= 1;

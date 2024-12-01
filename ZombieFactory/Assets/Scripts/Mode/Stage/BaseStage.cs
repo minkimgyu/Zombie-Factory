@@ -57,6 +57,14 @@ abstract public class BaseStage : MonoBehaviour
     public virtual void Disable()
     {
         _portal.Disable();
+
+        // 아이템 삭제
+        BaseItem[] items = FindObjectsByType<BaseItem>(FindObjectsSortMode.None);
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].NowDrop() == false) continue;
+            Destroy(items[i].gameObject);
+        }
     }
 
     public Vector3 ReturnEntryPosition()

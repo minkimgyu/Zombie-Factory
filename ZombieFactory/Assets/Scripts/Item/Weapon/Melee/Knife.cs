@@ -13,6 +13,8 @@ public class Knife : BaseWeapon
         ActiveAmmoViewer = blackboard.ActiveAmmoViewer;
     }
 
+    public override bool NowDrop() { return false; }
+
     public override void OnEquip()
     {
         base.OnEquip();

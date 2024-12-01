@@ -74,7 +74,6 @@ public class ItemFactory : BaseFactory
             addressableHandler.ItemPrefabs[BaseItem.Name.Judge],
             addressableHandler.ItemDataDictionary[BaseItem.Name.Judge],
             addressableHandler.LeftRecoilDataDictionary[BaseItem.Name.Judge],
-            addressableHandler.RightRecoilDataDictionary[BaseItem.Name.Judge],
             effectFactory
         );
 

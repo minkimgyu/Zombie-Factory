@@ -20,7 +20,7 @@ public class SingleAndExplosionScatterAttackCombination : ActionState // Attack¿
 
     public SingleAndExplosionScatterAttackCombination(
 
-        BaseItem.Name weaponName, float range, int targetLayer,
+        BaseItem.Name weaponName, ISoundControllable.SoundName dotFireSound, ISoundControllable.SoundName explosionFireSound, float range, int targetLayer,
 
         int singleBulletCountsInOneShoot, float singlePenetratePower, float singleDisplacementDecreaseRatio,
         int scatterBulletCountsInOneShoot, float scatterPenetratePower, float scatterDisplacementDecreaseRatio, int pelletCount, float spreadOffset,
@@ -38,11 +38,11 @@ public class SingleAndExplosionScatterAttackCombination : ActionState // Attack¿
 
         _findRange = findRange;
 
-        singleProjectileAttack = new SingleProjectileAttack(weaponName, range, targetLayer, singleBulletCountsInOneShoot, singlePenetratePower, singleDisplacementDecreaseRatio,
+        singleProjectileAttack = new SingleProjectileAttack(weaponName, dotFireSound, range, targetLayer, singleBulletCountsInOneShoot, singlePenetratePower, singleDisplacementDecreaseRatio,
             damageDictionary, animator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 
-        scatterProjectileGunAttack = new ExplosionScatterProjectileAttack(weaponName, range, targetLayer, scatterBulletCountsInOneShoot, scatterPenetratePower, scatterDisplacementDecreaseRatio,
+        scatterProjectileGunAttack = new ExplosionScatterProjectileAttack(weaponName, explosionFireSound, range, targetLayer, scatterBulletCountsInOneShoot, scatterPenetratePower, scatterDisplacementDecreaseRatio,
             pelletCount, spreadOffset, frontDistance, explosionEffectName, scatterDamageDictionary, animator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
     }

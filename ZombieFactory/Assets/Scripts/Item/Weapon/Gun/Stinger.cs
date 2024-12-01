@@ -27,12 +27,12 @@ public class Stinger : VariationGun
 
 
         _actionStorage.Add(new(EventType.Main, Conditon.ZoomIn),
-            new SingleProjectileAttackWithWeight(_weaponName, data.range, _targetLayer, data.mainFireCnt,
+            new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.RifleFire, data.range, _targetLayer, data.mainFireCnt,
             data.penetratePower, data.bulletSpreadPowerDecreaseRatio, data.weightApplier, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 
         _actionStorage.Add(new(EventType.Main, Conditon.ZoomOut),
-             new SingleProjectileAttack(_weaponName, data.range, _targetLayer, data.mainFireCnt,
+             new SingleProjectileAttack(_weaponName, ISoundControllable.SoundName.RifleFire, data.range, _targetLayer, data.mainFireCnt,
              data.penetratePower, data.bulletSpreadPowerDecreaseRatio, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
              SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 

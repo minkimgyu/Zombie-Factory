@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class ItemSpawner : BaseSpawner
@@ -14,39 +15,44 @@ public class ItemSpawner : BaseSpawner
     {
         _storedItems = new List<BaseItem>();
         _itemFactory = itemFactory;
-
-        for (int i = 0; i < _spawnPoints.Length; i++)
-        {
-            Spawn(i);
-        }
     }
 
-    public void DestroyItems()
+    void CreateItem(int pointIndex)
     {
-        //for (int i = 0; i < _storedItems.Count; i++)
-        //{
-        //    Destroy(_storedItems[i].gameObject);
-        //}
-    }
-
-    void Spawn(int index)
-    {
-        //int enumCount = Enum.GetNames(typeof(BaseItem.Name)).Length;
-        //BaseItem.Name itemName = (BaseItem.Name)UnityEngine.Random.Range(0, enumCount);
-
-        BaseItem.Name itemName = BaseItem.Name.Operator;
+        int enumCount = Enum.GetNames(typeof(BaseItem.Name)).Length;
+        BaseItem.Name itemName = (BaseItem.Name)UnityEngine.Random.Range(0, enumCount);
 
         if (itemName == BaseItem.Name.Knife)
         {
-            Spawn(index); // 다시 돌린다.
+            CreateItem(pointIndex); // 다시 돌린다.
         }
         else
         {
             BaseItem item = _itemFactory.Create(itemName);
-            item.transform.position = _spawnPoints[index].position;
-            item.PositionWeapon(true);
+            item.transform.position = _spawnPoints[pointIndex].position;
+            item.PositionItem(true);
 
             _storedItems.Add(item);
         }
+    }
+
+    public override void Spawn()
+    {
+        BaseItem item = _itemFactory.Create(BaseItem.Name.Bucky);
+        item.transform.position = _spawnPoints[0].position;
+        item.PositionItem(true);
+
+        BaseItem item1 = _itemFactory.Create(BaseItem.Name.Vandal);
+        item1.transform.position = _spawnPoints[1].position;
+        item1.PositionItem(true);
+
+        BaseItem item2 = _itemFactory.Create(BaseItem.Name.Odin);
+        item2.transform.position = _spawnPoints[2].position;
+        item2.PositionItem(true);
+
+        //for (int i = 0; i < _spawnPoints.Length; i++)
+        //{
+        //    CreateItem(i);
+        //}
     }
 }

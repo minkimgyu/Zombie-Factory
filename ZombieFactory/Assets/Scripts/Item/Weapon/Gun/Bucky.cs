@@ -20,14 +20,14 @@ public class Bucky : Gun
         _eventStates[EventType.Sub] = new ManualEvent(EventType.Sub, data.subFireInterval, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
 
 
-        _actionStates[EventType.Main] = new ScatterProjectileAttack(_weaponName, data.range, _targetLayer, data.mainFireCnt,
+        _actionStates[EventType.Main] = new ScatterProjectileAttack(_weaponName, ISoundControllable.SoundName.ShotgunFire, data.range, _targetLayer, data.mainFireCnt,
             data.penetratePower, data.bulletSpreadPowerDecreaseRatio, data.pelletCount, data.spreadOffset, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 
         // 무기를 버릴 경우, 제거해야함
         _actionStates[EventType.Sub] = new SingleAndExplosionScatterAttackCombination(
 
-            _weaponName, data.range, _targetLayer, data.mainFireCnt, data.subActionSinglePenetratePower, data.subScatterActionBulletSpreadPowerDecreaseRatio, data.subFireCnt,
+            _weaponName, ISoundControllable.SoundName.ShotgunDotFire, ISoundControllable.SoundName.ShotgunExplosionFire, data.range, _targetLayer, data.mainFireCnt, data.subActionSinglePenetratePower, data.subScatterActionBulletSpreadPowerDecreaseRatio, data.subFireCnt,
             data.subActionScatterPenetratePower, data.subSingleActionBulletSpreadPowerDecreaseRatio, data.pelletCount, data.spreadOffset, data.frontDistance, data.explosionEffectName, data.damageDictionary,
             data.subSingleAttackDamageDictionary, data.findRange, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);

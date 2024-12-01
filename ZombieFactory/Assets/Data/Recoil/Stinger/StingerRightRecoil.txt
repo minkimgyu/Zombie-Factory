@@ -1,1 +1,1 @@
-{"$type":"RecoilRangeData, Assembly-CSharp","_point":{"$type":"SerializableVector2, Assembly-CSharp","x":0.0,"y":-45.0},"_name":"DMR","_distanceFromTarget":10.0,"_ratioBetweenTargetAndDistanceInPixel":0.00625}
+{"$type":"RecoilRangeData, Assembly-CSharp","_point":{"$type":"SerializableVector2, Assembly-CSharp","x":0.0,"y":-15.0},"_name":"DMR","_distanceFromTarget":10.0,"_ratioBetweenTargetAndDistanceInPixel":0.00625}

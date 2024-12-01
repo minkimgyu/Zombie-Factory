@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IPenetrable, IEffectable
 {
-    protected float _durability = 0;
+    protected float _durability = 7;
     Dictionary<IEffectable.ConditionType, BaseEffect.Name> _hitEffect;
 
     private void Start()

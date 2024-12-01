@@ -6,7 +6,19 @@ public interface ISoundControllable
 {
     public enum SoundName
     {
-        Fire,
+        PistolFire,
+        RifleFire,
+        DMRFire,
+        SniperFire,
+
+        ShotgunFire,
+        ShotgunDotFire,
+        ShotgunExplosionFire,
+
+
+        ZoomIn,
+        ZoomOut,
+
         Reload,
         Die
     }

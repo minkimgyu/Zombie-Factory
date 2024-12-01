@@ -18,13 +18,13 @@ using Random = UnityEngine.Random;
 // 연사가능한 총에는 탄퍼짐이 없어야함 --> 반동으로 처리하기 때문에
 public class SingleProjectileAttack : PenetrateAttack
 {
-    public SingleProjectileAttack(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public SingleProjectileAttack(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName,  float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
         Animator animator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
+        : base(weaponName, fireSoundName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
             damageDictionary, animator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount,
             DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge)
     {
@@ -57,14 +57,14 @@ public class SingleProjectileAttackWithWeight : SingleProjectileAttack // 가중치
 {
     WeightApplier _weightApplier;
 
-    public SingleProjectileAttackWithWeight(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public SingleProjectileAttackWithWeight(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName, float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, WeightApplier weightApplier, Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
 
         Animator animator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
+        : base(weaponName, fireSoundName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
             damageDictionary, animator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount,
             DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge)
     {

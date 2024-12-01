@@ -28,7 +28,7 @@ abstract public class AutomaticGun : VariationGun
 
 
         _actionStorage.Add(new(EventType.Main, Conditon.Both),
-            new SingleProjectileAttack(_weaponName, data.range, _targetLayer, data.fireCnt,
+            new SingleProjectileAttack(_weaponName, ISoundControllable.SoundName.RifleFire, data.range, _targetLayer, data.fireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 

@@ -10,7 +10,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
     List<Vector3> _path;
     int _pathIndex = 0;
     const float _delayDuration = 0.8f;
-    const float _reachDistance = 0.45f;
+    const float _reachDistance = 0.71f;
 
     Timer _delayTimer;
 
@@ -53,7 +53,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
         bool notRunning = _delayTimer.CurrentState != Timer.State.Running;
 
         // 도착 거리보다 멀거나 타이머가 다 된 경우
-        if (Vector3.Distance(targetPos, _storedTargetPos) > _reachDistance && notRunning && FindPath != null)
+        if (Vector3.Distance(targetPos, _storedTargetPos) >= _reachDistance && notRunning && FindPath != null)
         {
             _path = FindPath(transform.position, targetPos);
             _pathIndex = 0;
@@ -68,7 +68,7 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
         // 경로가 없거나 경로 끝에 도달한 경우 진행하지 않음
         float distance = Vector3.Distance(transform.position, _path[_pathIndex]);
-        bool closeEnough = distance < _reachDistance;
+        bool closeEnough = distance <= _reachDistance;
         if (closeEnough == true && _pathIndex < _path.Count - 1) _pathIndex++;
 
         return (_path[_pathIndex] - transform.position).normalized;

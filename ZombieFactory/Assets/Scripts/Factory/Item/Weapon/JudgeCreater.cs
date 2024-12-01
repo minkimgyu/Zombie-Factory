@@ -93,13 +93,11 @@ public class JudgeData : GunData
 public class JudgeCreater : GunCreater
 {
     BaseRecoilData _mainRecoilData;
-    BaseRecoilData _subRecoilData;
 
-    public JudgeCreater(BaseItem prefab, ItemData data, BaseRecoilData mainRecoilData, BaseRecoilData subRecoilData, BaseFactory effectFactory) 
+    public JudgeCreater(BaseItem prefab, ItemData data, BaseRecoilData mainRecoilData, BaseFactory effectFactory) 
         : base(prefab, data, effectFactory)
     {
         _mainRecoilData = mainRecoilData;
-        _subRecoilData = subRecoilData;
     }
 
     public override BaseItem Create()
@@ -109,9 +107,8 @@ public class JudgeCreater : GunCreater
 
         JudgeData data = _data as JudgeData;
         RecoilRangeData mainRecoilData = _mainRecoilData as RecoilRangeData;
-        RecoilRangeData subRecoilData = _subRecoilData as RecoilRangeData;
 
-        weapon.ResetData(data, mainRecoilData, subRecoilData, _effectFactory);
+        weapon.ResetData(data, mainRecoilData, _effectFactory);
         return weapon;
     }
 }

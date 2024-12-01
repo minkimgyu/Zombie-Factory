@@ -62,8 +62,9 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
 
     public float DisplacementWeight { get { return ReceiveMoveDisplacement() + _additionalWeight; } }
 
+    ISoundControllable.SoundName _fireSoundName;
 
-    public PenetrateAttack(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public PenetrateAttack(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName, float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
         Animator weaponAnimator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
@@ -71,6 +72,8 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
 
         : base(weaponName, range, targetLayer, weaponAnimator)
     {
+        _fireSoundName = fireSoundName;
+
         _fireCountInOnce = fireCountInOnce;
         _penetratePower = penetratePower;
         _displacementDecreaseRatio = displacementDecreaseRatio;
@@ -286,7 +289,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
     public override void Execute()
     {
         Vector3 muzzlePosition = ReturnMuzzlePosition();
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Fire, muzzlePosition);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(_fireSoundName, muzzlePosition);
         DecreaseAmmoCount?.Invoke(_fireCountInOnce); // ÃÑ¾Ë °¨¼Ò
 
         //Vector3 muzzlePos = ReturnMuzzlePos();

@@ -23,7 +23,8 @@ abstract public class BaseItem : MonoBehaviour
         AidPack
     }
 
-    public virtual void PositionWeapon(bool nowDrop) { }
+    public virtual void PositionItem(bool nowDrop) { }
+    public virtual bool NowDrop() { return true; }
 
     public virtual void Initialize() { }
 
@@ -35,7 +36,7 @@ abstract public class BaseItem : MonoBehaviour
     public virtual void ResetData(ClassicData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(BuckyData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(KnifeData data, BaseFactory effectFactory) { }
-    public virtual void ResetData(JudgeData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
+    public virtual void ResetData(JudgeData data, RecoilRangeData mainRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(StingerData data, RecoilMapData mainMapData, RecoilRangeData subRangeData, BaseFactory effectFactory) { }
     public virtual void ResetData(GuardianData data, RecoilRangeData mainRangeData, BaseFactory effectFactory) { }
 }

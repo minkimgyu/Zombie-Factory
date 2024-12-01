@@ -20,12 +20,12 @@ public class Classic : Gun
 
         
 
-        _actionStates[EventType.Main] = new SingleProjectileAttackWithWeight(_weaponName, data.range, _targetLayer, data.mainFireCnt,
+        _actionStates[EventType.Main] = new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.mainFireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.mainWeightApplier, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 
 
-        _actionStates[EventType.Sub] = new ScatterProjectileAttackWithWeight(_weaponName, data.range, _targetLayer, data.subFireCnt,
+        _actionStates[EventType.Sub] = new ScatterProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.subFireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.subFireCnt, data.subActionSpreadOffset, data.subWeightApplier, data.damageDictionary,
             _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 

@@ -9,6 +9,8 @@ public class Portal : MonoBehaviour, IInteractable
     bool _isActive;
     Action OnMoveToNextStageRequested;
 
+    [SerializeField] Transform _infoPoint;
+
     public void Initialize(Action OnMoveToNextStageRequested)
     {
         this.OnMoveToNextStageRequested = OnMoveToNextStageRequested;
@@ -40,7 +42,7 @@ public class Portal : MonoBehaviour, IInteractable
 
     public void OnSightEnter()
     {
-        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, "Move to next stage", transform.position);
+        EventBusManager.Instance.ObserverEventBus.Publish(ObserverEventBus.Type.ActiveInteractableInfo, true, "Move to next stage", _infoPoint.position);
     }
 
     public void OnSightExit()

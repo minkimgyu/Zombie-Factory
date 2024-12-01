@@ -13,14 +13,14 @@ public class ScatterProjectileAttack : PenetrateAttack // 산탄은 가중치가 적용되
 
     protected Vector3 _frontPosition = Vector3.zero;
 
-    public ScatterProjectileAttack(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public ScatterProjectileAttack(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName, float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, int pelletCount, float spreadOffset, //int nextFireCount,
         Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
         Animator weaponAnimator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
+        : base(weaponName, fireSoundName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio,
             damageDictionary, weaponAnimator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount,
             DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge)
     {
@@ -66,14 +66,14 @@ public class ScatterProjectileAttackWithWeight : ScatterProjectileAttack
 {
     WeightApplier _weightApplier;
 
-    public ScatterProjectileAttackWithWeight(BaseItem.Name weaponName, float range, int targetLayer, int fireCountInOnce,
+    public ScatterProjectileAttackWithWeight(BaseItem.Name weaponName, ISoundControllable.SoundName fireSoundName, float range, int targetLayer, int fireCountInOnce,
         float penetratePower, float displacementDecreaseRatio, int pelletCount, float spreadOffset, WeightApplier weightApplier,
         Dictionary<IHitable.Area, DistanceAreaData[]> damageDictionary,
 
         Animator weaponAnimator, BaseFactory effectFactory, Func<Vector3> ReturnMuzzlePosition, Func<int> ReturnLeftAmmoCount,
         Action<int> DecreaseAmmoCount, Action SpawnMuzzleFlashEffect, Action SpawnEmptyCartridge)
 
-        : base(weaponName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio, pelletCount,
+        : base(weaponName, fireSoundName, range, targetLayer, fireCountInOnce, penetratePower, displacementDecreaseRatio, pelletCount,
             spreadOffset, damageDictionary, weaponAnimator, effectFactory, ReturnMuzzlePosition, ReturnLeftAmmoCount,
             DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge)
     {

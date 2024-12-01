@@ -27,6 +27,15 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
 
     public void OnZoomCalled(bool nowTurnOn, float zoomDuration, Vector3 zoomPosition, float fieldOfView)
     {
+        if(nowTurnOn)
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomIn, transform.position);
+        }
+        else
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomOut, transform.position);
+        }
+
         _zoomPosition = zoomPosition;
         _fieldOfView = fieldOfView;
 

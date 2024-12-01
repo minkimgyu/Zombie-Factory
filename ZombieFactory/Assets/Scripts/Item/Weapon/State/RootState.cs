@@ -29,7 +29,7 @@ public class RootState : BaseWeaponState
         weapon.transform.SetParent(_weaponParent);
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
-        weapon.PositionWeapon(false);
+        weapon.PositionItem(false);
     }
 
     public override void OnStateEnter(BaseWeapon weapon, string message)
