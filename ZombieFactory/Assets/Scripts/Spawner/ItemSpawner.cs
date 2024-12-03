@@ -38,15 +38,15 @@ public class ItemSpawner : BaseSpawner
 
     public override void Spawn()
     {
-        BaseItem item = _itemFactory.Create(BaseItem.Name.Bucky);
+        BaseItem item = _itemFactory.Create(BaseItem.Name.Stinger);
         item.transform.position = _spawnPoints[0].position;
         item.PositionItem(true);
 
-        BaseItem item1 = _itemFactory.Create(BaseItem.Name.Vandal);
+        BaseItem item1 = _itemFactory.Create(BaseItem.Name.Bucky);
         item1.transform.position = _spawnPoints[1].position;
         item1.PositionItem(true);
 
-        BaseItem item2 = _itemFactory.Create(BaseItem.Name.Odin);
+        BaseItem item2 = _itemFactory.Create(BaseItem.Name.Guardian);
         item2.transform.position = _spawnPoints[2].position;
         item2.PositionItem(true);
 

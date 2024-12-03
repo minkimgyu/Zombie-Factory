@@ -71,6 +71,48 @@ MonoBehaviour:
     m_SerializedLabels:
     - Sound
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2095cd0f158d8ec4ab6786c3e1583cda
+    m_Address: EquipMagazineGun
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ef62fa7e19bcff4e8538a20a6013add
+    m_Address: MagOut
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b6c2a4ae54f50a48b57f8fde85f2c29
+    m_Address: MagIn
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f199d45201ed9ac4d9d8aab779a81db1
+    m_Address: PushHandle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c37142ddab33a0d42a875bc839ff92b2
+    m_Address: EquipKnife
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afd5151c01ec9b34088f0683e299f484
+    m_Address: EquipShotgun
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 344f8db8b9ab2ee4894ff8581c643c1e
+    m_Address: PushAmmo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sound
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2784d8f812bbaff4585775255b087d6e, type: 2}
   m_SchemaSet:

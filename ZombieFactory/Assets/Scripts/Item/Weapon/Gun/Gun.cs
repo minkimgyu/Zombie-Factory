@@ -181,23 +181,45 @@ abstract public class Gun : BaseWeapon, IInteractable
         interacter.AddWeapon(this);
     }
 
-    public void MagazinePush()
+    Dictionary<Name, ISoundControllable.SoundName> _equipSoundName = new Dictionary<Name, ISoundControllable.SoundName>
     {
+        { Name.Vandal, ISoundControllable.SoundName.EquipMagazineGun },
+        { Name.Phantom, ISoundControllable.SoundName.EquipMagazineGun },
+        { Name.Odin, ISoundControllable.SoundName.EquipMagazineGun },
 
+        { Name.Judge, ISoundControllable.SoundName.EquipMagazineGun },
+        { Name.Stinger, ISoundControllable.SoundName.EquipMagazineGun },
+        { Name.Guardian, ISoundControllable.SoundName.EquipMagazineGun },
+
+        { Name.Operator, ISoundControllable.SoundName.EquipMagazineGun },
+        { Name.Classic, ISoundControllable.SoundName.EquipMagazineGun },
+
+        { Name.Knife, ISoundControllable.SoundName.EquipKnife },
+        { Name.Bucky, ISoundControllable.SoundName.EquipShotgun },
+    };
+
+    public virtual void PlayEquipSound()
+    {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(_equipSoundName[_weaponName]);
     }
 
-    public void MagazinePop()
+    public virtual void PlayMagazineInSound()
     {
-
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagIn);
     }
 
-    public void SliderPull()
+    public virtual void PlayMagazineOutSound()
     {
-
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagOut);
     }
 
-    public void LeverAdd()
+    public virtual void PlayPullHandleSound()
     {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PullHandle);
+    }
 
+    public virtual void PlayPushHandleSound()
+    {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PushHandle);
     }
 }

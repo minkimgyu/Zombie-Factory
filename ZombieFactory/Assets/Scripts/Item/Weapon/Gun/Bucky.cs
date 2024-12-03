@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Bucky : Gun
 {
+    public void PlayPushAmmoSound()
+    {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PushAmmo);
+    }
+
     public override void ResetData(BuckyData data, RecoilRangeData mainRangeData, RecoilRangeData subRangeData, BaseFactory effectFactory)
     {
         _equipFinishTime = data.equipFinishTime;

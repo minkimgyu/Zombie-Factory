@@ -15,6 +15,17 @@ public interface ISoundControllable
         ShotgunDotFire,
         ShotgunExplosionFire,
 
+        MagIn,
+        MagOut,
+
+        PullHandle,
+        PushHandle,
+
+        PushAmmo,
+        EquipShotgun,
+        EquipKnife,
+
+        EquipMagazineGun,
 
         ZoomIn,
         ZoomOut,
