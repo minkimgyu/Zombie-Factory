@@ -102,7 +102,7 @@ abstract public class BaseMoveComponent : MonoBehaviour
             _storedDirection = new Vector3(0, _rigid.velocity.y, 0);
         }
 
-        ResetAnimator?.Invoke(_storedDirection);
+        //ResetAnimator?.Invoke(_storedDirection);
     }
 
     public virtual void Move(Vector3 direction, float speed, bool onAir = false)

@@ -137,7 +137,7 @@ public class StageController : MonoBehaviour
         BaseStage storedBattleStage = null;
         _stageQueue.Enqueue(_startStage);
 
-        for (int i = 1; i < _maxStageCount; i++)
+        for (int i = 0; i < _maxStageCount; i++)
         {
             BaseStage battleStage = ReturnRandomStage();
 

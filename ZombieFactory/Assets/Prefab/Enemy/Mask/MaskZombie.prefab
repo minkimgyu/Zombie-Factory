@@ -1618,8 +1618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0, b: 0, a: 1}
-  _angle: 90
-  _radius: 5
+  _angle: 270
+  _radius: 8
   _maxSteps: 20
 --- !u!114 &7646547717473651823
 MonoBehaviour:
@@ -1652,7 +1652,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6133506197880355105
 GameObject:

@@ -289,7 +289,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
     public override void Execute()
     {
         Vector3 muzzlePosition = ReturnMuzzlePosition();
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(_fireSoundName, muzzlePosition);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(_fireSoundName, muzzlePosition, 0.5f);
         DecreaseAmmoCount?.Invoke(_fireCountInOnce); // ÃÑ¾Ë °¨¼Ò
 
         //Vector3 muzzlePos = ReturnMuzzlePos();

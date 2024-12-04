@@ -11,6 +11,11 @@ public class SoundPlayer : PoolObject
         _audioSource = GetComponent<AudioSource>();
     }
 
+    public void ResetVolume(float ratio)
+    {
+        _audioSource.volume = ratio;
+    }
+
     public void Play(AudioClip clip)
     {
         _audioSource.clip = clip;

@@ -58,7 +58,7 @@ namespace AI.Zombie
 
         void OnNoiseEnter(ITarget target)
         {
-            if (_noiseQueue.Count == _maxNoiseQueueSize)
+            if (_noiseQueue.Count >= _maxNoiseQueueSize)
             {
                 _noiseQueue.Dequeue(); // 하나 뺴준다.
             }
@@ -193,8 +193,7 @@ namespace AI.Zombie
             _noiseCaptureComponent.Initialize(OnNoiseEnter);
             _noiseCaptureComponent.Resize(_noiseCaptureRadius);
             
-            _sightComponent.SetUp(5, 90, new List<IIdentifiable.Type> { IIdentifiable.Type.Human }, _sightPoint);
-            _sightComponent.Resize(_targetCaptureRadius);
+            _sightComponent.SetUp(_targetCaptureRadius, 270, new List<IIdentifiable.Type> { IIdentifiable.Type.Human }, _sightPoint);
 
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 

@@ -47,7 +47,7 @@ public interface ISoundControllable
 
     void PlaySFX(SoundName name);
     void PlaySFX(SoundName name, float volume);
-    void PlaySFX(SoundName name, Vector3 pos);
+    void PlaySFX(SoundName name, Vector3 pos, float volume);
 
     void StopBGM();
     void StopAllSound();

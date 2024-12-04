@@ -15,13 +15,19 @@ public class SightComponent : CaptureComponent<ITarget>
 
     List<IIdentifiable.Type> _targetTypes = new List<IIdentifiable.Type>();
 
+    LayerMask _raycastLayerMask;
+
     public void SetUp(float radius, float angle, List<IIdentifiable.Type> targetTypes, Transform sightPoint)
     {
         _captureRadius = radius;
         _captureAngle = angle;
         _targetTypes = targetTypes;
         _sightPoint = sightPoint;
+
+        _raycastLayerMask = LayerMask.GetMask("Target", "NonPass");
+
         Initialize(OnEnter, OnExit);
+        Resize(_captureRadius);
 
         CircularSectorDrawer drawer = GetComponent<CircularSectorDrawer>();
         drawer.ResetData(angle, radius);
@@ -50,7 +56,7 @@ public class SightComponent : CaptureComponent<ITarget>
         Vector3 dir = (targetPos - sightPoint).normalized;
 
         RaycastHit hit;
-        Physics.Raycast(_sightPoint.position, dir, out hit, _captureRadius, _layerMask);
+        Physics.Raycast(_sightPoint.position, dir, out hit, _captureRadius, _raycastLayerMask);
         if (hit.collider == null) return false;
         
         ITarget findTarget = hit.transform.GetComponent<ITarget>();

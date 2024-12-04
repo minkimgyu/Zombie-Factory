@@ -74,5 +74,7 @@ public class GameMode : MonoBehaviour
 
         _effectEmitter = new EffectEmitter(factoryCollection.Factories[FactoryCollection.Type.Effect]);
         _stageController.Initialize(_totalStageCount, factoryCollection, _cameraController, _playerUIController);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

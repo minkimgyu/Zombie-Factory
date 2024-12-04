@@ -29,11 +29,11 @@ public class ZoomComponent : MonoBehaviour//, IObserver<GameObject, bool, float,
     {
         if(nowTurnOn)
         {
-            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomIn, transform.position);
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomIn, transform.position, 0.5f);
         }
         else
         {
-            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomOut, transform.position);
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.ZoomOut, transform.position, 0.5f);
         }
 
         _zoomPosition = zoomPosition;

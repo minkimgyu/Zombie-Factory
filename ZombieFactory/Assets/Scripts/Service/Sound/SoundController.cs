@@ -41,12 +41,13 @@ public class SoundController : MonoBehaviour, ISoundControllable
         _bgmPlayer.Play();
     }
 
-    public void PlaySFX(ISoundControllable.SoundName name, Vector3 pos)
+    public void PlaySFX(ISoundControllable.SoundName name, Vector3 pos, float volume)
     {
         if (_clipDictionary.ContainsKey(name) == false) return;
 
         SoundPlayer soundPlayer = _soundFactory.Create();
         soundPlayer.transform.position = pos;
+        soundPlayer.ResetVolume(volume);
         soundPlayer.Play(_clipDictionary[name]);
     }
 
