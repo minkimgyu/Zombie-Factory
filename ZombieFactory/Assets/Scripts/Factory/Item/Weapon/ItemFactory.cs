@@ -31,14 +31,14 @@ public class ItemFactory : BaseFactory
 
         new AidPackCreater(
            addressableHandler.ItemPrefabs[BaseItem.Name.AidPack],
-           new AidPackData(30)
+           new AidPackData(100)
        );
 
         _weaponCreaters[BaseItem.Name.AmmoPack] =
 
         new AmmoPackCreater(
            addressableHandler.ItemPrefabs[BaseItem.Name.AmmoPack],
-           new AmmoPackData(100)
+           new AmmoPackData(200)
         );
 
         _weaponCreaters[BaseItem.Name.Vandal] =

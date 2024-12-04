@@ -7,6 +7,11 @@ public class Knife : BaseWeapon
 {
     Action<bool> ActiveAmmoViewer;
 
+    public void PlayStabSound()
+    {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.KnifeStap, 0.7f);
+    }
+
     public override void OnRooting(WeaponBlackboard blackboard)
     {
         base.OnRooting(blackboard);

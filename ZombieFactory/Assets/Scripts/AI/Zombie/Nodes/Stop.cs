@@ -6,9 +6,9 @@ namespace BehaviorTree.Nodes
 {
     public class Stop : Node
     {
-        TPSMoveComponent _moveComponent;
+        BaseMoveComponent _moveComponent;
 
-        public Stop(TPSMoveComponent moveComponent)
+        public Stop(BaseMoveComponent moveComponent)
         {
             _moveComponent = moveComponent;
         }

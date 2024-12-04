@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class Test : MonoBehaviour
 {
@@ -40,6 +39,9 @@ public class Test : MonoBehaviour
 
         Vector3 chestFowardDir = _playerChest.forward;
         Debug.DrawRay(_playerChest.position, chestFowardDir * viewDistance, Color.yellow);
+
+
+        // 여기서 부터 넣기
 
         Vector3 rotationDir = _viewNomalDir;
         rotationDir.y = 0;

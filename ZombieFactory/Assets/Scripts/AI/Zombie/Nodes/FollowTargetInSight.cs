@@ -9,13 +9,13 @@ namespace BehaviorTree.Nodes
         SightComponent _sightComponent;
 
         PathSeeker _pathSeeker;
-        TPSMoveComponent _moveComponent;
+        BaseMoveComponent _moveComponent;
         float _moveSpeed;
 
         public FollowTargetInSight(
             SightComponent sightComponent,
             PathSeeker pathSeeker,
-            TPSMoveComponent moveComponent,
+            BaseMoveComponent moveComponent,
             float moveSpeed)
         {
             _sightComponent = sightComponent;

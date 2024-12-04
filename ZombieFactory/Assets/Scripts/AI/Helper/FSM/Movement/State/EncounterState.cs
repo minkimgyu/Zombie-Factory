@@ -13,8 +13,8 @@ namespace AI.Swat.Movement
         protected Tree _bt;
         SightComponent _sightComponent;
 
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
 
         public EncounterState(
             FSM<FreeRoleState.State> fsm,
@@ -28,13 +28,14 @@ namespace AI.Swat.Movement
             FormationData formationData,
 
             Transform myTransform,
+            Transform attackPoint,
             SightComponent sightComponent,
 
             PathSeeker pathSeeker,
 
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent) : base(fsm)
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent) : base(fsm)
         {
             // 타겟을 향해 바라보기
             // 타겟이 가까워진다면 뒤로 가고 --> 플레이어의 주변 위치로 이동한다.
@@ -52,7 +53,7 @@ namespace AI.Swat.Movement
                 (
                     new List<Node>()
                     {
-                        new ViewTarget(myTransform, sightComponent, viewComponent),
+                        new ViewTarget(attackPoint, sightComponent, viewComponent),
                         new Selector
                         (
                             new List<Node>()

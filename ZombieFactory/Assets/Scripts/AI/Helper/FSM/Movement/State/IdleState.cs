@@ -14,8 +14,8 @@ namespace AI.Swat.Movement
         Transform _myTransform;
         SightComponent _sightComponent;
 
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
         Tree _bt;
 
         NowFarFromPlayer _nowFarFromTargetNode; // 상속으로 여러개를 만드는게 더 효율적이다.
@@ -34,8 +34,8 @@ namespace AI.Swat.Movement
 
             FormationData formationData,
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
 
             Transform myTransform,
             SightComponent sightComponent,

@@ -35,9 +35,17 @@ public class PauseController : MonoBehaviour
         inputable.AddEvent(IInputable.Type.Escape, new KeyCommand(Activate));
 
         _content.SetActive(false);
-        _resumeBtn.onClick.AddListener(() => { Activate(); });
+            
+        _resumeBtn.onClick.AddListener(() => 
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f);
+            Activate(); 
+        });
+
         _returnToMenuBtn.onClick.AddListener(() => 
         {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f);
+
             IInputable inputable = ServiceLocater.ReturnInputHandler();
             inputable.Clear();
 

@@ -72,8 +72,8 @@ namespace AI.Swat
         FreeRoleState _freeRoleState;
         BaseFactory _ragdollFactory;
 
-        TPSMoveComponent _moveComponent;
-        TPSViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
         PathSeeker _pathSeeker;
 
         public override void ResetData(SwatData data, BaseFactory effectFactory, BaseFactory ragdollFactory)
@@ -195,7 +195,10 @@ namespace AI.Swat
 
                         _viewComponent,
                         _moveComponent,
+
                         transform,
+                        _attackPoint,
+
                         _sightComponent,
                         _pathSeeker
                     )
@@ -213,7 +216,10 @@ namespace AI.Swat
 
                         _viewComponent,
                         _moveComponent,
+
                         transform,
+                        _attackPoint,
+
                         _sightComponent,
                         _pathSeeker
                     )
@@ -241,7 +247,7 @@ namespace AI.Swat
             _sightComponent.SetUp(_captureRadius, _captureAngle, new List<IIdentifiable.Type> { IIdentifiable.Type.Zombie }, _sightPoint);
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 
-            _viewComponent = GetComponent<TPSViewComponent>();
+            _viewComponent = GetComponent<BaseViewComponent>();
             _viewComponent.Initialize(70, rigidbody, _attackPoint);
 
             _moveComponent = GetComponent<TPSMoveComponent>();

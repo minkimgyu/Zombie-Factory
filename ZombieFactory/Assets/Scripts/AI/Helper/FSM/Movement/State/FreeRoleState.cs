@@ -28,10 +28,12 @@ namespace AI.Swat.Movement
 
             FormationData formationData,
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
 
             Transform myTransform,
+            Transform attackPoint,
+
             SightComponent sightComponent,
             PathSeeker pathSeeker) : base(fsm)
         {
@@ -69,6 +71,7 @@ namespace AI.Swat.Movement
                         formationData,
 
                         myTransform,
+                        attackPoint,
                         sightComponent,
                         pathSeeker,
                         viewComponent,

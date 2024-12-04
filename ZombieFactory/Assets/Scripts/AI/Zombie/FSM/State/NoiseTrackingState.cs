@@ -12,8 +12,8 @@ namespace AI.Zombie
 
         float _moveSpeed;
 
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
 
         Animator _animator;
         SightComponent _sightComponent;
@@ -23,8 +23,8 @@ namespace AI.Zombie
 
             float moveSpeed,
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
 
             SightComponent sightComponent,
             Animator animator,

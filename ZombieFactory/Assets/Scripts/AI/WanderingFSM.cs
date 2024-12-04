@@ -22,8 +22,8 @@ public class WanderingFSM
     float _moveRange;
 
     Timer _stateTimer;
-    TPSViewComponent _viewComponent;
-    TPSMoveComponent _moveComponent;
+    BaseViewComponent _viewComponent;
+    BaseMoveComponent _moveComponent;
 
     Transform _myTransform;
     SightComponent _sightComponent;
@@ -38,8 +38,8 @@ public class WanderingFSM
         float stateChangeDuration,
         float moveRange,
 
-        TPSViewComponent viewComponent,
-        TPSMoveComponent moveComponent,
+        BaseViewComponent viewComponent,
+        BaseMoveComponent moveComponent,
         PathSeeker pathSeeker,
 
         Transform myTransform,

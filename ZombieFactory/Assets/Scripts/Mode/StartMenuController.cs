@@ -10,8 +10,20 @@ public class StartMenuController : MonoBehaviour
 
     private void Start()
     {
-        _startBtn.onClick.AddListener(() => { ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.PlayScene); });
-        _exitBtn.onClick.AddListener(OnExit);
+        ServiceLocater.ReturnSoundPlayer().PlayBGM(ISoundControllable.SoundName.Lobby, 0.6f);
+
+        _startBtn.onClick.AddListener(() => 
+        { 
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f); 
+            ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.PlayScene); 
+        });
+
+
+        _exitBtn.onClick.AddListener(() => 
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f);
+            OnExit();
+        });
     }
 
     public void OnExit()

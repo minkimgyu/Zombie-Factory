@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
+using System.Diagnostics;
 
 public class GridComponent : MonoBehaviour
 {
@@ -42,15 +43,17 @@ public class GridComponent : MonoBehaviour
         injectPathfind.AddPathfind(_groundPathfinder.FindPath);
     }
 
-    public void Initialize()
+    public void CreateGrid()
     {
-        _pathSeekerCaptureComponent = GetComponentInChildren<PathSeekerCaptureComponent>();
-        _pathSeekerCaptureComponent.Initialize(OnEnter);
-
-        _gridGenerator = GetComponent<GridGenerator>();
-        _groundPathfinder = GetComponent<GroundPathfinder>();
-
         _grid = _gridGenerator.CreateGrid(_nodeSize, _sizeOfGrid, _blockMask, _nonPassMask);
+    }
+
+    public void InitializeNodes()
+    {
+        //Stopwatch stopwatch = new Stopwatch();
+        //// 시간 측정 시작
+        //stopwatch.Start();
+
         for (int x = 0; x < _sizeOfGrid.x; x++)
         {
             for (int y = 0; y < _sizeOfGrid.y; y++)
@@ -63,6 +66,20 @@ public class GridComponent : MonoBehaviour
             }
         }
 
+        //// 시간 측정 종료
+        //stopwatch.Stop();
+
+        //// 걸린 시간 출력
+        //UnityEngine.Debug.Log($"코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
+    }
+
+    public void Initialize()
+    {
+        _pathSeekerCaptureComponent = GetComponentInChildren<PathSeekerCaptureComponent>();
+        _pathSeekerCaptureComponent.Initialize(OnEnter);
+
+        _gridGenerator = GetComponent<GridGenerator>();
+        _groundPathfinder = GetComponent<GroundPathfinder>();
         _groundPathfinder.Initialize(this);
     }
 

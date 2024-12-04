@@ -10,10 +10,17 @@ public class ResultMenuController : MonoBehaviour
 
     private void Start()
     {
+        _returnToMenuBtn.onClick.AddListener(() => 
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f);
+            ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.StartScene); 
+        });
 
-
-        _returnToMenuBtn.onClick.AddListener(() => { ServiceLocater.ReturnSceneController().ChangeScene(ISceneControllable.SceneName.StartScene); });
-        _exitBtn.onClick.AddListener(OnExit);
+        _exitBtn.onClick.AddListener(() =>
+        {
+            ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.Click, 0.3f);
+            OnExit();
+        });
     }
 
     public void OnExit()

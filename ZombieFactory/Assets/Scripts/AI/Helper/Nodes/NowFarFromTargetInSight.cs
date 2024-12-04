@@ -26,7 +26,7 @@ public class NowFarFromTargetInSight : EvaluatingDistance
         ITarget target = _sightComponent.ReturnTargetInSight();
         SwitchState(target.ReturnTargetPoint().position);
 
-        Debug.Log($"NowCloseToTarget : {_state}");
+        //Debug.Log($"NowCloseToTarget : {_state}");
 
         switch (_state)
         {

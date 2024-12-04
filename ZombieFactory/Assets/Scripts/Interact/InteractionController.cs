@@ -14,21 +14,6 @@ public class InteractionController : MonoBehaviour
 
     IInteracter _interacter;
 
-    public void GetWeapon(BaseWeapon weapon)
-    {
-        _interacter.AddWeapon(weapon);
-    }
-
-    public void GetAmmoPack(int ammoCount)
-    {
-        _interacter.GetAmmoPack(ammoCount);
-    }
-
-    public void GetAidPack(float healPoint)
-    {
-        _interacter.GetAidPack(healPoint);
-    }
-
     public void OnHandleInteract()
     {
         if (_interactableTarget as UnityEngine.Object == null) return;

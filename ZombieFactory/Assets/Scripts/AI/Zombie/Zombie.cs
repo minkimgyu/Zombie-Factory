@@ -38,8 +38,8 @@ namespace AI.Zombie
 
         Animator _animator;
 
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
         PathSeeker _pathSeeker;
 
         ZombieFSM _zombieFSM;
@@ -198,10 +198,10 @@ namespace AI.Zombie
 
             Rigidbody rigidbody = GetComponent<Rigidbody>();
 
-            _viewComponent = GetComponent<TPSViewComponent>();
+            _viewComponent = GetComponent<BaseViewComponent>();
             _viewComponent.Initialize(70, rigidbody);
 
-            _moveComponent = GetComponent<TPSMoveComponent>();
+            _moveComponent = GetComponent<BaseMoveComponent>();
             _moveComponent.Initialize(rigidbody, ResetAnimator);
         }
 

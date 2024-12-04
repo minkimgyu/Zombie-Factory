@@ -13,8 +13,8 @@ namespace AI.Zombie
         SightComponent _sightComponent;
         Animator _animator; // 인터페이스로 처리하기
 
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
 
         WanderingFSM _wanderingFSM;
 
@@ -25,8 +25,8 @@ namespace AI.Zombie
             float stateChangeDuration,
             float moveRange,
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
             Animator animator,
             PathSeeker pathSeeker,
 

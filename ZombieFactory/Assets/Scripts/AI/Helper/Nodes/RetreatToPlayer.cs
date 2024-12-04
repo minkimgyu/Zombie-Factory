@@ -13,7 +13,7 @@ namespace BehaviorTree.Nodes
         Vector3 _offset;
 
         PathSeeker _pathSeeker;
-        TPSMoveComponent _moveComponent;
+        BaseMoveComponent _moveComponent;
         float _moveSpeed;
         float _findDelay;
 
@@ -21,7 +21,7 @@ namespace BehaviorTree.Nodes
 
         public RetreatToPlayer(
             PathSeeker pathSeeker,
-            TPSMoveComponent moveComponent,
+            BaseMoveComponent moveComponent,
 
             FormationData formationData,
 

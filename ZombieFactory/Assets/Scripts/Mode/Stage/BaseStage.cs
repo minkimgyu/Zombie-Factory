@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 abstract public class BaseStage : MonoBehaviour
 {
@@ -14,6 +15,31 @@ abstract public class BaseStage : MonoBehaviour
     public virtual void Initialize(
         BaseFactory lifeFactory,
         BaseFactory weaponFactory,
+
+        Action OnStageClearRequested,
+        Action OnMoveToNextStageRequested)
+    {
+        this.OnStageClearRequested = OnStageClearRequested;
+
+        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
+        gridComponent.Initialize();
+        gridComponent.CreateGrid();
+
+        _portal = GetComponentInChildren<Portal>();
+        _portal.Initialize(OnMoveToNextStageRequested);
+    }
+
+    public async void InitializeNodes(Action OnComplete)
+    {
+        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
+        await Task.Run(() => { gridComponent.InitializeNodes(); });
+
+        OnComplete?.Invoke();
+    }
+
+    public virtual void Initialize(
+        BaseFactory lifeFactory,
+        BaseFactory weaponFactory,
         BaseFactory viewerFactory, 
 
         CameraController cameraController,
@@ -22,29 +48,7 @@ abstract public class BaseStage : MonoBehaviour
         Action OnStageClearRequested,
         Action OnMoveToNextStageRequested)
     {
-        this.OnStageClearRequested = OnStageClearRequested;
-
-        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
-        gridComponent.Initialize();
-
-        _portal = GetComponentInChildren<Portal>();
-        _portal.Initialize(OnMoveToNextStageRequested);
-    }
-
-    public virtual void Initialize(
-        BaseFactory lifeFactory,
-        BaseFactory weaponFactory,
-
-        Action OnStageClearRequested,
-        Action OnMoveToNextStageRequested)
-    {
-        this.OnStageClearRequested = OnStageClearRequested;
-
-        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
-        gridComponent.Initialize();
-
-        _portal = GetComponentInChildren<Portal>();
-        _portal.Initialize(OnMoveToNextStageRequested);
+        Initialize(lifeFactory, weaponFactory, OnStageClearRequested, OnMoveToNextStageRequested);
     }
 
     public abstract void Spawn();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Diagnostics;
 
 public class StageController : MonoBehaviour
 {
@@ -37,8 +38,7 @@ public class StageController : MonoBehaviour
         _stageViewer.Initialize();
         _stageViewer.OnStageChange(_stageCount);
 
-        CreateRandomStage();
-        StartPlay();
+        InitializeStages();
     }
 
     public void OnStageClearRequested()
@@ -74,18 +74,24 @@ public class StageController : MonoBehaviour
         return _battleStages[UnityEngine.Random.Range(0, startStageCount)];
     }
 
-    public void CreateRandomStage()
-    {
-        _startStage.Initialize(
-                _factoryCollection.Factories[FactoryCollection.Type.Life],
-                _factoryCollection.Factories[FactoryCollection.Type.Item],
-                _factoryCollection.Factories[FactoryCollection.Type.Viewer],
+    int _initializedStageCount = 0;
+    int _totalStageCount = 0;
 
-                _cameraController,
-                _playerUIController,
+    public void InitializeStages()
+    {
+        _totalStageCount = 1 + _battleStages.Length;
+
+        _startStage.Initialize(
+            _factoryCollection.Factories[FactoryCollection.Type.Life],
+            _factoryCollection.Factories[FactoryCollection.Type.Item],
+            _factoryCollection.Factories[FactoryCollection.Type.Viewer],
+
+            _cameraController,
+            _playerUIController,
                 
-                OnStageClearRequested,
-                OnMoveToNextStageRequested);
+            OnStageClearRequested,
+            OnMoveToNextStageRequested
+        );
 
         for (int i = 0; i < _battleStages.Length; i++)
         {
@@ -94,9 +100,40 @@ public class StageController : MonoBehaviour
                 _factoryCollection.Factories[FactoryCollection.Type.Item],
 
                 OnStageClearRequested,
-                OnMoveToNextStageRequested);
+                OnMoveToNextStageRequested
+            );
         }
 
+        stopwatch = new Stopwatch();
+        // 시간 측정 시작
+        stopwatch.Start();
+
+        _startStage.InitializeNodes(OnInitializeComplete);
+        for (int i = 0; i < _battleStages.Length; i++)
+        {
+            _battleStages[i].InitializeNodes(OnInitializeComplete);
+        }
+    }
+
+    Stopwatch stopwatch;
+
+    void OnInitializeComplete()
+    {
+        _initializedStageCount++;
+        if (_totalStageCount == _initializedStageCount)
+        {
+            // 시간 측정 종료
+            stopwatch.Stop();
+            // 걸린 시간 출력
+            UnityEngine.Debug.Log($"마지막 코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
+
+            CreateStageQueue();
+            StartPlay();
+        }
+    }
+
+    void CreateStageQueue()
+    {
         BaseStage storedBattleStage = null;
         _stageQueue.Enqueue(_startStage);
 

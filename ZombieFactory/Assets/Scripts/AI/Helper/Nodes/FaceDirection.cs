@@ -8,12 +8,12 @@ namespace BehaviorTree.Nodes
     public class FaceDirection : Node
     {
         Transform _myTransform;
-        TPSViewComponent _viewComponent;
+        BaseViewComponent _viewComponent;
         FormationData _formationData;
 
         Vector3 _direction;
 
-        public FaceDirection(Transform myTransform, FormationData formationData, TPSViewComponent viewComponent)
+        public FaceDirection(Transform myTransform, FormationData formationData, BaseViewComponent viewComponent)
         {
             _myTransform = myTransform;
             _formationData = formationData;

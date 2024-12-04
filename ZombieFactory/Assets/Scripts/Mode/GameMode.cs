@@ -9,7 +9,7 @@ public class GameMode : MonoBehaviour
     [SerializeField] PlayerUIController _playerUIController;
     [SerializeField] WeaponInfoViewer _weaponInfoViewer;
     [SerializeField] Transform _effectParent;
-    [SerializeField] int _totalStageCount = 5;
+    int _totalStageCount = 10;
 
     [SerializeField] PauseController _pauseController;
 
@@ -26,12 +26,15 @@ public class GameMode : MonoBehaviour
 
     private void Start()
     {
+        ServiceLocater.ReturnSoundPlayer().PlayBGM(ISoundControllable.SoundName.InGame, 0.6f);
+
         _stageController = GetComponent<StageController>();
         EventBusManager.Instance.Initialize(new MainEventBus(), new ObserverEventBus());
 
         EventBusManager.Instance.MainEventBus.Register(
             MainEventBus.Type.GameClear, 
             new ResultCommand(() => {
+                ServiceLocater.ReturnSoundPlayer().StopBGM();
 
                 IInputable inputable = ServiceLocater.ReturnInputHandler();
                 inputable.Clear();
@@ -44,6 +47,7 @@ public class GameMode : MonoBehaviour
         EventBusManager.Instance.MainEventBus.Register(
             MainEventBus.Type.GameOver, 
             new ResultCommand(() => {
+                ServiceLocater.ReturnSoundPlayer().StopBGM();
 
                 IInputable inputable = ServiceLocater.ReturnInputHandler();
                 inputable.Clear();

@@ -12,8 +12,8 @@ namespace AI.Swat.Movement
     {
         // bt 넣어주기
         Tree _bt;
-        TPSViewComponent _viewComponent;
-        TPSMoveComponent _moveComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
 
         public BuildFormationState(
             FSM<Swat.MovementState> fsm,
@@ -23,10 +23,11 @@ namespace AI.Swat.Movement
 
             FormationData formationData,
 
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
 
             Transform myTransform,
+            Transform attackPoint,
             SightComponent sightComponent,
             PathSeeker pathSeeker
             ) : base(fsm)
@@ -53,7 +54,7 @@ namespace AI.Swat.Movement
                                     new List<Node>()
                                     {
                                         new NowCloseToTargetInSight(sightComponent, myTransform, targetCaptureRadius, gap),
-                                        new ViewTarget(myTransform, sightComponent, viewComponent)
+                                        new ViewTarget(attackPoint, sightComponent, viewComponent)
                                     }
                                 ),
                                 new FaceDirection(myTransform, formationData, viewComponent)

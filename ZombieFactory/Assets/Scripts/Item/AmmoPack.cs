@@ -8,6 +8,8 @@ public class AmmoPack : BaseItem, IInteractable
 
     public void Interact(IInteracter interacter)
     {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.GetItem, 0.8f);
+
         interacter.GetAmmoPack(_ammoCount);
         Destroy(gameObject);
     }

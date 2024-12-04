@@ -192,7 +192,7 @@ abstract public class PenetrateAttack : ApplyAttack //, IDisplacement
         float diatance = Vector3.Distance(attackPosition, hitPoint);
         Vector3 direction = (hitPoint - attackPosition).normalized;
 
-        Debug.DrawRay(attackPosition, direction * diatance, Color.green, 10); // 디버그 레이를 카메라가 바라보고 있는 방향으로 발사한다.
+        //Debug.DrawRay(attackPosition, direction * diatance, Color.green, 10); // 디버그 레이를 카메라가 바라보고 있는 방향으로 발사한다.
     }
 
     void DrawTrajectoryLine(Vector3 hitPosition)

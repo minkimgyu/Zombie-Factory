@@ -26,13 +26,13 @@ public class EffectFactory : BaseFactory
     {
         _effectCreaters = new Dictionary<BaseEffect.Name, EffectCreater>();
 
-        _effectCreaters[BaseEffect.Name.PenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.PenetrateBulletHole], 150, parent);
-        _effectCreaters[BaseEffect.Name.NonPenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.NonPenetrateBulletHole], 150, parent);
-        _effectCreaters[BaseEffect.Name.ObjectFragmentation] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.ObjectFragmentation], 150, parent);
-        _effectCreaters[BaseEffect.Name.TrajectoryLine] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.TrajectoryLine], 150, parent);
+        _effectCreaters[BaseEffect.Name.PenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.PenetrateBulletHole], 250, parent);
+        _effectCreaters[BaseEffect.Name.NonPenetrateBulletHole] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.NonPenetrateBulletHole], 250, parent);
+        _effectCreaters[BaseEffect.Name.ObjectFragmentation] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.ObjectFragmentation], 250, parent);
+        _effectCreaters[BaseEffect.Name.TrajectoryLine] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.TrajectoryLine], 250, parent);
 
         _effectCreaters[BaseEffect.Name.KnifeMark] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.KnifeMark], 10, parent);
-        _effectCreaters[BaseEffect.Name.DamageTxt] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.DamageTxt], 150, parent);
+        _effectCreaters[BaseEffect.Name.DamageTxt] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.DamageTxt], 250, parent);
         _effectCreaters[BaseEffect.Name.Explosion] = new EffectCreater(addressableHandler.EffectPrefabs[BaseEffect.Name.Explosion], 10, parent);
     }
 

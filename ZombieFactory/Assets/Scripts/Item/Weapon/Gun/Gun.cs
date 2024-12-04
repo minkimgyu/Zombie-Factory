@@ -200,26 +200,26 @@ abstract public class Gun : BaseWeapon, IInteractable
 
     public virtual void PlayEquipSound()
     {
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(_equipSoundName[_weaponName]);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(_equipSoundName[_weaponName], 0.15f);
     }
 
     public virtual void PlayMagazineInSound()
     {
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagIn);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagIn, 0.15f);
     }
 
     public virtual void PlayMagazineOutSound()
     {
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagOut);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.MagOut, 0.15f);
     }
 
     public virtual void PlayPullHandleSound()
     {
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PullHandle);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PullHandle, 0.15f);
     }
 
     public virtual void PlayPushHandleSound()
     {
-        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PushHandle);
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.PushHandle, 0.15f);
     }
 }

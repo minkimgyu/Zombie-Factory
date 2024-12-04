@@ -31,11 +31,22 @@ public interface ISoundControllable
         ZoomOut,
 
         Reload,
-        Die
+        Die,
+        Click,
+
+        KnifeStap,
+        GetItem,
+
+        Lobby,
+        InGame,
     }
 
     void PlayBGM(SoundName name);
+    void PlayBGM(SoundName name, float volume);
+
+
     void PlaySFX(SoundName name);
+    void PlaySFX(SoundName name, float volume);
     void PlaySFX(SoundName name, Vector3 pos);
 
     void StopBGM();

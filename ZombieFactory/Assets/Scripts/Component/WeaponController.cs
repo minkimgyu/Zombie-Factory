@@ -135,10 +135,6 @@ public class WeaponController : MonoBehaviour
             index = _animator.GetLayerIndex("UpperBody");
         }
 
-        Debug.Log(name);
-        Debug.Log(index);
-        Debug.Log(time);
-
         _animator.Play(name, index, time);
     }
 

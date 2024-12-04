@@ -8,7 +8,7 @@ public class SoundController : MonoBehaviour, ISoundControllable
 
     BaseFactory _soundFactory;
     AudioSource _bgmPlayer;
-    AudioSource[] _sfxPlayer;
+    AudioSource[] _sfxPlayers;
 
     [SerializeField] GameObject _bgmPlayerObject;
     [SerializeField] GameObject _sfxPlayerObject;
@@ -19,7 +19,9 @@ public class SoundController : MonoBehaviour, ISoundControllable
         _soundFactory = soundFactory;
 
         _bgmPlayer = _bgmPlayerObject.GetComponent<AudioSource>();
-        _sfxPlayer = _bgmPlayerObject.GetComponents<AudioSource>();
+        _bgmPlayer.loop = true;
+
+        _sfxPlayers = _sfxPlayerObject.GetComponents<AudioSource>();
     }
 
     public void PlayBGM(ISoundControllable.SoundName name)
@@ -27,6 +29,15 @@ public class SoundController : MonoBehaviour, ISoundControllable
         if (_clipDictionary.ContainsKey(name) == false) return;
 
         _bgmPlayer.clip = _clipDictionary[name];
+        _bgmPlayer.Play();
+    }
+
+    public void PlayBGM(ISoundControllable.SoundName name, float volume)
+    {
+        if (_clipDictionary.ContainsKey(name) == false) return;
+
+        _bgmPlayer.clip = _clipDictionary[name];
+        _bgmPlayer.volume = volume;
         _bgmPlayer.Play();
     }
 
@@ -43,12 +54,26 @@ public class SoundController : MonoBehaviour, ISoundControllable
     {
         if (_clipDictionary.ContainsKey(name) == false) return;
 
-        for (int i = 0; i < _sfxPlayer.Length; i++)
+        for (int i = 0; i < _sfxPlayers.Length; i++)
         {
-            if (_sfxPlayer[i].isPlaying == true) continue;
+            if (_sfxPlayers[i].isPlaying == true) continue;
 
-            _sfxPlayer[i].clip = _clipDictionary[name];
-            _sfxPlayer[i].Play();
+            _sfxPlayers[i].clip = _clipDictionary[name];
+            _sfxPlayers[i].Play();
+        }
+    }
+
+    public void PlaySFX(ISoundControllable.SoundName name, float volume)
+    {
+        if (_clipDictionary.ContainsKey(name) == false) return;
+
+        for (int i = 0; i < _sfxPlayers.Length; i++)
+        {
+            if (_sfxPlayers[i].isPlaying == true) continue;
+
+            _sfxPlayers[i].clip = _clipDictionary[name];
+            _sfxPlayers[i].volume = volume;
+            _sfxPlayers[i].Play();
         }
     }
 
@@ -60,9 +85,9 @@ public class SoundController : MonoBehaviour, ISoundControllable
     public void StopAllSound()
     {
         _bgmPlayer.Stop();
-        for (int i = 0; i < _sfxPlayer.Length; i++)
+        for (int i = 0; i < _sfxPlayers.Length; i++)
         {
-            _sfxPlayer[i].Stop();
+            _sfxPlayers[i].Stop();
         }
     }
 }

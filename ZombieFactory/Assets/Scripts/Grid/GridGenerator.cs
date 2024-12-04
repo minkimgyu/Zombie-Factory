@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
-using System.Diagnostics; // Stopwatch를 사용하려면 필요
 
 public class GridGenerator : MonoBehaviour
 {
     public Node[,,] CreateGrid(float nodeSize, Vector3Int sizeOfGrid, LayerMask obstacleLayer, LayerMask nonPassLayer)
     {
-        // Stopwatch 객체 생성
-        Stopwatch stopwatch = new Stopwatch();
-
-        // 측정 시작
-        stopwatch.Start();
-
         Node[,,] grid = new Node[sizeOfGrid.x, sizeOfGrid.y, sizeOfGrid.z];
         Vector3 halfSize = new Vector3(nodeSize / 2, nodeSize / 2, nodeSize / 2); // halfExtents
 
@@ -79,12 +72,6 @@ public class GridGenerator : MonoBehaviour
                 }
             }
         }
-
-        // 측정 종료
-        stopwatch.Stop();
-
-        // 측정 결과 출력
-        UnityEngine.Debug.Log($"작업 수행 시간: {stopwatch.ElapsedMilliseconds}ms");
 
         return grid;
     }

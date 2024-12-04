@@ -21,8 +21,8 @@ namespace AI.Zombie
         float _stopDistance;
         float _gap;
 
-        TPSMoveComponent _moveComponent;
-        TPSViewComponent _viewComponent;
+        BaseViewComponent _viewComponent;
+        BaseMoveComponent _moveComponent;
 
         Tree _bt;
         public TargetFollowingState(
@@ -40,8 +40,8 @@ namespace AI.Zombie
 
             Transform sightPoint,
             Transform myTransform,
-            TPSViewComponent viewComponent,
-            TPSMoveComponent moveComponent,
+            BaseViewComponent viewComponent,
+            BaseMoveComponent moveComponent,
 
             PathSeeker pathSeeker,
             SightComponent sightComponent,

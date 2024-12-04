@@ -87,6 +87,15 @@ abstract public class BaseMoveComponent : MonoBehaviour
         if (_isSlope)
         {
             _storedDirection = Vector3.zero;
+
+            if (_rigid.velocity.y > 0) // 현재 y 속도가 양수라면
+            {
+                _storedDirection = Vector3.zero; // 강제로 멈춰줌
+            }
+            else
+            {
+                _storedDirection = new Vector3(0, _rigid.velocity.y, 0);
+            }
         }
         else
         {

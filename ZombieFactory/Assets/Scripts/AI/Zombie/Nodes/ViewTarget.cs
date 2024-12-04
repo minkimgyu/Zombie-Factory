@@ -9,9 +9,9 @@ namespace BehaviorTree.Nodes
     {
         Transform _sightPoint;
         SightComponent _sightComponent;
-        TPSViewComponent _viewComponent;
+        BaseViewComponent _viewComponent;
 
-        public ViewTarget(Transform sightPoint, SightComponent sightComponent, TPSViewComponent viewComponent)
+        public ViewTarget(Transform sightPoint, SightComponent sightComponent, BaseViewComponent viewComponent)
         {
             _sightPoint = sightPoint;
             _sightComponent = sightComponent;
@@ -25,7 +25,6 @@ namespace BehaviorTree.Nodes
 
             // sightPoint 2개 가져와서 방향 구하기
             Vector3 dir = (targetPos - _sightPoint.position).normalized;
-
             _viewComponent.View(dir);
             return NodeState.SUCCESS;
         }

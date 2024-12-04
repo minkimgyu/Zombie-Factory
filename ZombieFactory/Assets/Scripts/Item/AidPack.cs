@@ -8,6 +8,8 @@ public class AidPack : BaseItem, IInteractable
 
     public void Interact(IInteracter interacter)
     {
+        ServiceLocater.ReturnSoundPlayer().PlaySFX(ISoundControllable.SoundName.GetItem, 0.8f);
+
         interacter.GetAidPack(_healPoint);
         Destroy(gameObject);
     }
