@@ -15,24 +15,24 @@ public class Classic : Gun
         _ammoCountsInMagazine = _maxAmmoCountInMagazine;
         _ammoCountsInPossession = _maxAmmoCountsInPossession;
 
-        _eventStates[EventType.Main] = new ManualEvent(EventType.Main, data.mainShootInterval, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
-        _eventStates[EventType.Sub] = new ManualEvent(EventType.Sub, data.subShootInterval, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
+        _eventStrategy[EventType.Main] = new ManualEvent(EventType.Main, data.mainShootInterval, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
+        _eventStrategy[EventType.Sub] = new ManualEvent(EventType.Sub, data.subShootInterval, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
 
         
 
-        _actionStates[EventType.Main] = new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.mainFireCnt,
+        _actionStrategy[EventType.Main] = new SingleProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.mainFireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.mainWeightApplier, data.damageDictionary, _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount,
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 
 
-        _actionStates[EventType.Sub] = new ScatterProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.subFireCnt,
+        _actionStrategy[EventType.Sub] = new ScatterProjectileAttackWithWeight(_weaponName, ISoundControllable.SoundName.PistolFire, data.range, _targetLayer, data.subFireCnt,
             data.penetratePower, data.displacementSpreadMultiplyRatio, data.subFireCnt, data.subActionSpreadOffset, data.subWeightApplier, data.damageDictionary,
             _animator, effectFactory, ReturnMuzzlePos, ReturnLeftAmmoCount, DecreaseAmmoCount, SpawnMuzzleFlashEffect, SpawnEmptyCartridge);
 
-        _recoilStates[EventType.Main] = new ManualRecoilGenerator(data.mainShootInterval, data.recoveryDuration, mainRangeData);
-        _recoilStates[EventType.Sub] = new ManualRecoilGenerator(data.subShootInterval, data.recoveryDuration, subRangeData);
+        _recoilStrategy[EventType.Main] = new ManualRecoilGenerator(data.mainShootInterval, data.recoveryDuration, mainRangeData);
+        _recoilStrategy[EventType.Sub] = new ManualRecoilGenerator(data.subShootInterval, data.recoveryDuration, subRangeData);
 
 
-        _reloadState = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
     }
 }

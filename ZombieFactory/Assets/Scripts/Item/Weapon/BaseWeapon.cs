@@ -29,10 +29,10 @@ abstract public class BaseWeapon : BaseItem
     protected int _targetLayer; // 공격 대상 레이어
     protected Transform _attackPoint; // 공격 Raycast 시작 위치
 
-    protected Dictionary<EventType, EventState> _eventStates = new Dictionary<EventType, EventState>();
-    protected Dictionary<EventType, ActionState> _actionStates = new Dictionary<EventType, ActionState>();
-    protected Dictionary<EventType, BaseRecoilState> _recoilStates = new Dictionary<EventType, BaseRecoilState>();
-    protected BaseReloadState _reloadState;
+    protected Dictionary<EventType, EventStrategy> _eventStrategy = new Dictionary<EventType, EventStrategy>();
+    protected Dictionary<EventType, ActionStrategy> _actionStrategy = new Dictionary<EventType, ActionStrategy>();
+    protected Dictionary<EventType, RecoilStrategy> _recoilStrategy = new Dictionary<EventType, RecoilStrategy>();
+    protected ReloadStrategy _reloadStrategy;
 
     protected float _equipFinishTime;
     public float EquipFinishTime { get { return _equipFinishTime; } }
@@ -76,17 +76,17 @@ abstract public class BaseWeapon : BaseItem
         _targetLayer = LayerMask.GetMask("Penetratable", "Block", "NonPass"); // 레이어 할당해준다.
     }
 
-    public virtual void MatchState() { }
+    public virtual void MatchStrategy() { }
 
     // 여러 개 만들어주기
 
 
     public void OnUpdate() // --> WeaponFSM에 연결시켜주자
     {
-        foreach (var events in _eventStates) events.Value.OnUpdate();
-        foreach (var actions in _actionStates) actions.Value.OnUpdate();
-        foreach (var recoils in _recoilStates) recoils.Value.OnUpdate();
-        _reloadState.OnUpdate();
+        foreach (var events in _eventStrategy) events.Value.OnUpdate();
+        foreach (var actions in _actionStrategy) actions.Value.OnUpdate();
+        foreach (var recoils in _recoilStrategy) recoils.Value.OnUpdate();
+        _reloadStrategy.OnUpdate();
     }
 
     protected virtual void OnCollisionEnter(Collision collision) { }
@@ -104,7 +104,7 @@ abstract public class BaseWeapon : BaseItem
 
     public virtual void OnUnEquip()
     {
-        foreach (var action in _actionStates) action.Value.TurnOffZoomDirectly();
+        foreach (var action in _actionStrategy) action.Value.TurnOffZoomDirectly();
     }
 
 
@@ -118,9 +118,9 @@ abstract public class BaseWeapon : BaseItem
         gameObject.SetActive(false);
 
         OnPlayOwnerAnimation = blackboard.OnPlayOwnerAnimation;
-        foreach (var actions in _actionStates) actions.Value.LinkEvent(blackboard);
-        foreach (var recoils in _recoilStates) recoils.Value.LinkEvent(blackboard);
-        _reloadState.LinkEvent(blackboard);
+        foreach (var actions in _actionStrategy) actions.Value.LinkEvent(blackboard);
+        foreach (var recoils in _recoilStrategy) recoils.Value.LinkEvent(blackboard);
+        _reloadStrategy.LinkEvent(blackboard);
     }
 
     public virtual bool CanDrop() { return false; }
@@ -133,9 +133,9 @@ abstract public class BaseWeapon : BaseItem
     public virtual void OnDrop(WeaponBlackboard blackboard)
     {
         OnPlayOwnerAnimation = null;
-        foreach (var action in _actionStates) action.Value.UnlinkEvent(blackboard);
-        foreach (var recoil in _recoilStates) recoil.Value.UnlinkEvent(blackboard);
-        _reloadState.UnlinkEvent(blackboard);
+        foreach (var action in _actionStrategy) action.Value.UnlinkEvent(blackboard);
+        foreach (var recoil in _recoilStrategy) recoil.Value.UnlinkEvent(blackboard);
+        _reloadStrategy.UnlinkEvent(blackboard);
         transform.SetParent(null);
     }
 
@@ -165,17 +165,17 @@ abstract public class BaseWeapon : BaseItem
 
 
 
-    protected virtual bool CanAttack(EventType type) { return _actionStates[type].CanExecute(); }
+    protected virtual bool CanAttack(EventType type) { return _actionStrategy[type].CanExecute(); }
 
 
     // WeaponController에서 호출되는 입력 이벤트
-    public void OnLeftClickStart() => _eventStates[EventType.Main].OnMouseClickStart();
-    public void OnLeftClickProcess() => _eventStates[EventType.Main].OnMouseClickProcess();
-    public void OnLeftClickEnd() => _eventStates[EventType.Main].OnMouseClickEnd();
+    public void OnLeftClickStart() => _eventStrategy[EventType.Main].OnMouseClickStart();
+    public void OnLeftClickProcess() => _eventStrategy[EventType.Main].OnMouseClickProcess();
+    public void OnLeftClickEnd() => _eventStrategy[EventType.Main].OnMouseClickEnd();
 
-    public void OnRightClickStart() => _eventStates[EventType.Sub].OnMouseClickStart();
-    public void OnRightClickProgress() => _eventStates[EventType.Sub].OnMouseClickProcess();
-    public void OnRightClickEnd() => _eventStates[EventType.Sub].OnMouseClickEnd();
+    public void OnRightClickStart() => _eventStrategy[EventType.Sub].OnMouseClickStart();
+    public void OnRightClickProgress() => _eventStrategy[EventType.Sub].OnMouseClickProcess();
+    public void OnRightClickEnd() => _eventStrategy[EventType.Sub].OnMouseClickEnd();
 
     /// <summary>
     /// 마우스 클릭 이벤트가 시작될 때 호출됨
@@ -199,7 +199,7 @@ abstract public class BaseWeapon : BaseItem
     {
         if (CanAttack(type) == false) return;
 
-        _actionStates[type].Execute();
-        _recoilStates[type].Execute();
+        _actionStrategy[type].Execute();
+        _recoilStrategy[type].Execute();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-abstract public class WeaponState
+abstract public class WeaponStrategy
 {
     public virtual void OnUpdate() { }
 

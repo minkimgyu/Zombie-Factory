@@ -33,7 +33,7 @@ abstract public class AutomaticGun : VariationGun
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 
         _actionStorage.Add(new(EventType.Sub, Conditon.Both),
-            new ZoomState(data.cameraPositionWhenZoom.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, OnZoomRequested));
+            new Zoom(data.cameraPositionWhenZoom.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, OnZoomRequested));
 
 
         _recoilStorage.Add(new(EventType.Main, Conditon.ZoomIn),
@@ -44,7 +44,7 @@ abstract public class AutomaticGun : VariationGun
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
 
-        _reloadState = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
-        MatchState();
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
+        MatchStrategy();
     }
 }

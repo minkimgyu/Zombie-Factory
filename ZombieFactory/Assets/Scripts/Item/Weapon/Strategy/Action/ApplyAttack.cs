@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class ApplyAttack : ActionState
+abstract public class ApplyAttack : ActionStrategy
 {
     ///// <summary>
     ///// 카메라 위치를 반환해준다.

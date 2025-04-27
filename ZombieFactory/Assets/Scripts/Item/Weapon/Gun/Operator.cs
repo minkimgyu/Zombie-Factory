@@ -37,7 +37,7 @@ public class Operator : VariationGun
             SpawnMuzzleFlashEffect, SpawnEmptyCartridge));
 
         _actionStorage.Add(new(EventType.Sub, Conditon.Both),
-            new DoubleZoomState(data.zoomCameraPosition.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, data.doubleZoomFieldOfView, OnZoomRequested));
+            new DoubleZoomStrategy(data.zoomCameraPosition.V3, data.zoomDuration, data.normalFieldOfView, data.zoomFieldOfView, data.doubleZoomFieldOfView, OnZoomRequested));
 
         _recoilStorage.Add(new(EventType.Main, Conditon.ZoomIn),
             new ManualRecoilGenerator(data.mainActionDelayWhenZoomIn, data.recoveryDuration, mainRangeData));
@@ -47,7 +47,7 @@ public class Operator : VariationGun
 
         _recoilStorage.Add(new(EventType.Sub, Conditon.Both), new NoRecoilGenerator());
 
-        _reloadState = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
-        MatchState();
+        _reloadStrategy = new MagazineReload(_weaponName, data.reloadFinishDuration, data.reloadExitDuration, data.maxAmmoCountInMagazine, _animator, OnReloadRequested, OnPlayOwnerAnimation);
+        MatchStrategy();
     }
 }

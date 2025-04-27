@@ -17,9 +17,9 @@ abstract public class VariationGun : Gun
         ZoomOut // ÁÜ ÇØÁ¦ ½Ã¿¡¸¸ »ç¿ëµÊ
     }
 
-    protected Dictionary<Tuple<EventType, Conditon>, EventState> _eventStorage = new();
-    protected Dictionary<Tuple<EventType, Conditon>, ActionState> _actionStorage = new();
-    protected Dictionary<Tuple<EventType, Conditon>, BaseRecoilState> _recoilStorage = new();
+    protected Dictionary<Tuple<EventType, Conditon>, EventStrategy> _eventStorage = new();
+    protected Dictionary<Tuple<EventType, Conditon>, ActionStrategy> _actionStorage = new();
+    protected Dictionary<Tuple<EventType, Conditon>, RecoilStrategy> _recoilStorage = new();
 
     public override void OnRooting(WeaponBlackboard blackboard)
     {
@@ -47,20 +47,20 @@ abstract public class VariationGun : Gun
     protected virtual void OnZoomIn() 
     {
         Tuple<EventType, Conditon> zoomInKey = new(EventType.Main, Conditon.ZoomIn);
-        if (_eventStorage.ContainsKey(zoomInKey)) _eventStates[EventType.Main] = _eventStorage[zoomInKey];
-        if (_actionStorage.ContainsKey(zoomInKey)) _actionStates[EventType.Main] = _actionStorage[zoomInKey];
-        if (_recoilStorage.ContainsKey(zoomInKey)) _recoilStates[EventType.Main] = _recoilStorage[zoomInKey];
+        if (_eventStorage.ContainsKey(zoomInKey)) _eventStrategy[EventType.Main] = _eventStorage[zoomInKey];
+        if (_actionStorage.ContainsKey(zoomInKey)) _actionStrategy[EventType.Main] = _actionStorage[zoomInKey];
+        if (_recoilStorage.ContainsKey(zoomInKey)) _recoilStrategy[EventType.Main] = _recoilStorage[zoomInKey];
     }
 
     protected virtual void OnZoomOut() 
     {
         Tuple<EventType, Conditon> zoomOutKey = new(EventType.Main, Conditon.ZoomOut);
-        if (_eventStorage.ContainsKey(zoomOutKey)) _eventStates[EventType.Main] = _eventStorage[zoomOutKey];
-        if (_actionStorage.ContainsKey(zoomOutKey)) _actionStates[EventType.Main] = _actionStorage[zoomOutKey];
-        if (_recoilStorage.ContainsKey(zoomOutKey)) _recoilStates[EventType.Main] = _recoilStorage[zoomOutKey];
+        if (_eventStorage.ContainsKey(zoomOutKey)) _eventStrategy[EventType.Main] = _eventStorage[zoomOutKey];
+        if (_actionStorage.ContainsKey(zoomOutKey)) _actionStrategy[EventType.Main] = _actionStorage[zoomOutKey];
+        if (_recoilStorage.ContainsKey(zoomOutKey)) _recoilStrategy[EventType.Main] = _recoilStorage[zoomOutKey];
     }
 
-    public override void MatchState()
+    public override void MatchStrategy()
     {
         Tuple<EventType, Conditon> mainBothKey = new(EventType.Main, Conditon.Both);
         Tuple<EventType, Conditon> subBothKey = new(EventType.Sub, Conditon.Both);
@@ -69,24 +69,24 @@ abstract public class VariationGun : Gun
         Tuple<EventType, Conditon> subZoomOutKey = new(EventType.Sub, Conditon.ZoomOut);
 
 
-        if (_eventStorage.ContainsKey(mainBothKey)) _eventStates[EventType.Main] = _eventStorage[mainBothKey];
-        else _eventStates[EventType.Main] = _eventStorage[mainZoomOutKey];
+        if (_eventStorage.ContainsKey(mainBothKey)) _eventStrategy[EventType.Main] = _eventStorage[mainBothKey];
+        else _eventStrategy[EventType.Main] = _eventStorage[mainZoomOutKey];
 
-        if (_eventStorage.ContainsKey(subBothKey)) _eventStates[EventType.Sub] = _eventStorage[subBothKey];
-        else _eventStates[EventType.Sub] = _eventStorage[subZoomOutKey];
-
-
-        if (_actionStorage.ContainsKey(mainBothKey)) _actionStates[EventType.Main] = _actionStorage[mainBothKey];
-        else _actionStates[EventType.Main] = _actionStorage[mainZoomOutKey];
-
-        if (_actionStorage.ContainsKey(subBothKey)) _actionStates[EventType.Sub] = _actionStorage[subBothKey];
-        else _actionStates[EventType.Sub] = _actionStorage[subZoomOutKey];
+        if (_eventStorage.ContainsKey(subBothKey)) _eventStrategy[EventType.Sub] = _eventStorage[subBothKey];
+        else _eventStrategy[EventType.Sub] = _eventStorage[subZoomOutKey];
 
 
-        if (_recoilStorage.ContainsKey(mainBothKey)) _recoilStates[EventType.Main] = _recoilStorage[mainBothKey];
-        else _recoilStates[EventType.Main] = _recoilStorage[mainZoomOutKey];
+        if (_actionStorage.ContainsKey(mainBothKey)) _actionStrategy[EventType.Main] = _actionStorage[mainBothKey];
+        else _actionStrategy[EventType.Main] = _actionStorage[mainZoomOutKey];
 
-        if (_recoilStorage.ContainsKey(subBothKey)) _recoilStates[EventType.Sub] = _recoilStorage[subBothKey];
-        else _recoilStates[EventType.Sub] = _recoilStorage[subZoomOutKey];
+        if (_actionStorage.ContainsKey(subBothKey)) _actionStrategy[EventType.Sub] = _actionStorage[subBothKey];
+        else _actionStrategy[EventType.Sub] = _actionStorage[subZoomOutKey];
+
+
+        if (_recoilStorage.ContainsKey(mainBothKey)) _recoilStrategy[EventType.Main] = _recoilStorage[mainBothKey];
+        else _recoilStrategy[EventType.Main] = _recoilStorage[mainZoomOutKey];
+
+        if (_recoilStorage.ContainsKey(subBothKey)) _recoilStrategy[EventType.Sub] = _recoilStorage[subBothKey];
+        else _recoilStrategy[EventType.Sub] = _recoilStorage[subZoomOutKey];
     }
 }

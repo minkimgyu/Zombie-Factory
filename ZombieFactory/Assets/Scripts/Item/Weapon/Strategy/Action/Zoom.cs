@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseZoomState : ActionState
+public class BaseZoom : ActionStrategy
 {
     protected float _zoomDuration;
 
@@ -22,7 +22,7 @@ public class BaseZoomState : ActionState
     /// </summary>
     protected Action<bool> OnZoomRequested;
 
-    public BaseZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public BaseZoom(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         Action<bool> OnZoomRequested)
     {
         _zoomDuration = zoomDuration;
@@ -46,7 +46,7 @@ public class BaseZoomState : ActionState
     }
 }
 
-public class ZoomState : BaseZoomState
+public class Zoom : BaseZoom
 {
     public enum State
     {
@@ -56,7 +56,7 @@ public class ZoomState : BaseZoomState
 
     State _state;
 
-    public ZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public Zoom(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         Action<bool> OnZoomRequested) : base(zoomCameraPosition, zoomDuration, normalFieldOfView, zoomFieldOfView, OnZoomRequested)
     {
         _state = State.Idle;
@@ -91,7 +91,7 @@ public class ZoomState : BaseZoomState
     }
 }
 
-public class DoubleZoomState : BaseZoomState
+public class DoubleZoomStrategy : BaseZoom
 {
     public enum State
     {
@@ -103,7 +103,7 @@ public class DoubleZoomState : BaseZoomState
     float _doubleZoomFieldOfView;
     State _state;
 
-    public DoubleZoomState(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
+    public DoubleZoomStrategy(Vector3 zoomCameraPosition, float zoomDuration, float normalFieldOfView, float zoomFieldOfView,
         float doubleZoomFieldOfView, Action<bool> OnZoomRequested)
         : base(zoomCameraPosition, zoomDuration, normalFieldOfView, zoomFieldOfView, OnZoomRequested)
     {

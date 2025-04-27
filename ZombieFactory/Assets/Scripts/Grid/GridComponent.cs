@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
 using System.Diagnostics;
+using UnityEngine.Profiling;
+using Unity.Profiling;
 
 public class GridComponent : MonoBehaviour
 {
@@ -48,11 +50,13 @@ public class GridComponent : MonoBehaviour
         _grid = _gridGenerator.CreateGrid(_nodeSize, _sizeOfGrid, _blockMask, _nonPassMask);
     }
 
+
     public void InitializeNodes()
     {
-        //Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch = new Stopwatch();
         //// 시간 측정 시작
-        //stopwatch.Start();
+        stopwatch.Start();
+        //Profiler.BeginThreadProfiling("InitializeNodes", "InitializeNodes1");
 
         for (int x = 0; x < _sizeOfGrid.x; x++)
         {
@@ -66,11 +70,13 @@ public class GridComponent : MonoBehaviour
             }
         }
 
+        //Profiler.EndThreadProfiling();
+
         //// 시간 측정 종료
-        //stopwatch.Stop();
+        stopwatch.Stop();
 
         //// 걸린 시간 출력
-        //UnityEngine.Debug.Log($"코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
+        UnityEngine.Debug.Log($"코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
     }
 
     public void Initialize()
@@ -86,6 +92,10 @@ public class GridComponent : MonoBehaviour
     public List<Node> ReturnNearNodesInGround(Vector3Int index)
     {
         List<Node> nearNodes = new List<Node>();
+
+        Node currentNode = ReturnNode(index);
+        if (currentNode.CurrentState != Node.State.Block) return nearNodes;
+
 
         // y축 높낮이 차이가 있는 경우
         List<Vector3Int> closeIndex = new List<Vector3Int> {

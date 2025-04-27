@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-abstract public class BaseRecoilState : WeaponState
+abstract public class RecoilStrategy : WeaponStrategy
 {
-    public BaseRecoilState() { }
+    public RecoilStrategy() { }
 
     /// <summary>
     /// Action 이벤트가 호출되는 타이밍에 실행
@@ -13,7 +13,7 @@ abstract public class BaseRecoilState : WeaponState
     public virtual void Execute() { }
 }
 
-abstract public class RecoilGenerator : BaseRecoilState
+abstract public class RecoilGenerator : RecoilStrategy
 {
     protected Vector2 _viewRotationMultiplier;
     protected Vector2 _goalMultiplier;

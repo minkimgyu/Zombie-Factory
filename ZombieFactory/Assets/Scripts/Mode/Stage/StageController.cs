@@ -125,7 +125,7 @@ public class StageController : MonoBehaviour
             // 시간 측정 종료
             stopwatch.Stop();
             // 걸린 시간 출력
-            UnityEngine.Debug.Log($"마지막 코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
+            UnityEngine.Debug.Log($"최종 코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
 
             CreateStageQueue();
             StartPlay();

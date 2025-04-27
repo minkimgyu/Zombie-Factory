@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using Unity.Profiling;
 
 abstract public class BaseStage : MonoBehaviour
 {
@@ -29,10 +30,13 @@ abstract public class BaseStage : MonoBehaviour
         _portal.Initialize(OnMoveToNextStageRequested);
     }
 
+
     public async void InitializeNodes(Action OnComplete)
     {
         GridComponent gridComponent = GetComponentInChildren<GridComponent>();
-        await Task.Run(() => { gridComponent.InitializeNodes(); });
+        await Task.Run(() => {
+            gridComponent.InitializeNodes();
+        });
 
         OnComplete?.Invoke();
     }

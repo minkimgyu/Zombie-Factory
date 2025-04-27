@@ -31,17 +31,17 @@ public class Knife : BaseWeapon
         _equipFinishTime = data.equipFinishTime;
         _weaponWeight = data.weaponWeight;
 
-        _eventStates[EventType.Main] = new AutoEvent(EventType.Main, data.mainAttackDelay, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
-        _eventStates[EventType.Sub] = new AutoEvent(EventType.Sub, data.subAttackDelay, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
+        _eventStrategy[EventType.Main] = new AutoEvent(EventType.Main, data.mainAttackDelay, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
+        _eventStrategy[EventType.Sub] = new AutoEvent(EventType.Sub, data.subAttackDelay, OnEventStart, OnEventUpdate, OnEventEnd, OnAction);
 
-        _actionStates[EventType.Main] = new LeftKnifeAttack(_weaponName, data.range, _targetLayer,
+        _actionStrategy[EventType.Main] = new LeftKnifeAttack(_weaponName, data.range, _targetLayer,
            data.mainAnimationCount, data.mainAttackEffectDelayTime, data.attackLinkDuration, data.mainAttackDamageData, _animator);
 
-        _actionStates[EventType.Sub] = new RightKnifeAttack(_weaponName, data.range, _targetLayer,
+        _actionStrategy[EventType.Sub] = new RightKnifeAttack(_weaponName, data.range, _targetLayer,
            data.subAttackEffectDelayTime, data.subAttackDamageData, _animator);
 
-        _recoilStates[EventType.Main] = new NoRecoilGenerator();
-        _recoilStates[EventType.Sub] = new NoRecoilGenerator();
-        _reloadState = new NoReload();
+        _recoilStrategy[EventType.Main] = new NoRecoilGenerator();
+        _recoilStrategy[EventType.Sub] = new NoRecoilGenerator();
+        _reloadStrategy = new NoReload();
     }
 }
