@@ -164,7 +164,16 @@ public class GroundPathfinder : MonoBehaviour
         return null;
     }
 
-    void AddNearGridInList(Node targetNode, Vector3 targetGridPos)
+    float GetManhattanDistance(Vector3 nearNodeSurfacePos, Vector3 targetSurfacePos)
+    {
+        float xDistance = Mathf.Abs(nearNodeSurfacePos.x - targetSurfacePos.x);
+        float yDistance = Mathf.Abs(nearNodeSurfacePos.y - targetSurfacePos.y);
+        float zDistance = Mathf.Abs(nearNodeSurfacePos.z - targetSurfacePos.z);
+
+        return xDistance + yDistance + zDistance;
+    }
+
+    void AddNearGridInList(Node targetNode, Vector3 targetSurfacePos)
     {
         for (int i = 0; i < targetNode.NearNodesInGround.Count; i++)
         {
@@ -183,7 +192,7 @@ public class GroundPathfinder : MonoBehaviour
             {
                 // 여기서 grid 값 할당 필요
                 nearNode.G = moveCost;
-                nearNode.H = Vector3.Distance(nearNode.SurfacePos, targetGridPos);
+                nearNode.H = GetManhattanDistance(nearNode.SurfacePos, targetSurfacePos);
                 nearNode.ParentNode = targetNode;
             }
 
