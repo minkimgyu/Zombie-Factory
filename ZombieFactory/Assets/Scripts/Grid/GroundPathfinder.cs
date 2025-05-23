@@ -11,6 +11,8 @@ public class GroundPathfinder : MonoBehaviour
     Heap<Node> _openList = new Heap<Node>(maxSize);
     HashSet<Node> _closedList = new HashSet<Node>();
 
+    [SerializeField] float _weight = 1.0f;
+
     Vector3 _startNodePos;
     Vector3 _endNodePos;
 
@@ -164,16 +166,12 @@ public class GroundPathfinder : MonoBehaviour
         return null;
     }
 
-    float GetManhattanDistance(Vector3 nearNodeSurfacePos, Vector3 targetSurfacePos)
+    float GetDistance(Vector3 nearNodeSurfacePos, Vector3 endSurfacePos)
     {
-        float xDistance = Mathf.Abs(nearNodeSurfacePos.x - targetSurfacePos.x);
-        float yDistance = Mathf.Abs(nearNodeSurfacePos.y - targetSurfacePos.y);
-        float zDistance = Mathf.Abs(nearNodeSurfacePos.z - targetSurfacePos.z);
-
-        return xDistance + yDistance + zDistance;
+        return Vector3.Distance(nearNodeSurfacePos, endSurfacePos);
     }
 
-    void AddNearGridInList(Node targetNode, Vector3 targetSurfacePos)
+    void AddNearGridInList(Node targetNode, Vector3 endSurfacePos)
     {
         for (int i = 0; i < targetNode.NearNodesInGround.Count; i++)
         {
@@ -181,7 +179,7 @@ public class GroundPathfinder : MonoBehaviour
             if (nearNode.CanStep == false || _closedList.Contains(nearNode)) continue; // 막혀있지 않거나 닫힌 리스트에 있는 경우 다음 그리드 탐색 --> Ground의 경우 막혀있어야 탐색 가능함
 
             // 공중에 있는 경우는 Pos, 땅에 있는 경우는 SurfacePos로 처리한다.
-            float moveCost = Vector3.Distance(targetNode.SurfacePos, nearNode.SurfacePos);
+            float moveCost = GetDistance(targetNode.SurfacePos, nearNode.SurfacePos);
             // 이 부분 중요! --> 거리를 측정해서 업데이트 하지 않고 계속 더해주는 방식으로 진행해야함
             moveCost += targetNode.G;
 
@@ -192,7 +190,7 @@ public class GroundPathfinder : MonoBehaviour
             {
                 // 여기서 grid 값 할당 필요
                 nearNode.G = moveCost;
-                nearNode.H = GetManhattanDistance(nearNode.SurfacePos, targetSurfacePos);
+                nearNode.H = GetDistance(nearNode.SurfacePos, endSurfacePos) * _weight;
                 nearNode.ParentNode = targetNode;
             }
 
