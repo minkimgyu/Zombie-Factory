@@ -1,7 +1,7 @@
 # Zombie Factory
 
 ![image](https://github.com/user-attachments/assets/e5485387-4ee3-4d36-a0c1-b91566f2c27f)
-참고 영상: https://www.youtube.com/watch?v=3kd6LchrqfI
+참고 영상: https://www.youtube.com/watch?v=4d770--Y0TY
 
 ## 프로젝트 소개
 Unity를 사용하여 개발한 FPS 게임
