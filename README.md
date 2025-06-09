@@ -117,7 +117,7 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 * 평가 함수 f(n) = g(n) + h(n) * w를 활용하여 휴리스틱의 영향을 키워 목표 지점에 더 큰 값으로 향하도록 탐색할 수 있도록 하여 복잡한 지형에서의 길찾기 수행 시간을 최적화했습니다.
 * 프로파일링 결과: 0.87ms에서 0.2ms로 단축 (약 77% 향상)
 
-<img src="https://github.com/user-attachments/assets/bbb1e380-21ed-4fba-a10a-e7428a43fe23" alt="Zombie Factory Screenshot" width="100%" height="100%" />
+<img src="https://github.com/user-attachments/assets/bbb1e380-21ed-4fba-a10a-e7428a43fe23" alt="Zombie Factory Screenshot" width="130%" height="130%" />
 
 ---
 
