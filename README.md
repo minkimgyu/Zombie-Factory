@@ -1,8 +1,8 @@
 # 🧟 Zombie Factory
 
-Unity를 사용하여 개발한 FPS 게임입니다. 💥
+Unity를 사용하여 개발한 FPS 게임입니다.
 
-맵을 돌아다니며 좀비를 사냥하고 최종 목적지까지 이동하는 것이 목표입니다. 🗺️
+맵을 돌아다니며 좀비를 사냥하고 최종 목적지까지 이동하는 것이 목표입니다.
 
 <img src="https://github.com/user-attachments/assets/7b9e3912-ab78-40cb-9a88-ec509db603bf" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
@@ -10,28 +10,28 @@ Unity를 사용하여 개발한 FPS 게임입니다. 💥
 2024년 9월 ~ 2024년 12월
 
 ## 🧑‍🤝‍🧑 팀 구성
-- 총 1명 (1인 개발) 🧑‍💻
+- 1인 개발
 
 ## 🛠️ 개발 도구
-- Unity (C#) 🎮
+- Unity (C#)
 
 ## 👨‍💻 담당 역할 및 기여도 (기여도 100%)
 
-- ✅ **Finite State Machine을 활용한 Player 기능 구현** 🏃
-- ✅ **Finite State Machine, Behavior Tree를 활용한 AI 구현** 🧠
-- ✅ **Strategy Pattern을 활용한 Weapon 시스템 구현** 🔫
-- ✅ **UI Toolkit을 사용하여 반동 커스텀 에디터 개발** 🎨
-- ✅ **Multithreading을 활용한 길찾기 노드 계산 최적화** ⚡
-- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A\*) 개발 및 최적화** 🗺️
-- ✅ **Factory Pattern을 사용한 생성 시스템 개발** 🏭
-- ✅ **Object Pool을 사용하여 생성 시스템 최적화** ♻️
+- ✅ **Finite State Machine을 활용한 Player 기능 구현**
+- ✅ **Finite State Machine, Behavior Tree를 활용한 AI 구현**
+- ✅ **Strategy Pattern을 활용한 Weapon 시스템 구현**
+- ✅ **UI Toolkit을 사용하여 반동 커스텀 에디터 개발**
+- ✅ **Multithreading을 활용한 길찾기 노드 계산 최적화**
+- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A\*) 개발 및 최적화**
+- ✅ **Factory Pattern을 사용한 생성 시스템 개발**
+- ✅ **Object Pool을 사용하여 생성 시스템 최적화**
 
 ---
 
 ## 🏃 Finite State Machine (FSM)을 활용한 Player 구현
 
-플레이어의 기능을 구현하기 위해 `ActionController`와 `WeaponController`를 구현했습니다. 🎮
-기능의 복잡성을 줄이기 위해 각각의 기능을 독립시켜 **Concurrent State Machine**을 적용했습니다. 🔄
+플레이어의 기능을 구현하기 위해 `ActionController`와 `WeaponController`를 구현했습니다.
+기능의 복잡성을 줄이기 위해 각각의 기능을 독립시켜 **Concurrent State Machine**을 적용했습니다.
 향후 확장을 위해 **Hierarchical Finite State Machine** 방식을 통해 `Movement FSM`을 확장했습니다.
 
 ### Player FSM 다이어그램 📊
@@ -44,11 +44,11 @@ Unity를 사용하여 개발한 FPS 게임입니다. 💥
 
 ## 🧠 Finite State Machine, Behavior Tree를 활용한 AI 구현
 
-AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되는 문제가 있습니다. 이를 보완하고자 핵심 행동 로직은 **Behavior Tree**로 구현했습니다. 🌳
+AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되는 문제가 있습니다. 이를 보완하고자 핵심 행동 로직은 **Behavior Tree**로 구현했습니다.
 
 * **FSM의 역할:** AI의 큰 틀의 상태 관리를 담당합니다.
 * **Behavior Tree의 역할:** 각 상태 내에서 구체적인 행동 로직을 처리합니다.
-* 이러한 이분화를 통해 기반 기술을 재사용하고 조합할 수 있는 확장성을 확보했습니다. ✅
+* 이러한 이분화를 통해 기반 기술을 재사용하고 조합할 수 있는 확장성을 확보했습니다.
 
 ### AI FSM & Behavior Tree 다이어그램 🤖
 
@@ -60,7 +60,7 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 ## 🔫 Strategy Pattern을 활용한 Weapon 시스템 구현
 
-발사 방식, 반동 처리 등 다양한 총기 작동 기능을 각각의 전략 클래스로 모듈화하여 유연한 기능 교체와 손쉬운 확장이 가능한 구조를 구현했습니다. 🛠️
+발사 방식, 반동 처리 등 다양한 총기 작동 기능을 각각의 전략 클래스로 모듈화하여 유연한 기능 교체와 손쉬운 확장이 가능한 구조를 구현했습니다.
 
 
 ### Weapon 시스템 구조 📜
@@ -70,8 +70,8 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 ---
 
 ## 🎨 UI Toolkit을 사용하여 반동 커스텀 에디터 개발
-총기 반동 데이터의 효율적인 입력 작업을 위해 UI Toolkit Package를 사용하여 반동 에디터를 개발했습니다. 📈
-이를 통해 작업의 효율성을 향상시켰습니다. 💡
+총기 반동 데이터의 효율적인 입력 작업을 위해 UI Toolkit Package를 사용하여 반동 에디터를 개발했습니다.
+이를 통해 작업의 효율성을 향상시켰습니다.
 
 ### 반동 스프레이 에디터 🖥️
 
@@ -85,12 +85,12 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 <img src="https://github.com/user-attachments/assets/e74b5644-d3be-4f95-b891-897bd38b7f48" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
-3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 계산하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목 ⏳이 발생했습니다.
+3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 계산하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목이 발생했습니다.
 
 <img src="https://github.com/user-attachments/assets/1d58e88b-4718-4a9a-b3a3-f70717bf272f" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 * 해결책: Multithreading 기법을 도입하여 해당 계산 작업을 병렬로 수행하도록 최적화했습니다.
-* 결과: 수행 시간을 3.04초로 🚀 단축하여 게임 성능을 크게 개선했습니다.
+* 결과: 수행 시간을 3.04초로 단축하여 게임 성능을 크게 개선했습니다.
 
 ### Multithreading 도입 전후 성능 비교 📈
 
@@ -101,7 +101,7 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 ---
 
 ## 🗺️ 3차원 Grid 기반 길찾기 알고리즘 개발 및 최적화
-A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 작업을 수행했습니다. ✨
+A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 작업을 수행했습니다.
 
 <img src="https://github.com/user-attachments/assets/d543692f-41c0-483a-a1b2-9ea09bbfff71" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
@@ -122,7 +122,7 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 ---
 
 ## 🏭 Factory Pattern을 사용한 생성 시스템 개발
-객체 생성 로직을 클라이언트에서 분리하여 관리 효율을 높이고자 Factory 패턴을 적용했습니다. 🏗️
+객체 생성 로직을 클라이언트에서 분리하여 관리 효율을 높이고자 Factory 패턴을 적용했습니다.
 이를 통해 새로운 객체 타입 추가 시 기존 코드 수정 없이 확장 가능하도록 구현했습니다.
 
 ### Factory 패턴 예시 코드 📜
@@ -132,8 +132,8 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 ---
 
 ## ♻️ Object Pool을 사용하여 생성 시스템 최적화
-Factory 패턴과 Object Pool을 결합하여 객체 생성 및 재활용 시스템을 구축했습니다. 🔄
-이를 통해 잦은 이펙트 및 오브젝트의 빈번한 생성/소멸에 따른 Garbage Collection 부하를 줄였습니다. 🗑️
+Factory 패턴과 Object Pool을 결합하여 객체 생성 및 재활용 시스템을 구축했습니다.
+이를 통해 잦은 이펙트 및 오브젝트의 빈번한 생성/소멸에 따른 Garbage Collection 부하를 줄였습니다.
 
 ### Object Pool 예시 코드 📝
 
