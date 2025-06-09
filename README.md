@@ -21,7 +21,7 @@ Unity를 사용하여 개발한 FPS 모바일 게임입니다. 💥
 - ✅ **Strategy Pattern을 활용한 Weapon 시스템 구현** 🔫
 - ✅ **UI Toolkit을 사용하여 반동 커스텀 에디터 개발** 🎨
 - ✅ **Multithreading을 활용한 길찾기 노드 계산 최적화** ⚡
-- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A*) 개발 및 최적화** 🗺️
+- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A\*) 개발 및 최적화** 🗺️
 - ✅ **Factory Pattern을 사용한 생성 시스템 개발** 🏭
 - ✅ **Object Pool을 사용하여 생성 시스템 최적화** ♻️
 
