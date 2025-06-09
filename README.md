@@ -36,7 +36,7 @@ Unity를 사용하여 개발한 FPS 게임입니다. 💥
 
 ### Player FSM 다이어그램 📊
 
-<img src="https://github.com/user-attachments/assets/ba0d7523-bcaa-42de-b12b-07372b229cbc" alt="Zombie Factory Screenshot" width="85%" height="85%" />
+<img src="https://github.com/user-attachments/assets/ba0d7523-bcaa-42de-b12b-07372b229cbc" alt="Zombie Factory Screenshot" width="65%" height="65%" />
 
 *좌: ActionController FSM, 우: WeaponController FSM*
 
@@ -82,13 +82,20 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 ---
 
 ## ⚡ Multithreading을 활용한 길찾기 노드 계산 최적화
+
+<img src="https://github.com/user-attachments/assets/e74b5644-d3be-4f95-b891-897bd38b7f48" alt="Zombie Factory Screenshot" width="85%" height="85%" />
+
 3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 계산하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목 ⏳이 발생했습니다.
+
+<img src="https://github.com/user-attachments/assets/1d58e88b-4718-4a9a-b3a3-f70717bf272f" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 * 해결책: Multithreading 기법을 도입하여 해당 계산 작업을 병렬로 수행하도록 최적화했습니다.
 * 결과: 수행 시간을 3.04초로 🚀 단축하여 게임 성능을 크게 개선했습니다.
 
 ### Multithreading 도입 전후 성능 비교 📈
-![Multithreading Performance](https://github.com/user-attachments/assets/9aea78.jpg#xywh=0,0,999,490)
+
+<img src="https://github.com/user-attachments/assets/ccad0375-a887-4823-8484-9fcbef5a3d46" alt="Zombie Factory Screenshot" width="85%" height="85%" />
+
 *좌: 게임 화면 및 디버그 로그 (8.52초), 우: Multithreading 방식 (3.04초) 다이어그램*
 
 ---
@@ -96,20 +103,21 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 ## 🗺️ 3차원 Grid 기반 길찾기 알고리즘 개발 및 최적화
 A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 작업을 수행했습니다. ✨
 
+<img src="https://github.com/user-attachments/assets/d543692f-41c0-483a-a1b2-9ea09bbfff71" alt="Zombie Factory Screenshot" width="85%" height="85%" />
+
 ### Heap 자료구조 적용 📦
 * A* 탐색 과정에서 Openlist 내 비효율 노드를 줄여 연산 시간 복잡도를 줄이기 위해 Openlist를 Heap 자료 구조로 변경했습니다.
 * 이를 통해 해당 복잡도를 기존 O(N^2)에서 O(N log N)으로 개선했습니다.
 * 프로파일링 결과: 1.52ms에서 0.87ms로 단축 (약 42% 향상)
+
+<img src="https://github.com/user-attachments/assets/e190886e-f03d-4c1c-a9ef-0aa71f2f46f8" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 ### Weighted A*를 활용한 최적화 ⚖️
 * 장애물이 많은 맵에서 탐색 효율을 극대화하고자 휴리스틱(h) 값에 가중치(w)를 적용하는 Weighted A*를 도입했습니다.
 * 평가 함수 f(n) = g(n) + h(n) * w를 활용하여 휴리스틱의 영향을 키워 목표 지점에 더 큰 값으로 향하도록 탐색할 수 있도록 하여 복잡한 지형에서의 길찾기 수행 시간을 최적화했습니다.
 * 프로파일링 결과: 0.87ms에서 0.2ms로 단축 (약 77% 향상)
 
-최적화 전후 프로파일링 결과 및 시각화 📊
-![Pathfinding Optimization Profiling](https://github.com/user-attachments/assets/9a98f8.jpg" width="85%" height="85%" />
-상단: Heap 적용 전후 프로파일링 (1.52ms -> 0.87ms)
-하단: Weighted A* 적용 전후 시각화 및 프로파일링 (w=1.0일 경우 0.87ms -> w=1.5일 경우 0.2ms)
+<img src="https://github.com/user-attachments/assets/bbb1e380-21ed-4fba-a10a-e7428a43fe23" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 ---
 
@@ -118,8 +126,8 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 이를 통해 새로운 객체 타입 추가 시 기존 코드 수정 없이 확장 가능하도록 구현했습니다.
 
 ### Factory 패턴 예시 코드 📜
-![Factory Pattern Code](https://github.com/user-attachments/assets/9a98f3.jpg#xywh=0,0,490,499)
-좌: Pool 클래스, 우: IPoolable 인터페이스
+
+<img src="https://github.com/user-attachments/assets/3a7fae87-efcd-4795-b377-cb4e6e5dd8dc" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 ---
 
@@ -128,5 +136,5 @@ Factory 패턴과 Object Pool을 결합하여 객체 생성 및 재활용 시스
 이를 통해 잦은 이펙트 및 오브젝트의 빈번한 생성/소멸에 따른 Garbage Collection 부하를 줄였습니다. 🗑️
 
 ### Object Pool 예시 코드 📝
-![Object Pool Code](https://github.com/user-attachments/assets/9a98f3.jpg#xywh=500,0,499,499)
-좌: PoolManager 일부, 우: PoolableObject 일부
+
+<img src="https://github.com/user-attachments/assets/30b9dfdd-02f4-411a-8c73-b79d5a8c06b6" alt="Zombie Factory Screenshot" width="85%" height="85%" />
