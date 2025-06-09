@@ -96,7 +96,7 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 <img src="https://github.com/user-attachments/assets/ccad0375-a887-4823-8484-9fcbef5a3d46" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
-*좌: Singlethreading 방식 (8.52초), 우: Multithreading 방식 (3.04초) 다이어그램*
+*좌: Singlethreading 방식 (8.52초), 우: Multithreading 방식 (3.04초)*
 
 ---
 
