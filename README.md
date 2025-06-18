@@ -105,7 +105,7 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 * 해결책: Multithreading 기법을 도입하여 해당 캐싱 작업을 병렬로 수행하도록 최적화했습니다.
 * 결과: 수행 시간을 3.04초로 단축하여 게임 성능을 크게 개선했습니다.
 
-[멀티스레드를 활용한 캐싱 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/3c283b20955fd3cdeec4fbbd0dcd3e5c363a6abd/ZombieFactory/Assets/Scripts/Mode/Stage/BaseStage.cs#L34)
+[멀티스레드를 활용한 비동기 방식 캐싱 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/3c283b20955fd3cdeec4fbbd0dcd3e5c363a6abd/ZombieFactory/Assets/Scripts/Mode/Stage/BaseStage.cs#L34)
 
 ### Multithreading 도입 전후 성능 비교 📈
 
