@@ -88,16 +88,18 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 ---
 
-## ⚡ Multithreading을 활용한 길찾기 노드 계산 최적화
+## ⚡ Multithreading을 활용한 길찾기 노드 캐싱 최적화
 
 <img src="https://github.com/user-attachments/assets/e74b5644-d3be-4f95-b891-897bd38b7f48" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
-3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 계산하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목이 발생했습니다.
+3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 캐싱하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목이 발생했습니다.
 
 <img src="https://github.com/user-attachments/assets/1d58e88b-4718-4a9a-b3a3-f70717bf272f" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
-* 해결책: Multithreading 기법을 도입하여 해당 계산 작업을 병렬로 수행하도록 최적화했습니다.
+* 해결책: Multithreading 기법을 도입하여 해당 캐싱 작업을 병렬로 수행하도록 최적화했습니다.
 * 결과: 수행 시간을 3.04초로 단축하여 게임 성능을 크게 개선했습니다.
+
+[멀티스레드를 활용한 캐싱 구현](https://github.com/minkimgyu/Zombie-Factory/blob/3c283b20955fd3cdeec4fbbd0dcd3e5c363a6abd/ZombieFactory/Assets/Scripts/Mode/Stage/BaseStage.cs#L34)
 
 ### Multithreading 도입 전후 성능 비교 📈
 
