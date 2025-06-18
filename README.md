@@ -34,6 +34,9 @@ Unity를 사용하여 개발한 FPS 게임입니다.
 기능의 복잡성을 줄이기 위해 각각의 기능을 독립시켜 **Concurrent State Machine**을 적용했습니다.
 향후 확장을 위해 **Hierarchical Finite State Machine** 방식을 통해 `Movement FSM`을 확장했습니다.
 
+[ActionController 코드 구현](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Life/Player/Component/ActionController.cs#L66)
+[WeaponController 코드 구현](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Component/WeaponController.cs#L53)
+
 ### Player FSM 다이어그램 📊
 
 <img src="https://github.com/user-attachments/assets/ba0d7523-bcaa-42de-b12b-07372b229cbc" alt="Zombie Factory Screenshot" width="65%" height="65%" />
@@ -50,6 +53,9 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 * **Behavior Tree의 역할:** 각 상태 내에서 구체적인 행동 로직을 처리합니다.
 * 이러한 이분화를 통해 기반 기술을 재사용하고 조합할 수 있는 확장성을 확보했습니다.
 
+[Swat 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/AI/Helper/Swat.cs#L148)
+[Zombie 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/AI/Zombie/Zombie.cs#L131)
+
 ### AI FSM & Behavior Tree 다이어그램 🤖
 
 <img src="https://github.com/user-attachments/assets/3dca05ea-feac-480e-b067-e931d72e57e6" alt="Zombie Factory Screenshot" width="85%" height="85%" />
@@ -62,6 +68,7 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 발사 방식, 반동 처리 등 다양한 총기 작동 기능을 각각의 전략 클래스로 모듈화하여 유연한 기능 교체와 손쉬운 확장이 가능한 구조를 구현했습니다.
 
+[BaseWeapon 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Item/Weapon/BaseWeapon.cs#L32)
 
 ### Weapon 시스템 구조 📜
 
@@ -105,6 +112,8 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 
 <img src="https://github.com/user-attachments/assets/d543692f-41c0-483a-a1b2-9ea09bbfff71" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
+[AStar 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Grid/GroundPathfinder.cs#L89)
+
 ### Heap 자료구조 적용 📦
 * A* 탐색 과정에서 Openlist 내 비효율 노드를 줄여 연산 시간 복잡도를 줄이기 위해 Openlist를 Heap 자료 구조로 변경했습니다.
 * 이를 통해 해당 복잡도를 기존 O(N^2)에서 O(N log N)으로 개선했습니다.
@@ -125,6 +134,14 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 객체 생성 로직을 클라이언트에서 분리하여 관리 효율을 높이고자 Factory 패턴을 적용했습니다.
 이를 통해 새로운 객체 타입 추가 시 기존 코드 수정 없이 확장 가능하도록 구현했습니다.
 
+[FactoryCollection 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/FactoryCollection.cs#L5)
+
+[LifeFactory 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/Life/LifeFactory.cs#L29)
+[RagdollFactory 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/Ragdoll/RagdollFactory.cs#L24)
+[EffectFactory 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/Effect/EffectFactory.cs#L21)
+[ItemFactory 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/Item/Weapon/ItemFactory.cs#L21)
+[SoundFactory 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Factory/Sound/SoundPlayerFactory.cs#L21)
+
 ### Factory 패턴 예시 코드 📜
 
 <img src="https://github.com/user-attachments/assets/3a7fae87-efcd-4795-b377-cb4e6e5dd8dc" alt="Zombie Factory Screenshot" width="85%" height="85%" />
@@ -134,6 +151,8 @@ A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 �
 ## ♻️ Object Pool을 사용하여 생성 시스템 최적화
 Factory 패턴과 Object Pool을 결합하여 객체 생성 및 재활용 시스템을 구축했습니다.
 이를 통해 잦은 이펙트 및 오브젝트의 빈번한 생성/소멸에 따른 Garbage Collection 부하를 줄였습니다.
+
+[Pool 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Pool/Pool.cs#L6)
 
 ### Object Pool 예시 코드 📝
 
