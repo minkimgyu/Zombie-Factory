@@ -86,6 +86,12 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 
 *좌: Spray Editor UI, 우: 게임 내 반동 시각화*
 
+<img src="https://github.com/user-attachments/assets/06b683ff-e3ca-478a-84de-09902c6b7b9f" alt="Zombie Factory Screenshot" width="85%" height="85%" />
+
+[BaseRecoilData 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/4ed6fe34b5c0c686a7fb9a2092f3d69cbc01d214/ZombieFactory/Assets/Scripts/Item/Weapon/RecoilData.cs#L26)
+
+탄젠트 역함수를 활용하여 각도 값을 구하여 반동을 적용하였습니다.
+
 ---
 
 ## ⚡ Multithreading을 활용한 길찾기 노드 캐싱 최적화
