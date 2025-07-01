@@ -7,7 +7,7 @@ Unity를 사용하여 개발한 FPS 게임입니다.
 <img src="https://github.com/user-attachments/assets/7b9e3912-ab78-40cb-9a88-ec509db603bf" alt="Zombie Factory Screenshot" width="85%" height="85%" />
 
 ## 📆 개발 기간
-2024년 9월 ~ 2024년 12월
+2024년 8월 ~ 2024년 12월
 
 ## 🧑‍🤝‍🧑 팀 구성
 - 1인 개발
