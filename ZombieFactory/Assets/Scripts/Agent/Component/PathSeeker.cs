@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathSeeker : MonoBehaviour, IInjectPathfind
+public class PathSeeker : MonoBehaviour, IPathSeeker
 {
-    Func<Vector3, Vector3, List<Vector3>> FindPath;
+    IPathfinder _pathfinder;
 
     List<Vector3> _path;
     int _pathIndex = 0;
@@ -14,9 +14,9 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     Timer _delayTimer;
 
-    public void AddPathfind(Func<Vector3, Vector3, List<Vector3>> FindPath)
+    public void InjectPathfinder(IPathfinder pathfinder)
     {
-        this.FindPath = FindPath;
+        _pathfinder = pathfinder;
     }
 
     public void Initialize()
@@ -24,17 +24,6 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
         _storedTargetPos = Vector3.positiveInfinity;
         _delayTimer = new Timer();
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (_path == null) return;
-
-    //    for (int i = 1; i < _path.Count; i++)
-    //    {
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawLine(_path[i - 1], _path[i]);
-    //    }
-    //}
 
     public bool NowFinish()
     {
@@ -50,12 +39,13 @@ public class PathSeeker : MonoBehaviour, IInjectPathfind
 
     public Vector3 ReturnDirection(Vector3 targetPos)
     {
-        bool notRunning = _delayTimer.CurrentState != Timer.State.Running;
+        if( _pathfinder == null) return Vector3.zero;
+        bool nowRunning = _delayTimer.CurrentState != Timer.State.Running;
 
         // 도착 거리보다 멀거나 타이머가 다 된 경우
-        if (Vector3.Distance(targetPos, _storedTargetPos) >= _reachDistance && notRunning && FindPath != null)
+        if (Vector3.Distance(targetPos, _storedTargetPos) >= _reachDistance && nowRunning)
         {
-            _path = FindPath(transform.position, targetPos);
+            _path = _pathfinder.FindPath(transform.position, targetPos);
             _pathIndex = 0;
 
             _storedTargetPos = targetPos;

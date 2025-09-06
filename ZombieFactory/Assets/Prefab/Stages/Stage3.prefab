@@ -840,6 +840,7 @@ GameObject:
   - component: {fileID: 1830193759022037578}
   - component: {fileID: 6080759962242472995}
   - component: {fileID: 4689105443272857996}
+  - component: {fileID: 4136904257500234480}
   m_Layer: 0
   m_Name: GridComponent
   m_TagString: Untagged
@@ -918,6 +919,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25e75d0ee2b79d4eb6e4cf85dd1f7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weight: 1
+--- !u!114 &4136904257500234480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332563424672512088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc1db3d8e812af4193d4dc3b163177d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _surfaceHeight: 0.2
+  _wireColor: {r: 0.27058825, g: 0.3764706, b: 1, a: 0.015686275}
+  _passNodeColor: {r: 0.31764707, g: 0.72156864, b: 1, a: 0}
+  _nonPassNodeColor: {r: 1, g: 0.33333334, b: 0.43529412, a: 0.44705883}
+  _blockNodeColor: {r: 0.96862745, g: 1, b: 0.25882354, a: 0.43137255}
+  _surfaceNodeColor: {r: 0.1764706, g: 1, b: 0.16470589, a: 0.7529412}
+  _showRect: 0
+  _showNonPass: 0
+  _showBlockNode: 0
+  _showSurface: 0
+  _showNavigationRect: 0
 --- !u!1 &4498724869246515521
 GameObject:
   m_ObjectHideFlags: 0

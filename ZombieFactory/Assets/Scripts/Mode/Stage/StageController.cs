@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Diagnostics;
 
 public class StageController : MonoBehaviour
 {
@@ -21,6 +18,7 @@ public class StageController : MonoBehaviour
     CameraController _cameraController;
     PlayerUIController _playerUIController;
 
+    // 스테이지 컨트롤러 초기화
     public void Initialize(
         int maxStageCount, 
         FactoryCollection factoryCollection, 
@@ -41,16 +39,18 @@ public class StageController : MonoBehaviour
         InitializeStages();
     }
 
+    // 스테이지 클리어 시 호출되는 함수
     public void OnStageClearRequested()
     {
         if (_stageQueue.Count == 0) return;
 
         _stageViewer.OnStageClear();
         _nextStage = _stageQueue.Dequeue();
-        Vector3 entryPos = _nextStage.ReturnEntryPosition();
+        Vector3 entryPos = _nextStage.EntryPoint;
         _currentStage.Activate(entryPos);
     }
 
+    // 다음 스테이지로 이동 요청 시 호출되는 함수
     public void OnMoveToNextStageRequested()
     {
         if (_stageQueue.Count == 0)
@@ -104,9 +104,9 @@ public class StageController : MonoBehaviour
             );
         }
 
-        stopwatch = new Stopwatch();
-        // 시간 측정 시작
-        stopwatch.Start();
+        // 수행 시간 측정을 위한 Stopwatch 시작
+        //stopwatch = new Stopwatch();
+        //stopwatch.Start();
 
         _startStage.InitializeNodes(OnInitializeComplete);
         for (int i = 0; i < _battleStages.Length; i++)
@@ -115,23 +115,26 @@ public class StageController : MonoBehaviour
         }
     }
 
-    Stopwatch stopwatch;
+    // 수행 시간 측정을 위한 변수
+    //Stopwatch stopwatch;
 
+    // 모든 스테이지 초기화가 완료되었을 때 호출되는 콜백 함수
     void OnInitializeComplete()
     {
         _initializedStageCount++;
         if (_totalStageCount == _initializedStageCount)
         {
             // 시간 측정 종료
-            stopwatch.Stop();
-            // 걸린 시간 출력
-            UnityEngine.Debug.Log($"최종 코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
+            // stopwatch.Stop();
+            // 걸린 시간 출력을 통한 성능 확인
+            // UnityEngine.Debug.Log($"최종 코드 수행 시간: {stopwatch.ElapsedMilliseconds} ms");
 
             CreateStageQueue();
             StartPlay();
         }
     }
 
+    // 스테이지 큐 생성
     void CreateStageQueue()
     {
         BaseStage storedBattleStage = null;
@@ -156,6 +159,7 @@ public class StageController : MonoBehaviour
         }
     }
 
+    // 해당 스테이지 플레이 시작
     void StartPlay()
     {
         _currentStage = _stageQueue.Dequeue();

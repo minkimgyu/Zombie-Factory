@@ -1,27 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
 
-public class GridGenerator : MonoBehaviour
+public class GridGenerator
 {
-    public Node[,,] CreateGrid(float nodeSize, Vector3Int sizeOfGrid, LayerMask obstacleLayer, LayerMask nonPassLayer)
+    // Grid를 생성해주는 함수
+    public Node[,,] CreateGrid(Vector3 gridPos, float nodeSize, Vector3Int sizeOfGrid, LayerMask obstacleLayer, LayerMask nonPassLayer)
     {
         Node[,,] grid = new Node[sizeOfGrid.x, sizeOfGrid.y, sizeOfGrid.z];
-        Vector3 halfSize = new Vector3(nodeSize / 2, nodeSize / 2, nodeSize / 2); // halfExtents
+        Vector3 halfSize = new Vector3(nodeSize / 2, nodeSize / 2, nodeSize / 2); // 노드의 절반 크기
 
         // 1. 콜라이더를 검출해서 Non-Pass, Block, Empty를 나눠준다.
-
         for (int x = 0; x < sizeOfGrid.x; x++)
         {
             for (int z = 0; z < sizeOfGrid.z; z++)
             {
                 for (int y = 0; y < sizeOfGrid.y; y++)
                 {
-                    Vector3 originPos = transform.position + halfSize; // pivot을 왼쪽 아래로 위치시킨다.
+                    // pivot은 왼쪽 아래로 위치함.
+
+                    // 노드의 중앙 위치
+                    Vector3 originPos = gridPos + halfSize;
                     Vector3 pos = originPos + new Vector3(x, y, z) * nodeSize;
 
-                    // 우선 nonPassCollider 검출
+                    // nonPassCollider 검출
                     Collider[] nonPassCollider = Physics.OverlapBox(pos, halfSize, Quaternion.identity, nonPassLayer);
                     if(nonPassCollider.Length > 0)
                     {
@@ -30,6 +31,7 @@ public class GridGenerator : MonoBehaviour
                         continue;
                     }
 
+                    // obstacleCollider 검출
                     Collider[] obstacleCollider = Physics.OverlapBox(pos, halfSize, Quaternion.identity, obstacleLayer);
                     if (obstacleCollider.Length > 0)
                     {
@@ -43,8 +45,6 @@ public class GridGenerator : MonoBehaviour
                 }
             }
         }
-
-        // 2. Pass노드 중에서 아래가 Block인 노드만 선별해서 Raycast를 쏴주고 경사도를 체크해준다.
 
         for (int x = 0; x < sizeOfGrid.x; x++)
         {
@@ -65,6 +65,7 @@ public class GridGenerator : MonoBehaviour
                             Vector3 blockNodePos = grid[x, y - 1, z].Pos;
                             Vector3 surfacePos = new Vector3(blockNodePos.x, hit.point.y, blockNodePos.z);
 
+                            // 밟을 수 있는 노드 위치, 표면 위치 설정
                             grid[x, y - 1, z].HaveSurface = true;
                             grid[x, y - 1, z].SurfacePos = surfacePos;
                         }

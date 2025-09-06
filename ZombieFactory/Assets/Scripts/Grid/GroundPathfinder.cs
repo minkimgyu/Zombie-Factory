@@ -1,34 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Node = Pathfinding.Node;
 
-public class GroundPathfinder : MonoBehaviour
+public interface IPathfinder
+{
+    List<Vector3> FindPath(Vector3 startPos, Vector3 targetPos);
+}
+
+// A* 알고리즘을 사용한 지상 경로 탐색기
+public class GroundPathfinder : IPathfinder
 {
     GridComponent _gridComponent;
+
+    // 최대 힙 크기
     const int maxSize = 1000;
+    Heap<Node> _openList;
+    HashSet<Node> _closedList;
 
-    Heap<Node> _openList = new Heap<Node>(maxSize);
-    HashSet<Node> _closedList = new HashSet<Node>();
-
+    // 휴리스틱 가중치 -> 높을수록 휴리스틱의 영향력이 커짐 -> 목표 지점으로 더 공격적으로 향하도록 유도해 탐색 구간을 줄임
+    // 그러나 출구가 하나 밖에 없는 미로와 같은 맵에서는 오히려 비효율적일 수 있음
     [SerializeField] float _weight = 1.0f;
 
-    Vector3 _startNodePos;
-    Vector3 _endNodePos;
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawCube(_startNodePos, Vector3.one * 0.5f);
-        Gizmos.DrawCube(_endNodePos, Vector3.one * 0.5f);
-    }
-
-    public void Initialize(GridComponent gridComponent)
+    // 초기화 함수
+    public GroundPathfinder(GridComponent gridComponent)
     {
         _gridComponent = gridComponent;
+        _openList = new Heap<Node>(maxSize);
+        _closedList = new HashSet<Node>();
     }
 
-    List<Vector3> ConvertNodeToV3(Stack<Node> stackNode)
+    // Node 스택을 Vector3 리스트로 변환하여 실제 경로 반환
+    List<Vector3> ConvertToPath(Stack<Node> stackNode)
     {
         List<Vector3> points = new List<Vector3>();
         while (stackNode.Count > 0)
@@ -41,20 +43,7 @@ public class GroundPathfinder : MonoBehaviour
         return points;
     }
 
-    bool HaveAlternativeNode(Node node, out Node alternativeNode)
-    {
-        // 이미 찾아놓은 노드가 존재한다면
-        if (node.AlternativeNode != null && node.AlternativeNode.CanStep == true)
-        {
-            alternativeNode = node.AlternativeNode;
-            return true;
-        }
-
-        // 아니라면 false 반환
-        alternativeNode = null;
-        return false;
-    }
-
+    // BFS를 통해 이동 가능한 가장 가까운 노드를 찾음
     Node FindAlternativeNode(Node node)
     {
         HashSet<Node> closeHash = new HashSet<Node>();
@@ -83,66 +72,66 @@ public class GroundPathfinder : MonoBehaviour
         return null;
     }
 
-    // BFS를 통해 이동 가능한 가장 가까운 노드를 찾고 다음 루프부터는 문제가 생기면 해당 노드를 반환해준다.
-
-    // 가장 먼저 반올림을 통해 가장 가까운 노드를 찾는다.
-    public List<Vector3> FindPath(Vector3 startPos, Vector3 targetPos)
+    // 대체 노드 반환 함수
+    Node GetAlternativeNode(Node node)
     {
-        //// 리스트 초기화
-        _openList.Clear();
-        _closedList.Clear();
+        Node alternativeNode = null;
 
-        Vector3Int startIndex = _gridComponent.ReturnNodeIndex(startPos);
-        Vector3Int endIndex = _gridComponent.ReturnNodeIndex(targetPos);
-
-        Node startNode = _gridComponent.ReturnNode(startIndex);
-        Node endNode = _gridComponent.ReturnNode(endIndex);
-
-        if (startNode == null || endNode == null) { return null; }
-
-        if (startNode.CanStep == false)
+        // 만약 노드가 CanStep이 false인 경우 대체 노드를 찾아서 적용해준다.
+        if (node.CanStep == false)
         {
             Node startAlternativeNode;
 
-            if (HaveAlternativeNode(startNode, out startAlternativeNode))
+            if (node.AlternativeNode != null && node.AlternativeNode.CanStep == true)
             {
-                startNode = startAlternativeNode; // 만약 보유 중이라면 해당 노드로 대체
+                alternativeNode = node.AlternativeNode; // 만약 보유 중이라면 해당 노드로 대체
             }
             else
             {
-                startAlternativeNode = FindAlternativeNode(startNode);
-                startNode.AlternativeNode = startAlternativeNode; // 대체 노드로 적용해주기
-                startNode = startNode.AlternativeNode; // 해당 노드로 바꿔주기
+                startAlternativeNode = FindAlternativeNode(node); // 대체 노드 찾기
+                node.AlternativeNode = startAlternativeNode; // 대체 노드로 적용해주기
+                alternativeNode = node.AlternativeNode; // 해당 노드로 바꿔주기
             }
         }
-
-        if (endNode.CanStep == false)
+        else
         {
-            Node endAlternativeNode;
-
-            if (HaveAlternativeNode(endNode, out endAlternativeNode))
-            {
-                endNode = endAlternativeNode; // 만약 보유 중이라면 해당 노드로 대체
-            }
-            else
-            {
-                endAlternativeNode = FindAlternativeNode(endNode);
-                endNode.AlternativeNode = endAlternativeNode; // 대체 노드로 적용해주기
-                endNode = endNode.AlternativeNode; // 해당 노드로 바꿔주기
-            }
+            alternativeNode = node;
         }
 
+        return alternativeNode;
+    }
+
+    // 경로 탐색 함수
+    public List<Vector3> FindPath(Vector3 startPos, Vector3 targetPos)
+    {
+        // 리스트 초기화
+        _openList.Clear();
+        _closedList.Clear();
+
+        // 가장 먼저 반올림을 통해 가장 가까운 노드를 찾는다.
+        Vector3Int startIndex = _gridComponent.GetNodeIndex(startPos);
+        Vector3Int endIndex = _gridComponent.GetNodeIndex(targetPos);
+
+        // 인덱스에 맞는 노드 반환
+        Node startNode = _gridComponent.ReturnNode(startIndex);
+        Node endNode = _gridComponent.ReturnNode(endIndex);
+
+        // 노드가 없는 경우 null 반환
         if (startNode == null || endNode == null) { return null; }
 
-        _startNodePos = startNode.SurfacePos;
-        _endNodePos = endNode.SurfacePos;
+        // 만약 시작 노드나 끝 노드가 CanStep이 아닌 경우 대체 노드를 찾아서 적용해준다.
+        if (startNode.CanStep == false) startNode = GetAlternativeNode(startNode);
+
+        if (endNode.CanStep == false) endNode = GetAlternativeNode(endNode);
+
+        if (startNode == null || endNode == null) { return null; }
 
         _openList.Insert(startNode);
 
         while (_openList.Count > 0)
         {
             Node targetNode = _openList.ReturnMin();
-            if (targetNode == endNode) // 목적지와 타겟이 같으면 끝
+            if (targetNode == endNode) // 목적지와 타겟이 종료
             {
                 Stack<Node> finalList = new Stack<Node>();
 
@@ -152,13 +141,12 @@ public class GroundPathfinder : MonoBehaviour
                     finalList.Push(TargetCurNode);
                     TargetCurNode = TargetCurNode.ParentNode;
                 }
-                //finalList.Push(startNode);
 
-                return ConvertNodeToV3(finalList);
+                return ConvertToPath(finalList);
             }
 
-            _openList.DeleteMin(); // 해당 그리드 지워줌
-            _closedList.Add(targetNode); // 해당 그리드 추가해줌
+            _openList.DeleteMin(); // Min노드 제거
+            _closedList.Add(targetNode); // closedList에 추가
             AddNearGridInList(targetNode, endNode.SurfacePos);
         }
 
@@ -166,29 +154,29 @@ public class GroundPathfinder : MonoBehaviour
         return null;
     }
 
+    // 유클리드 거리 계산 함수
     float GetDistance(Vector3 nearNodeSurfacePos, Vector3 endSurfacePos)
     {
         return Vector3.Distance(nearNodeSurfacePos, endSurfacePos);
     }
 
+    // 인접 노드를 오픈 리스트에 추가하는 함수
     void AddNearGridInList(Node targetNode, Vector3 endSurfacePos)
     {
         for (int i = 0; i < targetNode.NearNodesInGround.Count; i++)
         {
+            // 이동할 수 없거나 닫힌 리스트에 있는 경우 다음 노드 탐색
             Node nearNode = targetNode.NearNodesInGround[i];
-            if (nearNode.CanStep == false || _closedList.Contains(nearNode)) continue; // 막혀있지 않거나 닫힌 리스트에 있는 경우 다음 그리드 탐색 --> Ground의 경우 막혀있어야 탐색 가능함
+            if (nearNode.CanStep == false || _closedList.Contains(nearNode)) continue;
 
-            // 공중에 있는 경우는 Pos, 땅에 있는 경우는 SurfacePos로 처리한다.
             float moveCost = GetDistance(targetNode.SurfacePos, nearNode.SurfacePos);
-            // 이 부분 중요! --> 거리를 측정해서 업데이트 하지 않고 계속 더해주는 방식으로 진행해야함
             moveCost += targetNode.G;
 
             bool isOpenListContainNearGrid = _openList.Contain(nearNode);
 
-            // 오픈 리스트에 있더라도 G 값이 변경된다면 다시 리셋해주기
+            // 오픈 리스트에 있더라도 G값이 더 작다면 다시 설정해주기
             if (isOpenListContainNearGrid == false || moveCost < nearNode.G)
             {
-                // 여기서 grid 값 할당 필요
                 nearNode.G = moveCost;
                 nearNode.H = GetDistance(nearNode.SurfacePos, endSurfacePos) * _weight;
                 nearNode.ParentNode = targetNode;

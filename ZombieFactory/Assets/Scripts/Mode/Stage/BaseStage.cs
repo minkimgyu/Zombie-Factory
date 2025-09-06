@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
-using Unity.Profiling;
 
 abstract public class BaseStage : MonoBehaviour
 {
+    // 입장 위치
     [SerializeField] Transform _entryPoint;
+
+    public Vector3 EntryPoint { get { return _entryPoint.position; } }
+
+    // 출구 포탈
     Portal _portal;
 
+    // 스테이지 클리어 이벤트
     protected Action OnStageClearRequested;
-    Action OnMoveToNextStageRequested;
 
+    // 스테이지 초기화 함수
     public virtual void Initialize(
         BaseFactory lifeFactory,
         BaseFactory weaponFactory,
@@ -30,17 +33,7 @@ abstract public class BaseStage : MonoBehaviour
         _portal.Initialize(OnMoveToNextStageRequested);
     }
 
-
-    public async void InitializeNodes(Action OnComplete)
-    {
-        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
-        await Task.Run(() => {
-            gridComponent.InitializeNodes();
-        });
-
-        OnComplete?.Invoke();
-    }
-
+    // 스테이지 초기화 함수
     public virtual void Initialize(
         BaseFactory lifeFactory,
         BaseFactory weaponFactory,
@@ -55,13 +48,29 @@ abstract public class BaseStage : MonoBehaviour
         Initialize(lifeFactory, weaponFactory, OnStageClearRequested, OnMoveToNextStageRequested);
     }
 
+    // 노드 초기화 함수
+    // Task를 이용해 비동기 처리 진행 -> 여러 스테이지를 동기로 초기화 하는 것보다 효율적
+    // 완료시 OnComplete 콜백 호출
+    public async void InitializeNodes(Action OnComplete)
+    {
+        GridComponent gridComponent = GetComponentInChildren<GridComponent>();
+        await Task.Run(() => {
+            gridComponent.InitializeNodes();
+        });
+
+        OnComplete?.Invoke();
+    }
+
+    // 총기, 적 스폰을 위한 함수
     public abstract void Spawn();
 
+    // 스테이지 활성화 함수
     public virtual void Activate(Vector3 movePos) 
     {
         _portal.Active(movePos);
     }
 
+    // 스테이지 비활성화 함수
     public virtual void Disable()
     {
         _portal.Disable();
@@ -73,10 +82,5 @@ abstract public class BaseStage : MonoBehaviour
             if (items[i].NowDrop() == false) continue;
             Destroy(items[i].gameObject);
         }
-    }
-
-    public Vector3 ReturnEntryPosition()
-    {
-        return _entryPoint.position;
     }
 }

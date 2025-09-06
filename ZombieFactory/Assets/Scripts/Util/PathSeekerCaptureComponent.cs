@@ -2,6 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathSeekerCaptureComponent : CaptureComponent<IInjectPathfind>
+public class PathSeekerCaptureComponent : CaptureComponent<IPathSeeker>
 {
 }
