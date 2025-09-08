@@ -17,14 +17,88 @@ Unity를 사용하여 개발한 FPS 게임입니다.
 
 ## 👨‍💻 담당 역할 및 기여도 (기여도 100%)
 
-- ✅ **Finite State Machine을 활용한 Player 기능 구현**
-- ✅ **Finite State Machine, Behavior Tree를 활용한 AI 구현**
+- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A\*) 개발 및 최적화**
+- ✅ **Multithreading을 활용한 길찾기 노드 계산 최적화**
 - ✅ **Strategy Pattern을 활용한 Weapon 시스템 구현**
 - ✅ **UI Toolkit을 사용하여 반동 커스텀 에디터 개발**
-- ✅ **Multithreading을 활용한 길찾기 노드 계산 최적화**
-- ✅ **3차원 Grid 기반 길찾기 알고리즘 (A\*) 개발 및 최적화**
+- ✅ **Finite State Machine을 활용한 Player 기능 구현**
+- ✅ **Finite State Machine, Behavior Tree를 활용한 AI 구현**
 - ✅ **Factory Pattern을 사용한 생성 시스템 개발**
 - ✅ **Object Pool을 사용하여 생성 시스템 최적화**
+
+---
+
+## 🗺️ 3차원 Grid 기반 길찾기 알고리즘 개발 및 최적화
+A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 작업을 수행했습니다.
+
+<img src="https://github.com/user-attachments/assets/d543692f-41c0-483a-a1b2-9ea09bbfff71" alt="Zombie Factory Screenshot" />
+
+[AStar 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Grid/GroundPathfinder.cs#L89)
+
+### Heap 자료구조 적용 📦
+* A* 탐색 과정에서 Openlist 내 비효율 노드를 줄여 연산 시간 복잡도를 줄이기 위해 Openlist를 Heap 자료 구조로 변경했습니다.
+* 이를 통해 해당 복잡도를 기존 O(N^2)에서 O(N log N)으로 개선했습니다.
+* 프로파일링 결과: 1.52ms에서 0.87ms로 단축 (약 42% 향상)
+
+<img src="https://github.com/user-attachments/assets/e190886e-f03d-4c1c-a9ef-0aa71f2f46f8" alt="Zombie Factory Screenshot" />
+
+### Weighted A*를 활용한 최적화 ⚖️
+* 장애물이 많은 맵에서 탐색 효율을 극대화하고자 휴리스틱(h) 값에 가중치(w)를 적용하는 Weighted A*를 도입했습니다.
+* 평가 함수 f(n) = g(n) + h(n) * w를 활용하여 휴리스틱의 영향을 키워 목표 지점에 더 큰 값으로 향하도록 탐색할 수 있도록 하여 복잡한 지형에서의 길찾기 수행 시간을 최적화했습니다.
+* 프로파일링 결과: 0.87ms에서 0.2ms로 단축 (약 77% 향상)
+
+<img src="https://github.com/user-attachments/assets/bbb1e380-21ed-4fba-a10a-e7428a43fe23" alt="Zombie Factory Screenshot"/>
+
+---
+
+## ⚡ Multithreading을 활용한 길찾기 노드 캐싱 최적화
+
+<img src="https://github.com/user-attachments/assets/e74b5644-d3be-4f95-b891-897bd38b7f48" alt="Zombie Factory Screenshot" />
+
+3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 캐싱하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목이 발생했습니다.
+
+<img src="https://github.com/user-attachments/assets/1d58e88b-4718-4a9a-b3a3-f70717bf272f" alt="Zombie Factory Screenshot" />
+
+* 해결책: Multithreading 기법을 도입하여 해당 캐싱 작업을 병렬로 수행하도록 최적화했습니다.
+* 결과: 수행 시간을 3.04초로 단축하여 게임 성능을 크게 개선했습니다.
+
+[멀티스레드를 활용한 비동기 방식 캐싱 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/3c283b20955fd3cdeec4fbbd0dcd3e5c363a6abd/ZombieFactory/Assets/Scripts/Mode/Stage/BaseStage.cs#L34)
+
+### Multithreading 도입 전후 성능 비교 📈
+
+<img src="https://github.com/user-attachments/assets/ccad0375-a887-4823-8484-9fcbef5a3d46" alt="Zombie Factory Screenshot"/>
+
+*좌: Singlethreading 방식 (8.52초), 우: Multithreading 방식 (3.04초)*
+
+---
+
+## 🔫 Strategy Pattern을 활용한 Weapon 시스템 구현
+
+발사 방식, 반동 처리 등 다양한 총기 작동 기능을 각각의 전략 클래스로 모듈화하여 유연한 기능 교체와 손쉬운 확장이 가능한 구조를 구현했습니다.
+
+[BaseWeapon 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Item/Weapon/BaseWeapon.cs#L32)
+
+### Weapon 시스템 구조 📜
+
+<img src="https://github.com/user-attachments/assets/943bd546-34db-4e0e-9a5d-76d03ee028e3" alt="Zombie Factory Screenshot" />
+
+---
+
+## 🎨 UI Toolkit을 사용하여 반동 커스텀 에디터 개발
+총기 반동 데이터의 효율적인 입력 작업을 위해 UI Toolkit Package를 사용하여 반동 에디터를 개발했습니다.
+이를 통해 작업의 효율성을 향상시켰습니다.
+
+### 반동 스프레이 에디터 🖥️
+
+<img src="https://github.com/user-attachments/assets/4dc510e4-5a47-44c7-9dcd-4e63ec85d3f9" alt="Zombie Factory Screenshot" />
+
+*좌: Spray Editor UI, 우: 게임 내 반동 시각화*
+
+<img src="https://github.com/user-attachments/assets/06b683ff-e3ca-478a-84de-09902c6b7b9f" alt="Zombie Factory Screenshot" />
+
+[BaseRecoilData 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/4ed6fe34b5c0c686a7fb9a2092f3d69cbc01d214/ZombieFactory/Assets/Scripts/Item/Weapon/RecoilData.cs#L26)
+
+탄젠트 역함수를 활용하여 각도 값을 구하여 반동을 적용하였습니다.
 
 ---
 
@@ -61,80 +135,6 @@ AI 구현 시 FSM은 상태 수가 많아질수록 유지보수성이 저하되�
 <img src="https://github.com/user-attachments/assets/3dca05ea-feac-480e-b067-e931d72e57e6" alt="Zombie Factory Screenshot" />
 
 *좌: Swat Movement FSM & Battle FSM, 우: Zombie FSM*
-
----
-
-## 🔫 Strategy Pattern을 활용한 Weapon 시스템 구현
-
-발사 방식, 반동 처리 등 다양한 총기 작동 기능을 각각의 전략 클래스로 모듈화하여 유연한 기능 교체와 손쉬운 확장이 가능한 구조를 구현했습니다.
-
-[BaseWeapon 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Item/Weapon/BaseWeapon.cs#L32)
-
-### Weapon 시스템 구조 📜
-
-<img src="https://github.com/user-attachments/assets/943bd546-34db-4e0e-9a5d-76d03ee028e3" alt="Zombie Factory Screenshot" />
-
----
-
-## 🎨 UI Toolkit을 사용하여 반동 커스텀 에디터 개발
-총기 반동 데이터의 효율적인 입력 작업을 위해 UI Toolkit Package를 사용하여 반동 에디터를 개발했습니다.
-이를 통해 작업의 효율성을 향상시켰습니다.
-
-### 반동 스프레이 에디터 🖥️
-
-<img src="https://github.com/user-attachments/assets/4dc510e4-5a47-44c7-9dcd-4e63ec85d3f9" alt="Zombie Factory Screenshot" />
-
-*좌: Spray Editor UI, 우: 게임 내 반동 시각화*
-
-<img src="https://github.com/user-attachments/assets/06b683ff-e3ca-478a-84de-09902c6b7b9f" alt="Zombie Factory Screenshot" />
-
-[BaseRecoilData 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/4ed6fe34b5c0c686a7fb9a2092f3d69cbc01d214/ZombieFactory/Assets/Scripts/Item/Weapon/RecoilData.cs#L26)
-
-탄젠트 역함수를 활용하여 각도 값을 구하여 반동을 적용하였습니다.
-
----
-
-## ⚡ Multithreading을 활용한 길찾기 노드 캐싱 최적화
-
-<img src="https://github.com/user-attachments/assets/e74b5644-d3be-4f95-b891-897bd38b7f48" alt="Zombie Factory Screenshot" />
-
-3차원 Grid 기반 A* 알고리즘 적용을 위해 Nodes를 캐싱하는 과정에서 기존 Singlethreading 순차 처리 방식으로는 약 8.52초의 병목이 발생했습니다.
-
-<img src="https://github.com/user-attachments/assets/1d58e88b-4718-4a9a-b3a3-f70717bf272f" alt="Zombie Factory Screenshot" />
-
-* 해결책: Multithreading 기법을 도입하여 해당 캐싱 작업을 병렬로 수행하도록 최적화했습니다.
-* 결과: 수행 시간을 3.04초로 단축하여 게임 성능을 크게 개선했습니다.
-
-[멀티스레드를 활용한 비동기 방식 캐싱 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/3c283b20955fd3cdeec4fbbd0dcd3e5c363a6abd/ZombieFactory/Assets/Scripts/Mode/Stage/BaseStage.cs#L34)
-
-### Multithreading 도입 전후 성능 비교 📈
-
-<img src="https://github.com/user-attachments/assets/ccad0375-a887-4823-8484-9fcbef5a3d46" alt="Zombie Factory Screenshot"/>
-
-*좌: Singlethreading 방식 (8.52초), 우: Multithreading 방식 (3.04초)*
-
----
-
-## 🗺️ 3차원 Grid 기반 길찾기 알고리즘 개발 및 최적화
-A* 기반 길찾기 알고리즘의 성능을 향상시키기 위한 최적화 작업을 수행했습니다.
-
-<img src="https://github.com/user-attachments/assets/d543692f-41c0-483a-a1b2-9ea09bbfff71" alt="Zombie Factory Screenshot" />
-
-[AStar 구현 코드](https://github.com/minkimgyu/Zombie-Factory/blob/5725c0406e3852a2211c710cc59447d681747da8/ZombieFactory/Assets/Scripts/Grid/GroundPathfinder.cs#L89)
-
-### Heap 자료구조 적용 📦
-* A* 탐색 과정에서 Openlist 내 비효율 노드를 줄여 연산 시간 복잡도를 줄이기 위해 Openlist를 Heap 자료 구조로 변경했습니다.
-* 이를 통해 해당 복잡도를 기존 O(N^2)에서 O(N log N)으로 개선했습니다.
-* 프로파일링 결과: 1.52ms에서 0.87ms로 단축 (약 42% 향상)
-
-<img src="https://github.com/user-attachments/assets/e190886e-f03d-4c1c-a9ef-0aa71f2f46f8" alt="Zombie Factory Screenshot" />
-
-### Weighted A*를 활용한 최적화 ⚖️
-* 장애물이 많은 맵에서 탐색 효율을 극대화하고자 휴리스틱(h) 값에 가중치(w)를 적용하는 Weighted A*를 도입했습니다.
-* 평가 함수 f(n) = g(n) + h(n) * w를 활용하여 휴리스틱의 영향을 키워 목표 지점에 더 큰 값으로 향하도록 탐색할 수 있도록 하여 복잡한 지형에서의 길찾기 수행 시간을 최적화했습니다.
-* 프로파일링 결과: 0.87ms에서 0.2ms로 단축 (약 77% 향상)
-
-<img src="https://github.com/user-attachments/assets/bbb1e380-21ed-4fba-a10a-e7428a43fe23" alt="Zombie Factory Screenshot"/>
 
 ---
 
